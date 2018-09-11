@@ -31,6 +31,9 @@ endif::[]
 * <<AboutUs#, About Us>>
 * <<ContactUs#, Contact Us>>
 
+== Members
+Aadit Kamat
+
 == Acknowledgements
 
 * Some parts of this sample application were inspired by the excellent http://code.makery.ch/library/javafx-8-tutorial/[Java FX tutorial] by
