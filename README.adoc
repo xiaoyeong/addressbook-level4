@@ -32,6 +32,7 @@ endif::[]
 * <<ContactUs#, Contact Us>>
 
 == Members
+Lou Shaw Yeong
 Aadit Kamat
 
 == Acknowledgements
