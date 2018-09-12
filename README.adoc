@@ -33,6 +33,7 @@ endif::[]
 
 == Members
 Lou Shaw Yeong
+Aadit Kamat
 
 == Acknowledgements
 
