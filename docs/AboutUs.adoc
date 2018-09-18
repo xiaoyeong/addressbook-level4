@@ -29,7 +29,7 @@ Responsibilities: UI
 
 === Lou Shaw Yeong
 image::xiaoyeong.jpg[width="150", align="left"]
-{empty}[http://github.com/xiaoyeong[github]] [<<johndoe#, portfolio>>]
+{empty}[http://github.com/xiaoyeong[github]]
 
 Role: Developer +
 Responsibilities: Data
