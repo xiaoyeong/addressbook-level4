@@ -1,4 +1,4 @@
-= Debt Tracker v1.1 - Developer Guide
+= AddressBook Level 4 - Developer Guide
 :site-section: DeveloperGuide
 :toc:
 :toc-title:
@@ -12,9 +12,9 @@ ifdef::env-github[]
 :note-caption: :information_source:
 :warning-caption: :warning:
 endif::[]
-:repoURL: https://github.com/cs2103-project-group/debt-tracker
+:repoURL: https://github.com/se-edu/addressbook-level4/tree/master
 
-By: `W12-2`      Since: `Jun 2016`      Licence: `MIT`
+By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
 
 == Setting up
 
