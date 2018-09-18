@@ -1,12 +1,12 @@
 package seedu.address.logic.commands;
 
-import static java.util.Objects.requireNonNull;
+import seedu.address.logic.CommandHistory;
+import seedu.address.model.Model;
 
 import java.util.Collections;
 import java.util.List;
 
-import seedu.address.logic.CommandHistory;
-import seedu.address.model.Model;
+import static java.util.Objects.requireNonNull;
 
 /**
  * Lists all the commands entered by user from the start of app launch.
@@ -14,6 +14,7 @@ import seedu.address.model.Model;
 public class HistoryCommand extends Command {
 
     public static final String COMMAND_WORD = "history";
+    public static final String COMMAND_ALIAS = "hi";
     public static final String MESSAGE_SUCCESS = "Entered commands (from most recent to earliest):\n%1$s";
     public static final String MESSAGE_NO_HISTORY = "You have not yet entered any commands.";
 
