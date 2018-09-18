@@ -3,4 +3,8 @@
 :stylesDir: stylesheets
 
 
+<<<<<<< HEAD
 * *Email us* : You can also reach us at  `shawyeong94 [at] gmail.com or yoweiqing [at] gmail.com
+=======
+* *Email us* : You can also reach us at  yoweiqing @ gmail.com
+>>>>>>> a99956eaf458b9a887d1c49a3f9e8400477e9bf3
