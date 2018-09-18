@@ -11,6 +11,7 @@ ifdef::env-github[]
 :tip-caption: :bulb:
 :note-caption: :information_source:
 :warning-caption: :warning:
+:experimental:
 endif::[]
 :repoURL: https://github.com/se-edu/addressbook-level4/tree/master
 
@@ -46,6 +47,10 @@ Do not disable them. If you have disabled them, go to `File` > `Settings` > `Plu
 . Click `OK` to accept the default settings
 . Open a console and run the command `gradlew processResources` (Mac/Linux: `./gradlew processResources`). It should finish with the `BUILD SUCCESSFUL` message. +
 This will generate all resources required by the application and tests.
+. Open link:{repoURL}/src/main/java/seedu/address/storage/XmlAdaptedPerson.java[`XmlAdaptedPerson.java`] and link:{repoURL}/src/main/java/seedu/address/ui/MainWindow.java[`MainWindow.java`] and check for any code errors
+.. Due to an ongoing https://youtrack.jetbrains.com/issue/IDEA-189060[issue] with some of the newer versions of IntelliJ, code errors may be detected even if the project can be built and run successfully
+.. To resolve this, place your cursor over any of the code section highlighted in red. Press kbd:[ALT + ENTER], and select `Add '--add-modules=...' to module compiler options` for each error
+. Repeat this for the test folder as well (e.g. check link:{repoURL}/src/test/java/seedu/address/commons/util/XmlUtilTest.java[`XmlUtilTest.java`] and link:{repoURL}/src/test/java/seedu/address/ui/HelpWindowTest.java[`HelpWindowTest.java`] for code errors, and if so, resolve it the same way)
 
 === Verifying the setup
 
@@ -97,6 +102,147 @@ When you are ready to start coding,
 
 1. Get some sense of the overall design by reading <<Design-Architecture>>.
 2. Take a look at <<GetStartedProgramming>>.
+
+== User Stories
+
+Priorities:  High (should have) +
+             Medium (would like to have) +
+             Low (unlikely to have) +
+
+|===
+|Priority | As a .. | I want to .. | So that I can
+
+
+| High
+{set:cellbgcolor:green}
+| new user
+| see the available command
+| execute the correct command as per need
+
+| High
+| user
+| add a new transaction
+| so that my transaction history is updated
+
+| High
+| user
+| delete a transaction
+| keep only the relevant records in my transaction history
+
+
+| High
+| user
+| hide private contact
+| uphold the confidentiality of the information provided by the contact
+
+| High
+| user
+| add an image attribute for each transactor
+| identify that user before settling a debt
+
+| High
+| user
+| know the past loans that I took
+| manage my finances
+
+| High
+| user
+| filter creditors and debtors
+| know who are the debtors and creditors
+
+| High
+| user
+| filter creditors and debtors
+| know who are the debtors and creditors
+
+| High
+| user
+| have a reminder to pay my creditor
+| ensure that my loans are not left outstanding
+
+| High
+| user
+| convert an amount between two different currencies
+| transact with people from different countries
+
+| Medium
+{set:cellbgcolor:yellow}
+| user
+| find a person by name
+| retrieve information about the person
+
+| Medium
+| user
+| sort debtors by rating
+| take note of defaulters for future transactions
+
+| Medium
+| user
+| sort by deadline for creditors
+| prioritise the persons who I should pay first
+
+| Medium
+| user
+| convert an amount between two different currencies
+| transact with people from different countries
+
+| Medium
+| user
+| sort by deadline for debtors
+| prioritise the persons who need to repay my loan
+
+| Medium
+| user
+| track debtors that did not pay you past the deadline
+| contact them for further information
+
+| Medium
+| user
+| able to provide an analysis of my financial transactions
+| give you an overview of my finances
+
+| Medium
+| user
+| sort creditors by amount of money I owe
+| roughly gauge my borrowing capacity
+
+| Medium
+| user
+| add location attribute to my user record
+| know where to make the payment if the payment is to be done in person
+
+| Medium
+| user
+| sort debtors by amount of money the owe me
+| assess my lending capacity
+
+| Medium
+| user
+| calculate the interest rate of the loan
+| know the right amount to collect from the debtors
+
+| Low
+{set:cellbgcolor:red}
+| user
+| calculate the interest rate of the loan
+| know the right amount to collect from the debtors
+
+| Low
+| user
+| know how much money to borrow
+| prevent accruing debt
+
+| Low
+| user
+| know how much money that I have loaned that person
+| keep records of the amount of money that I have loaned to that person
+
+| Low
+| user
+| filter debtors that pay on time
+| I can decide to award them more loans in the future
+
+|===
 
 == Design
 
