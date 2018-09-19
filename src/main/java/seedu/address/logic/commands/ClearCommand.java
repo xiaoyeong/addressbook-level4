@@ -6,6 +6,7 @@ import seedu.address.model.Model;
 
 import static java.util.Objects.requireNonNull;
 
+
 /**
  * Clears the address book.
  */
