@@ -43,7 +43,7 @@ Responsibilities: +
 '''
 
 === Ysabella Tan Yu Lin
-image::bellaaarh.png[width="150", align="left"]
+image::ysabella.jpg[width="150", align="left"]
 
 Role: Managing Code Quality +
 Responsibilities: +
@@ -56,5 +56,10 @@ Responsibilities: +
 === Lee Wei Qing
 image::weiqing.png[width="150", align="left"]
 
+Role: Scheduling Tasks +
+Responsibilities: +
+1) Add and remove transactions +
+2) Maintain labels and tags for users +
+3) Categorise contacts
 
 '''
