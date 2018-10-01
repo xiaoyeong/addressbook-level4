@@ -1,18 +1,25 @@
 package seedu.address.logic.parser;
 
-import seedu.address.logic.commands.FilterCommand;
-import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.person.*;
-import seedu.address.model.tag.Tag;
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+
+import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Set;
 import java.util.stream.Stream;
 
-import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.logic.parser.CliSyntax.*;
+import seedu.address.logic.commands.FilterCommand;
+import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.person.FieldContainsKeywordsPredicate;
+
+
+
+
 
 /**
  * Parses input arguments and creates a new AddCommand object
@@ -40,7 +47,7 @@ public class FilterCommandParser implements Parser<FilterCommand> {
             String[] nameKeywords = argMultimap.getValue(PREFIX_NAME).get().split("\\s+");
             predicates.add(new FieldContainsKeywordsPredicate(FieldType.Name, Arrays.asList(nameKeywords)));
         }*/
-        addPredicates(argMultimap,predicates);
+        addPredicates(argMultimap, predicates);
 
         return new FilterCommand(predicates);
     }
@@ -53,7 +60,12 @@ public class FilterCommandParser implements Parser<FilterCommand> {
         return Stream.of(prefixes).anyMatch(prefix -> argumentMultimap.getValue(prefix).isPresent());
     }
 
-    private void addPredicates(ArgumentMultimap argumentMultimap,List<FieldContainsKeywordsPredicate> predicateList) {
+    /**
+     *
+     * @param argumentMultimap
+     * @param predicateList
+     */
+    private void addPredicates(ArgumentMultimap argumentMultimap, List<FieldContainsKeywordsPredicate> predicateList) {
         if (argumentMultimap.getValue(PREFIX_NAME).isPresent()) {
             String[] nameKeywords = argumentMultimap.getValue(PREFIX_NAME).get().split("\\s+");
             predicateList.add(new FieldContainsKeywordsPredicate(FieldType.Name, Arrays.asList(nameKeywords)));
