@@ -48,7 +48,7 @@ Responsibilities: +
 
 === Ysabella Tan Yu Lin
 image::ysabella.png[width="150", align="left"]
-{empty}[https://github.com/julianc269[github]] [<<johndoe#, portfolio>>]
+{empty}[https://github.com/Bellaaarh[github]] [<<johndoe#, portfolio>>]
 
 Role: Managing Code Quality +
 Responsibilities: +
