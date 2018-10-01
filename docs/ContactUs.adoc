@@ -2,7 +2,4 @@
 :site-section: ContactUs
 :stylesDir: stylesheets
 
-* *Email us* : You can also reach us at  yoweiqing @ gmail.com
-=======
 * *Email us* : You can also reach us at `shawyeong94 [at] gmail.com`
->>>>>>> 7d8460e082dfff09bfebeeae5765d08ee9312590
