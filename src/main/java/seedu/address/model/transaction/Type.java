@@ -5,22 +5,22 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
 
 /**
  * Represents the type of transaction recorded in the database.
- * Guarantees: immutable; is valid as declared in {@link #isValidTransactionType(String)}
+ * Guarantees: immutable; is valid as declared in {@link #isValidType(String)}
  */
-public class TransactionType {
+public class Type {
     public static final String MESSAGE_TRANSACTION_TYPE_CONSTRAINTS =
             "The transaction must be either a loan/debt";
     public final String value;
 
     /**
-     * Constructs an {@code TransactionType}.
+     * Constructs an {@code Type}.
      *
-     * @param transactionType A valid transaction type.
+     * @param Type A valid transaction type.
      */
-    public TransactionType(String transactionType) {
-        requireNonNull(transactionType);
-        checkArgument(isValidTransactionType(transactionType), MESSAGE_TRANSACTION_TYPE_CONSTRAINTS);
-        value = transactionType;
+    public Type(String Type) {
+        requireNonNull(Type);
+        checkArgument(isValidType(Type), MESSAGE_TRANSACTION_TYPE_CONSTRAINTS);
+        value = Type;
     }
 
 
@@ -29,7 +29,7 @@ public class TransactionType {
      *
      * @param test the command line argument to be parsed
      */
-    public static boolean isValidTransactionType(String test) {
+    public static boolean isValidType(String test) {
         String lower = test.toLowerCase();
         return lower.equals("loan") || lower.equals("debt");
     }
@@ -41,11 +41,11 @@ public class TransactionType {
 
     @Override
     public boolean equals(Object other) {
-        if (!(other instanceof TransactionType)) {
+        if (!(other instanceof Type)) {
             return false;
         }
-        TransactionType transactionType = (TransactionType) other;
-        return other == this || value.equals(transactionType.value);
+        Type Type = (Type) other;
+        return other == this || value.equals(Type.value);
     }
 
     @Override
