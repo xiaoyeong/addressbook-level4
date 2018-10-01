@@ -56,8 +56,8 @@ Responsibilities: UI
 '''
 
 === Ysabella Tan
-image::ysabella.jpg[width="150", align="left"]
-{empty}[https://github.com/Bellaaarh [github]] [<<ysabellatan#, portfolio>>]
+image::ysabella.png[width="150", align="left"]
+{empty}[https://github.com/Bellaaarh [github]] [<<bellaaarh#, portfolio>>]
 
 Role: Developer +
 Responsibilities: UI
