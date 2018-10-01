@@ -717,3 +717,8 @@ _{ more test cases ... }_
 .. _{explain how to simulate a missing/corrupted file and the expected behavior}_
 
 _{ more test cases ... }_
+
+=== Add Filter Command
+ .  Prerequisites: Command input must adhere strictly to specified format
+ .. Test case: `filter n/john e/hotmail.com` +
+    Expected: Lists all persons named john with a hotmail.com email
