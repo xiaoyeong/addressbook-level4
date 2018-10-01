@@ -13,12 +13,16 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.person.Person;
 
+
+
+
 /**
  * Selects a person identified using it's displayed index from the address book.
  */
 public class SelectCommand extends Command {
 
     public static final String COMMAND_WORD = "select";
+    public static final String COMMAND_ALIAS = "s";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Selects the person identified by the index number used in the displayed person list.\n"
