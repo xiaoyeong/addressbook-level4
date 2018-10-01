@@ -22,7 +22,7 @@ Responsibilities: +
 '''
 
 === Lou Shaw Yeong
-image::shawyeong.png[width="150", align="left"]
+image::xiaoyeong.png[width="150", align="left"]
 {empty}[https://github.com/xiaoyeong[github]]
 
 Role: Writing and Maintaining Tests +
