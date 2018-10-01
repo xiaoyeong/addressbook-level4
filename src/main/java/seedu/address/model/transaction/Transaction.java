@@ -7,22 +7,22 @@ import java.util.Objects;
  */
 public class Transaction {
 
-    private final TransactionType transactionType;
-    private final TransactionAmount transactionAmount;
+    private final Type Type;
+    private final Amount amount;
 
     /**
-     * Represents a transaction with non null fields {@code transactionType} and {@code transactionAmount}
-     * @param transactionType indicates whether a transaction is a loan/debt
-     * @param transactionAmount stores the amount lent/owed
+     * Represents a transaction with non null fields {@code Type} and {@code amount}
+     * @param Type indicates whether a transaction is a loan/debt
+     * @param amount stores the amount lent/owed
      */
-    public Transaction(TransactionType transactionType, TransactionAmount transactionAmount) {
-        this.transactionType = transactionType;
-        this.transactionAmount = transactionAmount;
+    public Transaction(Type Type, Amount amount) {
+        this.Type = Type;
+        this.amount = amount;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(transactionType, transactionAmount);
+        return Objects.hash(Type, amount);
     }
 
     @Override
@@ -31,8 +31,8 @@ public class Transaction {
             return false;
         }
         Transaction transaction = (Transaction) other;
-        return other == this || (transactionType.equals(transaction.transactionType)
-                                 && transactionAmount.equals(transaction.transactionAmount));
+        return other == this || (Type.equals(transaction.Type)
+                                 && amount.equals(transaction.amount));
     }
 
     @Override

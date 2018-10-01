@@ -14,6 +14,8 @@ import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Phone;
 import seedu.address.model.tag.Tag;
+import seedu.address.model.transaction.Amount;
+import seedu.address.model.transaction.Type;
 
 /**
  * Contains utility methods used for parsing strings in the various *Parser classes.
@@ -93,6 +95,36 @@ public class ParserUtil {
             throw new ParseException(Email.MESSAGE_EMAIL_CONSTRAINTS);
         }
         return new Email(trimmedEmail);
+    }
+
+    /**
+     * Parses a {@code String email} into an {@code Email}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code email} is invalid.
+     */
+    public static Amount parseAmount(String transactionAmount) throws ParseException {
+        requireNonNull(transactionAmount);
+        String trimmedTransactionAmount = transactionAmount.trim();
+        if (!Amount.isValidAmount(transactionAmount)) {
+            throw new ParseException(Email.MESSAGE_EMAIL_CONSTRAINTS);
+        }
+        return new Amount(trimmedTransactionAmount);
+    }
+
+    /**
+     * Parses a {@code String email} into an {@code Email}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code email} is invalid.
+     */
+    public static Type parseType(String type) throws ParseException {
+        requireNonNull(type);
+        String trimmedType = type.trim();
+        if (!Type.isValidType(trimmedType)) {
+            throw new ParseException(Email.MESSAGE_EMAIL_CONSTRAINTS);
+        }
+        return new Type(trimmedType);
     }
 
     /**

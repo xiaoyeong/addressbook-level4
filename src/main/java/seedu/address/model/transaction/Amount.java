@@ -5,9 +5,9 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
 
 /**
  * Represents the amount of money loaned/owed to end user.
- * Guarantees: immutable; is valid as declared in {@link #isValidTransactionAmount(String)}
+ * Guarantees: immutable; is valid as declared in {@link #isValidAmount(String)}
  */
-public class TransactionAmount {
+public class Amount {
     public static final String MESSAGE_TRANSACTION_AMOUNT_CONSTRAINTS =
               "The transaction amount must be real number rounded to two decimal places, "
             + "prefixed by a three letter currency code";
@@ -21,12 +21,12 @@ public class TransactionAmount {
     /**
      * Constructs an {@code TransactionAmount}.
      *
-     * @param transactionAmount A valid transaction amount.
+     * @param amount A valid transaction amount.
      */
-    public TransactionAmount(String transactionAmount) {
-        requireNonNull(transactionAmount);
-        checkArgument(isValidTransactionAmount(transactionAmount), MESSAGE_TRANSACTION_AMOUNT_CONSTRAINTS);
-        value = transactionAmount;
+    public Amount(String amount) {
+        requireNonNull(amount);
+        checkArgument(isValidAmount(amount), MESSAGE_TRANSACTION_AMOUNT_CONSTRAINTS);
+        value = amount;
     }
 
 
@@ -35,7 +35,7 @@ public class TransactionAmount {
      *
      * @param test the command line argument to be parsed
      */
-    public static boolean isValidTransactionAmount(String test) {
+    public static boolean isValidAmount(String test) {
         String lower = test.toLowerCase();
         return lower.equals("loan") || lower.equals("debt");
     }
@@ -47,11 +47,11 @@ public class TransactionAmount {
 
     @Override
     public boolean equals(Object other) {
-        if (!(other instanceof TransactionType)) {
+        if (!(other instanceof Type)) {
             return false;
         }
-        TransactionType transactionType = (TransactionType) other;
-        return other == this || value.equals(transactionType.value);
+        Type Type = (Type) other;
+        return other == this || value.equals(Type.value);
     }
 
     @Override

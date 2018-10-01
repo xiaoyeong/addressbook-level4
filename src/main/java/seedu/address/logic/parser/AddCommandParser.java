@@ -6,6 +6,8 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_TRANSACTION_AMOUNT;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_TRANSACTION_TYPE;
 
 import java.util.Set;
 import java.util.stream.Stream;
@@ -18,6 +20,9 @@ import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
 import seedu.address.model.tag.Tag;
+import seedu.address.model.transaction.Amount;
+
+import seedu.address.model.transaction.Type;
 
 /**
  * Parses input arguments and creates a new AddCommand object
@@ -31,9 +36,11 @@ public class AddCommandParser implements Parser<AddCommand> {
      */
     public AddCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_PHONE, PREFIX_EMAIL, PREFIX_ADDRESS, PREFIX_TAG);
+                ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_PHONE, PREFIX_EMAIL, PREFIX_ADDRESS, PREFIX_TAG,
+                                           PREFIX_TRANSACTION_AMOUNT, PREFIX_TRANSACTION_TYPE);
 
-        if (!arePrefixesPresent(argMultimap, PREFIX_NAME, PREFIX_ADDRESS, PREFIX_PHONE, PREFIX_EMAIL)
+        if (!arePrefixesPresent(argMultimap, PREFIX_NAME, PREFIX_ADDRESS, PREFIX_PHONE,
+                                PREFIX_EMAIL, PREFIX_TRANSACTION_AMOUNT, PREFIX_TRANSACTION_TYPE)
                 || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
         }
@@ -44,7 +51,10 @@ public class AddCommandParser implements Parser<AddCommand> {
         Address address = ParserUtil.parseAddress(argMultimap.getValue(PREFIX_ADDRESS).get());
         Set<Tag> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
 
+        Amount amount = ParserUtil.parseAmount(argMultimap.getValue(PREFIX_TRANSACTION_AMOUNT).get());
+        Type type = ParserUtil.parseType(argMultimap.getValue(PREFIX_TRANSACTION_TYPE).get());
         Person person = new Person(name, phone, email, address, tagList);
+
 
         return new AddCommand(person);
     }
