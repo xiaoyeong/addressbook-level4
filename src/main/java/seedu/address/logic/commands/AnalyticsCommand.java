@@ -1,15 +1,17 @@
 package seedu.address.logic.commands;
 
-import seedu.address.commons.core.Messages;
+import static java.util.Objects.requireNonNull;
+
+import java.util.List;
+
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.person.Person;
 
-import java.util.List;
-
-import static java.util.Objects.requireNonNull;
-
+/**
+ * Analyse the your financial status
+ */
 public class AnalyticsCommand extends Command {
     public static final String COMMAND_WORD = "Analytics";
     public static final String COMMAND_ALIAS = "an";
