@@ -22,6 +22,7 @@ import seedu.address.model.person.Phone;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.transaction.Amount;
 
+import seedu.address.model.transaction.Transaction;
 import seedu.address.model.transaction.Type;
 
 /**
@@ -53,10 +54,11 @@ public class AddCommandParser implements Parser<AddCommand> {
 
         Amount amount = ParserUtil.parseAmount(argMultimap.getValue(PREFIX_TRANSACTION_AMOUNT).get());
         Type type = ParserUtil.parseType(argMultimap.getValue(PREFIX_TRANSACTION_TYPE).get());
+
         Person person = new Person(name, phone, email, address, tagList);
+        Transaction transaction = new Transaction(type, amount);
 
-
-        return new AddCommand(person);
+        return new AddCommand(person, transaction);
     }
 
     /**
