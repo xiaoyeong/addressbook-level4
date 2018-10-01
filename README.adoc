@@ -1,11 +1,11 @@
 = Debt Tracker
 
 ifdef::env-github[]
-image::docs/images/Ui.png[width="600"]
+image::docs/images/Ui.jpg[width="600"]
 endif::[]
 
 ifndef::env-github[]
-image::images/Ui.png[width="600"]
+image::images/Ui.jpg[width="600"]
 endif::[]
 
 * This is a desktop Debt Tracker application. It has a GUI but most of the user interactions happen using a CLI (Command Line Interface).
@@ -20,13 +20,15 @@ endif::[]
 
 * <<UserGuide#, User Guide>>
 * <<DeveloperGuide#, Developer Guide>>
-* <<LearningOutcomes#, Learning Outcomes>>
 * <<AboutUs#, About Us>>
 * <<ContactUs#, Contact Us>>
 
 == Members
-Lou Shaw Yeong
-Aadit Kamat
+Cheong Kit Wai, Julian +
+Lou Shaw Yeong +
+Aadit Kamat +
+Ysabella Tan Yu Lin +
+Lee Wei Qing
 
 == Acknowledgements
 
