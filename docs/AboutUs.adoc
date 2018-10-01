@@ -59,7 +59,7 @@ Responsibilities: +
 
 === Lee Wei Qing
 image::weiqing.png[width="150", align="left"]
-{empty}[https://github.com/weiqing-nic[github]] 
+{empty}[https://github.com/weiqing-nic[github]]
 
 Role: Scheduling Tasks +
 Responsibilities: +
