@@ -10,7 +10,7 @@ We are based in the http://www.comp.nus.edu.sg[School of Computing, National Uni
 == Project Team
 
 === Cheong Kit Wai, Julian
-image::julian.png[width="150", align="left"]
+image::julianc269.png[width="150", align="left"]
 {empty}[https://github.com/julianc269[github]]
 
 Role: Managing the Team +
@@ -22,7 +22,7 @@ Responsibilities: +
 '''
 
 === Lou Shaw Yeong
-image::shawyeong.png[width="150", align="left"]
+image::xiaoyeong.png[width="150", align="left"]
 {empty}[https://github.com/xiaoyeong[github]]
 
 Role: Writing and Maintaining Tests +
@@ -34,7 +34,7 @@ Responsibilities: +
 '''
 
 === Aadit Kamat
-image::aadit.png[width="150", align="left"]
+image::aaditkamat.png[width="150", align="left"]
 {empty}[https://github.com/aaditkamat[github]]
 
 Role: Ensuring Software Integration +
@@ -58,7 +58,7 @@ Responsibilities: +
 '''
 
 === Lee Wei Qing
-image::weiqing.png[width="150", align="left"]
+image::weiqing-nic.png[width="150", align="left"]
 {empty}[https://github.com/weiqing-nic[github]]
 
 Role: Scheduling Tasks +

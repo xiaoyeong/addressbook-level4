@@ -118,4 +118,7 @@ public class Person {
         return builder.toString();
     }
 
+    public Person copyPerson(){
+        return new Person(name, phone, email, address, tags);
+    }
 }

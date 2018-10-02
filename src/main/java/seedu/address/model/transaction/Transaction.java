@@ -17,12 +17,14 @@ public class Transaction {
      * Represents a transaction with non null fields {@code Type} and {@code amount}
      * @param type indicates whether a transaction is a loan/debt
      * @param amount stores the amount lent/owed
+     * @param person the person who is carrying out transaction with the user
      */
     public Transaction(Type type, Amount amount, Person person) {
         this.type = type;
         this.amount = amount;
         this.person = person;
     }
+
 
     public Type getType() {
         return type;

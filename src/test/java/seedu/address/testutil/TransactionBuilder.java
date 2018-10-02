@@ -50,7 +50,7 @@ public class TransactionBuilder {
      * Parses the {@code tags} into a {@code Set<Tag>} and set it to the {@code Person} that we are building.
      */
     public TransactionBuilder withPerson(Person person) {
-        this.amount = new Amount(amount);
+        this.person = person.copyPerson();
         return this;
     }
 

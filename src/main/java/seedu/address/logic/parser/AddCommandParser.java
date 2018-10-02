@@ -56,9 +56,9 @@ public class AddCommandParser implements Parser<AddCommand> {
         Type type = ParserUtil.parseType(argMultimap.getValue(PREFIX_TRANSACTION_TYPE).get());
 
         Person person = new Person(name, phone, email, address, tagList);
-        Transaction transaction = new Transaction(type, amount);
+        Transaction transaction = new Transaction(type, amount, person);
 
-        return new AddCommand(person, transaction);
+        return new AddCommand(transaction);
     }
 
     /**

@@ -1,19 +1,19 @@
 package seedu.address.commons.events.model;
 
 import seedu.address.commons.events.BaseEvent;
-import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.ReadOnlyFinancialDatabase;
 
-/** Indicates the AddressBook in the model has changed*/
-public class AddressBookChangedEvent extends BaseEvent {
+/** Indicates the FinancialDatabase in the model has changed*/
+public class FinancialDatabaseChangedEvent extends BaseEvent {
 
-    public final ReadOnlyAddressBook data;
+    public final ReadOnlyFinancialDatabase data;
 
-    public AddressBookChangedEvent(ReadOnlyAddressBook data) {
+    public FinancialDatabaseChangedEvent(ReadOnlyFinancialDatabase data) {
         this.data = data;
     }
 
     @Override
     public String toString() {
-        return "number of persons " + data.getPersonList().size();
+        return "number of persons " + data.getTransactionList().size();
     }
 }

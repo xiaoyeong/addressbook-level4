@@ -8,6 +8,8 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
  * Guarantees: immutable; is valid as declared in {@link #isValidAmount(String)}
  */
 public class Amount {
+    //TODO: change currencies to match those of target countries
+    public static final String[] CURRENCIES = {"SGD", "AUD", "USD", "GBP", "INR"};
     public static final String MESSAGE_TRANSACTION_AMOUNT_CONSTRAINTS =
               "The transaction amount must be real number rounded to two decimal places, "
             + "prefixed by a three letter currency code";

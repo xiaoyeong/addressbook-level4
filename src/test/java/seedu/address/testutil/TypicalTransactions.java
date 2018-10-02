@@ -1,41 +1,44 @@
 package seedu.address.testutil;
 
-import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_AMY;
-
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 import seedu.address.model.FinancialDatabase;
-import seedu.address.model.person.Person;
 import seedu.address.model.transaction.Transaction;
 
 /**
- * A utility class containing a list of {@code Person} objects to be used in tests.
+ * A utility class containing a list of {@code Transaction} objects to be used in tests.
  */
-public class TypicalPersons {
+public class TypicalTransactions {
 
-    public static final Person ALICE_TRANSACTION = new TransactionBuilder().withPerson(TypicalPersons.ALICE);
+    //TODO: Update according to accepted currencies
+    public static final Transaction ALICE_TRANSACTION = new TransactionBuilder().withPerson(TypicalPersons.ALICE)
+            .withAmount("SGD 42.50").withType("Loan").build();
+    public static final Transaction BOB_TRANSACTION = new TransactionBuilder().withPerson(TypicalPersons.BOB)
+            .withAmount("AUD 12.85").withType("Debt").build();
+    public static final Transaction CARL_TRANSACTION = new TransactionBuilder().withPerson(TypicalPersons.CARL)
+            .withAmount("USD 57.60").withType("Debt").build();
+    public static final Transaction DANIEL_TRANSACTION = new TransactionBuilder().withPerson(TypicalPersons.DANIEL)
+            .withAmount("INR 44.70").withType("Loan").build();
+    public static final Transaction ELLE_TRANSACTION = new TransactionBuilder().withPerson(TypicalPersons.ELLE)
+            .withAmount("CNY 47.65").withType("Debt").build();
 
-
-    public static final String KEYWORD_MATCHING_MEIER = "Meier"; // A keyword that matches MEIER
-
-    private TypicalPersons() {} // prevents instantiation
+    private TypicalTransactions() {} // prevents instantiation
 
     /**
      * Returns an {@code AddressBook} with all the typical persons.
      */
-    public static AddressBook getTypicalAddressBook() {
-        AddressBook ab = new AddressBook();
+    public static FinancialDatabase getTypicalFinancialDatabase() {
+        FinancialDatabase database = new FinancialDatabase();
         for (Transaction transaction : getTypicalTransactions()) {
-            ab.addPerson(transaction);
+            database.addTransaction(transaction);
         }
-        return ab;
+        return database;
     }
 
     public static List<Transaction> getTypicalTransactions() {
-        return new ArrayList<Transaction>(Arrays.asList(ALICE_TRANSACTION, BENSON_TRANSACTION, CARL_TRANSACTION,
-                DANIEL_TRANSACTION, ELLE_TRANSACTION, FIONA_TRANSACTION, GEORGE_TRANSACTION));
+        return new ArrayList<>(Arrays.asList(ALICE_TRANSACTION, BOB_TRANSACTION, CARL_TRANSACTION,
+                DANIEL_TRANSACTION, ELLE_TRANSACTION));
     }
 }
