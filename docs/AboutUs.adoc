@@ -46,7 +46,7 @@ Responsibilities: +
 '''
 
 === Ysabella Tan Yu Lin
-image::ysabella.png[width="150", align="left"]
+image::bellaaarh.png[width="150", align="left"]
 {empty}[https://github.com/Bellaaarh[github]]
 
 Role: Managing Code Quality +
@@ -66,3 +66,4 @@ Responsibilities: +
 1) Add and remove transactions +
 2) Maintain labels and tags for users +
 3) Categorise contacts
+'''
