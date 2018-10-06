@@ -19,7 +19,7 @@ public class Person {
     private final Name name;
     private final Phone phone;
     private final Email email;
-    private UniqueId uniqueId;
+    private final UniqueId uniqueId;
 
     // Data fields
     private final Address address;
@@ -35,7 +35,7 @@ public class Person {
         this.email = email;
         this.address = address;
         this.tags.addAll(tags);
-        this.uniqueId = uniqueId;
+        this.uniqueId = uniqueId != null ? uniqueId : new UniqueId();
 
     }
 
@@ -120,4 +120,7 @@ public class Person {
         return builder.toString();
     }
 
+    public UniqueId getUniqueId() {
+        return uniqueId;
+    }
 }
