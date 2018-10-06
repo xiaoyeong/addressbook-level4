@@ -717,3 +717,15 @@ _{ more test cases ... }_
 .. _{explain how to simulate a missing/corrupted file and the expected behavior}_
 
 _{ more test cases ... }_
+
+=== Add Profile Image
+
+.  Prerequisites: The Profile Image should not exceed 10MB.
+
+.. Advantage: It would prevent user from uploading large file as the application may be unstable.
+
+=== Add Filter Command
+ .  Prerequisites: Command input must adhere strictly to specified format
+ .. Test case: `filter n/john e/hotmail.com` +
+    Expected: Lists all persons named john with a hotmail.com email
+
