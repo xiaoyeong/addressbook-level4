@@ -30,7 +30,7 @@ public class AnalyticsCommand extends Command {
         List<Person> personList = model.getFilteredPersonList();
 
         for (int i = 0; i < personList.size(); i++) {
-            amount += personList.ownesMoney();
+            //amount += personList.ownesMoney();
         }
 
 
