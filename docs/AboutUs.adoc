@@ -4,53 +4,66 @@
 :imagesDir: images
 :stylesDir: stylesheets
 
-AddressBook - Level 4 was developed by the https://se-edu.github.io/docs/Team.html[se-edu] team. +
-_{The dummy content given below serves as a placeholder to be used by future forks of the project.}_ +
-{empty} +
-We are a team based in the http://www.comp.nus.edu.sg[School of Computing, National University of Singapore].
+Debt Tracker is based on the AddressBook - Level 4 project developed by the https://se-edu.github.io/docs/Team.html[se-edu] team. +
+We are based in the http://www.comp.nus.edu.sg[School of Computing, National University of Singapore].
 
 == Project Team
 
-=== John Doe
-image::damithc.jpg[width="150", align="left"]
-{empty}[http://www.comp.nus.edu.sg/~damithch[homepage]] [https://github.com/damithc[github]] [<<johndoe#, portfolio>>]
+=== Cheong Kit Wai, Julian
+image::julian.png[width="150", align="left"]
+{empty}[https://github.com/julianc269[github]]
 
-Role: Project Advisor
-
-'''
-
-=== John Roe
-image::lejolly.jpg[width="150", align="left"]
-{empty}[http://github.com/lejolly[github]] [<<johndoe#, portfolio>>]
-
-Role: Team Lead +
-Responsibilities: UI
+Role: Managing the Team +
+Responsibilities: +
+1) Set up a calendar to track payment deadline +
+2) Handle Data Storage +
+3) Add user login to the system
 
 '''
 
-=== Johnny Doe
-image::yijinl.jpg[width="150", align="left"]
-{empty}[http://github.com/yijinl[github]] [<<johndoe#, portfolio>>]
+=== Lou Shaw Yeong
+image::xiaoyeong.png[width="150", align="left"]
+{empty}[https://github.com/xiaoyeong[github]]
 
-Role: Developer +
-Responsibilities: Data
-
-'''
-
-=== Johnny Roe
-image::m133225.jpg[width="150", align="left"]
-{empty}[http://github.com/m133225[github]] [<<johndoe#, portfolio>>]
-
-Role: Developer +
-Responsibilities: Dev Ops + Threading
+Role: Writing and Maintaining Tests +
+Responsibilities: +
+1) Enable privatisation of Contacts +
+2) Generate analytics for Financial Spending +
+3) Allow sorting of transactions
 
 '''
 
-=== Benson Meier
-image::yl_coder.jpg[width="150", align="left"]
-{empty}[http://github.com/yl-coder[github]] [<<johndoe#, portfolio>>]
+=== Aadit Kamat
+image::aaditkamat.png[width="150", align="left"]
+{empty}[https://github.com/aaditkamat[github]]
 
-Role: Developer +
-Responsibilities: UI
+Role: Ensuring Software Integration +
+Responsibilities: +
+1) Add interest rate calculation feature +
+2) Setup a reminder system in the app +
+3) Provide currency conversion facility
 
+'''
+
+=== Ysabella Tan Yu Lin
+image::bellaaarh.png[width="150", align="left"]
+{empty}[https://github.com/Bellaaarh[github]]
+
+Role: Managing Code Quality +
+Responsibilities: +
+1) Create data filters +
+2) Maintain labels and tags for users +
+3) Categorise contacts
+
+'''
+
+=== Lee Wei Qing
+image::weiqing.png[width="150", align="left"]
+{empty}[https://github.com/weiqing-nic[github]]
+
+Role: Scheduling Tasks +
+Responsibilities: +
+1) Add and remove transactions +
+2) Maintain labels and tags for users +
+3) Categorise contacts
 '''
