@@ -8,8 +8,6 @@ import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.person.Person;
-import seedu.address.model.transaction.Amount;
-import seedu.address.model.transaction.Transaction;
 
 /**
  * Analyse the your financial status
@@ -26,16 +24,17 @@ public class AnalyticsCommand extends Command {
 
     @Override
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
+        int amount;
+        amount = 0;
         requireNonNull(model);
-        List<Transaction> transactionList = model.getFilteredTransactionList();
-        Amount[] amounts = new Amount[transactionList.size()];
+        List<Person> personList = model.getFilteredPersonList();
 
-        for (int i = 0; i < amounts.length; i++) {
-            amounts[i] = transactionList.get(i).getAmount();
+        for (int i = 0; i < personList.size(); i++) {
+            //amount += personList.ownesMoney();
         }
 
 
-        return new CommandResult(String.format(MESSAGE_SUCCESS, amounts));
+        return new CommandResult(String.format(MESSAGE_SUCCESS, amount));
     }
 }
 

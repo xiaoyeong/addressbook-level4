@@ -11,6 +11,7 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.FinancialDatabaseParser;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
+import seedu.address.model.person.Person;
 import seedu.address.model.transaction.Transaction;
 
 /**
@@ -38,6 +39,11 @@ public class LogicManager extends ComponentManager implements Logic {
         } finally {
             history.add(commandText);
         }
+    }
+
+    @Override
+    public ObservableList<Person> getFilteredPersonList() {
+        return model.getFilteredPersonList();
     }
 
     @Override

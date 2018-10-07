@@ -12,6 +12,7 @@ import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.ComponentManager;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.model.FinancialDatabaseChangedEvent;
+import seedu.address.model.person.Person;
 import seedu.address.model.transaction.Transaction;
 
 /**
@@ -22,6 +23,7 @@ public class ModelManager extends ComponentManager implements Model {
 
     private final VersionedFinancialDatabase versionedFinancialDatabase;
     private final FilteredList<Transaction> filteredTransactions;
+    private final FilteredList<Person> filteredPersons;
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
@@ -34,6 +36,7 @@ public class ModelManager extends ComponentManager implements Model {
 
         versionedFinancialDatabase = new VersionedFinancialDatabase(addressBook);
         filteredTransactions = new FilteredList<>(versionedFinancialDatabase.getTransactionList());
+        filteredPersons = new FilteredList<>(versionedFinancialDatabase.getPersonList());
     }
 
     public ModelManager() {
@@ -54,6 +57,33 @@ public class ModelManager extends ComponentManager implements Model {
     /** Raises an event to indicate the model has changed */
     private void indicateFinancialDatabaseChanged() {
         raise(new FinancialDatabaseChangedEvent(versionedFinancialDatabase));
+    }
+
+    @Override
+    public boolean hasPerson(Person person) {
+        requireNonNull(person);
+        return versionedFinancialDatabase.hasPerson(person);
+    }
+
+    @Override
+    public void deletePerson(Person target) {
+        versionedFinancialDatabase.removePerson(target);
+        indicateFinancialDatabaseChanged();
+    }
+
+    @Override
+    public void addPerson(Person person) {
+        versionedFinancialDatabase.addPerson(person);
+        updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+        indicateFinancialDatabaseChanged();
+    }
+
+    @Override
+    public void updatePerson(Person target, Person editedPerson) {
+        requireAllNonNull(target, editedPerson);
+
+        versionedFinancialDatabase.updatePerson(target, editedPerson);
+        indicateFinancialDatabaseChanged();
     }
 
     @Override
@@ -81,6 +111,23 @@ public class ModelManager extends ComponentManager implements Model {
 
         versionedFinancialDatabase.updateTransaction(target, editedTransaction);
         indicateFinancialDatabaseChanged();
+    }
+
+    //=========== Filtered Person List Accessors =============================================================
+
+    /**
+     * Returns an unmodifiable view of the list of {@code Person} backed by the internal list of
+     * {@code versionedAddressBook}
+     */
+    @Override
+    public ObservableList<Person> getFilteredPersonList() {
+        return FXCollections.unmodifiableObservableList(filteredPersons);
+    }
+
+    @Override
+    public void updateFilteredPersonList(Predicate<Person> predicate) {
+        requireNonNull(predicate);
+        filteredPersons.setPredicate(predicate);
     }
 
     //=========== Filtered Transaction List Accessors =============================================================

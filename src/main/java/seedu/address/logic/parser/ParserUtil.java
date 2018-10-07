@@ -15,6 +15,7 @@ import seedu.address.model.person.Name;
 import seedu.address.model.person.Phone;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.transaction.Amount;
+import seedu.address.model.transaction.PersonId;
 import seedu.address.model.transaction.Type;
 
 /**
@@ -107,7 +108,7 @@ public class ParserUtil {
         requireNonNull(transactionAmount);
         String trimmedTransactionAmount = transactionAmount.trim();
         if (!Amount.isValidAmount(transactionAmount)) {
-            throw new ParseException(Email.MESSAGE_EMAIL_CONSTRAINTS);
+            throw new ParseException(Amount.MESSAGE_TRANSACTION_AMOUNT_CONSTRAINTS);
         }
         return new Amount(trimmedTransactionAmount);
     }
@@ -122,9 +123,24 @@ public class ParserUtil {
         requireNonNull(type);
         String trimmedType = type.trim();
         if (!Type.isValidType(trimmedType)) {
-            throw new ParseException(Email.MESSAGE_EMAIL_CONSTRAINTS);
+            throw new ParseException(Type.MESSAGE_TRANSACTION_TYPE_CONSTRAINTS);
         }
         return new Type(trimmedType);
+    }
+
+    /**
+     * Parses a {@code String email} into an {@code Email}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code email} is invalid.
+     */
+    public static PersonId parsePersonId(String personid) throws ParseException {
+        requireNonNull(personid);
+        String trimmedType = personid.trim();
+        if (!PersonId.isValidType(trimmedType)) {
+            throw new ParseException(PersonId.MESSAGE_TRANSACTION_PERSONID_CONSTRAINTS);
+        }
+        return new PersonId(trimmedType);
     }
 
     /**

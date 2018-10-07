@@ -1,14 +1,14 @@
-package seedu.address.model.transaction;
+package seedu.address.model.person;
+
+import seedu.address.commons.util.StringUtil;
 
 import java.util.List;
 import java.util.function.Predicate;
 
-import seedu.address.commons.util.StringUtil;
-
 /**
- * Tests that a {@code Transaction}'s {@code Date} matches any of the keywords given.
+ * Tests that a {@code Person}'s {@code Name} matches any of the keywords given.
  */
-public class NameContainsKeywordsPredicate implements Predicate<Transaction> {
+public class NameContainsKeywordsPredicate implements Predicate<Person> {
     private final List<String> keywords;
 
     public NameContainsKeywordsPredicate(List<String> keywords) {
@@ -16,9 +16,9 @@ public class NameContainsKeywordsPredicate implements Predicate<Transaction> {
     }
 
     @Override
-    public boolean test(Transaction Transaction) {
+    public boolean test(Person person) {
         return keywords.stream()
-                .anyMatch(keyword -> StringUtil.containsWordIgnoreCase(Transaction.getType().toString(), keyword));
+                .anyMatch(keyword -> StringUtil.containsWordIgnoreCase(person.getName().fullName, keyword));
     }
 
     @Override

@@ -1,3 +1,15 @@
+package seedu.address.logic.commands;
+
+import static java.util.Objects.requireNonNull;
+
+import seedu.address.commons.core.Messages;
+import seedu.address.logic.CommandHistory;
+import seedu.address.model.Model;
+import seedu.address.model.person.NameContainsLettersPredicate;
+
+/**
+ *
+ */
 public class WildcardSearch extends Command{
 
     public static final String COMMAND_WORD = "search";
@@ -8,6 +20,7 @@ public class WildcardSearch extends Command{
             + "Parameters: KEYWORD [MORE_KEYWORDS]...\n"
             + "Example: " + COMMAND_WORD + " oh";
 
+    private final NameContainsLettersPredicate predicate;
 
     public WildcardSearch(NameContainsLettersPredicate predicate) { this.predicate = predicate; }
 
@@ -16,7 +29,7 @@ public class WildcardSearch extends Command{
         requireNonNull(model);
         model.updateFilteredPersonList(predicate);
         return new CommandResult(
-                String.format(Messages.MESSAGE_PERSONS_LISTED_OVERVIEW, model.getFilteredPersonList().size()));
+                String.format(Messages.MESSAGE_TRANSACTIONS_LISTED_OVERVIEW, model.getFilteredTransactionList().size()));
     }
 
 }

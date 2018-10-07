@@ -11,18 +11,18 @@ public class Transaction {
 
     private final Type type;
     private final Amount amount;
-    private final Person person;
+    private final PersonId personid;
 
     /**
      * Represents a transaction with non null fields {@code Type} and {@code amount}
      * @param type indicates whether a transaction is a loan/debt
      * @param amount stores the amount lent/owed
-     * @param person the person who is carrying out transaction with the user
+     * @param personid the person who is carrying out transaction with the user
      */
-    public Transaction(Type type, Amount amount, Person person) {
+    public Transaction(Type type, Amount amount, PersonId personid) {
         this.type = type;
         this.amount = amount;
-        this.person = person;
+        this.personid = personid;
     }
 
 
@@ -34,13 +34,13 @@ public class Transaction {
         return amount;
     }
 
-    public Person getPerson() {
-        return person;
+    public PersonId getPersonId() {
+        return personid;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(type, amount, person);
+        return Objects.hash(type, amount, personid);
     }
 
     @Override
@@ -51,14 +51,14 @@ public class Transaction {
         Transaction transaction = (Transaction) other;
         return other == this || (type.equals(transaction.type)
                 && amount.equals(transaction.amount)
-                && person.equals(transaction.person));
+                && personid.equals(transaction.personid));
     }
 
     @Override
     public String toString() {
         final StringBuilder builder = new StringBuilder();
         builder.append("Person: ")
-               .append(person.toString())
+               .append(personid.toString())
                .append("\n Transaction Details: \n")
                .append("Type: ")
                .append(type)

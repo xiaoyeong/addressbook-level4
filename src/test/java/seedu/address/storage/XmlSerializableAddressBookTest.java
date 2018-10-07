@@ -11,7 +11,7 @@ import org.junit.rules.ExpectedException;
 
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.commons.util.XmlUtil;
-import seedu.address.model.AddressBook;
+import seedu.address.model.FinancialDatabase;
 import seedu.address.testutil.TypicalPersons;
 
 public class XmlSerializableAddressBookTest {
@@ -26,27 +26,27 @@ public class XmlSerializableAddressBookTest {
 
     @Test
     public void toModelType_typicalPersonsFile_success() throws Exception {
-        XmlSerializableAddressBook dataFromFile = XmlUtil.getDataFromFile(TYPICAL_PERSONS_FILE,
-                XmlSerializableAddressBook.class);
-        AddressBook addressBookFromFile = dataFromFile.toModelType();
-        AddressBook typicalPersonsAddressBook = TypicalPersons.getTypicalAddressBook();
+        XmlSerializableFinancialDatabase dataFromFile = XmlUtil.getDataFromFile(TYPICAL_PERSONS_FILE,
+                XmlSerializableFinancialDatabase.class);
+        FinancialDatabase addressBookFromFile = dataFromFile.toModelType();
+        FinancialDatabase typicalPersonsAddressBook = TypicalPersons.getTypicalFinancialDatabase();
         assertEquals(addressBookFromFile, typicalPersonsAddressBook);
     }
 
     @Test
     public void toModelType_invalidPersonFile_throwsIllegalValueException() throws Exception {
-        XmlSerializableAddressBook dataFromFile = XmlUtil.getDataFromFile(INVALID_PERSON_FILE,
-                XmlSerializableAddressBook.class);
+        XmlSerializableFinancialDatabase dataFromFile = XmlUtil.getDataFromFile(INVALID_PERSON_FILE,
+                XmlSerializableFinancialDatabase.class);
         thrown.expect(IllegalValueException.class);
         dataFromFile.toModelType();
     }
 
     @Test
     public void toModelType_duplicatePersons_throwsIllegalValueException() throws Exception {
-        XmlSerializableAddressBook dataFromFile = XmlUtil.getDataFromFile(DUPLICATE_PERSON_FILE,
-                XmlSerializableAddressBook.class);
+        XmlSerializableFinancialDatabase dataFromFile = XmlUtil.getDataFromFile(DUPLICATE_PERSON_FILE,
+                XmlSerializableFinancialDatabase.class);
         thrown.expect(IllegalValueException.class);
-        thrown.expectMessage(XmlSerializableAddressBook.MESSAGE_DUPLICATE_PERSON);
+        thrown.expectMessage(XmlSerializableFinancialDatabase.MESSAGE_DUPLICATE_PERSON);
         dataFromFile.toModelType();
     }
 

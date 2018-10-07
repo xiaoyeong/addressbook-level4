@@ -14,6 +14,6 @@ public class FinancialDatabaseChangedEvent extends BaseEvent {
 
     @Override
     public String toString() {
-        return "number of persons " + data.getTransactionList().size();
+        return "number of persons " + data.getPersonList().size();
     }
 }

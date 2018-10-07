@@ -4,8 +4,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
-import seedu.address.model.transaction.Transaction;
-import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_TRANSACTION;
+import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 
 import java.util.Arrays;
 import java.util.List;
@@ -19,7 +18,7 @@ import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.DeleteCommand;
 import seedu.address.logic.commands.EditCommand;
-import seedu.address.logic.commands.EditCommand.EditTransactionDescriptor;
+import seedu.address.logic.commands.EditCommand.EditPersonDescriptor;
 import seedu.address.logic.commands.ExitCommand;
 import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.commands.HelpCommand;
@@ -29,22 +28,23 @@ import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.SelectCommand;
 import seedu.address.logic.commands.UndoCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.transaction.NameContainsKeywordsPredicate;
-import seedu.address.model.transaction.Transaction;
-import seedu.address.testutil.EditTransactionDescriptorBuilder;
-import seedu.address.testutil.TransactionBuilder;
-import seedu.address.testutil.TransactionUtil;
+import seedu.address.model.person.NameContainsKeywordsPredicate;
+import seedu.address.model.person.Person;
+import seedu.address.testutil.EditPersonDescriptorBuilder;
+import seedu.address.testutil.PersonBuilder;
+import seedu.address.testutil.PersonUtil;
 
 public class FinancialDatabaseParserTest {
     @Rule
     public ExpectedException thrown = ExpectedException.none();
-    private final FinancialDatabaseParser parser = new FinancialDatabaseParserTest();
+
+    private final FinancialDatabaseParser parser = new FinancialDatabaseParser();
 
     @Test
     public void parseCommand_add() throws Exception {
-        Transaction Transaction = new TransactionBuilder().build();
-        AddCommand command = (AddCommand) parser.parseCommand(TransactionUtil.getAddCommand(Transaction));
-        assertEquals(new AddCommand(Transaction), command);
+        Person person = new PersonBuilder().build();
+        AddCommand command = (AddCommand) parser.parseCommand(PersonUtil.getAddCommand(person));
+        assertEquals(new AddCommand(person), command);
     }
 
     @Test
@@ -56,17 +56,17 @@ public class FinancialDatabaseParserTest {
     @Test
     public void parseCommand_delete() throws Exception {
         DeleteCommand command = (DeleteCommand) parser.parseCommand(
-                DeleteCommand.COMMAND_WORD + " " + INDEX_FIRST_Transaction.getOneBased());
-        assertEquals(new DeleteCommand(INDEX_FIRST_Transaction), command);
+                DeleteCommand.COMMAND_WORD + " " + INDEX_FIRST_PERSON.getOneBased());
+        assertEquals(new DeleteCommand(INDEX_FIRST_PERSON), command);
     }
 
     @Test
     public void parseCommand_edit() throws Exception {
-        Transaction transaction = new TransactionBuilder().build();
-        EditTransactionDescriptor descriptor = new EditTransactionDescriptorBuilder(Transaction).build();
+        Person person = new PersonBuilder().build();
+        EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder(person).build();
         EditCommand command = (EditCommand) parser.parseCommand(EditCommand.COMMAND_WORD + " "
-                + INDEX_FIRST_Transaction.getOneBased() + " " + TransactionUtil.getEditTransactionDescriptorDetails(descriptor));
-        assertEquals(new EditCommand(INDEX_FIRST_Transaction, descriptor), command);
+                + INDEX_FIRST_PERSON.getOneBased() + " " + PersonUtil.getEditPersonDescriptorDetails(descriptor));
+        assertEquals(new EditCommand(INDEX_FIRST_PERSON, descriptor), command);
     }
 
     @Test
@@ -111,8 +111,8 @@ public class FinancialDatabaseParserTest {
     @Test
     public void parseCommand_select() throws Exception {
         SelectCommand command = (SelectCommand) parser.parseCommand(
-                SelectCommand.COMMAND_WORD + " " + INDEX_FIRST_Transaction.getOneBased());
-        assertEquals(new SelectCommand(INDEX_FIRST_Transaction), command);
+                SelectCommand.COMMAND_WORD + " " + INDEX_FIRST_PERSON.getOneBased());
+        assertEquals(new SelectCommand(INDEX_FIRST_PERSON), command);
     }
 
     @Test

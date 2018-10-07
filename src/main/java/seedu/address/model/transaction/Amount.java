@@ -39,7 +39,7 @@ public class Amount {
      */
     public static boolean isValidAmount(String test) {
         String lower = test.toLowerCase();
-        return lower.equals("loan") || lower.equals("debt");
+        return true;
     }
 
     @Override
