@@ -16,11 +16,13 @@ import org.junit.rules.ExpectedException;
 import javafx.collections.ObservableList;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.model.AddressBook;
+import seedu.address.model.FinancialDatabase;
 import seedu.address.model.Model;
-import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.ReadOnlyFinancialDatabase;
 import seedu.address.model.person.Person;
+import seedu.address.model.transaction.Transaction;
 import seedu.address.testutil.PersonBuilder;
+import seedu.address.testutil.TypicalPersons;
 
 public class AddCommandTest {
 
@@ -94,17 +96,47 @@ public class AddCommandTest {
         }
 
         @Override
-        public void resetData(ReadOnlyAddressBook newData) {
+        public void resetData(ReadOnlyFinancialDatabase newData) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public ReadOnlyAddressBook getAddressBook() {
+        public ReadOnlyFinancialDatabase getFinancialDatabase() {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
         public boolean hasPerson(Person person) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void addTransaction(Transaction transaction) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public boolean hasTransaction(Transaction transaction) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void updateTransaction(Transaction target, Transaction editedTransaction) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void deleteTransaction(Transaction target) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ObservableList<Transaction> getFilteredTransactionList() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void updateFilteredTransactionList(Predicate<Transaction> predicate) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -129,27 +161,27 @@ public class AddCommandTest {
         }
 
         @Override
-        public boolean canUndoAddressBook() {
+        public boolean canUndoFinancialDatabase() {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public boolean canRedoAddressBook() {
+        public boolean canRedoFinancialDatabase() {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void undoAddressBook() {
+        public void undoFinancialDatabase() {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void redoAddressBook() {
+        public void redoFinancialDatabase() {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void commitAddressBook() {
+        public void commitFinancialDatabase() {
             throw new AssertionError("This method should not be called.");
         }
     }
@@ -168,7 +200,7 @@ public class AddCommandTest {
         @Override
         public boolean hasPerson(Person person) {
             requireNonNull(person);
-            return this.person.isSamePerson(person);
+            return this.person.equals(person);
         }
     }
 
@@ -181,7 +213,7 @@ public class AddCommandTest {
         @Override
         public boolean hasPerson(Person person) {
             requireNonNull(person);
-            return personsAdded.stream().anyMatch(person::isSamePerson);
+            return personsAdded.stream().anyMatch(person::equals);
         }
 
         @Override
@@ -191,13 +223,13 @@ public class AddCommandTest {
         }
 
         @Override
-        public void commitAddressBook() {
+        public void commitFinancialDatabase() {
             // called by {@code AddCommand#execute()}
         }
 
         @Override
-        public ReadOnlyAddressBook getAddressBook() {
-            return new AddressBook();
+        public ReadOnlyFinancialDatabase getFinancialDatabase() {
+            return new FinancialDatabase();
         }
     }
 
