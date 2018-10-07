@@ -2,23 +2,27 @@ package seedu.address.testutil;
 
 import seedu.address.model.person.Person;
 import seedu.address.model.transaction.Amount;
+import seedu.address.model.transaction.PersonId;
 import seedu.address.model.transaction.Transaction;
 import seedu.address.model.transaction.Type;
 import seedu.address.model.util.SampleDataUtil;
 
+/**
+ *
+ */
 public class TransactionBuilder {
     public static final String DEFAULT_TYPE = "Loan";
     public static final String DEFAULT_AMOUNT = "SGD 10.00";
-    public static final Person DEFAULT_PERSON = SampleDataUtil.getSamplePersons()[0];
+    public static final String DEFAULT_PERSON = "1";
 
     private Type type;
     private Amount amount;
-    private Person person;
+    private PersonId personid;
 
     public TransactionBuilder() {
         type = new Type(DEFAULT_TYPE);
         amount = new Amount(DEFAULT_AMOUNT);
-        person = DEFAULT_PERSON;
+        personid = new PersonId(DEFAULT_PERSON);
     }
 
     /**
@@ -27,7 +31,7 @@ public class TransactionBuilder {
     public TransactionBuilder(Transaction transactionToCopy) {
         type = transactionToCopy.getType();
         amount = transactionToCopy.getAmount();
-        person = transactionToCopy.getPerson();
+        personid = transactionToCopy.getPersonId();
     }
 
     /**
@@ -49,12 +53,12 @@ public class TransactionBuilder {
     /**
      * Parses the {@code tags} into a {@code Set<Tag>} and set it to the {@code Person} that we are building.
      */
-    public TransactionBuilder withPerson(Person person) {
-        this.person = person.copyPerson();
+    public TransactionBuilder withPersonId(String personid) {
+        this.personid = new PersonId(personid);
         return this;
     }
 
     public Transaction build() {
-        return new Transaction(type, amount, person);
+        return new Transaction(type, amount, personid);
     }
 }

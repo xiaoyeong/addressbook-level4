@@ -19,8 +19,9 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.FinancialDatabase;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyFinancialDatabase;
+import seedu.address.model.person.Person;
 import seedu.address.model.transaction.Transaction;
-import seedu.address.testutil.TransactionBuilder;
+import seedu.address.testutil.PersonBuilder;
 import seedu.address.testutil.TypicalPersons;
 
 public class AddCommandTest {
@@ -33,46 +34,46 @@ public class AddCommandTest {
     private CommandHistory commandHistory = new CommandHistory();
 
     @Test
-    public void constructor_nullTransaction_throwsNullPointerException() {
+    public void constructor_nullPerson_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
         new AddCommand(null);
     }
 
     @Test
-    public void execute_transactionAcceptedByModel_addSuccessful() throws Exception {
-        ModelStubAcceptingTransactionAdded modelStub = new ModelStubAcceptingTransactionAdded();
-        Transaction validTransaction = new TransactionBuilder().build();
+    public void execute_personAcceptedByModel_addSuccessful() throws Exception {
+        ModelStubAcceptingPersonAdded modelStub = new ModelStubAcceptingPersonAdded();
+        Person validPerson = new PersonBuilder().build();
 
-        CommandResult commandResult = new AddCommand(validTransaction).execute(modelStub, commandHistory);
+        CommandResult commandResult = new AddCommand(validPerson).execute(modelStub, commandHistory);
 
-        assertEquals(String.format(AddCommand.MESSAGE_SUCCESS, validTransaction), commandResult.feedbackToUser);
-        assertEquals(Arrays.asList(validTransaction), modelStub.transactionsAdded);
+        assertEquals(String.format(AddCommand.MESSAGE_SUCCESS, validPerson), commandResult.feedbackToUser);
+        assertEquals(Arrays.asList(validPerson), modelStub.personsAdded);
         assertEquals(EMPTY_COMMAND_HISTORY, commandHistory);
     }
 
     @Test
-    public void execute_duplicateTransaction_throwsCommandException() throws Exception {
-        Transaction validTransaction = new TransactionBuilder().build();
-        AddCommand addCommand = new AddCommand(validTransaction);
-        ModelStub modelStub = new ModelStubWithTransaction(validTransaction);
+    public void execute_duplicatePerson_throwsCommandException() throws Exception {
+        Person validPerson = new PersonBuilder().build();
+        AddCommand addCommand = new AddCommand(validPerson);
+        ModelStub modelStub = new ModelStubWithPerson(validPerson);
 
         thrown.expect(CommandException.class);
-        thrown.expectMessage(AddCommand.MESSAGE_DUPLICATE_TRANSACTION);
+        thrown.expectMessage(AddCommand.MESSAGE_DUPLICATE_PERSON);
         addCommand.execute(modelStub, commandHistory);
     }
 
     @Test
     public void equals() {
-        Transaction aliceTransaction = new TransactionBuilder().withPerson(TypicalPersons.ALICE).build();
-        Transaction bobTransaction = new TransactionBuilder().withPerson(TypicalPersons.BOB).build();
-        AddCommand addAliceCommand = new AddCommand(aliceTransaction);
-        AddCommand addBobCommand = new AddCommand(bobTransaction);
+        Person alice = new PersonBuilder().withName("Alice").build();
+        Person bob = new PersonBuilder().withName("Bob").build();
+        AddCommand addAliceCommand = new AddCommand(alice);
+        AddCommand addBobCommand = new AddCommand(bob);
 
         // same object -> returns true
         assertTrue(addAliceCommand.equals(addAliceCommand));
 
         // same values -> returns true
-        AddCommand addAliceCommandCopy = new AddCommand(aliceTransaction);
+        AddCommand addAliceCommandCopy = new AddCommand(alice);
         assertTrue(addAliceCommand.equals(addAliceCommandCopy));
 
         // different types -> returns false
@@ -81,7 +82,7 @@ public class AddCommandTest {
         // null -> returns false
         assertFalse(addAliceCommand.equals(null));
 
-        // different transaction -> returns false
+        // different person -> returns false
         assertFalse(addAliceCommand.equals(addBobCommand));
     }
 
@@ -90,7 +91,7 @@ public class AddCommandTest {
      */
     private class ModelStub implements Model {
         @Override
-        public void addTransaction(Transaction transaction) {
+        public void addPerson(Person person) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -105,17 +106,27 @@ public class AddCommandTest {
         }
 
         @Override
+        public boolean hasPerson(Person person) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void addTransaction(Transaction transaction) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public boolean hasTransaction(Transaction transaction) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void deleteTransaction(Transaction target) {
+        public void updateTransaction(Transaction target, Transaction editedTransaction) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void updateTransaction(Transaction target, Transaction editedTransaction) {
+        public void deleteTransaction(Transaction target) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -126,6 +137,26 @@ public class AddCommandTest {
 
         @Override
         public void updateFilteredTransactionList(Predicate<Transaction> predicate) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void deletePerson(Person target) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void updatePerson(Person target, Person editedPerson) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ObservableList<Person> getFilteredPersonList() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void updateFilteredPersonList(Predicate<Person> predicate) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -156,39 +187,39 @@ public class AddCommandTest {
     }
 
     /**
-     * A Model stub that contains a single transaction.
+     * A Model stub that contains a single person.
      */
-    private class ModelStubWithTransaction extends ModelStub {
-        private final Transaction transaction;
+    private class ModelStubWithPerson extends ModelStub {
+        private final Person person;
 
-        ModelStubWithTransaction(Transaction transaction) {
-            requireNonNull(transaction);
-            this.transaction = transaction;
+        ModelStubWithPerson(Person person) {
+            requireNonNull(person);
+            this.person = person;
         }
 
         @Override
-        public boolean hasTransaction(Transaction transaction) {
-            requireNonNull(transaction);
-            return this.transaction.equals(transaction);
+        public boolean hasPerson(Person person) {
+            requireNonNull(person);
+            return this.person.equals(person);
         }
     }
 
     /**
-     * A Model stub that always accept the transaction being added.
+     * A Model stub that always accept the person being added.
      */
-    private class ModelStubAcceptingTransactionAdded extends ModelStub {
-        final ArrayList<Transaction> transactionsAdded = new ArrayList<>();
+    private class ModelStubAcceptingPersonAdded extends ModelStub {
+        final ArrayList<Person> personsAdded = new ArrayList<>();
 
         @Override
-        public boolean hasTransaction(Transaction transaction) {
-            requireNonNull(transaction);
-            return transactionsAdded.stream().anyMatch(transaction::equals);
+        public boolean hasPerson(Person person) {
+            requireNonNull(person);
+            return personsAdded.stream().anyMatch(person::equals);
         }
 
         @Override
-        public void addTransaction(Transaction transaction) {
-            requireNonNull(transaction);
-            transactionsAdded.add(transaction);
+        public void addPerson(Person person) {
+            requireNonNull(person);
+            personsAdded.add(person);
         }
 
         @Override

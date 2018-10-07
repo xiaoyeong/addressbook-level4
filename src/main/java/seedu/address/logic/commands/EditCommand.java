@@ -23,6 +23,7 @@ import seedu.address.model.Model;
 import seedu.address.model.person.*;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.transaction.Amount;
+import seedu.address.model.transaction.PersonId;
 import seedu.address.model.transaction.Type;
 
 /**
@@ -244,7 +245,7 @@ public class EditCommand extends Command {
     public static class EditTransactionDescriptor {
         private Amount amount;
         private Type type;
-        private Person person;
+        private PersonId personid;
 
         public EditTransactionDescriptor() {}
 
@@ -255,14 +256,14 @@ public class EditCommand extends Command {
         public EditTransactionDescriptor(EditTransactionDescriptor toCopy) {
             setAmount(toCopy.amount);
             setType(toCopy.type);
-            setPerson(toCopy.person);
+            setPersonId(toCopy.personid);
         }
 
         /**
          * Returns true if at least one field is edited.
          */
         public boolean isAnyFieldEdited() {
-            return CollectionUtil.isAnyNonNull(amount, type, person);
+            return CollectionUtil.isAnyNonNull(amount, type, personid);
         }
 
         public void setAmount(Amount amount) {
@@ -281,12 +282,12 @@ public class EditCommand extends Command {
             return Optional.ofNullable(type);
         }
 
-        public Optional<Person> getPerson() {
-            return Optional.ofNullable(person);
+        public Optional<PersonId> getPersonId() {
+            return Optional.ofNullable(personid);
         }
 
-        public void setPerson(Person person) {
-            this.person = person;
+        public void setPersonId(PersonId personid) {
+            this.personid = personid;
         }
 
         @Override
@@ -305,7 +306,7 @@ public class EditCommand extends Command {
             EditTransactionDescriptor e = (EditTransactionDescriptor) other;
 
             return getAmount().equals(e.getAmount())
-                    && getPerson().equals(e.getPerson())
+                    && getPersonId().equals(e.getPersonId())
                     && getType().equals(e.getType());
         }
     }

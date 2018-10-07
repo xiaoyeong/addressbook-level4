@@ -3,6 +3,7 @@ package seedu.address.testutil;
 import seedu.address.logic.commands.EditCommand.EditTransactionDescriptor;
 import seedu.address.model.person.Person;
 import seedu.address.model.transaction.Amount;
+import seedu.address.model.transaction.PersonId;
 import seedu.address.model.transaction.Transaction;
 import seedu.address.model.transaction.Type;
 
@@ -28,7 +29,7 @@ public class EditTransactionDescriptorBuilder{
         descriptor = new EditTransactionDescriptor();
         descriptor.setAmount(transaction.getAmount());
         descriptor.setType(transaction.getType());
-        descriptor.setPerson(transaction.getPerson());
+        descriptor.setPersonId(transaction.getPersonId());
     }
 
     /**
@@ -50,8 +51,8 @@ public class EditTransactionDescriptorBuilder{
     /**
      * Sets the {@code Person} of the {@code EditTransactionDescriptor} that we are building.
      */
-    public EditTransactionDescriptorBuilder withPerson(Person person) {
-        descriptor.setPerson(person.copyPerson());
+    public EditTransactionDescriptorBuilder withPersonId(String personid) {
+        descriptor.setPersonId(new PersonId(personid));
         return this;
     }
 

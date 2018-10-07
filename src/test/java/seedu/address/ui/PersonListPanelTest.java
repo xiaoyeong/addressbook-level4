@@ -92,16 +92,17 @@ public class PersonListPanelTest extends GuiUnitTest {
     private Path createXmlFileWithPersons(int personCount) throws Exception {
         StringBuilder builder = new StringBuilder();
         builder.append("<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>\n");
-        builder.append("<addressbook>\n");
+        builder.append("<financialdatabase>\n");
         for (int i = 0; i < personCount; i++) {
             builder.append("<persons>\n");
+            builder.append("<uniqueId>").append(Integer.toString(i + 1)).append("</uniqueId>");
             builder.append("<name>").append(i).append("a</name>\n");
             builder.append("<phone>000</phone>\n");
             builder.append("<email>a@aa</email>\n");
             builder.append("<address>a</address>\n");
             builder.append("</persons>\n");
         }
-        builder.append("</addressbook>\n");
+        builder.append("</financialdatabase>\n");
 
         Path manyPersonsFile = Paths.get(TEST_DATA_FOLDER + "manyPersons.xml");
         FileUtil.createFile(manyPersonsFile);
