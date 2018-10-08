@@ -37,7 +37,7 @@ public class UniqueId {
             char randomLimitedInt = (char) ('A' + (random.nextInt(20)));
             buffer.append( randomLimitedInt);
         }
-        this.value = buffer.toString();
+        String generatedString = buffer.toString();
 
     }
 
