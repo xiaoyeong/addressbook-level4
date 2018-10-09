@@ -76,4 +76,3 @@ public interface Model {
      */
     void commitAddressBook();
 }
-

@@ -22,7 +22,7 @@ public class WildcardSearchCommand extends Command{
 
     private final NameContainsLettersPredicate predicate;
 
-    public WildcardSearch(NameContainsLettersPredicate predicate) { this.predicate = predicate; }
+    public WildcardSearchCommand(NameContainsLettersPredicate predicate) { this.predicate = predicate; }
 
     @Override
     public CommandResult execute(Model model, CommandHistory history) {
