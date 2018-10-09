@@ -26,21 +26,17 @@ public class UniqueId {
         value = id;
     }
     public UniqueId() {
-//        Random random = new Random();
-//        value = Integer.toString(random.nextInt() & Integer.MAX_VALUE);
         int targetStringLength = 255;
         Random random = new Random();
         StringBuilder buffer = new StringBuilder(targetStringLength);
         for (int i = 0; i < targetStringLength; i++) {
-
           char randomLimitedInt;
-
           if (i % 2 == 0 ) {
               randomLimitedInt = (char) ('A' + (random.nextInt(26)));
           } else {
               randomLimitedInt = (char) ('a' + (random.nextInt(26)));
           }
-            
+          buffer.append(randomLimitedInt);
         }
         String generatedString = buffer.toString();
         value = generatedString;
