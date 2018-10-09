@@ -1,7 +1,6 @@
 package seedu.address.testutil;
 
 import seedu.address.logic.commands.EditCommand.EditTransactionDescriptor;
-import seedu.address.model.person.Person;
 import seedu.address.model.transaction.Amount;
 import seedu.address.model.transaction.PersonId;
 import seedu.address.model.transaction.Transaction;

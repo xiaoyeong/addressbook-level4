@@ -1,16 +1,21 @@
 package seedu.address.logic.parser;
 
-import seedu.address.logic.commands.AddTransactionCommand;
-import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.transaction.*;
-import seedu.address.model.person.*;
-import seedu.address.model.tag.Tag;
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_PERSONID;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_TRANSACTION_AMOUNT;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_TRANSACTION_DEADLINE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_TRANSACTION_TYPE;
 
-import java.util.Set;
 import java.util.stream.Stream;
 
-import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.logic.parser.CliSyntax.*;
+import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.logic.commands.AddTransactionCommand;
+import seedu.address.model.transaction.Amount;
+import seedu.address.model.transaction.Deadline;
+import seedu.address.model.transaction.PersonId;
+import seedu.address.model.transaction.Transaction;
+import seedu.address.model.transaction.Type;
 
 /**
  * Parses input arguments and creates a new AddCommand object
@@ -34,8 +39,9 @@ public class AddTransactionCommandParser implements Parser<AddTransactionCommand
         PersonId personid = ParserUtil.parsePersonId(argMultimap.getValue(PREFIX_PERSONID).get());
         Amount amount = ParserUtil.parseAmount(argMultimap.getValue(PREFIX_TRANSACTION_AMOUNT).get());
         Type type = ParserUtil.parseType(argMultimap.getValue(PREFIX_TRANSACTION_TYPE).get());
+        Deadline deadline = ParserUtil.parseDeadline(argMultimap.getValue(PREFIX_TRANSACTION_DEADLINE).get());
 
-        Transaction transaction = new Transaction(type, amount, personid);
+        Transaction transaction = new Transaction(type, amount, personid, deadline);
 
         return new AddTransactionCommand(transaction);
     }

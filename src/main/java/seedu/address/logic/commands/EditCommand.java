@@ -20,9 +20,14 @@ import seedu.address.commons.util.CollectionUtil;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-import seedu.address.model.person.*;
+import seedu.address.model.person.Address;
+import seedu.address.model.person.Email;
+import seedu.address.model.person.Name;
+import seedu.address.model.person.Person;
+import seedu.address.model.person.Phone;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.transaction.Amount;
+import seedu.address.model.person.UniqueId;
 import seedu.address.model.transaction.PersonId;
 import seedu.address.model.transaction.Type;
 
@@ -245,7 +250,7 @@ public class EditCommand extends Command {
     public static class EditTransactionDescriptor {
         private Amount amount;
         private Type type;
-        private PersonId personid;
+        private PersonId personId;
 
         public EditTransactionDescriptor() {}
 
@@ -256,14 +261,14 @@ public class EditCommand extends Command {
         public EditTransactionDescriptor(EditTransactionDescriptor toCopy) {
             setAmount(toCopy.amount);
             setType(toCopy.type);
-            setPersonId(toCopy.personid);
+            setPersonId(toCopy.personId);
         }
 
         /**
          * Returns true if at least one field is edited.
          */
         public boolean isAnyFieldEdited() {
-            return CollectionUtil.isAnyNonNull(amount, type, personid);
+            return CollectionUtil.isAnyNonNull(amount, type, personId);
         }
 
         public void setAmount(Amount amount) {
@@ -283,11 +288,11 @@ public class EditCommand extends Command {
         }
 
         public Optional<PersonId> getPersonId() {
-            return Optional.ofNullable(personid);
+            return Optional.ofNullable(personId);
         }
 
-        public void setPersonId(PersonId personid) {
-            this.personid = personid;
+        public void setPersonId(PersonId personId) {
+            this.personId = personId;
         }
 
         @Override

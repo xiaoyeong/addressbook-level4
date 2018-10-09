@@ -1,12 +1,11 @@
 package seedu.address.storage;
 
 import seedu.address.commons.exceptions.IllegalValueException;
+import seedu.address.model.person.UniqueId;
 import seedu.address.model.transaction.*;
-import seedu.address.model.tag.Tag;
 
 import javax.xml.bind.annotation.XmlElement;
 import java.util.*;
-import java.util.stream.Collectors;
 
 /**
  * JAXB-friendly version of the Person.
@@ -21,7 +20,8 @@ public class XmlAdaptedTransaction {
     private String amount;
     @XmlElement(required = true)
     private String type;
-
+    @XmlElement(required = true)
+    private String deadline;
 
     /**
      * Constructs an XmlAdaptedPerson.
@@ -32,10 +32,11 @@ public class XmlAdaptedTransaction {
     /**
      * Constructs an {@code XmlAdaptedPerson} with the given person details.
      */
-    public XmlAdaptedTransaction(String personid, String amount, String type) {
+    public XmlAdaptedTransaction(String personid, String amount, String type, String deadline) {
         this.personid = personid;
         this.amount = amount;
         this.type = type;
+        this.deadline = deadline;
     }
 
     /**
@@ -47,6 +48,7 @@ public class XmlAdaptedTransaction {
         personid = source.getPersonId().value;
         amount = source.getAmount().value;
         type = source.getType().value;
+        deadline = source.getDeadline().value;
     }
 
     /**
@@ -57,10 +59,10 @@ public class XmlAdaptedTransaction {
     public Transaction toModelType() throws IllegalValueException {
 
         if (personid == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, PersonId.class.getSimpleName()));
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, UniqueId.class.getSimpleName()));
         }
-        if (!PersonId.isValidType(personid)) {
-            throw new IllegalValueException(PersonId.MESSAGE_TRANSACTION_PERSONID_CONSTRAINTS);
+        if (!PersonId.isValidId(personid)) {
+            throw new IllegalValueException(UniqueId.MESSAGE_TRANSACTION_PERSONUID_CONSTRAINTS);
         }
         final PersonId modelPersonId = new PersonId(personid);
 
@@ -79,9 +81,14 @@ public class XmlAdaptedTransaction {
             throw new IllegalValueException(Type.MESSAGE_TRANSACTION_TYPE_CONSTRAINTS);
         }
         final Type modelType = new Type(type);
-
-
-        return new Transaction(modelType, modelAmount, modelPersonId);
+        if (deadline == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Deadline.class.getSimpleName()));
+        }
+        if (!Type.isValidType(deadline)) {
+            throw new IllegalValueException(Deadline.MESSAGE_TRANSACTION_DEADLINE_CONSTRAINTS);
+        }
+        final Deadline modelDeadline = new Deadline(deadline);
+        return new Transaction(modelType, modelAmount, modelPersonId, modelDeadline);
     }
 
     @Override
@@ -94,9 +101,11 @@ public class XmlAdaptedTransaction {
             return false;
         }
 
-        XmlAdaptedTransaction otherPerson = (XmlAdaptedTransaction) other;
-        return Objects.equals(type, otherPerson.type)
-                && Objects.equals(amount, otherPerson.amount)
-                && Objects.equals(personid, otherPerson.personid);
+        XmlAdaptedTransaction otherTransaction = (XmlAdaptedTransaction) other;
+        return Objects.equals(type, otherTransaction.type)
+                && Objects.equals(amount, otherTransaction.amount)
+                && Objects.equals(personid, otherTransaction.personid)
+                && Objects.equals(deadline, otherTransaction.deadline);
+        
     }
 }

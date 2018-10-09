@@ -11,7 +11,7 @@ import java.util.Random;
  * Guarantees: immutable; is valid as declared in {@link #isValidUniqueId(String)}
  */
 public class UniqueId {
-    public static final String MESSAGE_UNIQUEID_CONSTRAINTS =
+    public static final String MESSAGE_TRANSACTION_PERSONUID_CONSTRAINTS =
             "Id should contain only numbers";
     public static final String UNIQUEID_VALIDATION_REGEX = "\\d+";
     public final String value;
@@ -22,7 +22,7 @@ public class UniqueId {
      */
     public UniqueId(String id) {
         requireNonNull(id);
-        checkArgument(isValidUniqueId(id), MESSAGE_UNIQUEID_CONSTRAINTS);
+        checkArgument(isValidUniqueId(id), MESSAGE_TRANSACTION_PERSONUID_CONSTRAINTS);
         value = id;
     }
     public UniqueId() {
