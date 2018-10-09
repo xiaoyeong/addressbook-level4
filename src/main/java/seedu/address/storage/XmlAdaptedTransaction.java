@@ -106,6 +106,5 @@ public class XmlAdaptedTransaction {
                 && Objects.equals(amount, otherTransaction.amount)
                 && Objects.equals(personid, otherTransaction.personid)
                 && Objects.equals(deadline, otherTransaction.deadline);
-        
     }
 }
