@@ -64,8 +64,8 @@ Format: edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]…​
 
 === Sorting transactions : `sort`
 
-Sort people by the amount of money loaned to or from them, the deadlines of the debts 
-(be it whether you owe them or money or vice versa), or whether they are debtors or 
+Sort people by the amount of money loaned to or from them, the deadlines of the debts
+(be it whether you owe them or money or vice versa), or whether they are debtors or
 creditors.
 Format: sort [t/TAG]...
 
