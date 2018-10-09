@@ -9,10 +9,10 @@ import com.google.common.eventbus.Subscribe;
 
 import seedu.address.commons.core.ComponentManager;
 import seedu.address.commons.core.LogsCenter;
-import seedu.address.commons.events.model.AddressBookChangedEvent;
+import seedu.address.commons.events.model.FinancialDatabaseChangedEvent;
 import seedu.address.commons.events.storage.DataSavingExceptionEvent;
 import seedu.address.commons.exceptions.DataConversionException;
-import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.ReadOnlyFinancialDatabase;
 import seedu.address.model.UserPrefs;
 
 /**
@@ -21,13 +21,13 @@ import seedu.address.model.UserPrefs;
 public class StorageManager extends ComponentManager implements Storage {
 
     private static final Logger logger = LogsCenter.getLogger(StorageManager.class);
-    private AddressBookStorage addressBookStorage;
+    private FinancialDatabaseStorage financialDatabaseStorage;
     private UserPrefsStorage userPrefsStorage;
 
 
-    public StorageManager(AddressBookStorage addressBookStorage, UserPrefsStorage userPrefsStorage) {
+    public StorageManager(FinancialDatabaseStorage financialDatabaseStorage, UserPrefsStorage userPrefsStorage) {
         super();
-        this.addressBookStorage = addressBookStorage;
+        this.financialDatabaseStorage = financialDatabaseStorage;
         this.userPrefsStorage = userPrefsStorage;
     }
 
@@ -49,42 +49,42 @@ public class StorageManager extends ComponentManager implements Storage {
     }
 
 
-    // ================ AddressBook methods ==============================
+    // ================ Financial Database methods ==============================
 
     @Override
-    public Path getAddressBookFilePath() {
-        return addressBookStorage.getAddressBookFilePath();
+    public Path getFinancialDatabaseFilePath() {
+        return financialDatabaseStorage.getFinancialDatabaseFilePath();
     }
 
     @Override
-    public Optional<ReadOnlyAddressBook> readAddressBook() throws DataConversionException, IOException {
-        return readAddressBook(addressBookStorage.getAddressBookFilePath());
+    public Optional<ReadOnlyFinancialDatabase> readFinancialDatabase() throws DataConversionException, IOException {
+        return readFinancialDatabase(financialDatabaseStorage.getFinancialDatabaseFilePath());
     }
 
     @Override
-    public Optional<ReadOnlyAddressBook> readAddressBook(Path filePath) throws DataConversionException, IOException {
+    public Optional<ReadOnlyFinancialDatabase> readFinancialDatabase(Path filePath) throws DataConversionException, IOException {
         logger.fine("Attempting to read data from file: " + filePath);
-        return addressBookStorage.readAddressBook(filePath);
+        return financialDatabaseStorage.readFinancialDatabase(filePath);
     }
 
     @Override
-    public void saveAddressBook(ReadOnlyAddressBook addressBook) throws IOException {
-        saveAddressBook(addressBook, addressBookStorage.getAddressBookFilePath());
+    public void saveFinancialDatabase(ReadOnlyFinancialDatabase financialDatabase) throws IOException {
+        saveFinancialDatabase(financialDatabase, financialDatabaseStorage.getFinancialDatabaseFilePath());
     }
 
     @Override
-    public void saveAddressBook(ReadOnlyAddressBook addressBook, Path filePath) throws IOException {
+    public void saveFinancialDatabase(ReadOnlyFinancialDatabase financialDatabase, Path filePath) throws IOException {
         logger.fine("Attempting to write to data file: " + filePath);
-        addressBookStorage.saveAddressBook(addressBook, filePath);
+        financialDatabaseStorage.saveFinancialDatabase(financialDatabase, filePath);
     }
 
 
     @Override
     @Subscribe
-    public void handleAddressBookChangedEvent(AddressBookChangedEvent event) {
+    public void handleFinancialDatabaseChangedEvent(FinancialDatabaseChangedEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event, "Local data changed, saving to file"));
         try {
-            saveAddressBook(event.data);
+            saveFinancialDatabase(event.data);
         } catch (IOException e) {
             raise(new DataSavingExceptionEvent(e));
         }

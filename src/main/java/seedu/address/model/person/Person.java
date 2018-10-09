@@ -8,6 +8,7 @@ import java.util.Objects;
 import java.util.Set;
 
 import seedu.address.model.tag.Tag;
+import seedu.address.model.transaction.Transaction;
 
 /**
  * Represents a Person in the address book.
@@ -16,6 +17,7 @@ import seedu.address.model.tag.Tag;
 public class Person {
 
     // Identity fields
+    private final UniqueId uniqueId;
     private final Name name;
     private final Phone phone;
     private final Email email;
@@ -27,8 +29,22 @@ public class Person {
     /**
      * Every field must be present and not null.
      */
+    public Person(Name name, Phone phone, Email email, Address address, UniqueId uniqueId, Set<Tag> tags) {
+        requireAllNonNull(name, phone, email, address, uniqueId, tags);
+        this.uniqueId = uniqueId;
+        this.name = name;
+        this.phone = phone;
+        this.email = email;
+        this.address = address;
+        this.tags.addAll(tags);
+    }
+
+    /**
+     * Every field must be present and not null.
+     */
     public Person(Name name, Phone phone, Email email, Address address, Set<Tag> tags) {
         requireAllNonNull(name, phone, email, address, tags);
+        this.uniqueId = new UniqueId();
         this.name = name;
         this.phone = phone;
         this.email = email;
@@ -52,6 +68,8 @@ public class Person {
         return address;
     }
 
+    public UniqueId getUniqueId() { return uniqueId; }
+
     /**
      * Returns an immutable tag set, which throws {@code UnsupportedOperationException}
      * if modification is attempted.
@@ -70,6 +88,7 @@ public class Person {
         }
 
         return otherPerson != null
+                //&& otherPerson.getUniqueId().equals(getUniqueId())
                 && otherPerson.getName().equals(getName())
                 && (otherPerson.getPhone().equals(getPhone()) || otherPerson.getEmail().equals(getEmail()));
     }
@@ -90,6 +109,7 @@ public class Person {
 
         Person otherPerson = (Person) other;
         return otherPerson.getName().equals(getName())
+                && otherPerson.getUniqueId().equals(getUniqueId())
                 && otherPerson.getPhone().equals(getPhone())
                 && otherPerson.getEmail().equals(getEmail())
                 && otherPerson.getAddress().equals(getAddress())
@@ -99,13 +119,15 @@ public class Person {
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, phone, email, address, tags);
+        return Objects.hash(name, phone, email, address, uniqueId, tags);
     }
 
     @Override
     public String toString() {
         final StringBuilder builder = new StringBuilder();
-        builder.append(getName())
+        builder.append(getUniqueId())
+                .append(" Name: ")
+                .append(getName())
                 .append(" Phone: ")
                 .append(getPhone())
                 .append(" Email: ")
@@ -117,4 +139,7 @@ public class Person {
         return builder.toString();
     }
 
+    public Person copyPerson(){
+        return new Person(name, phone, email, address, uniqueId, tags);
+    }
 }
