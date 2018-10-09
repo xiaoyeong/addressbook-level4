@@ -14,4 +14,5 @@ public class CliSyntax {
     public static final Prefix PREFIX_PERSONID = new Prefix("id/");
     public static final Prefix PREFIX_TRANSACTION_AMOUNT = new Prefix("ta/");
     public static final Prefix PREFIX_TRANSACTION_TYPE = new Prefix("tt/");
+    public static final Prefix PREFIX_TO_DO_LIST = new Prefix("td/");
 }
