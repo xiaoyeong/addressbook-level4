@@ -4,8 +4,8 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
 /**
- * Represents the type of transaction recorded in the database.
- * Guarantees: immutable; is valid as declared in {@link #isValidType(String)}
+ * Represents the id of person associated with a transaction recorded in the database.
+ * Guarantees: immutable; is valid as declared in {@link #isValidId(String)}
  */
 public class PersonId {
     public static final String MESSAGE_TRANSACTION_PERSONID_CONSTRAINTS =
@@ -19,17 +19,17 @@ public class PersonId {
      */
     public PersonId(String id) {
         requireNonNull(id);
-        checkArgument(isValidType(id), MESSAGE_TRANSACTION_PERSONID_CONSTRAINTS);
+        checkArgument(isValidId(id), MESSAGE_TRANSACTION_PERSONID_CONSTRAINTS);
         this.value = id;
     }
 
 
     /**
-     * Returns true if a given string is a valid transaction amount.
+     * Returns true if string {@test} is a valid identifier.
      *
      * @param test the command line argument to be parsed
      */
-    public static boolean isValidType(String test) {
+    public static boolean isValidId(String test) {
         try {
             return Integer.parseInt(test) > 0;
         } catch (NumberFormatException e) {

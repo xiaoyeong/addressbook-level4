@@ -6,8 +6,14 @@ import java.util.stream.Collectors;
 
 import seedu.address.model.FinancialDatabase;
 import seedu.address.model.ReadOnlyFinancialDatabase;
-import seedu.address.model.person.*;
+import seedu.address.model.person.Address;
+import seedu.address.model.person.Email;
+import seedu.address.model.person.Name;
+import seedu.address.model.person.Person;
+import seedu.address.model.person.Phone;
+import seedu.address.model.person.UniqueId;
 import seedu.address.model.transaction.Amount;
+import seedu.address.model.transaction.Deadline;
 import seedu.address.model.transaction.PersonId;
 import seedu.address.model.transaction.Transaction;
 import seedu.address.model.transaction.Type;
@@ -42,8 +48,8 @@ public class SampleDataUtil {
 
     public static Transaction[] getSampleTransactions() {
         return new Transaction[]{
-                new Transaction(new Type("debt"), new Amount("SGD33"), new PersonId("1")),
-                new Transaction(new Type("loan"), new Amount("SGD55"), new PersonId("2"))
+                new Transaction(new Type("debt"), new Amount("SGD 33.00"), new PersonId("1"), new Deadline("15/10/2018")),
+                new Transaction(new Type("loan"), new Amount("SGD 55.50"), new PersonId("2"), new Deadline("17/11/2018"))
         };
     }
 
