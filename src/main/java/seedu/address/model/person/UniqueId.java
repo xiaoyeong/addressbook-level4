@@ -32,8 +32,15 @@ public class UniqueId {
         Random random = new Random();
         StringBuilder buffer = new StringBuilder(targetStringLength);
         for (int i = 0; i < targetStringLength; i++) {
-            char randomLimitedInt = (char) ('A' + (random.nextInt(20)));
-            buffer.append( randomLimitedInt);
+
+          char randomLimitedInt;
+
+          if (i % 2 == 0 ) {
+              randomLimitedInt = (char) ('A' + (random.nextInt(26)));
+          } else {
+              randomLimitedInt = (char) ('a' + (random.nextInt(26)));
+          }
+            
         }
         String generatedString = buffer.toString();
         value = generatedString;
