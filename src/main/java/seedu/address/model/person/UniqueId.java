@@ -1,9 +1,9 @@
 package seedu.address.model.person;
 
+import java.util.Random;
+
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
-
-import java.util.Random;
 
 
 /**
@@ -26,8 +26,24 @@ public class UniqueId {
         value = id;
     }
     public UniqueId() {
+        int targetStringLength = 255;
         Random random = new Random();
-        value = Integer.toString(random.nextInt() & Integer.MAX_VALUE);
+        StringBuilder buffer = new StringBuilder(targetStringLength);
+        for (int i = 0; i < targetStringLength; i++) {
+          char randomLimitedInt;
+
+          int randomNumber = random.nextInt(52);
+
+
+          if (randomNumber <= 25 ) {
+              randomLimitedInt = (char) ('A' + randomNumber ) ;
+          } else {
+              randomLimitedInt = (char) ('a' + randomNumber - 26);
+          }
+          buffer.append(randomLimitedInt);
+        }
+        String generatedString = buffer.toString();
+        value = generatedString;
     }
 
     /**
