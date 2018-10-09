@@ -31,10 +31,14 @@ public class UniqueId {
         StringBuilder buffer = new StringBuilder(targetStringLength);
         for (int i = 0; i < targetStringLength; i++) {
           char randomLimitedInt;
-          if (i % 2 == 0 ) {
-              randomLimitedInt = (char) ('A' + (random.nextInt(26)));
+
+          int randomNumber = random.nextInt(52);
+
+
+          if (randomNumber <= 25 ) {
+              randomLimitedInt = (char) ('A' + randomNumber ) ;
           } else {
-              randomLimitedInt = (char) ('a' + (random.nextInt(26)));
+              randomLimitedInt = (char) ('a' + randomNumber - 26);
           }
           buffer.append(randomLimitedInt);
         }
