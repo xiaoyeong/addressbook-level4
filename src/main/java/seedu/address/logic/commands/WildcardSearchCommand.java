@@ -10,7 +10,7 @@ import seedu.address.model.person.NameContainsLettersPredicate;
 /**
  *
  */
-public class WildcardSearch extends Command{
+public class WildcardSearchCommand extends Command{
 
     public static final String COMMAND_WORD = "search";
     public static final String COMMAND_ALIAS = "wcs";
@@ -33,3 +33,4 @@ public class WildcardSearch extends Command{
     }
 
 }
+
