@@ -85,7 +85,7 @@ public class XmlAdaptedPerson {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, UniqueId.class.getSimpleName()));
         }
         if (!UniqueId.isValidUniqueId(uniqueId)) {
-            throw new IllegalValueException(UniqueId.MESSAGE_UNIQUEID_CONSTRAINTS);
+            throw new IllegalValueException(UniqueId.MESSAGE_TRANSACTION_PERSONUID_CONSTRAINTS);
         }
         final UniqueId modelUniqueId = new UniqueId(uniqueId);
 

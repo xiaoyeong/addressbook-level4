@@ -1,14 +1,15 @@
 package seedu.address.model;
 
-import java.util.function.Predicate;
-
 import javafx.collections.ObservableList;
 import seedu.address.model.person.Person;
 import seedu.address.model.transaction.Transaction;
 
+import java.util.function.Predicate;
+
 /**
  * The API of the Model component.
  */
+
 public interface Model {
     /** {@code Predicate} that always evaluate to true */
     Predicate<Transaction> PREDICATE_SHOW_ALL_TRANSACTIONS = unused -> true;
@@ -114,3 +115,4 @@ public interface Model {
      */
     void commitFinancialDatabase();
 }
+
