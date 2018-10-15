@@ -13,6 +13,7 @@ import javafx.scene.web.WebView;
 import seedu.address.MainApp;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.ui.PersonPanelSelectionChangedEvent;
+import seedu.address.commons.events.ui.ShowCalendarEvent;
 import seedu.address.model.person.Person;
 
 /**
@@ -23,6 +24,8 @@ public class BrowserPanel extends UiPart<Region> {
     public static final String DEFAULT_PAGE = "default.html";
     public static final String SEARCH_PAGE_URL =
             "https://se-edu.github.io/addressbook-level4/DummySearchPage.html?name=";
+    public static final String CALENDAR_PAGE_URL =
+            "https://calendar.google.com/calendar/b/1/embed?src=";
 
     private static final String FXML = "BrowserPanel.fxml";
 
@@ -44,6 +47,8 @@ public class BrowserPanel extends UiPart<Region> {
     private void loadPersonPage(Person person) {
         loadPage(SEARCH_PAGE_URL + person.getName().fullName);
     }
+
+    private void loadCalendarPage(String id) { loadPage(CALENDAR_PAGE_URL + id + "&ctz=Asia/Singapore");}
 
     public void loadPage(String url) {
         Platform.runLater(() -> browser.getEngine().load(url));
@@ -68,5 +73,11 @@ public class BrowserPanel extends UiPart<Region> {
     private void handlePersonPanelSelectionChangedEvent(PersonPanelSelectionChangedEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
         loadPersonPage(event.getNewSelection());
+    }
+
+    @Subscribe
+    private void handleShowCalendarEvent(ShowCalendarEvent event){
+        logger.info(LogsCenter.getEventHandlingLogMessage(event));
+        loadCalendarPage(event.getCalendarId());
     }
 }
