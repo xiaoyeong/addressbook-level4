@@ -8,7 +8,6 @@ import java.util.Objects;
 import java.util.Set;
 
 import seedu.address.model.tag.Tag;
-import seedu.address.model.transaction.Transaction;
 
 /**
  * Represents a Person in the address book.
@@ -27,7 +26,7 @@ public class Person {
     private final Set<Tag> tags = new HashSet<>();
 
     /**
-     * Every field must be present and not null.
+     * Parameterized constructor that takes in a UniqueId argument
      */
     public Person(Name name, Phone phone, Email email, Address address, UniqueId uniqueId, Set<Tag> tags) {
         requireAllNonNull(name, phone, email, address, uniqueId, tags);
@@ -68,7 +67,9 @@ public class Person {
         return address;
     }
 
-    public UniqueId getUniqueId() { return uniqueId; }
+    public UniqueId getUniqueId() {
+        return uniqueId;
+    }
 
     /**
      * Returns an immutable tag set, which throws {@code UnsupportedOperationException}
@@ -78,24 +79,9 @@ public class Person {
         return Collections.unmodifiableSet(tags);
     }
 
-    /**
-     * Returns true if both persons of the same name have at least one other identity field that is the same.
-     * This defines a weaker notion of equality between two persons.
-     */
-    public boolean isSamePerson(Person otherPerson) {
-        if (otherPerson == this) {
-            return true;
-        }
-
-        return otherPerson != null
-                //&& otherPerson.getUniqueId().equals(getUniqueId())
-                && otherPerson.getName().equals(getName())
-                && (otherPerson.getPhone().equals(getPhone()) || otherPerson.getEmail().equals(getEmail()));
-    }
 
     /**
-     * Returns true if both persons have the same identity and data fields.
-     * This defines a stronger notion of equality between two persons.
+     * Returns true if {@code other} has the same ID as the current Person object.
      */
     @Override
     public boolean equals(Object other) {
@@ -108,12 +94,7 @@ public class Person {
         }
 
         Person otherPerson = (Person) other;
-        return otherPerson.getName().equals(getName())
-                && otherPerson.getUniqueId().equals(getUniqueId())
-                && otherPerson.getPhone().equals(getPhone())
-                && otherPerson.getEmail().equals(getEmail())
-                && otherPerson.getAddress().equals(getAddress())
-                && otherPerson.getTags().equals(getTags());
+        return otherPerson.getUniqueId().equals(getUniqueId());
     }
 
     @Override
@@ -139,7 +120,7 @@ public class Person {
         return builder.toString();
     }
 
-    public Person copyPerson(){
+    public Person copyPerson() {
         return new Person(name, phone, email, address, uniqueId, tags);
     }
 }

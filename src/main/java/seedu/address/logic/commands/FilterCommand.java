@@ -1,18 +1,14 @@
 package seedu.address.logic.commands;
 
+import static java.util.Objects.requireNonNull;
+
+import java.util.List;
+
 import seedu.address.commons.core.Messages;
 import seedu.address.logic.CommandHistory;
 import seedu.address.model.Model;
 import seedu.address.model.person.FieldContainsKeywordsPredicate;
 import seedu.address.model.person.MultiFieldPredicate;
-import seedu.address.model.person.NameContainsKeywordsPredicate;
-import seedu.address.model.person.Person;
-
-import java.util.List;
-import java.util.function.Predicate;
-
-import static java.util.Objects.requireNonNull;
-
 
 /**
  * Finds and lists all persons in address book whose name/phone/email/address contains any of the argument keywords.
@@ -23,9 +19,9 @@ public class FilterCommand extends Command {
     public static final String COMMAND_WORD = "filter";
     public static final String COMMAND_ALIAS = "fi";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Filters all persons whose specified field(s) contain any of "
-            + "the specified keywords (case-insensitive) and displays them as a list with index numbers.\n"
-            + "Parameters: KEYWORD [MORE_KEYWORDS]...\n"
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Filters all transactions whose specified field(s) "
+            + "contain any of the specified keywords (case-insensitive) and displays them as a list"
+            + ".\nParameters: KEYWORD [MORE_KEYWORDS]...\n"
             + "Example: " + COMMAND_WORD + " n/alice e/alice@gmail.com";
 
     private final List<FieldContainsKeywordsPredicate> predicates;

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<addressbook>
+    <transactions>
+        <firstName>Aadit</firstName>
+        <lastName>Kamat</lastName>
+        <githubUsername></githubUsername>
+        <street></street>
+        <postalCode></postalCode>
+        <city></city>
+    </transactions>
+</addressbook>

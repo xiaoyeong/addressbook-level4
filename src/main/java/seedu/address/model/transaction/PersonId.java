@@ -47,8 +47,8 @@ public class PersonId {
         if (!(other instanceof PersonId)) {
             return false;
         }
-        PersonId Type = (PersonId) other;
-        return other == this || value.equals(Type.value);
+        PersonId personId = (PersonId) other;
+        return other == this || value.equals(personId.value);
     }
 
     @Override

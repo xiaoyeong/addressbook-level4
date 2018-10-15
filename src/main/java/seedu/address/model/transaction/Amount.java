@@ -1,13 +1,15 @@
 package seedu.address.model.transaction;
 
+import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.util.AppUtil.checkArgument;
+
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Currency;
-import static java.util.Objects.requireNonNull;
 import java.util.Optional;
 import java.util.Set;
+
 import seedu.address.commons.exceptions.DataConversionException;
-import static seedu.address.commons.util.AppUtil.checkArgument;
 import seedu.address.commons.util.JsonUtil;
 
 /**
@@ -52,7 +54,12 @@ public class Amount {
         return test.matches(TRANSACTION_AMOUNT_VALIDATION_REGEX) && checkCurrency(test);
     }
 
-    public static void convertCurrency(String amount) {
+    /**
+     * Handles the conversion of foreign currency to Singaporean currency.
+     *
+     * @param amount the amount in a given currency which is to be converted to Singaporean currency
+     */
+    private static void convertCurrency(String amount) {
         String currencyCode = amount.split(" ")[0].toUpperCase();
         Path filePath = Paths.get(String.format(
                 "http://free.currencyconverterapi.com/api/v5/convert?q=%s_SGD&compact=y", currencyCode));
@@ -64,6 +71,7 @@ public class Amount {
         }
 
     }
+
     /**
      * Compares the currency code of the string {@code test} with the codes of the existing currencies.
      * @param test the command line argument to be parsed
@@ -88,8 +96,8 @@ public class Amount {
         if (!(other instanceof Type)) {
             return false;
         }
-        Type Type = (Type) other;
-        return other == this || value.equals(Type.value);
+        Type type = (Type) other;
+        return other == this || value.equals(type.value);
     }
 
     @Override

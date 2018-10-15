@@ -41,8 +41,14 @@ public class XmlSerializableFinancialDatabase {
      */
     public XmlSerializableFinancialDatabase(ReadOnlyFinancialDatabase src) {
         this();
-        persons.addAll(src.getPersonList().stream().map(XmlAdaptedPerson::new).collect(Collectors.toList()));
-        transactions.addAll(src.getTransactionList().stream().map(XmlAdaptedTransaction::new).collect(Collectors.toList()));
+        persons.addAll(src.getPersonList()
+                          .stream()
+                          .map(XmlAdaptedPerson::new)
+                          .collect(Collectors.toList()));
+        transactions.addAll(src.getTransactionList()
+                               .stream()
+                               .map(XmlAdaptedTransaction::new)
+                               .collect(Collectors.toList()));
     }
 
     /**
@@ -53,13 +59,6 @@ public class XmlSerializableFinancialDatabase {
      */
     public FinancialDatabase toModelType() throws IllegalValueException {
         FinancialDatabase financialDatabase = new FinancialDatabase();
-        for (XmlAdaptedPerson p : persons) {
-            Person person = p.toModelType();
-            if (financialDatabase.hasPerson(person)) {
-                throw new IllegalValueException(MESSAGE_DUPLICATE_PERSON);
-            }
-            financialDatabase.addPerson(person);
-        }
 
         for (XmlAdaptedTransaction t : transactions) {
             Transaction transaction = t.toModelType();

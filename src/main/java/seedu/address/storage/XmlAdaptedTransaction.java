@@ -1,11 +1,18 @@
 package seedu.address.storage;
 
-import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.model.person.UniqueId;
-import seedu.address.model.transaction.*;
+import java.util.Objects;
 
 import javax.xml.bind.annotation.XmlElement;
-import java.util.*;
+
+import seedu.address.commons.exceptions.IllegalValueException;
+import seedu.address.model.person.Person;
+import seedu.address.model.person.UniqueId;
+import seedu.address.model.transaction.Amount;
+import seedu.address.model.transaction.Deadline;
+import seedu.address.model.transaction.PersonId;
+import seedu.address.model.transaction.Transaction;
+import seedu.address.model.transaction.Type;
+
 
 /**
  * JAXB-friendly version of the Person.
@@ -15,13 +22,22 @@ public class XmlAdaptedTransaction {
     public static final String MISSING_FIELD_MESSAGE_FORMAT = "Transaction's %s field is missing!";
 
     @XmlElement(required = true)
-    private String personid;
+    private String uniqueId;
     @XmlElement(required = true)
     private String amount;
     @XmlElement(required = true)
     private String type;
     @XmlElement(required = true)
     private String deadline;
+    @XmlElement(required = true)
+    private String name;
+    @XmlElement(required = true)
+    private String phone;
+    @XmlElement(required = true)
+    private String email;
+    @XmlElement(required = true)
+    private String address;
+
 
     /**
      * Constructs an XmlAdaptedPerson.
@@ -32,8 +48,12 @@ public class XmlAdaptedTransaction {
     /**
      * Constructs an {@code XmlAdaptedPerson} with the given person details.
      */
-    public XmlAdaptedTransaction(String personid, String amount, String type, String deadline) {
-        this.personid = personid;
+    public XmlAdaptedTransaction(String amount, String type, String deadline, String name, String email,
+                                 String phone, String address) {
+        this.name = name;
+        this.phone = phone;
+        this.email = email;
+        this.address = address;
         this.amount = amount;
         this.type = type;
         this.deadline = deadline;
@@ -45,29 +65,51 @@ public class XmlAdaptedTransaction {
      * @param source future changes to this will not affect the created XmlAdaptedPerson
      */
     public XmlAdaptedTransaction(Transaction source) {
-        personid = source.getPersonId().value;
+        name = source.getPerson().getName().fullName;
+        email = source.getPerson().getEmail().value;
+        phone = source.getPerson().getPhone().value;
+        address = source.getPerson().getAddress().value;
         amount = source.getAmount().value;
         type = source.getType().value;
         deadline = source.getDeadline().value;
     }
 
     /**
-     * Converts this jaxb-friendly adapted person object into the model's Person object.
+     * Converts this jaxb-friendly adapted transaction object into the model's Transaction object.
      *
      * @throws IllegalValueException if there were any data constraints violated in the adapted person
      */
     public Transaction toModelType() throws IllegalValueException {
-
-        if (personid == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, UniqueId.class.getSimpleName()));
+        if (amount == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                    Amount.class.getSimpleName()));
         }
-        if (!PersonId.isValidId(personid)) {
-            throw new IllegalValueException(UniqueId.MESSAGE_TRANSACTION_PERSONUID_CONSTRAINTS);
+        if (!Amount.isValidAmount(amount)) {
+            throw new IllegalValueException(Amount.MESSAGE_TRANSACTION_AMOUNT_CONSTRAINTS);
         }
-        final PersonId modelPersonId = new PersonId(personid);
+        final Amount modelAmount = new Amount(amount);
 
         if (amount == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Amount.class.getSimpleName()));
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                    Amount.class.getSimpleName()));
+        }
+        if (!Amount.isValidAmount(amount)) {
+            throw new IllegalValueException(Amount.MESSAGE_TRANSACTION_AMOUNT_CONSTRAINTS);
+        }
+        final Amount modelAmount = new Amount(amount);
+
+        if (amount == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                    Amount.class.getSimpleName()));
+        }
+        if (!Amount.isValidAmount(amount)) {
+            throw new IllegalValueException(Amount.MESSAGE_TRANSACTION_AMOUNT_CONSTRAINTS);
+        }
+        final Amount modelAmount = new Amount(amount);
+
+        if (amount == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                    Amount.class.getSimpleName()));
         }
         if (!Amount.isValidAmount(amount)) {
             throw new IllegalValueException(Amount.MESSAGE_TRANSACTION_AMOUNT_CONSTRAINTS);
@@ -75,20 +117,22 @@ public class XmlAdaptedTransaction {
         final Amount modelAmount = new Amount(amount);
 
         if (type == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Type.class.getSimpleName()));
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                    Type.class.getSimpleName()));
         }
         if (!Type.isValidType(type)) {
             throw new IllegalValueException(Type.MESSAGE_TRANSACTION_TYPE_CONSTRAINTS);
         }
         final Type modelType = new Type(type);
         if (deadline == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Deadline.class.getSimpleName()));
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                    Deadline.class.getSimpleName()));
         }
         if (!Type.isValidType(deadline)) {
             throw new IllegalValueException(Deadline.MESSAGE_TRANSACTION_DEADLINE_CONSTRAINTS);
         }
         final Deadline modelDeadline = new Deadline(deadline);
-        return new Transaction(modelType, modelAmount, modelPersonId, modelDeadline);
+        return new Transaction(modelType, modelAmount, modelDeadline, modelPersonId);
     }
 
     @Override
