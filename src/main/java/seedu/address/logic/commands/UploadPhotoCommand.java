@@ -11,11 +11,8 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.person.Person;
 
-
-
-
-/*
- *
+/**
+ * Uploads the photo of the person in a transaction for record keeping purposes.
  */
 public class UploadPhotoCommand extends Command {
 
@@ -24,19 +21,18 @@ public class UploadPhotoCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": upload image to that person contact";
 
-    private String path;
     private String filePath;
     private Index imageindex;
 
 
-    public UploadPhotoCommand(Index index, String imagePath) {
+    public UploadPhotoCommand(Index index, String path) {
 
         //make sure input not null
         requireNonNull(index);
-        requireNonNull(imagePath);
+        requireNonNull(path);
 
         imageindex = index;
-        path = path;
+        filePath = path;
     }
 
 

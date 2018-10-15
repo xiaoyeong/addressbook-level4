@@ -4,6 +4,8 @@ import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 
 import seedu.address.model.person.Person;
+import seedu.address.model.transaction.Transaction;
+import seedu.address.testutil.TransactionBuilder;
 import static seedu.address.testutil.TypicalPersons.getTypicalFinancialDatabase;
 
 import org.junit.Before;
@@ -30,21 +32,21 @@ public class AddCommandIntegrationTest {
 
     @Test
     public void execute_newPerson_success() {
-        Person validPerson = new PersonBuilder().build();
+        Transaction validTransaction = new TransactionBuilder().build();
 
         Model expectedModel = new ModelManager(model.getFinancialDatabase(), new UserPrefs());
-        expectedModel.addPerson(validPerson);
+        expectedModel.addTransaction(validTransaction);
         expectedModel.commitFinancialDatabase();
 
-        assertCommandSuccess(new AddCommand(validPerson), model, commandHistory,
-                String.format(AddCommand.MESSAGE_SUCCESS, validPerson), expectedModel);
+        assertCommandSuccess(new AddCommand(validTransaction), model, commandHistory,
+                String.format(AddCommand.MESSAGE_SUCCESS, validTransaction), expectedModel);
     }
 
     @Test
     public void execute_duplicatePerson_throwsCommandException() {
-        Person personInList = model.getFinancialDatabase().getPersonList().get(0);
-        assertCommandFailure(new AddCommand(personInList), model, commandHistory,
-                AddCommand.MESSAGE_DUPLICATE_PERSON);
+        Transaction transactionInList = model.getFinancialDatabase().getTransactionList().get(0);
+        assertCommandFailure(new AddCommand(transactionInList), model, commandHistory,
+                AddCommand.MESSAGE_DUPLICATE_TRANSACTION);
     }
 
 }

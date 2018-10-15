@@ -8,7 +8,6 @@ import java.util.Objects;
 import java.util.Set;
 
 import seedu.address.model.tag.Tag;
-import seedu.address.model.transaction.Transaction;
 
 /**
  * Represents a Person in the address book.
@@ -68,7 +67,9 @@ public class Person {
         return address;
     }
 
-    public UniqueId getUniqueId() { return uniqueId; }
+    public UniqueId getUniqueId() {
+        return uniqueId;
+    }
 
     /**
      * Returns an immutable tag set, which throws {@code UnsupportedOperationException}
@@ -139,7 +140,7 @@ public class Person {
         return builder.toString();
     }
 
-    public Person copyPerson(){
+    public Person copyPerson() {
         return new Person(name, phone, email, address, uniqueId, tags);
     }
 }

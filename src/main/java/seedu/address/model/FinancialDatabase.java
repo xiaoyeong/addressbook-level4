@@ -130,7 +130,8 @@ public class FinancialDatabase implements ReadOnlyFinancialDatabase {
     /**
      * Replaces the given Transaction {@code target} in the list with {@code editedTransaction}.
      * {@code target} must exist in the address book.
-     * The Transaction identity of {@code editedTransaction} must not be the same as another existing Transaction in the address book.
+     * The Transaction identity of {@code editedTransaction} must not be the same as another existing Transaction in the
+     * address book.
      */
     public void updateTransaction(Transaction target, Transaction editedTransaction) {
         requireNonNull(editedTransaction);
@@ -150,8 +151,8 @@ public class FinancialDatabase implements ReadOnlyFinancialDatabase {
 
     @Override
     public String toString() {
-        return persons.asUnmodifiableObservableList().size() + " Persons and " +
-                transactions.asUnmodifiableObservableList().size() + " Transactions";
+        return persons.asUnmodifiableObservableList().size() + " Persons and "
+            + transactions.asUnmodifiableObservableList().size() + " Transactions";
         // TODO: refine later
     }
 

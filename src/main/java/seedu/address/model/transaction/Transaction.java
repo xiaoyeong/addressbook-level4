@@ -1,7 +1,6 @@
 package seedu.address.model.transaction;
 
 import java.util.Objects;
-import seedu.address.model.transaction.PersonId;
 
 /**
  * {@code Transaction} class encapsulates a transaction added to the financial database
@@ -14,11 +13,11 @@ public class Transaction {
     private Deadline deadline;
 
     /**
-     * Represents a transaction with non null fields {@code type}, {@code amount}, {@code personidid}
+     * Represents a transaction with non null fields {@code type}, {@code amount}, {@code personid}
      * and {@code deadline}
      * @param type type of transaction, either a loan or a debt
      * @param amount the amount lent/owed by creditor/debtor respectively
-     * @param personid the identifier for the personid who is carrying out transaction with the user
+     * @param personid the identifier for the person who is carrying out transaction with the user
      * @param deadline the date on which the payment is to be made
      */
     public Transaction(Type type, Amount amount, PersonId personid, Deadline deadline) {
