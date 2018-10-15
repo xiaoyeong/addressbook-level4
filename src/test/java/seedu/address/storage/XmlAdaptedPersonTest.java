@@ -1,7 +1,7 @@
 package seedu.address.storage;
 
 import static org.junit.Assert.assertEquals;
-import static seedu.address.storage.XmlAdaptedPerson.MISSING_FIELD_MESSAGE_FORMAT;
+import static seedu.address.storage.XmlAdaptedTransaction.MISSING_FIELD_MESSAGE_FORMAT;
 import static seedu.address.testutil.TypicalPersons.BENSON;
 
 import java.util.ArrayList;
@@ -15,15 +15,22 @@ import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Phone;
+import seedu.address.model.transaction.Transaction;
 import seedu.address.testutil.Assert;
 
 public class XmlAdaptedPersonTest {
+    private static final String INVALID_TYPE = "Borrow";
+    private static final String INVALID_AMOUNT = "46.50";
+    private static final String INVALID_DEADLINE = "21112018";
     private static final String INVALID_NAME = "R@chel";
     private static final String INVALID_PHONE = "+651234";
     private static final String INVALID_ADDRESS = " ";
     private static final String INVALID_EMAIL = "example.com";
     private static final String INVALID_TAG = "#friend";
 
+    private static final String VALID_TYPE = "Loan";
+    private static final String VALID_AMOUNT = "SGD 45.60";
+    private static final String VALID_DEADLINE = "21/11/2018";
     private static final String VALID_NAME = BENSON.getName().toString();
     private static final String VALID_PHONE = BENSON.getPhone().toString();
     private static final String VALID_EMAIL = BENSON.getEmail().toString();
@@ -34,9 +41,9 @@ public class XmlAdaptedPersonTest {
             .collect(Collectors.toList());
 
     @Test
-    public void toModelType_validPersonDetails_returnsPerson() throws Exception {
-        XmlAdaptedPerson person = new XmlAdaptedPerson(BENSON);
-        assertEquals(BENSON, person.toModelType());
+    public void toModelType_validTransactionDetails_returnsTransaction() throws Exception {
+        XmlAdaptedTransaction transaction = new XmlAdaptedTransaction(BENSON_TRANSACTION);
+        assertEquals(BENSON_TRANSACTION, transaction.toModelType());
     }
 
     @Test

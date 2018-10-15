@@ -10,7 +10,6 @@ import javax.xml.bind.annotation.XmlRootElement;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.FinancialDatabase;
 import seedu.address.model.ReadOnlyFinancialDatabase;
-import seedu.address.model.person.Person;
 import seedu.address.model.transaction.Transaction;
 
 /**
@@ -20,10 +19,6 @@ import seedu.address.model.transaction.Transaction;
 public class XmlSerializableFinancialDatabase {
 
     public static final String MESSAGE_DUPLICATE_PERSON = "Persons list contains duplicate person(s).";
-
-    @XmlElement
-    private List<XmlAdaptedPerson> persons;
-
     @XmlElement
     private List<XmlAdaptedTransaction> transactions;
 
@@ -32,7 +27,6 @@ public class XmlSerializableFinancialDatabase {
      * This empty constructor is required for marshalling.
      */
     public XmlSerializableFinancialDatabase() {
-        persons = new ArrayList<>();
         transactions = new ArrayList<>();
     }
 
@@ -41,10 +35,6 @@ public class XmlSerializableFinancialDatabase {
      */
     public XmlSerializableFinancialDatabase(ReadOnlyFinancialDatabase src) {
         this();
-        persons.addAll(src.getPersonList()
-                          .stream()
-                          .map(XmlAdaptedPerson::new)
-                          .collect(Collectors.toList()));
         transactions.addAll(src.getTransactionList()
                                .stream()
                                .map(XmlAdaptedTransaction::new)
@@ -55,7 +45,7 @@ public class XmlSerializableFinancialDatabase {
      * Converts this addressbook into the model's {@code AddressBook} object.
      *
      * @throws IllegalValueException if there were any data constraints violated or duplicates in the
-     * {@code XmlAdaptedPerson}.
+     * {@code XmlAdaptedTransaction}.
      */
     public FinancialDatabase toModelType() throws IllegalValueException {
         FinancialDatabase financialDatabase = new FinancialDatabase();
@@ -79,7 +69,6 @@ public class XmlSerializableFinancialDatabase {
         if (!(other instanceof XmlSerializableFinancialDatabase)) {
             return false;
         }
-        return persons.equals(((XmlSerializableFinancialDatabase) other).persons)
-                && transactions.equals(((XmlSerializableFinancialDatabase) other).transactions);
+        return transactions.equals(((XmlSerializableFinancialDatabase) other).transactions);
     }
 }

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <!-- Transaction with an invalid amount field -->
 <transaction>
-	<type>Payment</type>
+	<type>Loan</type>
     <amount>342.60</amount>
     <deadline>15/11/2018</deadline>
     <name>Hans Muster</name>
