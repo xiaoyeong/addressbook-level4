@@ -9,8 +9,8 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_TRANSACTION_TYPE;
 
 import java.util.stream.Stream;
 
-import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.logic.commands.AddTransactionCommand;
+import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.transaction.Amount;
 import seedu.address.model.transaction.Deadline;
 import seedu.address.model.transaction.PersonId;
@@ -29,11 +29,13 @@ public class AddTransactionCommandParser implements Parser<AddTransactionCommand
      */
     public AddTransactionCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_PERSONID, PREFIX_TRANSACTION_AMOUNT, PREFIX_TRANSACTION_TYPE, PREFIX_TAG);
+                ArgumentTokenizer.tokenize(args, PREFIX_PERSONID, PREFIX_TRANSACTION_AMOUNT, PREFIX_TRANSACTION_TYPE,
+                        PREFIX_TAG);
 
         if (!arePrefixesPresent(argMultimap, PREFIX_PERSONID, PREFIX_TRANSACTION_AMOUNT, PREFIX_TRANSACTION_TYPE)
                 || !argMultimap.getPreamble().isEmpty()) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddTransactionCommand.MESSAGE_USAGE));
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                    AddTransactionCommand.MESSAGE_USAGE));
         }
 
         PersonId personid = ParserUtil.parsePersonId(argMultimap.getValue(PREFIX_PERSONID).get());

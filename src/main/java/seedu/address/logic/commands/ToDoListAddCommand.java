@@ -1,10 +1,10 @@
 package seedu.address.logic.commands;
 
+import static seedu.address.logic.parser.CliSyntax.PREFIX_TO_DO_LIST;
+
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-
-import static seedu.address.logic.parser.CliSyntax.PREFIX_TO_DO_LIST;
 
 /**
  * Adds a String user input to the list. Contains actions that the user may want to take related to their

@@ -10,7 +10,7 @@ import seedu.address.model.person.NameContainsLettersPredicate;
 /**
  *
  */
-public class WildcardSearchCommand extends Command{
+public class WildcardSearchCommand extends Command {
 
     public static final String COMMAND_WORD = "search";
     public static final String COMMAND_ALIAS = "wcs";
@@ -22,7 +22,9 @@ public class WildcardSearchCommand extends Command{
 
     private final NameContainsLettersPredicate predicate;
 
-    public WildcardSearchCommand(NameContainsLettersPredicate predicate) { this.predicate = predicate; }
+    public WildcardSearchCommand(NameContainsLettersPredicate predicate) {
+        this.predicate = predicate;
+    }
 
     @Override
     public CommandResult execute(Model model, CommandHistory history) {

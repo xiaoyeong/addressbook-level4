@@ -1,11 +1,17 @@
 package seedu.address.storage;
 
-import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.model.person.UniqueId;
-import seedu.address.model.transaction.*;
+import java.util.Objects;
 
 import javax.xml.bind.annotation.XmlElement;
-import java.util.*;
+
+import seedu.address.commons.exceptions.IllegalValueException;
+import seedu.address.model.person.UniqueId;
+import seedu.address.model.transaction.Amount;
+import seedu.address.model.transaction.Deadline;
+import seedu.address.model.transaction.PersonId;
+import seedu.address.model.transaction.Transaction;
+import seedu.address.model.transaction.Type;
+
 
 /**
  * JAXB-friendly version of the Person.
@@ -59,7 +65,8 @@ public class XmlAdaptedTransaction {
     public Transaction toModelType() throws IllegalValueException {
 
         if (personid == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, UniqueId.class.getSimpleName()));
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                    UniqueId.class.getSimpleName()));
         }
         if (!PersonId.isValidId(personid)) {
             throw new IllegalValueException(UniqueId.MESSAGE_TRANSACTION_PERSONUID_CONSTRAINTS);
@@ -67,7 +74,8 @@ public class XmlAdaptedTransaction {
         final PersonId modelPersonId = new PersonId(personid);
 
         if (amount == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Amount.class.getSimpleName()));
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                    Amount.class.getSimpleName()));
         }
         if (!Amount.isValidAmount(amount)) {
             throw new IllegalValueException(Amount.MESSAGE_TRANSACTION_AMOUNT_CONSTRAINTS);
@@ -75,14 +83,16 @@ public class XmlAdaptedTransaction {
         final Amount modelAmount = new Amount(amount);
 
         if (type == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Type.class.getSimpleName()));
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                    Type.class.getSimpleName()));
         }
         if (!Type.isValidType(type)) {
             throw new IllegalValueException(Type.MESSAGE_TRANSACTION_TYPE_CONSTRAINTS);
         }
         final Type modelType = new Type(type);
         if (deadline == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Deadline.class.getSimpleName()));
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                    Deadline.class.getSimpleName()));
         }
         if (!Type.isValidType(deadline)) {
             throw new IllegalValueException(Deadline.MESSAGE_TRANSACTION_DEADLINE_CONSTRAINTS);
