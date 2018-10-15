@@ -17,7 +17,7 @@ public class NameContainsLettersPredicate implements Predicate<Person> {
     public boolean test(Person person) {
         return letters.stream()
                 .anyMatch(input -> check(input, person.getName().fullName));
-                        //StringUtil.containsWordIgnoreCase(person.getName().fullName, input));
+        //StringUtil.containsWordIgnoreCase(person.getName().fullName, input));
     }
 
     @Override
@@ -64,4 +64,3 @@ public class NameContainsLettersPredicate implements Predicate<Person> {
     }
 
 }
-

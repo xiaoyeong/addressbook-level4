@@ -13,7 +13,12 @@ import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Phone;
+import seedu.address.model.person.UniqueId;
 import seedu.address.model.tag.Tag;
+import seedu.address.model.transaction.Amount;
+import seedu.address.model.transaction.Deadline;
+import seedu.address.model.transaction.PersonId;
+import seedu.address.model.transaction.Type;
 
 /**
  * Contains utility methods used for parsing strings in the various *Parser classes.
@@ -36,7 +41,7 @@ public class ParserUtil {
     }
 
     /**
-     * Parses a {@code String name} into a {@code Name}.
+     * Parses a string {@code name} into a {@code Name}.
      * Leading and trailing whitespaces will be trimmed.
      *
      * @throws ParseException if the given {@code name} is invalid.
@@ -51,7 +56,7 @@ public class ParserUtil {
     }
 
     /**
-     * Parses a {@code String phone} into a {@code Phone}.
+     * Parses a string {@code phone} into a {@code Phone}.
      * Leading and trailing whitespaces will be trimmed.
      *
      * @throws ParseException if the given {@code phone} is invalid.
@@ -66,7 +71,7 @@ public class ParserUtil {
     }
 
     /**
-     * Parses a {@code String address} into an {@code Address}.
+     * Parses a string {@code address} into an {@code Address}.
      * Leading and trailing whitespaces will be trimmed.
      *
      * @throws ParseException if the given {@code address} is invalid.
@@ -81,7 +86,7 @@ public class ParserUtil {
     }
 
     /**
-     * Parses a {@code String email} into an {@code Email}.
+     * Parses a string {@code email} into an {@code Email}.
      * Leading and trailing whitespaces will be trimmed.
      *
      * @throws ParseException if the given {@code email} is invalid.
@@ -96,7 +101,67 @@ public class ParserUtil {
     }
 
     /**
-     * Parses a {@code String tag} into a {@code Tag}.
+     * Parses a string {@code amount} into an {@code Amount}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code amount} is invalid.
+     */
+    public static Amount parseAmount(String transactionAmount) throws ParseException {
+        requireNonNull(transactionAmount);
+        String trimmedTransactionAmount = transactionAmount.trim();
+        if (!Amount.isValidAmount(transactionAmount)) {
+            throw new ParseException(Amount.MESSAGE_TRANSACTION_AMOUNT_CONSTRAINTS);
+        }
+        return new Amount(trimmedTransactionAmount);
+    }
+
+    /**
+     * Parses a string {@code type} into an {@code Type}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code type} is invalid.
+     */
+    public static Type parseType(String type) throws ParseException {
+        requireNonNull(type);
+        String trimmedType = type.trim();
+        if (!Type.isValidType(trimmedType)) {
+            throw new ParseException(Type.MESSAGE_TRANSACTION_TYPE_CONSTRAINTS);
+        }
+        return new Type(trimmedType);
+    }
+
+    /**
+     * Parses a string {@code uniqueId} into an {@code UniqueId}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code uniqueId} is invalid.
+     */
+    public static PersonId parsePersonId(String uniqueId) throws ParseException {
+        requireNonNull(uniqueId);
+        String trimmedId = uniqueId.trim();
+        if (uniqueId.isEmpty()) {
+            throw new ParseException(PersonId.MESSAGE_TRANSACTION_PERSONID_CONSTRAINTS);
+        }
+        return new PersonId(trimmedId);
+    }
+
+    /**
+     * Parses a string {@code email} into an {@code Email}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code email} is invalid.
+     */
+    public static Deadline parseDeadline(String deadline) throws ParseException {
+        requireNonNull(deadline);
+        String trimmedDeadline = deadline.trim();
+        if (deadline.isEmpty()) {
+            throw new ParseException(UniqueId.MESSAGE_TRANSACTION_PERSONUID_CONSTRAINTS);
+        }
+        return new Deadline(trimmedDeadline);
+    }
+
+    /**
+     * Parses a string {@code tag} into a {@code Tag}.
      * Leading and trailing whitespaces will be trimmed.
      *
      * @throws ParseException if the given {@code tag} is invalid.

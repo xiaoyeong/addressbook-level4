@@ -26,6 +26,10 @@ import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
 import seedu.address.model.tag.Tag;
+import seedu.address.model.transaction.Amount;
+import seedu.address.model.person.UniqueId;
+import seedu.address.model.transaction.PersonId;
+import seedu.address.model.transaction.Type;
 
 /**
  * Edits the details of an existing person in the address book.
@@ -85,7 +89,7 @@ public class EditCommand extends Command {
 
         model.updatePerson(personToEdit, editedPerson);
         model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
-        model.commitAddressBook();
+        model.commitFinancialDatabase();
         return new CommandResult(String.format(MESSAGE_EDIT_PERSON_SUCCESS, editedPerson));
     }
 
@@ -100,9 +104,10 @@ public class EditCommand extends Command {
         Phone updatedPhone = editPersonDescriptor.getPhone().orElse(personToEdit.getPhone());
         Email updatedEmail = editPersonDescriptor.getEmail().orElse(personToEdit.getEmail());
         Address updatedAddress = editPersonDescriptor.getAddress().orElse(personToEdit.getAddress());
+        UniqueId uniqueId = personToEdit.getUniqueId();
         Set<Tag> updatedTags = editPersonDescriptor.getTags().orElse(personToEdit.getTags());
 
-        return new Person(updatedName, updatedPhone, updatedEmail, updatedAddress, updatedTags);
+        return new Person(updatedName, updatedPhone, updatedEmail, updatedAddress, uniqueId, updatedTags);
     }
 
     @Override
@@ -132,6 +137,7 @@ public class EditCommand extends Command {
         private Phone phone;
         private Email email;
         private Address address;
+        private UniqueId uniqueId;
         private Set<Tag> tags;
 
         public EditPersonDescriptor() {}
@@ -145,6 +151,7 @@ public class EditCommand extends Command {
             setPhone(toCopy.phone);
             setEmail(toCopy.email);
             setAddress(toCopy.address);
+            setUniqueId(toCopy.uniqueId);
             setTags(toCopy.tags);
         }
 
@@ -187,6 +194,14 @@ public class EditCommand extends Command {
             return Optional.ofNullable(address);
         }
 
+        public void setUniqueId(UniqueId uniqueId) {
+            this.uniqueId = uniqueId;
+        }
+
+        public Optional<UniqueId> getUniqueId() {
+            return Optional.ofNullable(uniqueId);
+        }
+
         /**
          * Sets {@code tags} to this object's {@code tags}.
          * A defensive copy of {@code tags} is used internally.
@@ -220,10 +235,84 @@ public class EditCommand extends Command {
             EditPersonDescriptor e = (EditPersonDescriptor) other;
 
             return getName().equals(e.getName())
+                    && getUniqueId().equals(e.getUniqueId())
                     && getPhone().equals(e.getPhone())
                     && getEmail().equals(e.getEmail())
                     && getAddress().equals(e.getAddress())
                     && getTags().equals(e.getTags());
+        }
+    }
+
+    /**
+     * Stores the details to edit the person with. Each non-empty field value will replace the
+     * corresponding field value of the person.
+     */
+    public static class EditTransactionDescriptor {
+        private Amount amount;
+        private Type type;
+        private PersonId personId;
+
+        public EditTransactionDescriptor() {}
+
+        /**
+         * Copy constructor.
+         * A defensive copy of {@code tags} is used internally.
+         */
+        public EditTransactionDescriptor(EditTransactionDescriptor toCopy) {
+            setAmount(toCopy.amount);
+            setType(toCopy.type);
+            setPersonId(toCopy.personId);
+        }
+
+        /**
+         * Returns true if at least one field is edited.
+         */
+        public boolean isAnyFieldEdited() {
+            return CollectionUtil.isAnyNonNull(amount, type, personId);
+        }
+
+        public void setAmount(Amount amount) {
+            this.amount = amount;
+        }
+
+        public Optional<Amount> getAmount() {
+            return Optional.ofNullable(amount);
+        }
+
+        public void setType(Type type) {
+            this.type = type;
+        }
+
+        public Optional<Type> getType() {
+            return Optional.ofNullable(type);
+        }
+
+        public Optional<PersonId> getPersonId() {
+            return Optional.ofNullable(personId);
+        }
+
+        public void setPersonId(PersonId personId) {
+            this.personId = personId;
+        }
+
+        @Override
+        public boolean equals(Object other) {
+            // short circuit if same object
+            if (other == this) {
+                return true;
+            }
+
+            // instanceof handles nulls
+            if (!(other instanceof EditTransactionDescriptor)) {
+                return false;
+            }
+
+            // state check
+            EditTransactionDescriptor e = (EditTransactionDescriptor) other;
+
+            return getAmount().equals(e.getAmount())
+                    && getPersonId().equals(e.getPersonId())
+                    && getType().equals(e.getType());
         }
     }
 }
