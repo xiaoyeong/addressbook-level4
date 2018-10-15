@@ -1,0 +1,30 @@
+{
+  "authors":
+  [
+    {
+      "githubId": "aaditkamat",
+      "displayName": "AADIT...KAMAT",
+      "authorNames": ["aaditkamat","Aadit Kamat"]
+    },
+    {
+      "githubId": "julianc269",
+      "displayName": "CHEON...ULIAN",
+      "authorNames": ["julianc269","unknown"]
+    },
+    {
+      "githubId": "weiqing-nic",
+      "displayName": "LEE W... QING",
+      "authorNames": ["weiqing-nic"]
+    },
+    {
+      "githubId": "xiaoyeong",
+      "displayName": "LOU S...YEONG",
+      "authorNames": ["xiaoyeong","Lou Shaw Yeong"]
+    },
+    {
+      "githubId": "Bellaaarh",
+      "displayName": "YSABE...U LIN",
+      "authorNames": ["Bellaaarh","DESKTOP-2HNCDPM\\Ysabella"]
+    }
+  ]
+}
