@@ -19,7 +19,7 @@ public interface Logic {
      * @throws ParseException If an error occurs during parsing.
      */
     CommandResult execute(String commandText) throws CommandException, ParseException;
-    
+
     /** Returns an unmodifiable view of the filtered list of transactions */
     ObservableList<seedu.address.model.transaction.Transaction> getFilteredTransactionList();
 
