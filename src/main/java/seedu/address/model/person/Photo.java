@@ -120,7 +120,7 @@ public class Photo {
     }
 
 
-    public String getPicturePath(){
+    public String getPhoto(){
         return this.photoPath;
     }
 
@@ -161,7 +161,12 @@ public class Photo {
 
     }
 
-
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof Photo // instanceof handles nulls
+                && this.photoPath.equals(((Photo) other).photoPath));
+    }
 
 
 

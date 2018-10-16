@@ -1,14 +1,13 @@
 package seedu.address.model.person;
 
-import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
+import seedu.address.model.tag.Tag;
 
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
-import seedu.address.model.tag.Tag;
-import seedu.address.model.transaction.Transaction;
+import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 /**
  * Represents a Person in the address book.
@@ -25,6 +24,7 @@ public class Person {
     // Data fields
     private final Address address;
     private final Set<Tag> tags = new HashSet<>();
+    private Photo photo;
 
     /**
      * Every field must be present and not null.
@@ -68,7 +68,13 @@ public class Person {
         return address;
     }
 
-    public UniqueId getUniqueId() { return uniqueId; }
+    public UniqueId getUniqueId() {
+        return uniqueId;
+    }
+
+    public Photo getPhoto() {
+        return photo;
+    }
 
     /**
      * Returns an immutable tag set, which throws {@code UnsupportedOperationException}
