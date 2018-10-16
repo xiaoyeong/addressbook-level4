@@ -10,6 +10,8 @@ import seedu.address.MainApp;
 import seedu.address.Mode;
 
 import seedu.address.logic.commands.AddCommand;
+import seedu.address.logic.commands.AddTransactionCommand;
+import seedu.address.logic.commands.AnalyticsCommand;
 import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.DeleteCommand;
@@ -60,7 +62,17 @@ public class FinancialDatabaseParser {
 
         case AddCommand.COMMAND_WORD:
         case AddCommand.COMMAND_ALIAS:
-            return new AddCommandParser().parse(arguments);
+
+            if (MainApp.m == Mode.PersonMode) {
+                return new AddCommandParser().parse(arguments);
+            } else {
+                return new AddTransactionCommandParser().parse(arguments);
+            }
+
+        case AnalyticsCommand.COMMAND_WORD:
+        case AnalyticsCommand.COMMAND_ALIAS:
+            return new AnalyticsCommand();
+
         case EditCommand.COMMAND_WORD:
         case EditCommand.COMMAND_ALIAS:
             return new EditCommandParser().parse(arguments);
