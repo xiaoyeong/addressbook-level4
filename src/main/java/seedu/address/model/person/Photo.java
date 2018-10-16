@@ -55,7 +55,7 @@ public class Photo {
     /**
      * Make a photo
      */
-
+  
     private void makePhoto(String filePath, String newPhoto) {
 
         makePhotoFolder();
@@ -66,11 +66,10 @@ public class Photo {
 
         //create file object
         File pictureFinal = new File(FOLDER + "//" + newPhoto);
-
-        //if cannot get file object create an empty object
+        
+         //if cannot get file object create an empty object
 
         if (!pictureFinal.exists()) {
-
             try {
                 pictureFinal.createNewFile();
             } catch (IOException e) {
@@ -85,7 +84,6 @@ public class Photo {
             this.photoPath = pictureFinal.toPath().toString();
         } catch (IOException e) {
             e.printStackTrace();
-
         }
 
     }
@@ -147,6 +145,7 @@ public class Photo {
 
         if (path.matches(PHOTO_INTITAL_REGEX_)) {
             return checkPicture(path);
+
         }
 
         return false;
@@ -173,7 +172,7 @@ public class Photo {
         if (pictureNew.length() > tenMB) {
             return false;
         }
-
+  
         return true;
 
     }
@@ -184,5 +183,4 @@ public class Photo {
                 || (other instanceof Photo // instanceof handles nulls
                 && this.photoPath.equals(((Photo) other).photoPath));
     }
-
 }
