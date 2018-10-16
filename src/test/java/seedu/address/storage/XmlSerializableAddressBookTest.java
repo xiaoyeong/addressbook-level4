@@ -13,6 +13,7 @@ import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.commons.util.XmlUtil;
 import seedu.address.model.FinancialDatabase;
 import seedu.address.testutil.TypicalPersons;
+import seedu.address.testutil.TypicalTransactions;
 
 public class XmlSerializableAddressBookTest {
 
@@ -29,7 +30,7 @@ public class XmlSerializableAddressBookTest {
         XmlSerializableFinancialDatabase dataFromFile = XmlUtil.getDataFromFile(TYPICAL_PERSONS_FILE,
                 XmlSerializableFinancialDatabase.class);
         FinancialDatabase addressBookFromFile = dataFromFile.toModelType();
-        FinancialDatabase typicalPersonsAddressBook = TypicalPersons.getTypicalFinancialDatabase();
+        FinancialDatabase typicalPersonsAddressBook = TypicalTransactions.getTypicalFinancialDatabase();
         assertEquals(addressBookFromFile, typicalPersonsAddressBook);
     }
 

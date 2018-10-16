@@ -9,13 +9,11 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-import seedu.address.model.person.Person;
-
-
+import seedu.address.model.transaction.Transaction;
 
 
 /**
- * Deletes a person identified using it's displayed index from the address book.
+ * Deletes a transaction identified using it's displayed index from the address book.
  */
 public class DeleteCommand extends Command {
 
@@ -23,7 +21,7 @@ public class DeleteCommand extends Command {
     public static final String COMMAND_ALIAS = "d";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Deletes the person identified by the index number used in the displayed person list.\n"
+            + ": Deletes the transaction identified by the index number used in the displayed transaction list.\n"
             + "Parameters: INDEX (must be a positive integer)\n"
             + "Example: " + COMMAND_WORD + " 1";
 
@@ -38,16 +36,16 @@ public class DeleteCommand extends Command {
     @Override
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
-        List<Person> lastShownList = model.getFilteredPersonList();
+        List<Transaction> lastShownList = model.getFilteredTransactionList();
 
         if (targetIndex.getZeroBased() >= lastShownList.size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
         }
 
-        Person personToDelete = lastShownList.get(targetIndex.getZeroBased());
-        model.deletePerson(personToDelete);
+        Transaction transactionToDelete = lastShownList.get(targetIndex.getZeroBased());
+        model.deleteTransaction(transactionToDelete);
         model.commitFinancialDatabase();
-        return new CommandResult(String.format(MESSAGE_DELETE_PERSON_SUCCESS, personToDelete));
+        return new CommandResult(String.format(MESSAGE_DELETE_PERSON_SUCCESS, transactionToDelete));
     }
 
     @Override

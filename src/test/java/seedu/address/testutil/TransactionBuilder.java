@@ -1,10 +1,11 @@
 package seedu.address.testutil;
 
+import seedu.address.model.person.*;
 import seedu.address.model.transaction.Amount;
 import seedu.address.model.transaction.Deadline;
-import seedu.address.model.transaction.PersonId;
 import seedu.address.model.transaction.Transaction;
 import seedu.address.model.transaction.Type;
+import seedu.address.model.util.SampleDataUtil;
 
 /**
  *
@@ -12,18 +13,18 @@ import seedu.address.model.transaction.Type;
 public class TransactionBuilder {
     public static final String DEFAULT_TYPE = "Loan";
     public static final String DEFAULT_AMOUNT = "SGD 10.00";
-    public static final String DEFAULT_PERSONID = "1";
+    public static final Person DEFAULT_PERSON = TypicalPersons.AMY;
     public static final String DEFAULT_DEADLINE = "12/11/2018";
 
     private Type type;
     private Amount amount;
-    private PersonId personId;
+    private Person person;
     private Deadline deadline;
 
     public TransactionBuilder() {
         type = new Type(DEFAULT_TYPE);
         amount = new Amount(DEFAULT_AMOUNT);
-        personId = new PersonId(DEFAULT_PERSONID);
+        person = DEFAULT_PERSON;
         deadline = new Deadline(DEFAULT_DEADLINE);
     }
 
@@ -33,7 +34,7 @@ public class TransactionBuilder {
     public TransactionBuilder(Transaction transactionToCopy) {
         type = transactionToCopy.getType();
         amount = transactionToCopy.getAmount();
-        personId = transactionToCopy.getPersonId();
+        person = transactionToCopy.getPerson();
     }
 
     /**
@@ -53,14 +54,59 @@ public class TransactionBuilder {
     }
 
     /**
-     * Sets the {@code personId} of the {@code Transaction} that we are building.
+     * Sets the {@code Person} of the {@code Transaction} that we are building.
      */
-    public TransactionBuilder withPersonId(String personId) {
-        this.personId = new PersonId(personId);
+    public TransactionBuilder withPerson(Person person) {
+        this.person = person;
+        return this;
+    }
+
+    /**
+     * Sets the {@code Name} of the {@code Transaction} that we are building.
+     */
+    public TransactionBuilder withName(String name) {
+        this.person = new Person(new Name(name),this.person.getPhone(),this.person.getEmail(),this.person.getAddress(),
+                this.person.getTags());
+        return this;
+    }
+
+    /**
+     * Sets the {@code Address} of the {@code Transaction} that we are building.
+     */
+    public TransactionBuilder withAddress(String address) {
+        this.person = new Person(this.person.getName(),this.person.getPhone(),this.person.getEmail(),
+                new Address(address), this.person.getTags());
+        return this;
+    }
+
+    /**
+     * Sets the {@code Email} of the {@code Transaction} that we are building.
+     */
+    public TransactionBuilder withEmail(String email) {
+        this.person = new Person(this.person.getName(),this.person.getPhone(),new Email(email),
+                this.person.getAddress(), this.person.getTags());
+        return this;
+    }
+
+    /**
+     * Sets the {@code Phone} of the {@code Transaction} that we are building.
+     */
+    public TransactionBuilder withPhone(String phone) {
+        this.person = new Person(this.person.getName(),new Phone(phone),this.person.getEmail(),
+                this.person.getAddress(), this.person.getTags());
+        return this;
+    }
+
+    /**
+     * Sets the {@code Tags} of the {@code Transaction} that we are building.
+     */
+    public TransactionBuilder withTags(String ... tags) {
+        this.person = new Person(this.person.getName(),this.person.getPhone(),this.person.getEmail(),
+                this.person.getAddress(), SampleDataUtil.getTagSet(tags));
         return this;
     }
 
     public Transaction build() {
-        return new Transaction(type, amount, personId, deadline);
+        return new Transaction(type, amount, deadline, person);
     }
 }
