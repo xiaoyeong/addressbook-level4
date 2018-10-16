@@ -27,14 +27,17 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_TRANSACTIONS;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_PERSON;
-import static seedu.address.testutil.TypicalPersons.AMY;
 import static seedu.address.testutil.TypicalPersons.BOB;
+import static seedu.address.testutil.TypicalPersons.KEYWORD_MATCHING_MEIER;
 import static seedu.address.testutil.TypicalTransactions.ALICE_TRANSACTION;
 import static seedu.address.testutil.TypicalTransactions.BOB_TRANSACTION;
-import static seedu.address.testutil.TypicalPersons.KEYWORD_MATCHING_MEIER;
+
+import java.util.logging.Logger;
 
 import org.junit.Test;
 
+import seedu.address.MainApp;
+import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.EditCommand;
@@ -44,14 +47,15 @@ import seedu.address.model.Model;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
-import seedu.address.model.transaction.Transaction;
 import seedu.address.model.person.Phone;
 import seedu.address.model.tag.Tag;
+import seedu.address.model.transaction.Transaction;
 import seedu.address.testutil.TransactionBuilder;
 import seedu.address.testutil.TransactionUtil;
 
 public class EditCommandSystemTest extends FinancialDatabaseSystemTest {
 
+    private static final Logger logger = LogsCenter.getLogger(MainApp.class);
     @Test
     public void edit() {
         Model model = getModel();
@@ -62,9 +66,10 @@ public class EditCommandSystemTest extends FinancialDatabaseSystemTest {
          * -> edited
          */
         Index index = INDEX_FIRST_PERSON;
-        String command = " " + EditCommand.COMMAND_WORD + "  " + index.getOneBased() + "  " + NAME_DESC_BOB + "  "
+        String command = " " + EditCommand.COMMAND_WORD + "  " + index.getZeroBased() + "  " + NAME_DESC_BOB + "  "
                 + PHONE_DESC_BOB + " " + EMAIL_DESC_BOB + "  " + ADDRESS_DESC_BOB + " " + TAG_DESC_HUSBAND + " ";
         Transaction editedPerson = new TransactionBuilder(BOB_TRANSACTION).withTags(VALID_TAG_HUSBAND).build();
+        logger.info("" + index.getZeroBased());
         assertCommandSuccess(command, index, editedPerson);
 
         /* Case: undo editing the last transaction in the list -> last transaction restored */
@@ -84,7 +89,9 @@ public class EditCommandSystemTest extends FinancialDatabaseSystemTest {
                 + ADDRESS_DESC_BOB + TAG_DESC_FRIEND + TAG_DESC_HUSBAND;
         assertCommandSuccess(command, index, BOB_TRANSACTION);
 
-        /* Case: edit a transaction with new values same as another transaction's values but with different name -> edited */
+        /* Case: edit a transaction with new values same as another transaction's values but with different name ->
+         * edited
+         */
         assertTrue(getModel().getFinancialDatabase().getTransactionList().contains(BOB_TRANSACTION));
         index = INDEX_SECOND_PERSON;
         assertNotEquals(getModel().getFilteredTransactionList().get(index.getZeroBased()), BOB);
@@ -93,13 +100,14 @@ public class EditCommandSystemTest extends FinancialDatabaseSystemTest {
         editedPerson = new TransactionBuilder(BOB_TRANSACTION).withName(VALID_NAME_AMY).build();
         assertCommandSuccess(command, index, editedPerson);
 
-        /* Case: edit a transaction with new values same as another transaction's values but with different phone and email
-         * -> edited
+        /* Case: edit a transaction with new values same as another transaction's values but with different phone and
+         * email -> edited
          */
         index = INDEX_SECOND_PERSON;
         command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_BOB + PHONE_DESC_AMY + EMAIL_DESC_AMY
                 + ADDRESS_DESC_BOB + TAG_DESC_FRIEND + TAG_DESC_HUSBAND;
-        editedPerson = new TransactionBuilder(BOB_TRANSACTION).withPhone(VALID_PHONE_AMY).withEmail(VALID_EMAIL_AMY).build();
+        editedPerson = new TransactionBuilder(BOB_TRANSACTION).withPhone(VALID_PHONE_AMY).withEmail(VALID_EMAIL_AMY)
+                .build();
         assertCommandSuccess(command, index, editedPerson);
 
         /* Case: clear tags -> cleared */
@@ -120,18 +128,18 @@ public class EditCommandSystemTest extends FinancialDatabaseSystemTest {
         editedPerson = new TransactionBuilder(personToEdit).withName(VALID_NAME_BOB).build();
         assertCommandSuccess(command, index, editedPerson);
 
-        /* Case: filtered transaction list, edit index within bounds of address book but out of bounds of transaction list
-         * -> rejected
+        /* Case: filtered transaction list, edit index within bounds of address book but out of bounds of transaction
+         * list -> rejected
          */
         showPersonsWithName(KEYWORD_MATCHING_MEIER);
         int invalidIndex = getModel().getFinancialDatabase().getTransactionList().size();
         assertCommandFailure(EditCommand.COMMAND_WORD + " " + invalidIndex + NAME_DESC_BOB,
                 Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
 
-        /* --------------------- Performing edit operation while a transaction card is selected -------------------------- */
+        /* --------------------- Performing edit operation while a transaction card is selected --------------------- */
 
-        /* Case: selects first card in the transaction list, edit a transaction -> edited, card selection remains unchanged but
-         * browser url changes
+        /* Case: selects first card in the transaction list, edit a transaction -> edited, card selection remains
+         * unchanged but browser url changes.
          */
         showAllPersons();
         index = INDEX_FIRST_PERSON;
@@ -194,22 +202,30 @@ public class EditCommandSystemTest extends FinancialDatabaseSystemTest {
                 + ADDRESS_DESC_BOB + TAG_DESC_FRIEND + TAG_DESC_HUSBAND;
         assertCommandFailure(command, EditCommand.MESSAGE_DUPLICATE_TRANSACTION);
 
-        /* Case: edit a transaction with new values same as another transaction's values but with different tags -> rejected */
+        /* Case: edit a transaction with new values same as another transaction's values but with different
+         * tags -> rejected
+         */
         command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB
                 + ADDRESS_DESC_BOB + TAG_DESC_HUSBAND;
         assertCommandFailure(command, EditCommand.MESSAGE_DUPLICATE_TRANSACTION);
 
-        /* Case: edit a transaction with new values same as another transaction's values but with different address -> rejected */
+        /* Case: edit a transaction with new values same as another transaction's values but with different
+         * address -> rejected
+         */
         command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB
                 + ADDRESS_DESC_AMY + TAG_DESC_FRIEND + TAG_DESC_HUSBAND;
         assertCommandFailure(command, EditCommand.MESSAGE_DUPLICATE_TRANSACTION);
 
-        /* Case: edit a transaction with new values same as another transaction's values but with different phone -> rejected */
+        /* Case: edit a transaction with new values same as another transaction's values but with different
+         * phone -> rejected
+         */
         command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_BOB + PHONE_DESC_AMY + EMAIL_DESC_BOB
                 + ADDRESS_DESC_BOB + TAG_DESC_FRIEND + TAG_DESC_HUSBAND;
         assertCommandFailure(command, EditCommand.MESSAGE_DUPLICATE_TRANSACTION);
 
-        /* Case: edit a transaction with new values same as another transaction's values but with different email -> rejected */
+        /* Case: edit a transaction with new values same as another transaction's values but with different
+         * email -> rejected
+         */
         command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_AMY
                 + ADDRESS_DESC_BOB + TAG_DESC_FRIEND + TAG_DESC_HUSBAND;
         assertCommandFailure(command, EditCommand.MESSAGE_DUPLICATE_TRANSACTION);
@@ -236,7 +252,8 @@ public class EditCommandSystemTest extends FinancialDatabaseSystemTest {
     private void assertCommandSuccess(String command, Index toEdit, Transaction editedPerson,
             Index expectedSelectedCardIndex) {
         Model expectedModel = getModel();
-        expectedModel.updateTransaction(expectedModel.getFilteredTransactionList().get(toEdit.getZeroBased()), editedPerson);
+        expectedModel.updateTransaction(expectedModel.getFilteredTransactionList().get(toEdit.getZeroBased()),
+                editedPerson);
         expectedModel.updateFilteredTransactionList(PREDICATE_SHOW_ALL_TRANSACTIONS);
 
         assertCommandSuccess(command, expectedModel,

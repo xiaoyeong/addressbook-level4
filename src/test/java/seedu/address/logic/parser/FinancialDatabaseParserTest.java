@@ -30,8 +30,9 @@ import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.person.NameContainsKeywordsPredicate;
 import seedu.address.model.transaction.Transaction;
 import seedu.address.testutil.EditTransactionDescriptorBuilder;
-import seedu.address.testutil.TransactionUtil;
 import seedu.address.testutil.TransactionBuilder;
+import seedu.address.testutil.TransactionUtil;
+
 
 public class FinancialDatabaseParserTest {
     @Rule
@@ -64,7 +65,8 @@ public class FinancialDatabaseParserTest {
         Transaction transaction = new TransactionBuilder().build();
         EditCommand.EditTransactionDescriptor descriptor = new EditTransactionDescriptorBuilder(transaction).build();
         EditCommand command = (EditCommand) parser.parseCommand(EditCommand.COMMAND_WORD + " "
-                + INDEX_FIRST_PERSON.getOneBased() + " " + TransactionUtil.getEditTransactionDescriptorDetails(descriptor));
+                + INDEX_FIRST_PERSON.getOneBased() + " "
+                + TransactionUtil.getEditTransactionDescriptorDetails(descriptor));
         assertEquals(new EditCommand(INDEX_FIRST_PERSON, descriptor), command);
     }
 

@@ -131,7 +131,8 @@ public class DeleteCommandTest {
         expectedModel.deleteTransaction(personToDelete);
         expectedModel.commitFinancialDatabase();
 
-        // delete -> deletes second transaction in unfiltered transaction list / first transaction in filtered transaction list
+        // delete -> deletes second transaction in unfiltered transaction list/ first
+        // transaction in filtered transaction list
         deleteCommand.execute(model, commandHistory);
 
         // undo -> reverts addressbook back to previous state and filtered transaction list to show all persons

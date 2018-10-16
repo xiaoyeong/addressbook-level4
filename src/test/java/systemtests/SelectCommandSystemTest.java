@@ -54,14 +54,15 @@ public class SelectCommandSystemTest extends FinancialDatabaseSystemTest {
 
         /* ------------------------ Perform select operations on the shown filtered list ---------------------------- */
 
-        /* Case: filtered transaction list, select index within bounds of address book but out of bounds of transaction list
-         * -> rejected
+        /* Case: filtered transaction list, select index within bounds of address book but out of bounds of transaction
+         * list -> rejected
          */
         showPersonsWithName(KEYWORD_MATCHING_MEIER);
         int invalidIndex = getModel().getFinancialDatabase().getTransactionList().size();
         assertCommandFailure(SelectCommand.COMMAND_WORD + " " + invalidIndex, MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
 
-        /* Case: filtered transaction list, select index within bounds of address book and transaction list -> selected */
+        /* Case: filtered transaction list, select index within bounds of address book and transaction list -> selected
+         */
         Index validIndex = Index.fromOneBased(1);
         assertTrue(validIndex.getZeroBased() < getModel().getFilteredTransactionList().size());
         command = SelectCommand.COMMAND_WORD + " " + validIndex.getOneBased();

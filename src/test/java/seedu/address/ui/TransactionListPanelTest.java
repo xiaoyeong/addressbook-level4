@@ -5,7 +5,6 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTimeoutPreemptively;
 import static seedu.address.testutil.EventsUtil.postNow;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_PERSON;
-import static seedu.address.testutil.TypicalPersons.getTypicalPersons;
 import static seedu.address.testutil.TypicalTransactions.getTypicalTransactions;
 import static seedu.address.ui.testutil.GuiTestAssert.assertCardDisplaysTransaction;
 import static seedu.address.ui.testutil.GuiTestAssert.assertCardEquals;
@@ -13,17 +12,21 @@ import static seedu.address.ui.testutil.GuiTestAssert.assertCardEquals;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
+import org.junit.Test;
+
 import guitests.guihandles.TransactionCardHandle;
 import guitests.guihandles.TransactionListPanelHandle;
-import org.junit.Test;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+
 import seedu.address.commons.events.ui.JumpToListRequestEvent;
 import seedu.address.commons.util.FileUtil;
 import seedu.address.commons.util.XmlUtil;
 import seedu.address.model.transaction.Transaction;
 import seedu.address.storage.XmlSerializableFinancialDatabase;
+
+
 
 public class TransactionListPanelTest extends GuiUnitTest {
     private static final ObservableList<Transaction> TYPICAL_PERSONS =
@@ -57,7 +60,8 @@ public class TransactionListPanelTest extends GuiUnitTest {
         postNow(JUMP_TO_SECOND_EVENT);
         guiRobot.pauseForHuman();
 
-        TransactionCardHandle expectedPerson = transactionListPanelHandle.getPersonCardHandle(INDEX_SECOND_PERSON.getZeroBased());
+        TransactionCardHandle expectedPerson = transactionListPanelHandle
+                .getPersonCardHandle(INDEX_SECOND_PERSON.getZeroBased());
         TransactionCardHandle selectedPerson = transactionListPanelHandle.getHandleToSelectedCard();
         assertCardEquals(expectedPerson, selectedPerson);
     }

@@ -1,5 +1,9 @@
 package seedu.address.testutil;
 
+import java.util.Set;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
+
 import seedu.address.logic.commands.EditCommand.EditTransactionDescriptor;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
@@ -11,14 +15,10 @@ import seedu.address.model.transaction.Deadline;
 import seedu.address.model.transaction.Transaction;
 import seedu.address.model.transaction.Type;
 
-import java.util.Set;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
-
 /**
  * A utility class to help with building EditTransactionDescriptor objects.
  */
-public class EditTransactionDescriptorBuilder{
+public class EditTransactionDescriptorBuilder {
 
     private EditTransactionDescriptor descriptor;
 
