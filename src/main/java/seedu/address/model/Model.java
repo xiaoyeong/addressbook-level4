@@ -16,9 +16,6 @@ public interface Model {
     /** {@code Predicate} that always evaluate to true */
     Predicate<Transaction> PREDICATE_SHOW_ALL_TRANSACTIONS = unused -> true;
 
-    /** {@code Predicate} that always evaluate to true */
-    Predicate<Person> PREDICATE_SHOW_ALL_PERSONS = unused -> true;
-
     /** Clears existing backing model and replaces with the provided new data. */
     void resetData(ReadOnlyFinancialDatabase newData);
 
@@ -26,47 +23,13 @@ public interface Model {
     ReadOnlyFinancialDatabase getFinancialDatabase();
 
     /**
-     * Returns true if a person with the same identity as {@code person} exists in the address book.
-     */
-    boolean hasPerson(Person person);
-
-    /**
-     * Deletes the given person.
-     * The person must exist in the address book.
-     */
-    void deletePerson(Person target);
-
-    /**
-     * Adds the given person.
-     * {@code person} must not already exist in the address book.
-     */
-    void addPerson(Person person);
-
-    /**
-     * Replaces the given person {@code target} with {@code editedPerson}.
-     * {@code target} must exist in the address book.
-     * The person identity of {@code editedPerson} must not be the same as another existing person in the address book.
-     */
-    void updatePerson(Person target, Person editedPerson);
-
-    /** Returns an unmodifiable view of the filtered person list */
-    ObservableList<Person> getFilteredPersonList();
-
-    /**
-     * Updates the filter of the filtered person list to filter by the given {@code predicate}.
-     * @throws NullPointerException if {@code predicate} is null.
-     */
-    void updateFilteredPersonList(Predicate<Person> predicate);
-
-
-    /**
-     * Returns true if a person with the same identity as {@code transaction} exists in the database.
+     * Returns true if a transaction with the same parameters as {@code transaction} exists in the database.
      */
     boolean hasTransaction(Transaction transaction);
 
     /**
-     * Deletes the given person.
-     * The person must exist in the database.
+     * Deletes the given transaction.
+     * The transaction must exist in the database.
      */
     void deleteTransaction(Transaction target);
 
@@ -79,7 +42,7 @@ public interface Model {
     /**
      * Replaces the given transaction {@code target} with {@code editedTransaction}.
      * {@code target} must exist in the database.
-     * The person identity of {@code editedTransaction} must not be the same as another existing person in the
+     * The {@code editedTransaction} must not be identical to another existing transaction in the
      * database.
      */
     void updateTransaction(Transaction target, Transaction editedTransaction);
@@ -88,7 +51,7 @@ public interface Model {
     ObservableList<Transaction> getFilteredTransactionList();
 
     /**
-     * Updates the filter of the filtered transaction list to filter by the given {@code predicate}.
+     * Updates the filtered transaction list according to the given {@code predicate}.
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredTransactionList(Predicate<Transaction> predicate);

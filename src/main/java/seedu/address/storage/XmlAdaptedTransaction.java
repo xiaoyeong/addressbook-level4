@@ -150,7 +150,6 @@ public class XmlAdaptedTransaction {
             throw new IllegalValueException(Amount.MESSAGE_TRANSACTION_AMOUNT_CONSTRAINTS);
         }
         final Amount modelAmount = new Amount(amount);
-        
         if (type == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
                     Type.class.getSimpleName()));
@@ -159,7 +158,6 @@ public class XmlAdaptedTransaction {
             throw new IllegalValueException(Type.MESSAGE_TRANSACTION_TYPE_CONSTRAINTS);
         }
         final Type modelType = new Type(type);
-        
         if (deadline == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
                     Deadline.class.getSimpleName()));
@@ -168,7 +166,6 @@ public class XmlAdaptedTransaction {
             throw new IllegalValueException(Deadline.MESSAGE_TRANSACTION_DEADLINE_CONSTRAINTS);
         }
         final Deadline modelDeadline = new Deadline(deadline);
-        
         return new Transaction(modelType, modelAmount, modelDeadline, modelPerson);
     }
 
