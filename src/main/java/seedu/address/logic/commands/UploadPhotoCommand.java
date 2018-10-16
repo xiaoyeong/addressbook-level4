@@ -1,10 +1,13 @@
 package seedu.address.logic.commands;
+
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.transaction.Transaction;
+
+import java.util.List;
 
 import static java.util.Objects.requireNonNull;
 
@@ -27,7 +30,7 @@ public class UploadPhotoCommand extends Command{
         requireNonNull(path);
 
         photoIndex = index;
-        path = imagePath;
+        filePath = path;
     }
 
 
@@ -40,8 +43,6 @@ public class UploadPhotoCommand extends Command{
 
         int thatPersonIndex = photoIndex.getZeroBased();
 
-        int editedPerson;
-
         if (thatPersonIndex >=  lastPersonListIndex ) {
             throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
         }
@@ -50,16 +51,6 @@ public class UploadPhotoCommand extends Command{
 
 
 //        model.updateFilteredPersonList();
-
-
-
-
-
-
-
-
-
-
 
         return null;
     }
