@@ -23,6 +23,8 @@ import seedu.address.logic.commands.ModeCommand;
 import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.SelectCommand;
 import seedu.address.logic.commands.UndoCommand;
+import seedu.address.logic.commands.FilterCommand;
+import seedu.address.logic.commands.CalendarCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 /**
@@ -106,6 +108,10 @@ public class FinancialDatabaseParser {
         case ModeCommand.COMMAND_WORD:
         case ModeCommand.COMMAND_ALIAS:
             return new ModeCommand();
+
+        case CalendarCommand.COMMAND_WORD:
+        case CalendarCommand.COMMAND_ALIAS:
+            return new CalendarCommandParser().parse(arguments);
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
