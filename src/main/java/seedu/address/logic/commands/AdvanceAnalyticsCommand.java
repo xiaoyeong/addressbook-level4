@@ -1,4 +1,4 @@
-/* @@author xiaoyeong */
+/* @@author xiaoyeong*/
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
@@ -13,12 +13,12 @@ import seedu.address.model.transaction.Transaction;
 /**
  * Analyse the your financial status
  */
-public class AnalyticsCommand extends Command {
-    public static final String COMMAND_WORD = "Analytics";
-    public static final String COMMAND_ALIAS = "an";
+public class AdvanceAnalyticsCommand extends Command {
+    public static final String COMMAND_WORD = "Advance";
+    public static final String COMMAND_ALIAS = "adv";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Analyse the your financial status and generate \n"
-            + "your financial status to view.\n";
+            + "your expected loan/debt for the amount of months entered.\n";
 
     public static final String MESSAGE_SUCCESS = "Financial status : $ ";
 
@@ -29,15 +29,24 @@ public class AnalyticsCommand extends Command {
         int amount;
         amount = 0;
         requireNonNull(model);
-        //List<Person> personList = model.getFilteredPersonList();
         List<Transaction> transactionList = model.getFilteredTransactionList();
+        boolean loan = true;
+        boolean debt = true;
+        int deadline  = command.getDeadline();
+        if(command =debt) {
+            loan = false;
+        }
+        if(command = loan) {
+            debt = false;
+        }
+
 
         for (int i = 0; i < transactionList.size(); i++) {
             Transaction t = transactionList.get(i);
 
-            if (t.getType().toString().compareTo("Debt") == 0) {
+            if (debt && t.getType().toString().compareTo("Debt") == 0 && t.getDeadline() < deadline {
                 amount += t.getAmount().getVal();
-            } else {
+            } else if (loan && t.getType().toString().compareTo("Loan") == 0 && && t.getDeadline() < deadline) {
                 amount -= t.getAmount().getVal();
             }
         }
