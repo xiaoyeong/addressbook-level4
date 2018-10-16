@@ -13,7 +13,7 @@ import seedu.address.model.transaction.Transaction;
  */
 public class TransactionCard extends UiPart<Region> {
 
-    private static final String FXML = "PersonListCard.fxml";
+    private static final String FXML = "TransactionListCard.fxml";
 
     /**
      * Note: Certain keywords such as "location" and "resources" are reserved keywords in JavaFX.
