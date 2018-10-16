@@ -48,8 +48,8 @@ public class Photo {
         }
         //link to the path
         this.photoPath = FOLDER + "//" + newPhoto;
-        
-        makePhoto( filePath,   newPhoto);        
+
+        makePhoto( filePath, newPhoto);
     }
 
     private void makePhoto(String filePath, String newPhoto) {

@@ -8,6 +8,7 @@ import java.util.regex.Pattern;
 
 import seedu.address.MainApp;
 import seedu.address.Mode;
+
 import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.commands.AddTransactionCommand;
 import seedu.address.logic.commands.AnalyticsCommand;
@@ -27,6 +28,9 @@ import seedu.address.logic.commands.SelectCommand;
 import seedu.address.logic.commands.UndoCommand;
 import seedu.address.logic.commands.FilterCommand;
 import seedu.address.logic.commands.CalendarCommand;
+import seedu.address.logic.commands.WildcardSearchCommand;
+import seedu.address.logic.commands.ToDoListAddCommand;
+
 import seedu.address.logic.parser.exceptions.ParseException;
 
 /**
@@ -124,6 +128,14 @@ public class FinancialDatabaseParser {
         case CalendarCommand.COMMAND_WORD:
         case CalendarCommand.COMMAND_ALIAS:
             return new CalendarCommandParser().parse(arguments);
+
+        case WildcardSearchCommand.COMMAND_WORD:
+        case WildcardSearchCommand.COMMAND_ALIAS:
+            return new WildcardSearchCommandParser().parse(arguments);
+
+        case ToDoListAddCommand.COMMAND_WORD:
+        case ToDoListAddCommand.COMMAND_ALIAS:
+            return new ToDoListAddCommandParser().parse(arguments);
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);

@@ -71,7 +71,7 @@ public class CommandTestUtil {
         DESC_AMY = new EditTransactionDescriptorBuilder().withAmount(VALID_AMOUNT_AMY).withDeadline(VALID_DEADLINE_AMY)
                 .withType(VALID_TYPE_AMY).withName(VALID_NAME_AMY).withPhone(VALID_PHONE_AMY)
                 .withEmail(VALID_EMAIL_AMY).withAddress(VALID_ADDRESS_AMY).withTags(VALID_TAG_FRIEND).build();
-        
+
         DESC_BOB = new EditTransactionDescriptorBuilder().withAmount(VALID_AMOUNT_BOB).withDeadline(VALID_DEADLINE_BOB)
                 .withType(VALID_TYPE_BOB).withName(VALID_NAME_BOB).withPhone(VALID_PHONE_BOB)
                 .withEmail(VALID_EMAIL_BOB).withAddress(VALID_ADDRESS_BOB)
