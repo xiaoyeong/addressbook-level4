@@ -8,6 +8,7 @@ import static seedu.address.ui.BrowserPanel.DEFAULT_PAGE;
 import static seedu.address.ui.StatusBarFooter.SYNC_STATUS_INITIAL;
 import static seedu.address.ui.StatusBarFooter.SYNC_STATUS_UPDATED;
 import static seedu.address.ui.UiPart.FXML_FILE_FOLDER;
+import static seedu.address.ui.testutil.GuiTestAssert.assertListMatching;
 
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -40,6 +41,7 @@ import seedu.address.logic.commands.SelectCommand;
 import seedu.address.model.FinancialDatabase;
 import seedu.address.model.Model;
 import seedu.address.testutil.TypicalPersons;
+import seedu.address.testutil.TypicalTransactions;
 import seedu.address.ui.BrowserPanel;
 import seedu.address.ui.CommandBox;
 
@@ -84,7 +86,7 @@ public abstract class FinancialDatabaseSystemTest {
      * Returns the data to be loaded into the file in {@link #getDataFileLocation()}.
      */
     protected FinancialDatabase getInitialData() {
-        return TypicalPersons.getTypicalFinancialDatabase();
+        return TypicalTransactions.getTypicalFinancialDatabase();
     }
 
     /**
@@ -142,7 +144,8 @@ public abstract class FinancialDatabaseSystemTest {
      */
     protected void showAllPersons() {
         executeCommand(ListCommand.COMMAND_WORD);
-        assertEquals(getModel().getFinancialDatabase().getPersonList().size(), getModel().getFilteredTransactionList().size());
+        assertEquals(getModel().getFinancialDatabase().getTransactionList().size(),
+                getModel().getFilteredTransactionList().size());
     }
 
     /**
@@ -150,7 +153,8 @@ public abstract class FinancialDatabaseSystemTest {
      */
     protected void showPersonsWithName(String keyword) {
         executeCommand(FindCommand.COMMAND_WORD + " " + keyword);
-        assertTrue(getModel().getFilteredTransactionList().size() < getModel().getFinancialDatabase().getPersonList().size());
+        assertTrue(getModel().getFilteredTransactionList().size() <
+                getModel().getFinancialDatabase().getTransactionList().size());
     }
 
     /**
@@ -164,9 +168,9 @@ public abstract class FinancialDatabaseSystemTest {
     /**
      * Deletes all persons in the address book.
      */
-    protected void deleteAllPersons() {
+    protected void deleteAllTransactions() {
         executeCommand(ClearCommand.COMMAND_WORD);
-        assertEquals(0, getModel().getFinancialDatabase().getPersonList().size());
+        assertEquals(0, getModel().getFinancialDatabase().getTransactionList().size());
     }
 
     /**

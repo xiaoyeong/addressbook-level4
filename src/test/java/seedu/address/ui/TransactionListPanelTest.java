@@ -6,16 +6,16 @@ import static org.junit.jupiter.api.Assertions.assertTimeoutPreemptively;
 import static seedu.address.testutil.EventsUtil.postNow;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_PERSON;
 import static seedu.address.testutil.TypicalPersons.getTypicalPersons;
-import static seedu.address.ui.testutil.GuiTestAssert.assertCardDisplaysPerson;
+import static seedu.address.ui.testutil.GuiTestAssert.assertCardDisplaysTransaction;
 import static seedu.address.ui.testutil.GuiTestAssert.assertCardEquals;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
+import guitests.guihandles.TransactionCardHandle;
 import guitests.guihandles.TransactionListPanelHandle;
 import org.junit.Test;
 
-import guitests.guihandles.PersonCardHandle;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.address.commons.events.ui.JumpToListRequestEvent;
@@ -43,9 +43,9 @@ public class TransactionListPanelTest extends GuiUnitTest {
         for (int i = 0; i < TYPICAL_PERSONS.size(); i++) {
             transactionListPanelHandle.navigateToCard(TYPICAL_PERSONS.get(i));
             Transaction expectedPerson = TYPICAL_PERSONS.get(i);
-            PersonCardHandle actualCard = transactionListPanelHandle.getPersonCardHandle(i);
+            TransactionCardHandle actualCard = transactionListPanelHandle.getPersonCardHandle(i);
 
-            assertCardDisplaysPerson(expectedPerson, actualCard);
+            assertCardDisplaysTransaction(expectedPerson, actualCard);
             assertEquals(Integer.toString(i + 1) + ". ", actualCard.getId());
         }
     }
@@ -56,8 +56,8 @@ public class TransactionListPanelTest extends GuiUnitTest {
         postNow(JUMP_TO_SECOND_EVENT);
         guiRobot.pauseForHuman();
 
-        PersonCardHandle expectedPerson = transactionListPanelHandle.getPersonCardHandle(INDEX_SECOND_PERSON.getZeroBased());
-        PersonCardHandle selectedPerson = transactionListPanelHandle.getHandleToSelectedCard();
+        TransactionCardHandle expectedPerson = transactionListPanelHandle.getPersonCardHandle(INDEX_SECOND_PERSON.getZeroBased());
+        TransactionCardHandle selectedPerson = transactionListPanelHandle.getHandleToSelectedCard();
         assertCardEquals(expectedPerson, selectedPerson);
     }
 

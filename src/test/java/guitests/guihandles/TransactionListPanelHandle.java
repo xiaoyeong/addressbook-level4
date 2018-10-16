@@ -23,12 +23,12 @@ public class TransactionListPanelHandle extends NodeHandle<ListView<Transaction>
     }
 
     /**
-     * Returns a handle to the selected {@code PersonCardHandle}.
+     * Returns a handle to the selected {@code TransactionCardHandle}.
      * A maximum of 1 item can be selected at any time.
      * @throws AssertionError if no card is selected, or more than 1 card is selected.
      * @throws IllegalStateException if the selected card is currently not in the scene graph.
      */
-    public PersonCardHandle getHandleToSelectedCard() {
+    public TransactionCardHandle getHandleToSelectedCard() {
         List<Transaction> selectedPersonList = getRootNode().getSelectionModel().getSelectedItems();
 
         if (selectedPersonList.size() != 1) {
@@ -36,7 +36,7 @@ public class TransactionListPanelHandle extends NodeHandle<ListView<Transaction>
         }
 
         return getAllCardNodes().stream()
-                .map(PersonCardHandle::new)
+                .map(TransactionCardHandle::new)
                 .filter(handle -> handle.equals(selectedPersonList.get(0)))
                 .findFirst()
                 .orElseThrow(IllegalStateException::new);
@@ -101,9 +101,9 @@ public class TransactionListPanelHandle extends NodeHandle<ListView<Transaction>
      * Returns the transaction card handle of a transaction associated with the {@code index} in the list.
      * @throws IllegalStateException if the selected card is currently not in the scene graph.
      */
-    public PersonCardHandle getPersonCardHandle(int index) {
+    public TransactionCardHandle getPersonCardHandle(int index) {
         return getAllCardNodes().stream()
-                .map(PersonCardHandle::new)
+                .map(TransactionCardHandle::new)
                 .filter(handle -> handle.equals(getPerson(index)))
                 .findFirst()
                 .orElseThrow(IllegalStateException::new);

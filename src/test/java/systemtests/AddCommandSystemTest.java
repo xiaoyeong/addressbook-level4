@@ -17,9 +17,11 @@ import static seedu.address.logic.commands.CommandTestUtil.PHONE_DESC_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_FRIEND;
 import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_HUSBAND;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_AMOUNT_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_EMAIL_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_TYPE_BOB;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.testutil.TypicalPersons.ALICE;
 import static seedu.address.testutil.TypicalPersons.AMY;
@@ -28,6 +30,9 @@ import static seedu.address.testutil.TypicalPersons.CARL;
 import static seedu.address.testutil.TypicalPersons.HOON;
 import static seedu.address.testutil.TypicalPersons.IDA;
 import static seedu.address.testutil.TypicalPersons.KEYWORD_MATCHING_MEIER;
+import static seedu.address.testutil.TypicalTransactions.ALICE_TRANSACTION;
+import static seedu.address.testutil.TypicalTransactions.BOB_TRANSACTION;
+import static seedu.address.testutil.TypicalTransactions.CARL_TRANSACTION;
 
 import org.junit.Test;
 
@@ -40,10 +45,12 @@ import seedu.address.model.Model;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
-import seedu.address.model.person.Transaction;
 import seedu.address.model.person.Phone;
 import seedu.address.model.tag.Tag;
-import seedu.address.testutil.PersonUtil;
+import seedu.address.model.transaction.Transaction;
+import seedu.address.testutil.PersonBuilder;
+import seedu.address.testutil.TransactionBuilder;
+import seedu.address.testutil.TransactionUtil;
 
 public class AddCommandSystemTest extends FinancialDatabaseSystemTest {
 
@@ -68,29 +75,16 @@ public class AddCommandSystemTest extends FinancialDatabaseSystemTest {
 
         /* Case: redo adding Amy to the list -> Amy added again */
         command = RedoCommand.COMMAND_WORD;
-        model.addPerson(toAdd);
+        model.addTransaction(toAdd);
         expectedResultMessage = RedoCommand.MESSAGE_SUCCESS;
         assertCommandSuccess(command, model, expectedResultMessage);
 
-        /* Case: add a transaction with all fields same as another transaction in the address book except name -> added */
-        toAdd = new PersonBuilder(AMY).withName(VALID_NAME_BOB).build();
-        command = AddCommand.COMMAND_WORD + NAME_DESC_BOB + PHONE_DESC_AMY + EMAIL_DESC_AMY + ADDRESS_DESC_AMY
-                + TAG_DESC_FRIEND;
-        assertCommandSuccess(command, toAdd);
-
-        /* Case: add a transaction with all fields same as another transaction in the address book except phone and email
-         * -> added
-         */
-        toAdd = new PersonBuilder(AMY).withPhone(VALID_PHONE_BOB).withEmail(VALID_EMAIL_BOB).build();
-        command = PersonUtil.getAddCommand(toAdd);
-        assertCommandSuccess(command, toAdd);
-
-        /* Case: add to empty address book -> added */
-        deleteAllPersons();
-        assertCommandSuccess(ALICE);
+        /* Case: add to empty database  -> added */
+        deleteAllTransactions();
+        assertCommandSuccess(ALICE_TRANSACTION);
 
         /* Case: add a transaction with tags, command with parameters in random order -> added */
-        toAdd = BOB;
+        toAdd = BOB_TRANSACTION;
         command = AddCommand.COMMAND_WORD + TAG_DESC_FRIEND + PHONE_DESC_BOB + ADDRESS_DESC_BOB + NAME_DESC_BOB
                 + TAG_DESC_HUSBAND + EMAIL_DESC_BOB;
         assertCommandSuccess(command, toAdd);
@@ -113,26 +107,26 @@ public class AddCommandSystemTest extends FinancialDatabaseSystemTest {
         /* ----------------------------------- Perform invalid add operations --------------------------------------- */
 
         /* Case: add a duplicate transaction -> rejected */
-        command = PersonUtil.getAddCommand(HOON);
+        command = TransactionUtil.getAddCommand(HOON);
         assertCommandFailure(command, AddCommand.MESSAGE_DUPLICATE_TRANSACTION);
 
         /* Case: add a duplicate transaction except with different phone -> rejected */
         toAdd = new PersonBuilder(HOON).withPhone(VALID_PHONE_BOB).build();
-        command = PersonUtil.getAddCommand(toAdd);
+        command = TransactionUtil.getAddCommand(toAdd);
         assertCommandFailure(command, AddCommand.MESSAGE_DUPLICATE_TRANSACTION);
 
         /* Case: add a duplicate transaction except with different email -> rejected */
         toAdd = new PersonBuilder(HOON).withEmail(VALID_EMAIL_BOB).build();
-        command = PersonUtil.getAddCommand(toAdd);
+        command = TransactionUtil.getAddCommand(toAdd);
         assertCommandFailure(command, AddCommand.MESSAGE_DUPLICATE_TRANSACTION);
 
         /* Case: add a duplicate transaction except with different address -> rejected */
         toAdd = new PersonBuilder(HOON).withAddress(VALID_ADDRESS_BOB).build();
-        command = PersonUtil.getAddCommand(toAdd);
+        command = TransactionUtil.getAddCommand(toAdd);
         assertCommandFailure(command, AddCommand.MESSAGE_DUPLICATE_TRANSACTION);
 
         /* Case: add a duplicate transaction except with different tags -> rejected */
-        command = PersonUtil.getAddCommand(HOON) + " " + PREFIX_TAG.getPrefix() + "friends";
+        command = TransactionUtil.getAddCommand(HOON) + " " + PREFIX_TAG.getPrefix() + "friends";
         assertCommandFailure(command, AddCommand.MESSAGE_DUPLICATE_TRANSACTION);
 
         /* Case: missing name -> rejected */
@@ -152,7 +146,7 @@ public class AddCommandSystemTest extends FinancialDatabaseSystemTest {
         assertCommandFailure(command, String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
 
         /* Case: invalid keyword -> rejected */
-        command = "adds " + PersonUtil.getPersonDetails(toAdd);
+        command = "adds " + TransactionUtil.getTransactionDetails(toAdd);
         assertCommandFailure(command, Messages.MESSAGE_UNKNOWN_COMMAND);
 
         /* Case: invalid name -> rejected */
@@ -192,7 +186,7 @@ public class AddCommandSystemTest extends FinancialDatabaseSystemTest {
      * @see FinancialDatabaseSystemTest#assertApplicationDisplaysExpected(String, String, Model)
      */
     private void assertCommandSuccess(Transaction toAdd) {
-        assertCommandSuccess(PersonUtil.getAddCommand(toAdd), toAdd);
+        assertCommandSuccess(TransactionUtil.getAddCommand(toAdd), toAdd);
     }
 
     /**
@@ -202,7 +196,7 @@ public class AddCommandSystemTest extends FinancialDatabaseSystemTest {
      */
     private void assertCommandSuccess(String command, Transaction toAdd) {
         Model expectedModel = getModel();
-        expectedModel.addPerson(toAdd);
+        expectedModel.addTransaction(toAdd);
         String expectedResultMessage = String.format(AddCommand.MESSAGE_SUCCESS, toAdd);
 
         assertCommandSuccess(command, expectedModel, expectedResultMessage);

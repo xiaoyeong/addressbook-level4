@@ -5,10 +5,11 @@ import static org.junit.Assert.assertEquals;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import guitests.guihandles.PersonCardHandle;
+import guitests.guihandles.TransactionCardHandle;
 import guitests.guihandles.TransactionListPanelHandle;
 import guitests.guihandles.ResultDisplayHandle;
-import seedu.address.model.person.Transaction;
+import seedu.address.model.person.Person;
+import seedu.address.model.transaction.Transaction;
 
 /**
  * A set of assertion methods useful for writing GUI tests.
@@ -17,8 +18,10 @@ public class GuiTestAssert {
     /**
      * Asserts that {@code actualCard} displays the same values as {@code expectedCard}.
      */
-    public static void assertCardEquals(PersonCardHandle expectedCard, PersonCardHandle actualCard) {
-        assertEquals(expectedCard.getId(), actualCard.getId());
+    public static void assertCardEquals(TransactionCardHandle expectedCard, TransactionCardHandle actualCard) {
+        assertEquals(expectedCard.getType(), actualCard.getType());
+        assertEquals(expectedCard.getAmount(), actualCard.getAmount());
+        assertEquals(expectedCard.getDeadline(), actualCard.getDeadline());
         assertEquals(expectedCard.getAddress(), actualCard.getAddress());
         assertEquals(expectedCard.getEmail(), actualCard.getEmail());
         assertEquals(expectedCard.getName(), actualCard.getName());
@@ -27,14 +30,18 @@ public class GuiTestAssert {
     }
 
     /**
-     * Asserts that {@code actualCard} displays the details of {@code expectedPerson}.
+     * Asserts that {@code actualCard} displays the details of {@code expectedTransaction}.
      */
-    public static void assertCardDisplaysPerson(Transaction expectedPerson, PersonCardHandle actualCard) {
-        assertEquals(expectedPerson.getName().fullName, actualCard.getName());
-        assertEquals(expectedPerson.getPhone().value, actualCard.getPhone());
-        assertEquals(expectedPerson.getEmail().value, actualCard.getEmail());
-        assertEquals(expectedPerson.getAddress().value, actualCard.getAddress());
-        assertEquals(expectedPerson.getTags().stream().map(tag -> tag.tagName).collect(Collectors.toList()),
+    public static void assertCardDisplaysTransaction(Transaction expectedTransaction, TransactionCardHandle actualCard) {
+        Person person = expectedTransaction.getPerson();
+        assertEquals(expectedTransaction.getType().value, actualCard.getType());
+        assertEquals(expectedTransaction.getAmount().value, actualCard.getAmount());
+        assertEquals(expectedTransaction.getDeadline().value, actualCard.getDeadline());
+        assertEquals(person.getName().fullName, actualCard.getName());
+        assertEquals(person.getPhone().value, actualCard.getPhone());
+        assertEquals(person.getEmail().value, actualCard.getEmail());
+        assertEquals(person.getAddress().value, actualCard.getAddress());
+        assertEquals(person.getTags().stream().map(tag -> tag.tagName).collect(Collectors.toList()),
                 actualCard.getTags());
     }
 
@@ -45,7 +52,7 @@ public class GuiTestAssert {
     public static void assertListMatching(TransactionListPanelHandle transactionListPanelHandle, Transaction... persons) {
         for (int i = 0; i < persons.length; i++) {
             transactionListPanelHandle.navigateToCard(i);
-            assertCardDisplaysPerson(persons[i], transactionListPanelHandle.getPersonCardHandle(i));
+            assertCardDisplaysTransaction(persons[i], transactionListPanelHandle.getPersonCardHandle(i));
         }
     }
 

@@ -16,7 +16,6 @@ import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
 import seedu.address.model.tag.Tag;
-import seedu.address.model.transaction.Transaction;
 import seedu.address.model.transaction.Amount;
 import seedu.address.model.transaction.Deadline;
 import seedu.address.model.transaction.Type;
@@ -59,8 +58,8 @@ public class XmlAdaptedTransaction {
     /**
      * Constructs an {@code XmlAdaptedTransaction} with the given transaction details.
      */
-    public XmlAdaptedTransaction(String amount, String type, String deadline, String name, String email,
-                                 String phone, String address, List<XmlAdaptedTag> tagged) {
+    public XmlAdaptedTransaction(String type, String amount, String deadline, String name, String phone, String email,
+                                 String address, List<XmlAdaptedTag> tagged) {
         this.name = name;
         this.phone = phone;
         this.email = email;

@@ -82,8 +82,8 @@ public class XmlUtilTest {
         XmlAdaptedTransaction actualTransaction = XmlUtil.getDataFromFile(
                 MISSING_TRANSACTION_FIELD_FILE, XmlAdaptedTransactionWithRootElement.class);
         XmlAdaptedTransaction expectedTransaction = new XmlAdaptedTransaction(
-                null, VALID_AMOUNT, VALID_DEADLINE, VALID_NAME, VALID_PHONE,
-                 VALID_EMAIL, VALID_ADDRESS, VALID_TAGS);
+                VALID_AMOUNT, null, VALID_DEADLINE, VALID_NAME, VALID_EMAIL, VALID_PHONE,
+                VALID_ADDRESS, VALID_TAGS);
         assertEquals(expectedTransaction, actualTransaction);
     }
 
@@ -92,7 +92,7 @@ public class XmlUtilTest {
         XmlAdaptedTransaction actualTransaction = XmlUtil.getDataFromFile(
                 INVALID_TRANSACTION_FIELD_FILE, XmlAdaptedTransactionWithRootElement.class);
         XmlAdaptedTransaction expectedTransaction = new XmlAdaptedTransaction(
-                VALID_TYPE, INVALID_AMOUNT, VALID_DEADLINE, VALID_NAME, VALID_PHONE, VALID_EMAIL,
+                INVALID_AMOUNT, VALID_TYPE, VALID_DEADLINE, VALID_NAME, VALID_EMAIL, VALID_PHONE,
                 VALID_ADDRESS, VALID_TAGS);
         assertEquals(expectedTransaction, actualTransaction);
     }
@@ -102,8 +102,8 @@ public class XmlUtilTest {
         XmlAdaptedTransaction actualTransaction = XmlUtil.getDataFromFile(
                 VALID_TRANSACTION_FILE, XmlAdaptedTransactionWithRootElement.class);
         XmlAdaptedTransaction expectedTransaction = new XmlAdaptedTransaction(
-                VALID_AMOUNT, VALID_TYPE, VALID_DEADLINE, VALID_NAME, VALID_PHONE,
-                VALID_EMAIL, VALID_ADDRESS, VALID_TAGS);
+                VALID_TYPE, VALID_AMOUNT, VALID_DEADLINE, VALID_NAME, VALID_EMAIL, VALID_PHONE,
+                VALID_ADDRESS, VALID_TAGS);
         assertEquals(expectedTransaction, actualTransaction);
     }
 

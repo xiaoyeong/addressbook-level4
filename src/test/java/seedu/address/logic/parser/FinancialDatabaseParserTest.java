@@ -18,7 +18,6 @@ import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.DeleteCommand;
 import seedu.address.logic.commands.EditCommand;
-import seedu.address.logic.commands.EditCommand.EditPersonDescriptor;
 import seedu.address.logic.commands.ExitCommand;
 import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.commands.HelpCommand;
@@ -29,8 +28,10 @@ import seedu.address.logic.commands.SelectCommand;
 import seedu.address.logic.commands.UndoCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.person.NameContainsKeywordsPredicate;
-import seedu.address.model.person.Transaction;
-import seedu.address.testutil.PersonUtil;
+import seedu.address.model.transaction.Transaction;
+import seedu.address.testutil.EditTransactionDescriptorBuilder;
+import seedu.address.testutil.TransactionUtil;
+import seedu.address.testutil.TransactionBuilder;
 
 public class FinancialDatabaseParserTest {
     @Rule
@@ -40,9 +41,9 @@ public class FinancialDatabaseParserTest {
 
     @Test
     public void parseCommand_add() throws Exception {
-        Transaction person = new PersonBuilder().build();
-        AddCommand command = (AddCommand) parser.parseCommand(PersonUtil.getAddCommand(person));
-        assertEquals(new AddCommand(person), command);
+        Transaction transaction = new TransactionBuilder().build();
+        AddCommand command = (AddCommand) parser.parseCommand(TransactionUtil.getAddCommand(transaction));
+        assertEquals(new AddCommand(transaction), command);
     }
 
     @Test
@@ -60,10 +61,10 @@ public class FinancialDatabaseParserTest {
 
     @Test
     public void parseCommand_edit() throws Exception {
-        Transaction person = new PersonBuilder().build();
-        EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder(person).build();
+        Transaction transaction = new TransactionBuilder().build();
+        EditCommand.EditTransactionDescriptor descriptor = new EditTransactionDescriptorBuilder(transaction).build();
         EditCommand command = (EditCommand) parser.parseCommand(EditCommand.COMMAND_WORD + " "
-                + INDEX_FIRST_PERSON.getOneBased() + " " + PersonUtil.getEditPersonDescriptorDetails(descriptor));
+                + INDEX_FIRST_PERSON.getOneBased() + " " + TransactionUtil.getEditTransactionDescriptorDetails(descriptor));
         assertEquals(new EditCommand(INDEX_FIRST_PERSON, descriptor), command);
     }
 

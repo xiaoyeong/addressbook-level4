@@ -45,7 +45,7 @@ import seedu.address.model.person.Name;
 import seedu.address.model.person.Transaction;
 import seedu.address.model.person.Phone;
 import seedu.address.model.tag.Tag;
-import seedu.address.testutil.PersonUtil;
+import seedu.address.testutil.TransactionUtil;
 
 public class EditCommandSystemTest extends FinancialDatabaseSystemTest {
 
@@ -183,7 +183,7 @@ public class EditCommandSystemTest extends FinancialDatabaseSystemTest {
                 Tag.MESSAGE_TAG_CONSTRAINTS);
 
         /* Case: edit a transaction with new values same as another transaction's values -> rejected */
-        executeCommand(PersonUtil.getAddCommand(BOB));
+        executeCommand(TransactionUtil.getAddCommand(BOB));
         assertTrue(getModel().getFinancialDatabase().getPersonList().contains(BOB));
         index = INDEX_FIRST_PERSON;
         assertFalse(getModel().getFilteredTransactionList().get(index.getZeroBased()).equals(BOB));

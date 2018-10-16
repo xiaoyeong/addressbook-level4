@@ -9,7 +9,7 @@ import java.nio.file.Path;
 import org.junit.Test;
 
 import seedu.address.model.FinancialDatabase;
-import seedu.address.model.person.Transaction;
+import seedu.address.model.transaction.Transaction;
 import seedu.address.model.util.SampleDataUtil;
 import seedu.address.testutil.TestUtil;
 
@@ -45,7 +45,7 @@ public class SampleDataTest extends FinancialDatabaseSystemTest {
 
     @Test
     public void addressBook_dataFileDoesNotExist_loadSampleData() {
-        Transaction[] expectedList = SampleDataUtil.getSamplePersons();
+        Transaction[] expectedList = SampleDataUtil.getSampleTransactions();
         assertListMatching(getTransactionListPanel(), expectedList);
     }
 }
