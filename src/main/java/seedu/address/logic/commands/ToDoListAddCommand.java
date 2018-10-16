@@ -12,7 +12,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_TO_DO_LIST;
  */
 public class ToDoListAddCommand extends Command {
     public static final String COMMAND_WORD = "todo";
-    public static final String COMMAND_ALIAS = "td";
+    public static final String COMMAND_ALIAS = "toDo";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds an action to the user's to-do list. "
             + "Parameters: "

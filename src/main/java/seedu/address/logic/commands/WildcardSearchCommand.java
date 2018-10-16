@@ -16,7 +16,7 @@ public class WildcardSearchCommand extends Command{
     public static final String COMMAND_ALIAS = "wcs";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Performs a wildcard search on the address book's "
-            + "contacts based on user's input."
+            + "contacts based on user's input. "
             + "Parameters: KEYWORD [MORE_KEYWORDS]...\n"
             + "Example: " + COMMAND_WORD + " oh";
 
