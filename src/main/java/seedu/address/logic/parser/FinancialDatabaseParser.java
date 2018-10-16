@@ -64,6 +64,7 @@ public class FinancialDatabaseParser {
             } else {
                 return new AddTransactionCommandParser().parse(arguments);
             }
+
         case AnalyticsCommand.COMMAND_WORD:
         case AnalyticsCommand.COMMAND_ALIAS:
             return new AnalyticsCommand();
