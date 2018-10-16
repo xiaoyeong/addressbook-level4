@@ -18,7 +18,7 @@ import seedu.address.logic.commands.DeleteCommand;
 import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.UndoCommand;
 import seedu.address.model.Model;
-import seedu.address.model.person.Transaction;
+import seedu.address.model.transaction.Transaction;
 
 public class DeleteCommandSystemTest extends FinancialDatabaseSystemTest {
 
@@ -68,7 +68,7 @@ public class DeleteCommandSystemTest extends FinancialDatabaseSystemTest {
          * -> rejected
          */
         showPersonsWithName(KEYWORD_MATCHING_MEIER);
-        int invalidIndex = getModel().getFinancialDatabase().getPersonList().size();
+        int invalidIndex = getModel().getFinancialDatabase().getTransactionList().size();
         command = DeleteCommand.COMMAND_WORD + " " + invalidIndex;
         assertCommandFailure(command, MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
 
@@ -97,7 +97,7 @@ public class DeleteCommandSystemTest extends FinancialDatabaseSystemTest {
 
         /* Case: invalid index (size + 1) -> rejected */
         Index outOfBoundsIndex = Index.fromOneBased(
-                getModel().getFinancialDatabase().getPersonList().size() + 1);
+                getModel().getFinancialDatabase().getTransactionList().size() + 1);
         command = DeleteCommand.COMMAND_WORD + " " + outOfBoundsIndex.getOneBased();
         assertCommandFailure(command, MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
 
@@ -117,7 +117,7 @@ public class DeleteCommandSystemTest extends FinancialDatabaseSystemTest {
      */
     private Transaction removePerson(Model model, Index index) {
         Transaction targetPerson = getPerson(model, index);
-        model.deletePerson(targetPerson);
+        model.deleteTransaction(targetPerson);
         return targetPerson;
     }
 

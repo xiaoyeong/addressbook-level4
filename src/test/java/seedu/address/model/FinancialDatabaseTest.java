@@ -111,14 +111,10 @@ public class FinancialDatabaseTest {
         }
 
         @Override
-        public ObservableList<Transaction> getPersonList() {
+        public ObservableList<Transaction> getTransactionList() {
             return persons;
         }
 
-        @Override
-        public ObservableList<seedu.address.model.transaction.Transaction> getTransactionList() {
-            return null;
-        }
     }
 
 }

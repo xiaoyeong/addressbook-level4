@@ -58,7 +58,7 @@ public class SelectCommandSystemTest extends FinancialDatabaseSystemTest {
          * -> rejected
          */
         showPersonsWithName(KEYWORD_MATCHING_MEIER);
-        int invalidIndex = getModel().getFinancialDatabase().getPersonList().size();
+        int invalidIndex = getModel().getFinancialDatabase().getTransactionList().size();
         assertCommandFailure(SelectCommand.COMMAND_WORD + " " + invalidIndex, MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
 
         /* Case: filtered transaction list, select index within bounds of address book and transaction list -> selected */
@@ -93,7 +93,7 @@ public class SelectCommandSystemTest extends FinancialDatabaseSystemTest {
         assertCommandFailure("SeLeCt 1", MESSAGE_UNKNOWN_COMMAND);
 
         /* Case: select from empty address book -> rejected */
-        deleteAllPersons();
+        deleteAllTransactions();
         assertCommandFailure(SelectCommand.COMMAND_WORD + " " + INDEX_FIRST_PERSON.getOneBased(),
                 MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
     }

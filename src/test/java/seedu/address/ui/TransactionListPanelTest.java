@@ -6,6 +6,7 @@ import static org.junit.jupiter.api.Assertions.assertTimeoutPreemptively;
 import static seedu.address.testutil.EventsUtil.postNow;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_PERSON;
 import static seedu.address.testutil.TypicalPersons.getTypicalPersons;
+import static seedu.address.testutil.TypicalTransactions.getTypicalTransactions;
 import static seedu.address.ui.testutil.GuiTestAssert.assertCardDisplaysTransaction;
 import static seedu.address.ui.testutil.GuiTestAssert.assertCardEquals;
 
@@ -21,12 +22,12 @@ import javafx.collections.ObservableList;
 import seedu.address.commons.events.ui.JumpToListRequestEvent;
 import seedu.address.commons.util.FileUtil;
 import seedu.address.commons.util.XmlUtil;
-import seedu.address.model.person.Transaction;
+import seedu.address.model.transaction.Transaction;
 import seedu.address.storage.XmlSerializableFinancialDatabase;
 
 public class TransactionListPanelTest extends GuiUnitTest {
     private static final ObservableList<Transaction> TYPICAL_PERSONS =
-            FXCollections.observableList(getTypicalPersons());
+            FXCollections.observableList(getTypicalTransactions());
 
     private static final JumpToListRequestEvent JUMP_TO_SECOND_EVENT = new JumpToListRequestEvent(INDEX_SECOND_PERSON);
 
@@ -83,7 +84,7 @@ public class TransactionListPanelTest extends GuiUnitTest {
         Path xmlFile = createXmlFileWithPersons(personCount);
         XmlSerializableFinancialDatabase xmlAddressBook =
                 XmlUtil.getDataFromFile(xmlFile, XmlSerializableFinancialDatabase.class);
-        return FXCollections.observableArrayList(xmlAddressBook.toModelType().getPersonList());
+        return FXCollections.observableArrayList(xmlAddressBook.toModelType().getTransactionList());
     }
 
     /**

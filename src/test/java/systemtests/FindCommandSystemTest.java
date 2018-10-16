@@ -7,6 +7,10 @@ import static seedu.address.testutil.TypicalPersons.BENSON;
 import static seedu.address.testutil.TypicalPersons.CARL;
 import static seedu.address.testutil.TypicalPersons.DANIEL;
 import static seedu.address.testutil.TypicalPersons.KEYWORD_MATCHING_MEIER;
+import static seedu.address.testutil.TypicalTransactions.BOB_TRANSACTION;
+import static seedu.address.testutil.TypicalTransactions.CARL_TRANSACTION;
+import static seedu.address.testutil.TypicalTransactions.DANIEL_TRANSACTION;
+
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,7 +34,7 @@ public class FindCommandSystemTest extends FinancialDatabaseSystemTest {
          */
         String command = "   " + FindCommand.COMMAND_WORD + " " + KEYWORD_MATCHING_MEIER + "   ";
         Model expectedModel = getModel();
-        ModelHelper.setFilteredList(expectedModel, BENSON, DANIEL); // first names of Benson and Daniel are "Meier"
+        ModelHelper.setFilteredList(expectedModel, BOB_TRANSACTION, DANIEL_TRANSACTION); // first names of Benson and Daniel are "Meier"
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
 
@@ -43,30 +47,30 @@ public class FindCommandSystemTest extends FinancialDatabaseSystemTest {
 
         /* Case: find transaction where transaction list is not displaying the transaction we are finding -> 1 transaction found */
         command = FindCommand.COMMAND_WORD + " Carl";
-        ModelHelper.setFilteredList(expectedModel, CARL);
+        ModelHelper.setFilteredList(expectedModel, CARL_TRANSACTION);
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
 
         /* Case: find multiple persons in address book, 2 keywords -> 2 persons found */
-        command = FindCommand.COMMAND_WORD + " Benson Daniel";
-        ModelHelper.setFilteredList(expectedModel, BENSON, DANIEL);
+        command = FindCommand.COMMAND_WORD + " Bob Daniel";
+        ModelHelper.setFilteredList(expectedModel, BOB_TRANSACTION, DANIEL_TRANSACTION);
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
 
         /* Case: find multiple persons in address book, 2 keywords in reversed order -> 2 persons found */
-        command = FindCommand.COMMAND_WORD + " Daniel Benson";
+        command = FindCommand.COMMAND_WORD + " Daniel Bob";
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
 
         /* Case: find multiple persons in address book, 2 keywords with 1 repeat -> 2 persons found */
-        command = FindCommand.COMMAND_WORD + " Daniel Benson Daniel";
+        command = FindCommand.COMMAND_WORD + " Daniel Bob Daniel";
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
 
         /* Case: find multiple persons in address book, 2 matching keywords and 1 non-matching keyword
          * -> 2 persons found
          */
-        command = FindCommand.COMMAND_WORD + " Daniel Benson NonMatchingKeyWord";
+        command = FindCommand.COMMAND_WORD + " Daniel Bob NonMatchingKeyWord";
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
 
@@ -82,10 +86,10 @@ public class FindCommandSystemTest extends FinancialDatabaseSystemTest {
 
         /* Case: find same persons in address book after deleting 1 of them -> 1 transaction found */
         executeCommand(DeleteCommand.COMMAND_WORD + " 1");
-        assertFalse(getModel().getFinancialDatabase().getPersonList().contains(BENSON));
+        assertFalse(getModel().getFinancialDatabase().getTransactionList().contains(BENSON));
         command = FindCommand.COMMAND_WORD + " " + KEYWORD_MATCHING_MEIER;
         expectedModel = getModel();
-        ModelHelper.setFilteredList(expectedModel, DANIEL);
+        ModelHelper.setFilteredList(expectedModel, DANIEL_TRANSACTION);
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
 
@@ -137,15 +141,15 @@ public class FindCommandSystemTest extends FinancialDatabaseSystemTest {
         selectPerson(Index.fromOneBased(1));
         assertFalse(getTransactionListPanel().getHandleToSelectedCard().getName().equals(DANIEL.getName().fullName));
         command = FindCommand.COMMAND_WORD + " Daniel";
-        ModelHelper.setFilteredList(expectedModel, DANIEL);
+        ModelHelper.setFilteredList(expectedModel, DANIEL_TRANSACTION);
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardDeselected();
 
         /* Case: find transaction in empty address book -> 0 persons found */
-        deleteAllPersons();
+        deleteAllTransactions();
         command = FindCommand.COMMAND_WORD + " " + KEYWORD_MATCHING_MEIER;
         expectedModel = getModel();
-        ModelHelper.setFilteredList(expectedModel, DANIEL);
+        ModelHelper.setFilteredList(expectedModel, DANIEL_TRANSACTION);
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
 

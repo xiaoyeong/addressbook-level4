@@ -21,6 +21,7 @@ import seedu.address.storage.XmlAdaptedTransaction;
 import seedu.address.storage.XmlSerializableFinancialDatabase;
 import seedu.address.testutil.FinancialDatabaseBuilder;
 import seedu.address.testutil.TestUtil;
+import seedu.address.testutil.TransactionBuilder;
 
 public class XmlUtilTest {
 
@@ -74,7 +75,7 @@ public class XmlUtilTest {
     @Test
     public void getDataFromFile_validFile_validResult() throws Exception {
         FinancialDatabase dataFromFile = XmlUtil.getDataFromFile(VALID_FILE, XmlSerializableFinancialDatabase.class).toModelType();
-        assertEquals(9, dataFromFile.getPersonList().size());
+        assertEquals(9, dataFromFile.getTransactionList().size());
     }
 
     @Test
@@ -135,7 +136,7 @@ public class XmlUtilTest {
 
         FinancialDatabaseBuilder builder = new FinancialDatabaseBuilder(new FinancialDatabase());
         dataToWrite = new XmlSerializableFinancialDatabase(
-                builder.withTransaction(new PersonBuilder().build()).build());
+                builder.withTransaction(new TransactionBuilder().build()).build());
 
         XmlUtil.saveDataToFile(TEMP_FILE, dataToWrite);
         dataFromFile = XmlUtil.getDataFromFile(TEMP_FILE, XmlSerializableFinancialDatabase.class);

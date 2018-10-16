@@ -1,10 +1,11 @@
 package seedu.address.testutil;
 
-import seedu.address.model.person.Person;
+import seedu.address.model.person.*;
 import seedu.address.model.transaction.Amount;
 import seedu.address.model.transaction.Deadline;
 import seedu.address.model.transaction.Transaction;
 import seedu.address.model.transaction.Type;
+import seedu.address.model.util.SampleDataUtil;
 
 /**
  *
@@ -57,6 +58,51 @@ public class TransactionBuilder {
      */
     public TransactionBuilder withPerson(Person person) {
         this.person = person;
+        return this;
+    }
+
+    /**
+     * Sets the {@code Name} of the {@code Transaction} that we are building.
+     */
+    public TransactionBuilder withName(String name) {
+        this.person = new Person(new Name(name),this.person.getPhone(),this.person.getEmail(),this.person.getAddress(),
+                this.person.getTags());
+        return this;
+    }
+
+    /**
+     * Sets the {@code Address} of the {@code Transaction} that we are building.
+     */
+    public TransactionBuilder withAddress(String address) {
+        this.person = new Person(this.person.getName(),this.person.getPhone(),this.person.getEmail(),
+                new Address(address), this.person.getTags());
+        return this;
+    }
+
+    /**
+     * Sets the {@code Email} of the {@code Transaction} that we are building.
+     */
+    public TransactionBuilder withEmail(String email) {
+        this.person = new Person(this.person.getName(),this.person.getPhone(),new Email(email),
+                this.person.getAddress(), this.person.getTags());
+        return this;
+    }
+
+    /**
+     * Sets the {@code Phone} of the {@code Transaction} that we are building.
+     */
+    public TransactionBuilder withPhone(String phone) {
+        this.person = new Person(this.person.getName(),new Phone(phone),this.person.getEmail(),
+                this.person.getAddress(), this.person.getTags());
+        return this;
+    }
+
+    /**
+     * Sets the {@code Tags} of the {@code Transaction} that we are building.
+     */
+    public TransactionBuilder withTags(String ... tags) {
+        this.person = new Person(this.person.getName(),this.person.getPhone(),this.person.getEmail(),
+                this.person.getAddress(), SampleDataUtil.getTagSet(tags));
         return this;
     }
 

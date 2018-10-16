@@ -15,6 +15,7 @@ import seedu.address.model.transaction.Transaction;
  * Provides a handle to a transaction card in the transaction list panel.
  */
 public class TransactionCardHandle extends NodeHandle<Node> {
+    private static final String ID_FIELD_ID = "#id";
     private static final String TYPE_FIELD_ID = "#type";
     private static final String AMOUNT_FIELD_ID = "#amount";
     private static final String DEADLINE_FIELD_ID = "#deadline";
@@ -24,6 +25,7 @@ public class TransactionCardHandle extends NodeHandle<Node> {
     private static final String EMAIL_FIELD_ID = "#email";
     private static final String TAGS_FIELD_ID = "#tags";
 
+    private final Label idLabel;
     private final Label typeLabel;
     private final Label amountLabel;
     private final Label deadlineLabel;
@@ -36,6 +38,7 @@ public class TransactionCardHandle extends NodeHandle<Node> {
     public TransactionCardHandle(Node cardNode) {
         super(cardNode);
 
+        idLabel = getChildNode(ID_FIELD_ID);
         typeLabel = getChildNode(TYPE_FIELD_ID);
         amountLabel = getChildNode(AMOUNT_FIELD_ID);
         deadlineLabel = getChildNode(DEADLINE_FIELD_ID);
@@ -50,6 +53,10 @@ public class TransactionCardHandle extends NodeHandle<Node> {
                 .stream()
                 .map(Label.class::cast)
                 .collect(Collectors.toList());
+    }
+
+    public String getId() {
+        return idLabel.getText();
     }
 
     public String getType() {

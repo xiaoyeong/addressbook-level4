@@ -3,9 +3,9 @@ package seedu.address.logic.commands;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 
-import seedu.address.model.person.Transaction;
+import seedu.address.model.transaction.Transaction;
 import seedu.address.testutil.TransactionBuilder;
-import static seedu.address.testutil.TypicalPersons.getTypicalFinancialDatabase;
+import static seedu.address.testutil.TypicalTransactions.getTypicalFinancialDatabase;
 
 import org.junit.Before;
 import org.junit.Test;

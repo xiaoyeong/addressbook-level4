@@ -1,27 +1,7 @@
 package systemtests;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.logic.commands.CommandTestUtil.ADDRESS_DESC_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.ADDRESS_DESC_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.EMAIL_DESC_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.EMAIL_DESC_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.INVALID_ADDRESS_DESC;
-import static seedu.address.logic.commands.CommandTestUtil.INVALID_EMAIL_DESC;
-import static seedu.address.logic.commands.CommandTestUtil.INVALID_NAME_DESC;
-import static seedu.address.logic.commands.CommandTestUtil.INVALID_PHONE_DESC;
-import static seedu.address.logic.commands.CommandTestUtil.INVALID_TAG_DESC;
-import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.PHONE_DESC_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.PHONE_DESC_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_FRIEND;
-import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_HUSBAND;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_AMOUNT_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_EMAIL_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_TYPE_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.*;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.testutil.TypicalPersons.ALICE;
 import static seedu.address.testutil.TypicalPersons.AMY;
@@ -33,6 +13,7 @@ import static seedu.address.testutil.TypicalPersons.KEYWORD_MATCHING_MEIER;
 import static seedu.address.testutil.TypicalTransactions.ALICE_TRANSACTION;
 import static seedu.address.testutil.TypicalTransactions.BOB_TRANSACTION;
 import static seedu.address.testutil.TypicalTransactions.CARL_TRANSACTION;
+import static seedu.address.testutil.TypicalTransactions.DANIEL_TRANSACTION;
 
 import org.junit.Test;
 
@@ -63,7 +44,7 @@ public class AddCommandSystemTest extends FinancialDatabaseSystemTest {
         /* Case: add a transaction without tags to a non-empty address book, command with leading spaces and trailing spaces
          * -> added
          */
-        Transaction toAdd = AMY;
+        Transaction toAdd = ALICE_TRANSACTION;
         String command = "   " + AddCommand.COMMAND_WORD + "  " + NAME_DESC_AMY + "  " + PHONE_DESC_AMY + " "
                 + EMAIL_DESC_AMY + "   " + ADDRESS_DESC_AMY + "   " + TAG_DESC_FRIEND + " ";
         assertCommandSuccess(command, toAdd);
@@ -90,43 +71,43 @@ public class AddCommandSystemTest extends FinancialDatabaseSystemTest {
         assertCommandSuccess(command, toAdd);
 
         /* Case: add a transaction, missing tags -> added */
-        assertCommandSuccess(HOON);
+        assertCommandSuccess(BOB_TRANSACTION);
 
         /* -------------------------- Perform add operation on the shown filtered list ------------------------------ */
 
         /* Case: filters the transaction list before adding -> added */
         showPersonsWithName(KEYWORD_MATCHING_MEIER);
-        assertCommandSuccess(IDA);
+        assertCommandSuccess(DANIEL_TRANSACTION);
 
         /* ------------------------ Perform add operation while a transaction card is selected --------------------------- */
 
         /* Case: selects first card in the transaction list, add a transaction -> added, card selection remains unchanged */
         selectPerson(Index.fromOneBased(1));
-        assertCommandSuccess(CARL);
+        assertCommandSuccess(CARL_TRANSACTION);
 
         /* ----------------------------------- Perform invalid add operations --------------------------------------- */
 
         /* Case: add a duplicate transaction -> rejected */
-        command = TransactionUtil.getAddCommand(HOON);
+        command = TransactionUtil.getAddCommand(BOB_TRANSACTION);
         assertCommandFailure(command, AddCommand.MESSAGE_DUPLICATE_TRANSACTION);
 
         /* Case: add a duplicate transaction except with different phone -> rejected */
-        toAdd = new PersonBuilder(HOON).withPhone(VALID_PHONE_BOB).build();
+        toAdd = new TransactionBuilder(BOB_TRANSACTION).withPhone(VALID_PHONE_AMY).build();
         command = TransactionUtil.getAddCommand(toAdd);
         assertCommandFailure(command, AddCommand.MESSAGE_DUPLICATE_TRANSACTION);
 
         /* Case: add a duplicate transaction except with different email -> rejected */
-        toAdd = new PersonBuilder(HOON).withEmail(VALID_EMAIL_BOB).build();
+        toAdd = new TransactionBuilder(BOB_TRANSACTION).withEmail(VALID_EMAIL_AMY).build();
         command = TransactionUtil.getAddCommand(toAdd);
         assertCommandFailure(command, AddCommand.MESSAGE_DUPLICATE_TRANSACTION);
 
         /* Case: add a duplicate transaction except with different address -> rejected */
-        toAdd = new PersonBuilder(HOON).withAddress(VALID_ADDRESS_BOB).build();
+        toAdd = new TransactionBuilder(BOB_TRANSACTION).withAddress(VALID_ADDRESS_AMY).build();
         command = TransactionUtil.getAddCommand(toAdd);
         assertCommandFailure(command, AddCommand.MESSAGE_DUPLICATE_TRANSACTION);
 
         /* Case: add a duplicate transaction except with different tags -> rejected */
-        command = TransactionUtil.getAddCommand(HOON) + " " + PREFIX_TAG.getPrefix() + "friends";
+        command = TransactionUtil.getAddCommand(BOB_TRANSACTION) + " " + PREFIX_TAG.getPrefix() + "friends";
         assertCommandFailure(command, AddCommand.MESSAGE_DUPLICATE_TRANSACTION);
 
         /* Case: missing name -> rejected */
