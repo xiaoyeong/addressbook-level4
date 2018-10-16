@@ -19,6 +19,7 @@ public abstract class ComponentManager {
 
     public ComponentManager(EventsCenter eventsCenter) {
         this.eventsCenter = eventsCenter;
+        //this to refer to the object itself which is anything  that extends componentmanager
         eventsCenter.registerHandler(this);
     }
 
