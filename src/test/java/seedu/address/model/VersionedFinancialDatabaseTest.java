@@ -7,6 +7,9 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import static seedu.address.testutil.TypicalPersons.AMY;
 import static seedu.address.testutil.TypicalPersons.BOB;
 import static seedu.address.testutil.TypicalPersons.CARL;
+import static seedu.address.testutil.TypicalTransactions.ALICE_TRANSACTION;
+import static seedu.address.testutil.TypicalTransactions.BOB_TRANSACTION;
+import static seedu.address.testutil.TypicalTransactions.CARL_TRANSACTION;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -18,9 +21,9 @@ import seedu.address.testutil.FinancialDatabaseBuilder;
 
 public class VersionedFinancialDatabaseTest {
 
-    private final ReadOnlyFinancialDatabase addressBookWithAmy = new FinancialDatabaseBuilder().withPerson(AMY).build();
-    private final ReadOnlyFinancialDatabase addressBookWithBob = new FinancialDatabaseBuilder().withPerson(BOB).build();
-    private final ReadOnlyFinancialDatabase addressBookWithCarl = new FinancialDatabaseBuilder().withPerson(CARL).build();
+    private final ReadOnlyFinancialDatabase addressBookWithAmy = new FinancialDatabaseBuilder().withTransaction(ALICE_TRANSACTION).build();
+    private final ReadOnlyFinancialDatabase addressBookWithBob = new FinancialDatabaseBuilder().withTransaction(BOB_TRANSACTION).build();
+    private final ReadOnlyFinancialDatabase addressBookWithCarl = new FinancialDatabaseBuilder().withTransaction(CARL_TRANSACTION).build();
     private final ReadOnlyFinancialDatabase emptyAddressBook = new FinancialDatabaseBuilder().build();
 
     @Test

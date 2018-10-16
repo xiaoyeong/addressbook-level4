@@ -19,10 +19,8 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.FinancialDatabase;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyFinancialDatabase;
-import seedu.address.model.person.Person;
 import seedu.address.model.transaction.Transaction;
-import seedu.address.testutil.PersonBuilder;
-import seedu.address.testutil.TypicalPersons;
+import seedu.address.testutil.TransactionBuilder;
 
 public class AddCommandTest {
 
@@ -42,7 +40,7 @@ public class AddCommandTest {
     @Test
     public void execute_personAcceptedByModel_addSuccessful() throws Exception {
         ModelStubAcceptingPersonAdded modelStub = new ModelStubAcceptingPersonAdded();
-        Person validPerson = new PersonBuilder().build();
+        Transaction validPerson = new TransactionBuilder().build();
 
         CommandResult commandResult = new AddCommand(validPerson).execute(modelStub, commandHistory);
 
@@ -53,19 +51,19 @@ public class AddCommandTest {
 
     @Test
     public void execute_duplicatePerson_throwsCommandException() throws Exception {
-        Person validPerson = new PersonBuilder().build();
+        Transaction validPerson = new TransactionBuilder().build();
         AddCommand addCommand = new AddCommand(validPerson);
         ModelStub modelStub = new ModelStubWithPerson(validPerson);
 
         thrown.expect(CommandException.class);
-        thrown.expectMessage(AddCommand.MESSAGE_DUPLICATE_PERSON);
+        thrown.expectMessage(AddCommand.MESSAGE_DUPLICATE_TRANSACTION);
         addCommand.execute(modelStub, commandHistory);
     }
 
     @Test
     public void equals() {
-        Person alice = new PersonBuilder().withName("Alice").build();
-        Person bob = new PersonBuilder().withName("Bob").build();
+        Transaction alice = new TransactionBuilder().withName("Alice").build();
+        Transaction bob = new TransactionBuilder().withName("Bob").build();
         AddCommand addAliceCommand = new AddCommand(alice);
         AddCommand addBobCommand = new AddCommand(bob);
 
@@ -82,7 +80,7 @@ public class AddCommandTest {
         // null -> returns false
         assertFalse(addAliceCommand.equals(null));
 
-        // different person -> returns false
+        // different transaction -> returns false
         assertFalse(addAliceCommand.equals(addBobCommand));
     }
 
@@ -90,10 +88,6 @@ public class AddCommandTest {
      * A default model stub that have all of the methods failing.
      */
     private class ModelStub implements Model {
-        @Override
-        public void addPerson(Person person) {
-            throw new AssertionError("This method should not be called.");
-        }
 
         @Override
         public void resetData(ReadOnlyFinancialDatabase newData) {
@@ -105,60 +99,36 @@ public class AddCommandTest {
             throw new AssertionError("This method should not be called.");
         }
 
+
         @Override
-        public boolean hasPerson(Person person) {
+        public void addTransaction(seedu.address.model.transaction.Transaction transaction) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void addTransaction(Transaction transaction) {
+        public boolean hasTransaction(seedu.address.model.transaction.Transaction transaction) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public boolean hasTransaction(Transaction transaction) {
+        public void updateTransaction(seedu.address.model.transaction.Transaction target, seedu.address.model.transaction.Transaction editedTransaction) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void updateTransaction(Transaction target, Transaction editedTransaction) {
+        public void deleteTransaction(seedu.address.model.transaction.Transaction target) {
             throw new AssertionError("This method should not be called.");
         }
 
-        @Override
-        public void deleteTransaction(Transaction target) {
+        public ObservableList<seedu.address.model.transaction.Transaction> getFilteredTransactionList() {
             throw new AssertionError("This method should not be called.");
         }
 
-        @Override
-        public ObservableList<Transaction> getFilteredTransactionList() {
+        public void updateFilteredTransactionList(Predicate<seedu.address.model.transaction.Transaction> predicate) {
             throw new AssertionError("This method should not be called.");
         }
 
-        @Override
-        public void updateFilteredTransactionList(Predicate<Transaction> predicate) {
-            throw new AssertionError("This method should not be called.");
-        }
 
-        @Override
-        public void deletePerson(Person target) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void updatePerson(Person target, Person editedPerson) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public ObservableList<Person> getFilteredPersonList() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void updateFilteredPersonList(Predicate<Person> predicate) {
-            throw new AssertionError("This method should not be called.");
-        }
 
         @Override
         public boolean canUndoFinancialDatabase() {
@@ -187,37 +157,37 @@ public class AddCommandTest {
     }
 
     /**
-     * A Model stub that contains a single person.
+     * A Model stub that contains a single transaction.
      */
     private class ModelStubWithPerson extends ModelStub {
-        private final Person person;
+        private final Transaction person;
 
-        ModelStubWithPerson(Person person) {
+        ModelStubWithPerson(Transaction person) {
             requireNonNull(person);
             this.person = person;
         }
 
         @Override
-        public boolean hasPerson(Person person) {
+        public boolean hasTransaction(Transaction person) {
             requireNonNull(person);
             return this.person.equals(person);
         }
     }
 
     /**
-     * A Model stub that always accept the person being added.
+     * A Model stub that always accept the transaction being added.
      */
     private class ModelStubAcceptingPersonAdded extends ModelStub {
-        final ArrayList<Person> personsAdded = new ArrayList<>();
+        final ArrayList<Transaction> personsAdded = new ArrayList<>();
 
         @Override
-        public boolean hasPerson(Person person) {
+        public boolean hasTransaction(Transaction person) {
             requireNonNull(person);
             return personsAdded.stream().anyMatch(person::equals);
         }
 
         @Override
-        public void addPerson(Person person) {
+        public void addTransaction(Transaction person) {
             requireNonNull(person);
             personsAdded.add(person);
         }
