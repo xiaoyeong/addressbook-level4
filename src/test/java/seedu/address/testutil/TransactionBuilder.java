@@ -1,8 +1,8 @@
 package seedu.address.testutil;
 
+import seedu.address.model.person.Person;
 import seedu.address.model.transaction.Amount;
 import seedu.address.model.transaction.Deadline;
-import seedu.address.model.transaction.PersonId;
 import seedu.address.model.transaction.Transaction;
 import seedu.address.model.transaction.Type;
 
@@ -12,18 +12,18 @@ import seedu.address.model.transaction.Type;
 public class TransactionBuilder {
     public static final String DEFAULT_TYPE = "Loan";
     public static final String DEFAULT_AMOUNT = "SGD 10.00";
-    public static final String DEFAULT_PERSONID = "1";
+    public static final Person DEFAULT_PERSON = TypicalPersons.AMY;
     public static final String DEFAULT_DEADLINE = "12/11/2018";
 
     private Type type;
     private Amount amount;
-    private PersonId personId;
+    private Person person;
     private Deadline deadline;
 
     public TransactionBuilder() {
         type = new Type(DEFAULT_TYPE);
         amount = new Amount(DEFAULT_AMOUNT);
-        personId = new PersonId(DEFAULT_PERSONID);
+        person = DEFAULT_PERSON;
         deadline = new Deadline(DEFAULT_DEADLINE);
     }
 
@@ -33,7 +33,7 @@ public class TransactionBuilder {
     public TransactionBuilder(Transaction transactionToCopy) {
         type = transactionToCopy.getType();
         amount = transactionToCopy.getAmount();
-        personId = transactionToCopy.getPersonId();
+        person = transactionToCopy.getPerson();
     }
 
     /**
@@ -53,14 +53,14 @@ public class TransactionBuilder {
     }
 
     /**
-     * Sets the {@code personId} of the {@code Transaction} that we are building.
+     * Sets the {@code Person} of the {@code Transaction} that we are building.
      */
-    public TransactionBuilder withPersonId(String personId) {
-        this.personId = new PersonId(personId);
+    public TransactionBuilder withPerson(Person person) {
+        this.person = person;
         return this;
     }
 
     public Transaction build() {
-        return new Transaction(type, amount, personId, deadline);
+        return new Transaction(type, amount, deadline, person);
     }
 }

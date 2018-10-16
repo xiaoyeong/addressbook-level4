@@ -62,7 +62,8 @@ public class StorageManager extends ComponentManager implements Storage {
     }
 
     @Override
-    public Optional<ReadOnlyFinancialDatabase> readFinancialDatabase(Path filePath) throws DataConversionException, IOException {
+    public Optional<ReadOnlyFinancialDatabase> readFinancialDatabase(Path filePath)
+            throws DataConversionException, IOException {
         logger.fine("Attempting to read data from file: " + filePath);
         return financialDatabaseStorage.readFinancialDatabase(filePath);
     }

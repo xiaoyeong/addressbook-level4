@@ -18,9 +18,9 @@ import seedu.address.testutil.FinancialDatabaseBuilder;
 
 public class VersionedFinancialDatabaseTest {
 
-    private final ReadOnlyFinancialDatabase addressBookWithAmy = new FinancialDatabaseBuilder().withPerson(AMY).build();
-    private final ReadOnlyFinancialDatabase addressBookWithBob = new FinancialDatabaseBuilder().withPerson(BOB).build();
-    private final ReadOnlyFinancialDatabase addressBookWithCarl = new FinancialDatabaseBuilder().withPerson(CARL).build();
+    private final ReadOnlyFinancialDatabase addressBookWithAmy = new FinancialDatabaseBuilder().withTransaction(AMY).build();
+    private final ReadOnlyFinancialDatabase addressBookWithBob = new FinancialDatabaseBuilder().withTransaction(BOB).build();
+    private final ReadOnlyFinancialDatabase addressBookWithCarl = new FinancialDatabaseBuilder().withTransaction(CARL).build();
     private final ReadOnlyFinancialDatabase emptyAddressBook = new FinancialDatabaseBuilder().build();
 
     @Test

@@ -15,7 +15,7 @@ import java.util.stream.Stream;
 
 import seedu.address.logic.commands.FilterCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.person.FieldContainsKeywordsPredicate;
+import seedu.address.model.transaction.FieldContainsKeywordsPredicate;
 
 
 

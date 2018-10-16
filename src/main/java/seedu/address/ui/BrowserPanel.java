@@ -12,9 +12,9 @@ import javafx.scene.layout.Region;
 import javafx.scene.web.WebView;
 import seedu.address.MainApp;
 import seedu.address.commons.core.LogsCenter;
-import seedu.address.commons.events.ui.PersonPanelSelectionChangedEvent;
+import seedu.address.commons.events.ui.TransactionPanelSelectionChangedEvent;
+import seedu.address.model.transaction.Transaction;
 import seedu.address.commons.events.ui.ShowCalendarEvent;
-import seedu.address.model.person.Person;
 
 /**
  * The Browser Panel of the App.
@@ -44,8 +44,8 @@ public class BrowserPanel extends UiPart<Region> {
         registerAsAnEventHandler(this);
     }
 
-    private void loadPersonPage(Person person) {
-        loadPage(SEARCH_PAGE_URL + person.getName().fullName);
+    private void loadTransactionPage(Transaction transaction) {
+        loadPage(SEARCH_PAGE_URL + transaction.getDeadline().value);
     }
 
     private void loadCalendarPage(String id) { loadPage(CALENDAR_PAGE_URL + id + "&ctz=Asia/Singapore");}
@@ -70,9 +70,9 @@ public class BrowserPanel extends UiPart<Region> {
     }
 
     @Subscribe
-    private void handlePersonPanelSelectionChangedEvent(PersonPanelSelectionChangedEvent event) {
+    private void handleTransactionPanelSelectionChangedEvent(TransactionPanelSelectionChangedEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
-        loadPersonPage(event.getNewSelection());
+        loadTransactionPage(event.getNewSelection());
     }
 
     @Subscribe

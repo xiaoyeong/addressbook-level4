@@ -7,7 +7,7 @@ import java.util.List;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-import seedu.address.model.person.Person;
+import seedu.address.model.transaction.Transaction;
 
 /**
  * Analyse the your financial status
@@ -27,10 +27,10 @@ public class AnalyticsCommand extends Command {
         int amount;
         amount = 0;
         requireNonNull(model);
-        List<Person> personList = model.getFilteredPersonList();
+        List<Transaction> transactionList = model.getFilteredTransactionList();
 
-        for (int i = 0; i < personList.size(); i++) {
-            //amount += personList.ownesMoney();
+        for (int i = 0; i < transactionList.size(); i++) {
+            //amount += transactionList.ownesMoney();
         }
 
 

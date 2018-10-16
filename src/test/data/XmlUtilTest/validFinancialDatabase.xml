@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<financialdatabase>
+    <transactions>
+		<type>Loan</type>
+        <amount>SGD 25.50</amount>
+        <deadline>16/11/2018</deadline>
+        <name>Hans Muster</name>
+        <phone isPrivate="false">9482424</phone>
+        <email isPrivate="false">hans@example.com</email>
+        <address isPrivate="false">4th street</address>
+    </transactions>
+    <transactions>
+		<type>Debt</type>
+        <amount>AUD 236.60</amount>
+        <deadline>25/10/2018</deadline>
+        <name>Ruth Mueller</name>
+        <phone isPrivate="false">87249245</phone>
+        <email isPrivate="false">ruth@example.com</email>
+        <address isPrivate="false">81th street</address>
+    </transactions>
+    <transactions>
+        <type>Debt</type>
+        <amount>USD 56.20</amount>
+        <deadline>16/11/2018</deadline>
+        <name>Heinz Kurz</name>
+        <phone isPrivate="false">95352563</phone>
+        <email isPrivate="false">heinz@example.com</email>
+        <address isPrivate="false">wall street</address>
+    </transactions>
+    <transactions>
+        <type>Loan</type>
+        <amount>JPY 386.50</amount>
+        <deadline>27/10/2018</deadline>
+        <phone isPrivate="false">87652533</phone>
+        <email isPrivate="false">cornelia@example.com</email>
+        <address isPrivate="false">10th street</address>
+    </transactions>
+    <transactions>
+        <type>Loan</type>
+        <amount>CNY 455.20</amount>
+        <deadline>06/11/2025</deadline>
+        <phone isPrivate="false">9482224</phone>
+        <email isPrivate="false">werner@example.com</email>
+        <address isPrivate="false">michegan ave</address>
+    </transactions>
+    <transactions>
+        <type>Loan</type>
+        <amount>IDR 652.30</amount>
+        <deadline>17/11/2018</deadline>
+        <name>Lydia Kunz</name>
+        <phone isPrivate="false">9482427</phone>
+        <email isPrivate="false">lydia@example.com</email>
+        <address isPrivate="false">little tokyo</address>
+    </transactions>
+    <transactions>
+        <type>Debt</type>
+        <amount>MYR 3333.40</amount>
+        <deadline>25/11/2021</deadline>
+        <name>Anna Best</name>
+        <phone isPrivate="false">9482442</phone>
+        <email isPrivate="false">anna@example.com</email>
+        <address isPrivate="false">4th street</address>
+    </transactions>
+    <transactions>
+        <type>Debt</type>
+        <amount>SGD 235.60</amount>
+        <deadline>20/04/2020</deadline>
+        <name>Stefan Meier</name>
+        <phone isPrivate="false">8482424</phone>
+        <email isPrivate="false">stefan@example.com</email>
+        <address isPrivate="false">little india</address>
+    </transactions>
+    <transactions>
+        <type>Debt</type>
+        <amount>SGF 374.50</amount>
+        <deadline>16/01/2019</deadline>
+        <name>Martin Mueller</name>
+        <phone isPrivate="false">8482131</phone>
+        <email isPrivate="false">hans@example.com</email>
+        <address isPrivate="false">chicago ave</address>
+    </transactions>
+</financialdatabase>

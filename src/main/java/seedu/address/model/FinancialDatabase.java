@@ -2,12 +2,9 @@ package seedu.address.model;
 
 import static java.util.Objects.requireNonNull;
 
-import java.util.List;
 import java.util.Objects;
 
 import javafx.collections.ObservableList;
-import seedu.address.model.person.Person;
-import seedu.address.model.person.UniquePersonList;
 import seedu.address.model.transaction.Transaction;
 import seedu.address.model.transaction.UniqueTransactionList;
 
@@ -17,7 +14,6 @@ import seedu.address.model.transaction.UniqueTransactionList;
  */
 public class FinancialDatabase implements ReadOnlyFinancialDatabase {
 
-    private final UniquePersonList persons;
     private final UniqueTransactionList transactions;
 
     /*
@@ -28,7 +24,6 @@ public class FinancialDatabase implements ReadOnlyFinancialDatabase {
      *   among constructors.
      */
     {
-        persons = new UniquePersonList();
         transactions = new UniqueTransactionList();
     }
 
@@ -45,13 +40,6 @@ public class FinancialDatabase implements ReadOnlyFinancialDatabase {
 
     //// list overwrite operations
 
-    /**
-     * Replaces the contents of the person list with {@code persons}.
-     * {@code persons} must not contain duplicate persons.
-     */
-    public void setPersons(List<Person> persons) {
-        this.persons.setPersons(persons);
-    }
 
     /**
      * Replaces the transactions of the Transaction list with {@code transactions}.
@@ -69,45 +57,10 @@ public class FinancialDatabase implements ReadOnlyFinancialDatabase {
         requireNonNull(newData);
 
         setTransactions(newData.getTransactionList());
-        setPersons(newData.getPersonList());
     }
 
-    //// person-level operations
+    //// transaction-level operations
 
-    /**
-     * Returns true if a person with the same identity as {@code person} exists in the address book.
-     */
-    public boolean hasPerson(Person person) {
-        requireNonNull(person);
-        return persons.contains(person);
-    }
-
-    /**
-     * Adds a person to the address book.
-     * The person must not already exist in the address book.
-     */
-    public void addPerson(Person p) {
-        persons.add(p);
-    }
-
-    /**
-     * Replaces the given person {@code target} in the list with {@code editedPerson}.
-     * {@code target} must exist in the address book.
-     * The person identity of {@code editedPerson} must not be the same as another existing person in the address book.
-     */
-    public void updatePerson(Person target, Person editedPerson) {
-        requireNonNull(editedPerson);
-
-        persons.setPerson(target, editedPerson);
-    }
-
-    /**
-     * Removes {@code key} from this {@code AddressBook}.
-     * {@code key} must exist in the address book.
-     */
-    public void removePerson(Person key) {
-        persons.remove(key);
-    }
 
     //// Transaction-level operations
 
@@ -130,7 +83,8 @@ public class FinancialDatabase implements ReadOnlyFinancialDatabase {
     /**
      * Replaces the given Transaction {@code target} in the list with {@code editedTransaction}.
      * {@code target} must exist in the address book.
-     * The Transaction identity of {@code editedTransaction} must not be the same as another existing Transaction in the address book.
+     * The Transaction identity of {@code editedTransaction} must not be the same as another existing Transaction in the
+     * address book.
      */
     public void updateTransaction(Transaction target, Transaction editedTransaction) {
         requireNonNull(editedTransaction);
@@ -150,14 +104,8 @@ public class FinancialDatabase implements ReadOnlyFinancialDatabase {
 
     @Override
     public String toString() {
-        return persons.asUnmodifiableObservableList().size() + " Persons and " +
-                transactions.asUnmodifiableObservableList().size() + " Transactions";
+        return transactions.asUnmodifiableObservableList().size() + " Transactions";
         // TODO: refine later
-    }
-
-    @Override
-    public ObservableList<Person> getPersonList() {
-        return persons.asUnmodifiableObservableList();
     }
 
     @Override
@@ -169,12 +117,11 @@ public class FinancialDatabase implements ReadOnlyFinancialDatabase {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof FinancialDatabase // instanceof handles nulls
-                && transactions.equals(((FinancialDatabase) other).transactions)
-                && persons.equals(((FinancialDatabase) other).persons));
+                && transactions.equals(((FinancialDatabase) other).transactions));
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(persons, transactions);
+        return Objects.hash(transactions);
     }
 }

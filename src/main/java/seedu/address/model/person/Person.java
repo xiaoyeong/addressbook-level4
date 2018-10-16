@@ -8,7 +8,6 @@ import java.util.Objects;
 import java.util.Set;
 
 import seedu.address.model.tag.Tag;
-import seedu.address.model.transaction.Transaction;
 
 /**
  * Represents a Person in the address book.
@@ -17,7 +16,6 @@ import seedu.address.model.transaction.Transaction;
 public class Person {
 
     // Identity fields
-    private final UniqueId uniqueId;
     private final Name name;
     private final Phone phone;
     private final Email email;
@@ -27,24 +25,10 @@ public class Person {
     private final Set<Tag> tags = new HashSet<>();
 
     /**
-     * Every field must be present and not null.
-     */
-    public Person(Name name, Phone phone, Email email, Address address, UniqueId uniqueId, Set<Tag> tags) {
-        requireAllNonNull(name, phone, email, address, uniqueId, tags);
-        this.uniqueId = uniqueId;
-        this.name = name;
-        this.phone = phone;
-        this.email = email;
-        this.address = address;
-        this.tags.addAll(tags);
-    }
-
-    /**
-     * Every field must be present and not null.
+     * Parameterized constructor that takes in a UniqueId argument
      */
     public Person(Name name, Phone phone, Email email, Address address, Set<Tag> tags) {
         requireAllNonNull(name, phone, email, address, tags);
-        this.uniqueId = new UniqueId();
         this.name = name;
         this.phone = phone;
         this.email = email;
@@ -68,8 +52,6 @@ public class Person {
         return address;
     }
 
-    public UniqueId getUniqueId() { return uniqueId; }
-
     /**
      * Returns an immutable tag set, which throws {@code UnsupportedOperationException}
      * if modification is attempted.
@@ -78,20 +60,6 @@ public class Person {
         return Collections.unmodifiableSet(tags);
     }
 
-    /**
-     * Returns true if both persons of the same name have at least one other identity field that is the same.
-     * This defines a weaker notion of equality between two persons.
-     */
-    public boolean isSamePerson(Person otherPerson) {
-        if (otherPerson == this) {
-            return true;
-        }
-
-        return otherPerson != null
-                //&& otherPerson.getUniqueId().equals(getUniqueId())
-                && otherPerson.getName().equals(getName())
-                && (otherPerson.getPhone().equals(getPhone()) || otherPerson.getEmail().equals(getEmail()));
-    }
 
     /**
      * Returns true if both persons have the same identity and data fields.
@@ -109,7 +77,6 @@ public class Person {
 
         Person otherPerson = (Person) other;
         return otherPerson.getName().equals(getName())
-                && otherPerson.getUniqueId().equals(getUniqueId())
                 && otherPerson.getPhone().equals(getPhone())
                 && otherPerson.getEmail().equals(getEmail())
                 && otherPerson.getAddress().equals(getAddress())
@@ -119,14 +86,13 @@ public class Person {
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, phone, email, address, uniqueId, tags);
+        return Objects.hash(name, phone, email, address, tags);
     }
 
     @Override
     public String toString() {
         final StringBuilder builder = new StringBuilder();
-        builder.append(getUniqueId())
-                .append(" Name: ")
+        builder.append(" Name: ")
                 .append(getName())
                 .append(" Phone: ")
                 .append(getPhone())
@@ -139,7 +105,7 @@ public class Person {
         return builder.toString();
     }
 
-    public Person copyPerson(){
-        return new Person(name, phone, email, address, uniqueId, tags);
+    public Person copyPerson() {
+        return new Person(name, phone, email, address, tags);
     }
 }

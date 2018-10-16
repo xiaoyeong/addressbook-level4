@@ -1,7 +1,7 @@
 package seedu.address.testutil;
 
 import seedu.address.model.FinancialDatabase;
-import seedu.address.model.person.Person;
+import seedu.address.model.transaction.Transaction;
 
 /**
  * A utility class to help with building Addressbook objects.
@@ -22,9 +22,10 @@ public class FinancialDatabaseBuilder {
 
     /**
      * Adds a new {@code Person} to the {@code AddressBook} that we are building.
+     * @param transaction
      */
-    public FinancialDatabaseBuilder withPerson(Person person) {
-        financialDatabase.addPerson(person);
+    public FinancialDatabaseBuilder withTransaction(Transaction transaction) {
+        financialDatabase.addTransaction(transaction);
         return this;
     }
 
