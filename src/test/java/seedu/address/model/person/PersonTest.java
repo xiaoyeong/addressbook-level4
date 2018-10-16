@@ -13,7 +13,6 @@ import static seedu.address.testutil.TypicalPersons.BOB;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
-
 import seedu.address.testutil.PersonBuilder;
 
 public class PersonTest {
@@ -73,7 +72,7 @@ public class PersonTest {
         // different type -> returns false
         assertFalse(ALICE.equals(5));
 
-        // different person -> returns false
+        // different Person -> returns false
         assertFalse(ALICE.equals(BOB));
 
         // different name -> returns false

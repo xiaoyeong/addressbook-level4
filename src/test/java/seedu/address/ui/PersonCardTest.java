@@ -3,38 +3,38 @@ package seedu.address.ui;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-import static seedu.address.ui.testutil.GuiTestAssert.assertCardDisplaysPerson;
+import static seedu.address.ui.testutil.GuiTestAssert.assertCardDisplaysTransaction;
 
+import guitests.guihandles.TransactionCardHandle;
 import org.junit.Test;
 
-import guitests.guihandles.PersonCardHandle;
-import seedu.address.model.person.Person;
-import seedu.address.testutil.PersonBuilder;
+import seedu.address.model.transaction.Transaction;
+import seedu.address.testutil.TransactionBuilder;
 
 public class PersonCardTest extends GuiUnitTest {
 
     @Test
     public void display() {
         // no tags
-        Person personWithNoTags = new PersonBuilder().withTags(new String[0]).build();
-        PersonCard personCard = new PersonCard(personWithNoTags, 1);
+        Transaction personWithNoTags = new TransactionBuilder().withTags(new String[0]).build();
+        TransactionCard personCard = new TransactionCard(personWithNoTags, 1);
         uiPartRule.setUiPart(personCard);
         assertCardDisplay(personCard, personWithNoTags, 1);
 
         // with tags
-        Person personWithTags = new PersonBuilder().build();
-        personCard = new PersonCard(personWithTags, 2);
+        Transaction personWithTags = new TransactionBuilder().build();
+        personCard = new TransactionCard(personWithTags, 2);
         uiPartRule.setUiPart(personCard);
         assertCardDisplay(personCard, personWithTags, 2);
     }
 
     @Test
     public void equals() {
-        Person person = new PersonBuilder().build();
-        PersonCard personCard = new PersonCard(person, 0);
+        Transaction person = new TransactionBuilder().build();
+        TransactionCard personCard = new TransactionCard(person, 0);
 
-        // same person, same index -> returns true
-        PersonCard copy = new PersonCard(person, 0);
+        // same transaction, same index -> returns true
+        TransactionCard copy = new TransactionCard(person, 0);
         assertTrue(personCard.equals(copy));
 
         // same object -> returns true
@@ -46,27 +46,27 @@ public class PersonCardTest extends GuiUnitTest {
         // different types -> returns false
         assertFalse(personCard.equals(0));
 
-        // different person, same index -> returns false
-        Person differentPerson = new PersonBuilder().withName("differentName").build();
-        assertFalse(personCard.equals(new PersonCard(differentPerson, 0)));
+        // different transaction, same index -> returns false
+        Transaction differentPerson = new TransactionBuilder().withName("differentName").build();
+        assertFalse(personCard.equals(new TransactionCard(differentPerson, 0)));
 
-        // same person, different index -> returns false
-        assertFalse(personCard.equals(new PersonCard(person, 1)));
+        // same transaction, different index -> returns false
+        assertFalse(personCard.equals(new TransactionCard(person, 1)));
     }
 
     /**
      * Asserts that {@code personCard} displays the details of {@code expectedPerson} correctly and matches
      * {@code expectedId}.
      */
-    private void assertCardDisplay(PersonCard personCard, Person expectedPerson, int expectedId) {
+    private void assertCardDisplay(TransactionCard personCard, Transaction expectedPerson, int expectedId) {
         guiRobot.pauseForHuman();
 
-        PersonCardHandle personCardHandle = new PersonCardHandle(personCard.getRoot());
+        TransactionCardHandle transactionCardHandle = new TransactionCardHandle(personCard.getRoot());
 
         // verify id is displayed correctly
-        assertEquals(Integer.toString(expectedId) + ". ", personCardHandle.getId());
+        assertEquals(Integer.toString(expectedId) + ". ", transactionCardHandle.getId());
 
-        // verify person details are displayed correctly
-        assertCardDisplaysPerson(expectedPerson, personCardHandle);
+        // verify transaction details are displayed correctly
+        assertCardDisplaysTransaction(expectedPerson, transactionCardHandle);
     }
 }

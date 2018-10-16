@@ -26,6 +26,7 @@ public class ToDoList {
      * Removes a specific String that user initially input.
      * @param index
      */
-
-    public void delete(int index) { list.remove(index); }
+    public void delete(int index) {
+        list.remove(index);
+    }
 }
