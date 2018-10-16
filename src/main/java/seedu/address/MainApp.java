@@ -41,7 +41,7 @@ import seedu.address.ui.UiManager;
 public class MainApp extends Application {
 
     public static final Version VERSION = new Version(0, 6, 0, true);
-    public static Mode m = Mode.PersonMode;
+    private static Mode mode = Mode.PersonMode;
 
     private static final Logger logger = LogsCenter.getLogger(MainApp.class);
 
@@ -63,7 +63,8 @@ public class MainApp extends Application {
 
         UserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(config.getUserPrefsFilePath());
         userPrefs = initPrefs(userPrefsStorage);
-        FinancialDatabaseStorage addressBookStorage = new XmlFinancialDatabaseStorage(userPrefs.getAddressBookFilePath());
+        FinancialDatabaseStorage addressBookStorage = new XmlFinancialDatabaseStorage(
+                userPrefs.getAddressBookFilePath());
         storage = new StorageManager(addressBookStorage, userPrefsStorage);
 
         initLogging(config);
@@ -182,6 +183,14 @@ public class MainApp extends Application {
     public void start(Stage primaryStage) {
         logger.info("Starting AddressBook " + MainApp.VERSION);
         ui.start(primaryStage);
+    }
+
+    public static boolean checkMode(Mode currentMode) {
+        return mode == currentMode;
+    }
+
+    public static void setMode(Mode newMode) {
+        MainApp.mode = newMode;
     }
 
     @Override

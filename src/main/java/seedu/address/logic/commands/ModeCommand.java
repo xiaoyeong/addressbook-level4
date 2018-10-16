@@ -1,16 +1,14 @@
 package seedu.address.logic.commands;
 
+import static java.util.Objects.requireNonNull;
+
 import seedu.address.MainApp;
 import seedu.address.Mode;
 import seedu.address.logic.CommandHistory;
-import seedu.address.model.FinancialDatabase;
 import seedu.address.model.Model;
 
-import static java.util.Objects.requireNonNull;
-
-
 /**
- * Clears the address book.
+ * Switches between transaction and transaction modes
  */
 public class ModeCommand extends Command {
 
@@ -22,11 +20,12 @@ public class ModeCommand extends Command {
     @Override
     public CommandResult execute(Model model, CommandHistory history) {
         requireNonNull(model);
-        if (MainApp.m == Mode.TransactionMode) {
-            MainApp.m = Mode.PersonMode;
+        boolean isCorrectMode = MainApp.checkMode(Mode.TransactionMode);
+        if (isCorrectMode) {
+            MainApp.setMode(Mode.PersonMode);
             return new CommandResult(MESSAGE_PERSON_MODE);
         } else {
-            MainApp.m = Mode.TransactionMode;
+            MainApp.setMode(Mode.TransactionMode);
             return new CommandResult(MESSAGE_TRANSACTION_MODE);
         }
     }

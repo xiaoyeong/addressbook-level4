@@ -15,12 +15,12 @@ public class Type {
     /**
      * Constructs an {@code Type}.
      *
-     * @param Type A valid transaction type.
+     * @param type A valid transaction type.
      */
-    public Type(String Type) {
-        requireNonNull(Type);
-        checkArgument(isValidType(Type), MESSAGE_TRANSACTION_TYPE_CONSTRAINTS);
-        value = Type;
+    public Type(String type) {
+        requireNonNull(type);
+        checkArgument(isValidType(type), MESSAGE_TRANSACTION_TYPE_CONSTRAINTS);
+        value = type;
     }
 
 
@@ -44,8 +44,8 @@ public class Type {
         if (!(other instanceof Type)) {
             return false;
         }
-        Type Type = (Type) other;
-        return other == this || value.equals(Type.value);
+        Type type = (Type) other;
+        return other == this || value.equals(type.value);
     }
 
     @Override
