@@ -1,3 +1,4 @@
+/* @@author xiaoyeong */
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
@@ -17,7 +18,7 @@ public class AnalyticsCommand extends Command {
     public static final String COMMAND_ALIAS = "an";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Analyse the your financial status and generate \n"
-            + "your expected income for the following week.\n";
+            + "your financial status to view.\n";
 
     public static final String MESSAGE_SUCCESS = "Financial status : $ ";
 
