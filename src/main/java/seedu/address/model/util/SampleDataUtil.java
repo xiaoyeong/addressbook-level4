@@ -48,7 +48,7 @@ public class SampleDataUtil {
 
     public static Transaction[] getSampleTransactions() {
         return new Transaction[]{
-                new Transaction(new Type("debt"), new Amount("SGD 33.00"), new PersonId("1"), new Deadline("15/10/2018")),
+                new Transaction(new Type("debt"), new Amount("SGD 33.00"), new PersonId("1"), new Deadline("15/12/2018")),
                 new Transaction(new Type("loan"), new Amount("SGD 55.50"), new PersonId("2"), new Deadline("17/11/2018"))
         };
     }
