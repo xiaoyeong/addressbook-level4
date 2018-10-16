@@ -74,9 +74,9 @@ Format: sort [t/TAG]...
 Filter people out by whether they are a debtor or a creditor.
 Format: filter [t/TAG]...
 
-=== Locating transactions by person's name : `find`
+=== Locating transactions by transaction's name : `find`
 
-Finds transactions exchanged with any person whose name contains any of the given keywords.
+Finds transactions exchanged with any transaction whose name contains any of the given keywords.
 Format: find KEYWORD [MORE_KEYWORDS]
 
 === Deleting a transaction : `delete`
@@ -86,7 +86,7 @@ Format: delete INDEX
 
 === Removing a debt : `remove`
 
-Remove away a number of debts from one person recorded in the DT using click-and-drag.
+Remove away a number of debts from one transaction recorded in the DT using click-and-drag.
 The number of debts removed is up to the user’s selection.
 
 === Selecting a trasaction : `select`

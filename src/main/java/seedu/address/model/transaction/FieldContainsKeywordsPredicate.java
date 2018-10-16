@@ -1,15 +1,16 @@
-package seedu.address.model.person;
+package seedu.address.model.transaction;
 
 import java.util.List;
 import java.util.function.Predicate;
 
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.FieldType;
+import seedu.address.model.person.Person;
 
 /**
  * Tests that a {@code Person}'s {@code Name} matches any of the keywords given.
  */
-public class FieldContainsKeywordsPredicate implements Predicate<Person> {
+public class FieldContainsKeywordsPredicate implements Predicate<seedu.address.model.transaction.Transaction> {
     private final List<String> keywords;
     private final FieldType type;
 
@@ -19,7 +20,8 @@ public class FieldContainsKeywordsPredicate implements Predicate<Person> {
     }
 
     @Override
-    public boolean test(Person person) {
+    public boolean test(seedu.address.model.transaction.Transaction transaction) {
+        Person person = transaction.getPerson();
         switch (type) {
         case Name:
             return keywords.stream()

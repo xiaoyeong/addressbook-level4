@@ -15,10 +15,9 @@ import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Phone;
-import seedu.address.model.transaction.Transaction;
 import seedu.address.testutil.Assert;
 
-public class XmlAdaptedPersonTest {
+public class XmlAdaptedTransactionTest {
     private static final String INVALID_TYPE = "Borrow";
     private static final String INVALID_AMOUNT = "46.50";
     private static final String INVALID_DEADLINE = "21112018";
@@ -48,8 +47,7 @@ public class XmlAdaptedPersonTest {
 
     @Test
     public void toModelType_invalidName_throwsIllegalValueException() {
-        XmlAdaptedPerson person =
-                new XmlAdaptedPerson(INVALID_NAME, VALID_PHONE, VALID_EMAIL, VALID_ADDRESS, VALID_UNIQUEID, VALID_TAGS);
+        XmlAdaptedPerson person = new XmlAdaptedPerson(INVALID_NAME, VALID_PHONE, VALID_EMAIL, VALID_ADDRESS, VALID_UNIQUEID, VALID_TAGS);
         String expectedMessage = Name.MESSAGE_NAME_CONSTRAINTS;
         Assert.assertThrows(IllegalValueException.class, expectedMessage, person::toModelType);
     }

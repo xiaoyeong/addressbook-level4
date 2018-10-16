@@ -13,7 +13,7 @@ import seedu.address.model.transaction.Transaction;
 
 
 /**
- * Adds a person to the address book.
+ * Adds a transaction to the address book.
  */
 public class AddTransactionCommand extends Command {
 
@@ -32,7 +32,7 @@ public class AddTransactionCommand extends Command {
             + PREFIX_TRANSACTION_TYPE + "debt ";
 
     public static final String MESSAGE_SUCCESS = "New transaction added: %1$s";
-    public static final String MESSAGE_DUPLICATE_PERSON = "This person already exists in the address book";
+    public static final String MESSAGE_DUPLICATE_PERSON = "This transaction already exists in the address book";
 
     private final Transaction toAdd;
 

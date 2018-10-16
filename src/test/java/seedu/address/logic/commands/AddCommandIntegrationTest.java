@@ -3,8 +3,7 @@ package seedu.address.logic.commands;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 
-import seedu.address.model.person.Person;
-import seedu.address.model.transaction.Transaction;
+import seedu.address.model.person.Transaction;
 import seedu.address.testutil.TransactionBuilder;
 import static seedu.address.testutil.TypicalPersons.getTypicalFinancialDatabase;
 
@@ -15,7 +14,6 @@ import seedu.address.logic.CommandHistory;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
-import seedu.address.testutil.PersonBuilder;
 
 /**
  * Contains integration tests (interaction with the Model) for {@code AddCommand}.

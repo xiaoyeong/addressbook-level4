@@ -6,9 +6,9 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import guitests.guihandles.PersonCardHandle;
-import guitests.guihandles.PersonListPanelHandle;
+import guitests.guihandles.TransactionListPanelHandle;
 import guitests.guihandles.ResultDisplayHandle;
-import seedu.address.model.person.Person;
+import seedu.address.model.person.Transaction;
 
 /**
  * A set of assertion methods useful for writing GUI tests.
@@ -29,7 +29,7 @@ public class GuiTestAssert {
     /**
      * Asserts that {@code actualCard} displays the details of {@code expectedPerson}.
      */
-    public static void assertCardDisplaysPerson(Person expectedPerson, PersonCardHandle actualCard) {
+    public static void assertCardDisplaysPerson(Transaction expectedPerson, PersonCardHandle actualCard) {
         assertEquals(expectedPerson.getName().fullName, actualCard.getName());
         assertEquals(expectedPerson.getPhone().value, actualCard.getPhone());
         assertEquals(expectedPerson.getEmail().value, actualCard.getEmail());
@@ -39,29 +39,29 @@ public class GuiTestAssert {
     }
 
     /**
-     * Asserts that the list in {@code personListPanelHandle} displays the details of {@code persons} correctly and
+     * Asserts that the list in {@code transactionListPanelHandle} displays the details of {@code persons} correctly and
      * in the correct order.
      */
-    public static void assertListMatching(PersonListPanelHandle personListPanelHandle, Person... persons) {
+    public static void assertListMatching(TransactionListPanelHandle transactionListPanelHandle, Transaction... persons) {
         for (int i = 0; i < persons.length; i++) {
-            personListPanelHandle.navigateToCard(i);
-            assertCardDisplaysPerson(persons[i], personListPanelHandle.getPersonCardHandle(i));
+            transactionListPanelHandle.navigateToCard(i);
+            assertCardDisplaysPerson(persons[i], transactionListPanelHandle.getPersonCardHandle(i));
         }
     }
 
     /**
-     * Asserts that the list in {@code personListPanelHandle} displays the details of {@code persons} correctly and
+     * Asserts that the list in {@code transactionListPanelHandle} displays the details of {@code persons} correctly and
      * in the correct order.
      */
-    public static void assertListMatching(PersonListPanelHandle personListPanelHandle, List<Person> persons) {
-        assertListMatching(personListPanelHandle, persons.toArray(new Person[0]));
+    public static void assertListMatching(TransactionListPanelHandle transactionListPanelHandle, List<Transaction> persons) {
+        assertListMatching(transactionListPanelHandle, persons.toArray(new Transaction[0]));
     }
 
     /**
-     * Asserts the size of the list in {@code personListPanelHandle} equals to {@code size}.
+     * Asserts the size of the list in {@code transactionListPanelHandle} equals to {@code size}.
      */
-    public static void assertListSize(PersonListPanelHandle personListPanelHandle, int size) {
-        int numberOfPeople = personListPanelHandle.getListSize();
+    public static void assertListSize(TransactionListPanelHandle transactionListPanelHandle, int size) {
+        int numberOfPeople = transactionListPanelHandle.getListSize();
         assertEquals(size, numberOfPeople);
     }
 

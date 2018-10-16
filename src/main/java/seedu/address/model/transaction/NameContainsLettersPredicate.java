@@ -1,12 +1,12 @@
-package seedu.address.model.person;
+package seedu.address.model.transaction;
 
 import java.util.List;
 import java.util.function.Predicate;
 
 /**
- * Tests that a {@code Person}'s {@code Name} matches any of the letters given.
+ * Tests that a {@code Transaction} contains a {@code Person} matches any of the letters given.
  */
-public class NameContainsLettersPredicate implements Predicate<Person> {
+public class NameContainsLettersPredicate implements Predicate<Transaction> {
     private final List<String> letters;
 
     public NameContainsLettersPredicate(List<String> letters) {
@@ -14,10 +14,9 @@ public class NameContainsLettersPredicate implements Predicate<Person> {
     }
 
     @Override
-    public boolean test(Person person) {
-        return letters.stream()
-                .anyMatch(input -> check(input, person.getName().fullName));
-        //StringUtil.containsWordIgnoreCase(person.getName().fullName, input));
+    public boolean test(Transaction transaction) {
+        return letters.stream().anyMatch(input -> check(input, transaction.getPerson().getName().fullName));
+        //StringUtil.containsWordIgnoreCase(transaction.getName().fullName, input));
     }
 
     @Override

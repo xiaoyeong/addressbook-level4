@@ -3,7 +3,6 @@ package seedu.address.testutil;
 import seedu.address.model.person.Person;
 import seedu.address.model.transaction.Amount;
 import seedu.address.model.transaction.Deadline;
-import seedu.address.model.transaction.PersonId;
 import seedu.address.model.transaction.Transaction;
 import seedu.address.model.transaction.Type;
 
@@ -54,7 +53,7 @@ public class TransactionBuilder {
     }
 
     /**
-     * Sets the {@code personId} of the {@code Transaction} that we are building.
+     * Sets the {@code Person} of the {@code Transaction} that we are building.
      */
     public TransactionBuilder withPerson(Person person) {
         this.person = person;

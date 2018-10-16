@@ -12,20 +12,20 @@ import static seedu.address.ui.testutil.GuiTestAssert.assertCardEquals;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
+import guitests.guihandles.TransactionListPanelHandle;
 import org.junit.Test;
 
 import guitests.guihandles.PersonCardHandle;
-import guitests.guihandles.PersonListPanelHandle;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.address.commons.events.ui.JumpToListRequestEvent;
 import seedu.address.commons.util.FileUtil;
 import seedu.address.commons.util.XmlUtil;
-import seedu.address.model.person.Person;
+import seedu.address.model.person.Transaction;
 import seedu.address.storage.XmlSerializableFinancialDatabase;
 
-public class PersonListPanelTest extends GuiUnitTest {
-    private static final ObservableList<Person> TYPICAL_PERSONS =
+public class TransactionListPanelTest extends GuiUnitTest {
+    private static final ObservableList<Transaction> TYPICAL_PERSONS =
             FXCollections.observableList(getTypicalPersons());
 
     private static final JumpToListRequestEvent JUMP_TO_SECOND_EVENT = new JumpToListRequestEvent(INDEX_SECOND_PERSON);
@@ -34,16 +34,16 @@ public class PersonListPanelTest extends GuiUnitTest {
 
     private static final long CARD_CREATION_AND_DELETION_TIMEOUT = 2500;
 
-    private PersonListPanelHandle personListPanelHandle;
+    private TransactionListPanelHandle transactionListPanelHandle;
 
     @Test
     public void display() {
         initUi(TYPICAL_PERSONS);
 
         for (int i = 0; i < TYPICAL_PERSONS.size(); i++) {
-            personListPanelHandle.navigateToCard(TYPICAL_PERSONS.get(i));
-            Person expectedPerson = TYPICAL_PERSONS.get(i);
-            PersonCardHandle actualCard = personListPanelHandle.getPersonCardHandle(i);
+            transactionListPanelHandle.navigateToCard(TYPICAL_PERSONS.get(i));
+            Transaction expectedPerson = TYPICAL_PERSONS.get(i);
+            PersonCardHandle actualCard = transactionListPanelHandle.getPersonCardHandle(i);
 
             assertCardDisplaysPerson(expectedPerson, actualCard);
             assertEquals(Integer.toString(i + 1) + ". ", actualCard.getId());
@@ -56,30 +56,30 @@ public class PersonListPanelTest extends GuiUnitTest {
         postNow(JUMP_TO_SECOND_EVENT);
         guiRobot.pauseForHuman();
 
-        PersonCardHandle expectedPerson = personListPanelHandle.getPersonCardHandle(INDEX_SECOND_PERSON.getZeroBased());
-        PersonCardHandle selectedPerson = personListPanelHandle.getHandleToSelectedCard();
+        PersonCardHandle expectedPerson = transactionListPanelHandle.getPersonCardHandle(INDEX_SECOND_PERSON.getZeroBased());
+        PersonCardHandle selectedPerson = transactionListPanelHandle.getHandleToSelectedCard();
         assertCardEquals(expectedPerson, selectedPerson);
     }
 
     /**
-     * Verifies that creating and deleting large number of persons in {@code PersonListPanel} requires lesser than
+     * Verifies that creating and deleting large number of persons in {@code TransactionListPanel} requires lesser than
      * {@code CARD_CREATION_AND_DELETION_TIMEOUT} milliseconds to execute.
      */
     @Test
     public void performanceTest() throws Exception {
-        ObservableList<Person> backingList = createBackingList(10000);
+        ObservableList<Transaction> backingList = createBackingList(10000);
 
         assertTimeoutPreemptively(ofMillis(CARD_CREATION_AND_DELETION_TIMEOUT), () -> {
             initUi(backingList);
             guiRobot.interact(backingList::clear);
-        }, "Creation and deletion of person cards exceeded time limit");
+        }, "Creation and deletion of transaction cards exceeded time limit");
     }
 
     /**
      * Returns a list of persons containing {@code personCount} persons that is used to populate the
-     * {@code PersonListPanel}.
+     * {@code TransactionListPanel}.
      */
-    private ObservableList<Person> createBackingList(int personCount) throws Exception {
+    private ObservableList<Transaction> createBackingList(int personCount) throws Exception {
         Path xmlFile = createXmlFileWithPersons(personCount);
         XmlSerializableFinancialDatabase xmlAddressBook =
                 XmlUtil.getDataFromFile(xmlFile, XmlSerializableFinancialDatabase.class);
@@ -112,14 +112,14 @@ public class PersonListPanelTest extends GuiUnitTest {
     }
 
     /**
-     * Initializes {@code personListPanelHandle} with a {@code PersonListPanel} backed by {@code backingList}.
-     * Also shows the {@code Stage} that displays only {@code PersonListPanel}.
+     * Initializes {@code transactionListPanelHandle} with a {@code TransactionListPanel} backed by {@code backingList}.
+     * Also shows the {@code Stage} that displays only {@code TransactionListPanel}.
      */
-    private void initUi(ObservableList<Person> backingList) {
-        PersonListPanel personListPanel = new PersonListPanel(backingList);
-        uiPartRule.setUiPart(personListPanel);
+    private void initUi(ObservableList<Transaction> backingList) {
+        TransactionListPanel transactionListPanel = new TransactionListPanel(backingList);
+        uiPartRule.setUiPart(transactionListPanel);
 
-        personListPanelHandle = new PersonListPanelHandle(getChildNode(personListPanel.getRoot(),
-                PersonListPanelHandle.PERSON_LIST_VIEW_ID));
+        transactionListPanelHandle = new TransactionListPanelHandle(getChildNode(transactionListPanel.getRoot(),
+                TransactionListPanelHandle.PERSON_LIST_VIEW_ID));
     }
 }

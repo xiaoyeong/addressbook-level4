@@ -1,7 +1,8 @@
 package seedu.address.model.transaction;
 
-import java.util.Objects;
 import seedu.address.model.person.Person;
+
+import java.util.Objects;
 
 /**
  * {@code Transaction} class encapsulates a transaction added to the financial database
@@ -15,7 +16,7 @@ public class Transaction {
 
     /**
      * Represents a transaction with non null fields {@code type}, {@code amount}, {@code deadline}
-     * and {@code person}
+     * and {@code transaction}
      * @param type type of transaction, either a loan or a debt
      * @param amount the amount lent/owed by creditor/debtor respectively
      * @param deadline the date on which the payment is to be made

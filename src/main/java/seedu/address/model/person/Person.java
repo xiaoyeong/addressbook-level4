@@ -16,7 +16,6 @@ import seedu.address.model.tag.Tag;
 public class Person {
 
     // Identity fields
-    private final UniqueId uniqueId;
     private final Name name;
     private final Phone phone;
     private final Email email;
@@ -28,22 +27,8 @@ public class Person {
     /**
      * Parameterized constructor that takes in a UniqueId argument
      */
-    public Person(Name name, Phone phone, Email email, Address address, UniqueId uniqueId, Set<Tag> tags) {
-        requireAllNonNull(name, phone, email, address, uniqueId, tags);
-        this.uniqueId = uniqueId;
-        this.name = name;
-        this.phone = phone;
-        this.email = email;
-        this.address = address;
-        this.tags.addAll(tags);
-    }
-
-    /**
-     * Every field must be present and not null.
-     */
     public Person(Name name, Phone phone, Email email, Address address, Set<Tag> tags) {
         requireAllNonNull(name, phone, email, address, tags);
-        this.uniqueId = new UniqueId();
         this.name = name;
         this.phone = phone;
         this.email = email;
@@ -67,10 +52,6 @@ public class Person {
         return address;
     }
 
-    public UniqueId getUniqueId() {
-        return uniqueId;
-    }
-
     /**
      * Returns an immutable tag set, which throws {@code UnsupportedOperationException}
      * if modification is attempted.
@@ -81,7 +62,8 @@ public class Person {
 
 
     /**
-     * Returns true if {@code other} has the same ID as the current Person object.
+     * Returns true if both persons have the same identity and data fields.
+     * This defines a stronger notion of equality between two persons.
      */
     @Override
     public boolean equals(Object other) {
@@ -94,20 +76,23 @@ public class Person {
         }
 
         Person otherPerson = (Person) other;
-        return otherPerson.getUniqueId().equals(getUniqueId());
+        return otherPerson.getName().equals(getName())
+                && otherPerson.getPhone().equals(getPhone())
+                && otherPerson.getEmail().equals(getEmail())
+                && otherPerson.getAddress().equals(getAddress())
+                && otherPerson.getTags().equals(getTags());
     }
 
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, phone, email, address, uniqueId, tags);
+        return Objects.hash(name, phone, email, address, tags);
     }
 
     @Override
     public String toString() {
         final StringBuilder builder = new StringBuilder();
-        builder.append(getUniqueId())
-                .append(" Name: ")
+        builder.append(" Name: ")
                 .append(getName())
                 .append(" Phone: ")
                 .append(getPhone())
@@ -121,6 +106,6 @@ public class Person {
     }
 
     public Person copyPerson() {
-        return new Person(name, phone, email, address, uniqueId, tags);
+        return new Person(name, phone, email, address, tags);
     }
 }

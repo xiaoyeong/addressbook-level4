@@ -8,21 +8,20 @@ import static seedu.address.ui.testutil.GuiTestAssert.assertCardDisplaysPerson;
 import org.junit.Test;
 
 import guitests.guihandles.PersonCardHandle;
-import seedu.address.model.person.Person;
-import seedu.address.testutil.PersonBuilder;
+import seedu.address.model.person.Transaction;
 
 public class PersonCardTest extends GuiUnitTest {
 
     @Test
     public void display() {
         // no tags
-        Person personWithNoTags = new PersonBuilder().withTags(new String[0]).build();
+        Transaction personWithNoTags = new PersonBuilder().withTags(new String[0]).build();
         PersonCard personCard = new PersonCard(personWithNoTags, 1);
         uiPartRule.setUiPart(personCard);
         assertCardDisplay(personCard, personWithNoTags, 1);
 
         // with tags
-        Person personWithTags = new PersonBuilder().build();
+        Transaction personWithTags = new PersonBuilder().build();
         personCard = new PersonCard(personWithTags, 2);
         uiPartRule.setUiPart(personCard);
         assertCardDisplay(personCard, personWithTags, 2);
@@ -30,10 +29,10 @@ public class PersonCardTest extends GuiUnitTest {
 
     @Test
     public void equals() {
-        Person person = new PersonBuilder().build();
+        Transaction person = new PersonBuilder().build();
         PersonCard personCard = new PersonCard(person, 0);
 
-        // same person, same index -> returns true
+        // same transaction, same index -> returns true
         PersonCard copy = new PersonCard(person, 0);
         assertTrue(personCard.equals(copy));
 
@@ -46,11 +45,11 @@ public class PersonCardTest extends GuiUnitTest {
         // different types -> returns false
         assertFalse(personCard.equals(0));
 
-        // different person, same index -> returns false
-        Person differentPerson = new PersonBuilder().withName("differentName").build();
+        // different transaction, same index -> returns false
+        Transaction differentPerson = new PersonBuilder().withName("differentName").build();
         assertFalse(personCard.equals(new PersonCard(differentPerson, 0)));
 
-        // same person, different index -> returns false
+        // same transaction, different index -> returns false
         assertFalse(personCard.equals(new PersonCard(person, 1)));
     }
 
@@ -58,7 +57,7 @@ public class PersonCardTest extends GuiUnitTest {
      * Asserts that {@code personCard} displays the details of {@code expectedPerson} correctly and matches
      * {@code expectedId}.
      */
-    private void assertCardDisplay(PersonCard personCard, Person expectedPerson, int expectedId) {
+    private void assertCardDisplay(PersonCard personCard, Transaction expectedPerson, int expectedId) {
         guiRobot.pauseForHuman();
 
         PersonCardHandle personCardHandle = new PersonCardHandle(personCard.getRoot());
@@ -66,7 +65,7 @@ public class PersonCardTest extends GuiUnitTest {
         // verify id is displayed correctly
         assertEquals(Integer.toString(expectedId) + ". ", personCardHandle.getId());
 
-        // verify person details are displayed correctly
+        // verify transaction details are displayed correctly
         assertCardDisplaysPerson(expectedPerson, personCardHandle);
     }
 }

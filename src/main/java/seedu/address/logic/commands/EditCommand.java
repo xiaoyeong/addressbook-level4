@@ -6,6 +6,9 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_TRANSACTION_AMOUNT;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_TRANSACTION_DEADLINE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_TRANSACTION_TYPE;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_TRANSACTIONS;
 
 import java.util.Collections;
@@ -25,11 +28,10 @@ import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
-import seedu.address.model.person.UniqueId;
 import seedu.address.model.tag.Tag;
+import seedu.address.model.transaction.Transaction;
 import seedu.address.model.transaction.Amount;
 import seedu.address.model.transaction.Deadline;
-import seedu.address.model.transaction.Transaction;
 import seedu.address.model.transaction.Type;
 
 /**
@@ -43,7 +45,10 @@ public class EditCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the details of the transaction identified "
             + "by the index number used in the displayed transaction list. "
             + "Existing values will be overwritten by the input values.\n"
-            + "Parameters: INDEX (must be a positive integer) "
+            + "[" + PREFIX_TRANSACTION_TYPE + "NAME] "
+            + "[" + PREFIX_TRANSACTION_AMOUNT + "AMOUNT] "
+            + "[" + PREFIX_TRANSACTION_DEADLINE + "DEADLINE] "
+            + "Parameters: INDEX (must be a positive integer)"
             + "[" + PREFIX_NAME + "NAME] "
             + "[" + PREFIX_PHONE + "PHONE] "
             + "[" + PREFIX_EMAIL + "EMAIL] "
@@ -75,14 +80,14 @@ public class EditCommand extends Command {
     @Override
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
-        List<Transaction> lastShownList = model.getFilteredTransactionList();
+        List<seedu.address.model.transaction.Transaction> lastShownList = model.getFilteredTransactionList();
 
         if (index.getZeroBased() >= lastShownList.size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_TRANSACTION_DISPLAYED_INDEX);
         }
 
-        Transaction transactionToEdit = lastShownList.get(index.getZeroBased());
-        Transaction editedTransaction = createEditedTransaction(transactionToEdit, editTransactionDescriptor);
+        seedu.address.model.transaction.Transaction transactionToEdit = lastShownList.get(index.getZeroBased());
+        seedu.address.model.transaction.Transaction editedTransaction = createEditedTransaction(transactionToEdit, editTransactionDescriptor);
 
         if (!transactionToEdit.equals(editedTransaction) && model.hasTransaction(editedTransaction)) {
             throw new CommandException(MESSAGE_DUPLICATE_TRANSACTION);
@@ -98,16 +103,23 @@ public class EditCommand extends Command {
      * Creates and returns a {@code transaction} with the details of {@code transactionToEdit}
      * edited with {@code editTransactionDescriptor}.
      */
-    private static Transaction createEditedTransaction(Transaction transactionToEdit,
-                                                       EditTransactionDescriptor editTransactionDescriptor) {
+    private static Transaction createEditedTransaction(seedu.address.model.transaction.Transaction transactionToEdit,
+                                                                                       EditTransactionDescriptor editTransactionDescriptor) {
         assert transactionToEdit != null;
 
         Type updatedType = editTransactionDescriptor.getType().orElse(transactionToEdit.getType());
         Amount updatedAmount = editTransactionDescriptor.getAmount().orElse(transactionToEdit.getAmount());
         Deadline updatedDeadline = editTransactionDescriptor.getDeadline().orElse(transactionToEdit.getDeadline());
-        Person updatedPerson = editTransactionDescriptor.getPerson().orElse(transactionToEdit.getPerson());
 
-        return new Transaction(updatedType, updatedAmount, updatedDeadline, updatedPerson);
+        Name updatedName = editTransactionDescriptor.getName().orElse(transactionToEdit.getPerson().getName());
+        Phone updatedPhone = editTransactionDescriptor.getPhone().orElse(transactionToEdit.getPerson().getPhone());
+        Email updatedEmail = editTransactionDescriptor.getEmail().orElse(transactionToEdit.getPerson().getEmail());
+        Address updatedAddress = editTransactionDescriptor.getAddress()
+                                                          .orElse(transactionToEdit.getPerson().getAddress());
+        Set<Tag> updatedTags = editTransactionDescriptor.getTags().orElse(transactionToEdit.getPerson().getTags());
+        Person updatedPerson = new Person(updatedName, updatedPhone, updatedEmail, updatedAddress, updatedTags);
+
+        return new seedu.address.model.transaction.Transaction(updatedType, updatedAmount, updatedDeadline, updatedPerson);
     }
 
     @Override
@@ -136,7 +148,11 @@ public class EditCommand extends Command {
         private Amount amount;
         private Type type;
         private Deadline deadline;
-        private Person person;
+        private Name name;
+        private Phone phone;
+        private Email email;
+        private Address address;
+        private Set<Tag> tags;
 
 
         public EditTransactionDescriptor() {}
@@ -149,7 +165,11 @@ public class EditCommand extends Command {
             setAmount(toCopy.amount);
             setType(toCopy.type);
             setDeadline(toCopy.deadline);
-            setPerson(toCopy.person);
+            setName(toCopy.name);
+            setPhone(toCopy.phone);
+            setEmail(toCopy.email);
+            setAddress(toCopy.address);
+            setTags(toCopy.tags);
         }
 
 
@@ -157,7 +177,7 @@ public class EditCommand extends Command {
          * Returns true if at least one field is edited.
          */
         public boolean isAnyFieldEdited() {
-            return CollectionUtil.isAnyNonNull(amount, type, deadline, person);
+            return CollectionUtil.isAnyNonNull(amount, type, deadline, name, email, phone, address, tags);
         }
 
         public void setAmount(Amount amount) {
@@ -184,12 +204,53 @@ public class EditCommand extends Command {
             return Optional.ofNullable(deadline);
         }
 
-        private void setPerson(Person person) {
-            this.person = person;
+        public void setName(Name name) {
+            this.name = name;
         }
 
-        public Optional<Person> getPerson() {
-            return Optional.ofNullable(person);
+        public Optional<Name> getName() {
+            return Optional.ofNullable(name);
+        }
+
+        public void setPhone(Phone phone) {
+            this.phone = phone;
+        }
+
+        public Optional<Phone> getPhone() {
+            return Optional.ofNullable(phone);
+        }
+
+        public void setEmail(Email email) {
+            this.email = email;
+        }
+
+        public Optional<Email> getEmail() {
+            return Optional.ofNullable(email);
+        }
+
+        public void setAddress(Address address) {
+            this.address = address;
+        }
+
+        public Optional<Address> getAddress() {
+            return Optional.ofNullable(address);
+        }
+
+        /**
+         * Sets {@code tags} to this object's {@code tags}.
+         * A defensive copy of {@code tags} is used internally.
+         */
+        public void setTags(Set<Tag> tags) {
+            this.tags = (tags != null) ? new HashSet<>(tags) : null;
+        }
+
+        /**
+         * Returns an unmodifiable tag set, which throws {@code UnsupportedOperationException}
+         * if modification is attempted.
+         * Returns {@code Optional#empty()} if {@code tags} is null.
+         */
+        public Optional<Set<Tag>> getTags() {
+            return (tags != null) ? Optional.of(Collections.unmodifiableSet(tags)) : Optional.empty();
         }
 
         @Override

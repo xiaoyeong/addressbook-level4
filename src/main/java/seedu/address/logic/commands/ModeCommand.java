@@ -8,7 +8,7 @@ import seedu.address.logic.CommandHistory;
 import seedu.address.model.Model;
 
 /**
- * Switches between person and transaction modes
+ * Switches between transaction and transaction modes
  */
 public class ModeCommand extends Command {
 

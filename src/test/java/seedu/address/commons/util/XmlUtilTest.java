@@ -16,12 +16,10 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
 import seedu.address.model.FinancialDatabase;
-import seedu.address.storage.XmlAdaptedPerson;
 import seedu.address.storage.XmlAdaptedTag;
 import seedu.address.storage.XmlAdaptedTransaction;
 import seedu.address.storage.XmlSerializableFinancialDatabase;
 import seedu.address.testutil.FinancialDatabaseBuilder;
-import seedu.address.testutil.PersonBuilder;
 import seedu.address.testutil.TestUtil;
 
 public class XmlUtilTest {
@@ -137,7 +135,7 @@ public class XmlUtilTest {
 
         FinancialDatabaseBuilder builder = new FinancialDatabaseBuilder(new FinancialDatabase());
         dataToWrite = new XmlSerializableFinancialDatabase(
-                builder.withPerson(new PersonBuilder().build()).build());
+                builder.withTransaction(new PersonBuilder().build()).build());
 
         XmlUtil.saveDataToFile(TEMP_FILE, dataToWrite);
         dataFromFile = XmlUtil.getDataFromFile(TEMP_FILE, XmlSerializableFinancialDatabase.class);
@@ -148,6 +146,6 @@ public class XmlUtilTest {
      * Test class annotated with {@code XmlRootElement} to allow unmarshalling of .xml data to
      * {@code XmlAdaptedTransaction} objects.
      */
-    @XmlRootElement(name = "person")
+    @XmlRootElement(name = "transaction")
     private static class XmlAdaptedTransactionWithRootElement extends XmlAdaptedTransaction {}
 }

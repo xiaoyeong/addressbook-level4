@@ -5,7 +5,7 @@ import static java.util.Objects.requireNonNull;
 import seedu.address.commons.core.Messages;
 import seedu.address.logic.CommandHistory;
 import seedu.address.model.Model;
-import seedu.address.model.person.NameContainsLettersPredicate;
+import seedu.address.model.transaction.NameContainsLettersPredicate;
 
 /**
  *
@@ -29,8 +29,8 @@ public class WildcardSearchCommand extends Command {
     @Override
     public CommandResult execute(Model model, CommandHistory history) {
         requireNonNull(model);
-        model.updateFilteredPersonList(predicate);
+        model.updateFilteredTransactionList(predicate);
         return new CommandResult(
-                String.format(Messages.MESSAGE_PERSONS_LISTED_OVERVIEW, model.getFilteredPersonList().size()));
+                String.format(Messages.MESSAGE_PERSONS_LISTED_OVERVIEW, model.getFilteredTransactionList().size()));
     }
 }

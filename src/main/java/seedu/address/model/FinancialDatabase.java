@@ -59,7 +59,7 @@ public class FinancialDatabase implements ReadOnlyFinancialDatabase {
         setTransactions(newData.getTransactionList());
     }
 
-    //// person-level operations
+    //// transaction-level operations
 
 
     //// Transaction-level operations

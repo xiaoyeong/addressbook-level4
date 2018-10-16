@@ -4,18 +4,18 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
 /**
- * Represents the id of person associated with a transaction recorded in the database.
+ * Represents the id of transaction associated with a transaction recorded in the database.
  * Guarantees: immutable; is valid as declared in {@link #isValidId(String)}
  */
 public class PersonId {
     public static final String MESSAGE_TRANSACTION_PERSONID_CONSTRAINTS =
-            "Must be a valid person ID of an existing person.";
+            "Must be a valid transaction ID of an existing transaction.";
     public final String value;
 
     /**
      * Constructs an {@code Type}.
      *
-     * @param id A valid person id.
+     * @param id A valid transaction id.
      */
     public PersonId(String id) {
         requireNonNull(id);

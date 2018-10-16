@@ -18,7 +18,7 @@ import seedu.address.model.transaction.Transaction;
 @XmlRootElement(name = "financialdatabase")
 public class XmlSerializableFinancialDatabase {
 
-    public static final String MESSAGE_DUPLICATE_PERSON = "Persons list contains duplicate person(s).";
+    public static final String MESSAGE_DUPLICATE_PERSON = "Persons list contains duplicate transaction(s).";
     @XmlElement
     private List<XmlAdaptedTransaction> transactions;
 

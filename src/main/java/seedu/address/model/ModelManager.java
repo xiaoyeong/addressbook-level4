@@ -12,7 +12,6 @@ import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.ComponentManager;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.model.FinancialDatabaseChangedEvent;
-import seedu.address.model.person.Person;
 import seedu.address.model.transaction.Transaction;
 
 /**

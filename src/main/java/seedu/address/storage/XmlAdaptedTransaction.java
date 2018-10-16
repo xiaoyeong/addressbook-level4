@@ -16,9 +16,9 @@ import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
 import seedu.address.model.tag.Tag;
+import seedu.address.model.transaction.Transaction;
 import seedu.address.model.transaction.Amount;
 import seedu.address.model.transaction.Deadline;
-import seedu.address.model.transaction.Transaction;
 import seedu.address.model.transaction.Type;
 
 
@@ -57,7 +57,7 @@ public class XmlAdaptedTransaction {
     public XmlAdaptedTransaction() {}
 
     /**
-     * Constructs an {@code XmlAdaptedTransaction} with the given person details.
+     * Constructs an {@code XmlAdaptedTransaction} with the given transaction details.
      */
     public XmlAdaptedTransaction(String amount, String type, String deadline, String name, String email,
                                  String phone, String address, List<XmlAdaptedTag> tagged) {
@@ -78,7 +78,7 @@ public class XmlAdaptedTransaction {
      *
      * @param source future changes to this will not affect the created XmlAdaptedTransaction
      */
-    public XmlAdaptedTransaction(Transaction source) {
+    public XmlAdaptedTransaction(seedu.address.model.transaction.Transaction source) {
         name = source.getPerson().getName().fullName;
         email = source.getPerson().getEmail().value;
         phone = source.getPerson().getPhone().value;
@@ -95,9 +95,9 @@ public class XmlAdaptedTransaction {
     /**
      * Converts this jaxb-friendly adapted transaction object into the model's Transaction object.
      *
-     * @throws IllegalValueException if there were any data constraints violated in the adapted person
+     * @throws IllegalValueException if there were any data constraints violated in the adapted transaction
      */
-    public Transaction toModelType() throws IllegalValueException {
+    public seedu.address.model.transaction.Transaction toModelType() throws IllegalValueException {
         final List<Tag> personTags = new ArrayList<>();
         for (XmlAdaptedTag tag : tagged) {
             personTags.add(tag.toModelType());
@@ -166,7 +166,7 @@ public class XmlAdaptedTransaction {
             throw new IllegalValueException(Deadline.MESSAGE_TRANSACTION_DEADLINE_CONSTRAINTS);
         }
         final Deadline modelDeadline = new Deadline(deadline);
-        return new Transaction(modelType, modelAmount, modelDeadline, modelPerson);
+        return new seedu.address.model.transaction.Transaction(modelType, modelAmount, modelDeadline, modelPerson);
     }
 
     @Override

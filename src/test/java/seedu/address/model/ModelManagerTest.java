@@ -42,12 +42,12 @@ public class ModelManagerTest {
     @Test
     public void getFilteredPersonList_modifyList_throwsUnsupportedOperationException() {
         thrown.expect(UnsupportedOperationException.class);
-        modelManager.getFilteredPersonList().remove(0);
+        modelManager.getFilteredTransactionList().remove(0);
     }
 
     @Test
     public void equals() {
-        FinancialDatabase addressBook = new FinancialDatabaseBuilder().withPerson(ALICE).withPerson(BENSON).build();
+        FinancialDatabase addressBook = new FinancialDatabaseBuilder().withTransaction(ALICE).withTransaction(BENSON).build();
         FinancialDatabase differentAddressBook = new FinancialDatabase();
         UserPrefs userPrefs = new UserPrefs();
 
@@ -70,11 +70,11 @@ public class ModelManagerTest {
 
         // different filteredList -> returns false
         String[] keywords = ALICE.getName().fullName.split("\\s+");
-        modelManager.updateFilteredPersonList(new NameContainsKeywordsPredicate(Arrays.asList(keywords)));
+        modelManager.updateFilteredTransactionList(new NameContainsKeywordsPredicate(Arrays.asList(keywords)));
         assertFalse(modelManager.equals(new ModelManager(addressBook, userPrefs)));
 
         // resets modelManager to initial state for upcoming tests
-        modelManager.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+        modelManager.updateFilteredTransactionList(PREDICATE_SHOW_ALL_PERSONS);
 
         // different userPrefs -> returns true
         UserPrefs differentUserPrefs = new UserPrefs();
