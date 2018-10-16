@@ -1,7 +1,10 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.logic.parser.CliSyntax.*;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_PERSONID;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_TRANSACTION_AMOUNT;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_TRANSACTION_TYPE;
 
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -10,7 +13,7 @@ import seedu.address.model.transaction.Transaction;
 
 
 /**
- * Adds a person to the address book.
+ * Adds a transaction to the address book.
  */
 public class AddTransactionCommand extends Command {
 
@@ -29,7 +32,7 @@ public class AddTransactionCommand extends Command {
             + PREFIX_TRANSACTION_TYPE + "debt ";
 
     public static final String MESSAGE_SUCCESS = "New transaction added: %1$s";
-    public static final String MESSAGE_DUPLICATE_PERSON = "This person already exists in the address book";
+    public static final String MESSAGE_DUPLICATE_PERSON = "This transaction already exists in the address book";
 
     private final Transaction toAdd;
 

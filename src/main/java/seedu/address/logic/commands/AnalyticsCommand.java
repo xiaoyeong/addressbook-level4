@@ -29,6 +29,7 @@ public class AnalyticsCommand extends Command {
         int amount;
         amount = 0;
         requireNonNull(model);
+
         //List<Person> personList = model.getFilteredPersonList();
         List<Transaction> transactionList = model.getFilteredTransactionList();
 

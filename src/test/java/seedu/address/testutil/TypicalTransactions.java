@@ -13,16 +13,16 @@ import seedu.address.model.transaction.Transaction;
 public class TypicalTransactions {
 
     //TODO: Update according to accepted currencies
-    public static final Transaction ALICE_TRANSACTION = new TransactionBuilder().withPersonId("1")
-            .withAmount("SGD 42.50").withType("Loan").build();
-    public static final Transaction BOB_TRANSACTION = new TransactionBuilder().withPersonId("2")
-            .withAmount("AUD 12.85").withType("Debt").build();
-    public static final Transaction CARL_TRANSACTION = new TransactionBuilder().withPersonId("3")
-            .withAmount("USD 57.60").withType("Debt").build();
-    public static final Transaction DANIEL_TRANSACTION = new TransactionBuilder().withPersonId("4")
-            .withAmount("INR 44.70").withType("Loan").build();
-    public static final Transaction ELLE_TRANSACTION = new TransactionBuilder().withPersonId("5")
-            .withAmount("CNY 47.65").withType("Debt").build();
+    public static final Transaction ALICE_TRANSACTION = new TransactionBuilder().withAmount("SGD 42.50")
+            .withType("Loan").build();
+    public static final Transaction BOB_TRANSACTION = new TransactionBuilder().withAmount("AUD 12.85")
+            .withType("Debt").build();
+    public static final Transaction CARL_TRANSACTION = new TransactionBuilder().withAmount("USD 57.60")
+            .withType("Debt").build();
+    public static final Transaction DANIEL_TRANSACTION = new TransactionBuilder().withAmount("INR 44.70")
+            .withType("Loan").build();
+    public static final Transaction ELLE_TRANSACTION = new TransactionBuilder().withAmount("CNY 47.65")
+            .withType("Debt").build();
 
     private TypicalTransactions() {} // prevents instantiation
 

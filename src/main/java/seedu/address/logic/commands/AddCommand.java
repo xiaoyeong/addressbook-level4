@@ -6,23 +6,29 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_TRANSACTION_AMOUNT;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_TRANSACTION_DEADLINE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_TRANSACTION_TYPE;
 
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-import seedu.address.model.person.Person;
+import seedu.address.model.transaction.Transaction;
 
 
 /**
- * Adds a person to the address book.
+ * Adds a transaction to the database.
  */
 public class AddCommand extends Command {
 
     public static final String COMMAND_WORD = "add";
     public static final String COMMAND_ALIAS = "a";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a person to the address book. "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a transaction to the financial database. "
             + "Parameters: "
+            + PREFIX_TRANSACTION_TYPE + "TRANSACTION TYPE"
+            + PREFIX_TRANSACTION_AMOUNT + "TRANSACTION AMOUNT"
+            + PREFIX_TRANSACTION_DEADLINE + "TRANSACTION DEADLINE"
             + PREFIX_NAME + "NAME "
             + PREFIX_PHONE + "PHONE "
             + PREFIX_EMAIL + "EMAIL "
@@ -36,28 +42,28 @@ public class AddCommand extends Command {
             + PREFIX_TAG + "friends "
             + PREFIX_TAG + "owesMoney";
 
-    public static final String MESSAGE_SUCCESS = "New person added: %1$s";
-    public static final String MESSAGE_DUPLICATE_PERSON = "This person already exists in the address book";
+    public static final String MESSAGE_SUCCESS = "New transaction added: %1$s";
+    public static final String MESSAGE_DUPLICATE_TRANSACTION = "This transaction already exists in the database";
 
-    private final Person toAdd;
+    private final Transaction toAdd;
 
     /**
-     * Creates an AddCommand to add the specified {@code Person}
+     * Creates an AddCommand to add the specified {@code transaction}
      */
-    public AddCommand(Person person) {
-        requireNonNull(person);
-        toAdd = person;
+    public AddCommand(Transaction transaction) {
+        requireNonNull(transaction);
+        toAdd = transaction;
     }
 
     @Override
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
 
-        if (model.hasPerson(toAdd)) {
-            throw new CommandException(MESSAGE_DUPLICATE_PERSON);
+        if (model.hasTransaction(toAdd)) {
+            throw new CommandException(MESSAGE_DUPLICATE_TRANSACTION);
         }
 
-        model.addPerson(toAdd);
+        model.addTransaction(toAdd);
         model.commitFinancialDatabase();
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
     }
