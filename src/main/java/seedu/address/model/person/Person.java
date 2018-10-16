@@ -7,11 +7,7 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
-<<<<<<< HEAD
-import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
-=======
 import seedu.address.model.tag.Tag;
->>>>>>> 62ae91b7be5ee063260e9a6d45587902dc3600ec
 
 /**
  * Represents a Person in the address book.
@@ -57,17 +53,6 @@ public class Person {
         return address;
     }
 
-<<<<<<< HEAD
-    public UniqueId getUniqueId() {
-        return uniqueId;
-    }
-
-    public Photo getPhoto() {
-        return photo;
-    }
-
-=======
->>>>>>> 62ae91b7be5ee063260e9a6d45587902dc3600ec
     /**
      * Returns an immutable tag set, which throws {@code UnsupportedOperationException}
      * if modification is attempted.
