@@ -6,12 +6,9 @@ import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import seedu.address.MainApp;
-import seedu.address.Mode;
-
 import seedu.address.logic.commands.AddCommand;
-import seedu.address.logic.commands.AddTransactionCommand;
 import seedu.address.logic.commands.AnalyticsCommand;
+import seedu.address.logic.commands.CalendarCommand;
 import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.DeleteCommand;
@@ -25,11 +22,9 @@ import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.ModeCommand;
 import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.SelectCommand;
-import seedu.address.logic.commands.UndoCommand;
-import seedu.address.logic.commands.FilterCommand;
-import seedu.address.logic.commands.CalendarCommand;
-import seedu.address.logic.commands.WildcardSearchCommand;
 import seedu.address.logic.commands.ToDoListAddCommand;
+import seedu.address.logic.commands.UndoCommand;
+import seedu.address.logic.commands.WildcardSearchCommand;
 
 import seedu.address.logic.parser.exceptions.ParseException;
 
@@ -62,12 +57,7 @@ public class FinancialDatabaseParser {
 
         case AddCommand.COMMAND_WORD:
         case AddCommand.COMMAND_ALIAS:
-
-            if (MainApp.m == Mode.PersonMode) {
-                return new AddCommandParser().parse(arguments);
-            } else {
-                return new AddTransactionCommandParser().parse(arguments);
-            }
+            return new AddCommandParser().parse(arguments);
 
         case AnalyticsCommand.COMMAND_WORD:
         case AnalyticsCommand.COMMAND_ALIAS:
