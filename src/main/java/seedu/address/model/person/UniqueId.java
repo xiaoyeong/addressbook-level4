@@ -1,51 +1,56 @@
 package seedu.address.model.person;
 
-import java.util.Random;
-
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
+
+import java.util.Random;
+
 
 /**
  * Represents a Person's phone number in the address book.
  * Guarantees: immutable; is valid as declared in {@link #isValidUniqueId(String)}
  */
 public class UniqueId {
-
-
-    public static final String MESSAGE_PHONE_CONSTRAINTS =
-            "Phone numbers should only contain numbers, and it should be at least 3 digits long";
-    public static final String PHONE_VALIDATION_REGEX = ".*";
-    public  String value;
-
+    public static final String MESSAGE_TRANSACTION_PERSONUID_CONSTRAINTS =
+            "Id should contain only numbers";
+    public static final String UNIQUEID_VALIDATION_REGEX = "\\d+";
+    public final String value;
     /**
-     * Constructs a {@code Phone}.
+     * Constructs a {@code UniqueId}.
      *
-     * @param phone A valid phone number.
+     * @param id A valid id.
      */
-
-    public UniqueId(String phone) {
-        requireNonNull(phone);
-        checkArgument(isValidUniqueId(phone), MESSAGE_PHONE_CONSTRAINTS);
-        value = phone;
+    public UniqueId(String id) {
+        requireNonNull(id);
+        checkArgument(isValidUniqueId(id), MESSAGE_TRANSACTION_PERSONUID_CONSTRAINTS);
+        value = id;
     }
-
     public UniqueId() {
         int targetStringLength = 255;
         Random random = new Random();
         StringBuilder buffer = new StringBuilder(targetStringLength);
         for (int i = 0; i < targetStringLength; i++) {
-            char randomLimitedInt = (char) ('A' + (random.nextInt(20)));
-            buffer.append( randomLimitedInt);
-        }
-        this.value = buffer.toString();
+            char randomLimitedInt;
 
+            int randomNumber = random.nextInt(52);
+
+
+            if (randomNumber <= 25) {
+                randomLimitedInt = (char) ('A' + randomNumber);
+            } else {
+                randomLimitedInt = (char) ('a' + randomNumber - 26);
+            }
+            buffer.append(randomLimitedInt);
+        }
+        String generatedString = buffer.toString();
+        value = generatedString;
     }
 
     /**
-     * Returns true if a given string is a valid phone number.
+     * Returns true if a given string is a valid unique id.
      */
     public static boolean isValidUniqueId(String test) {
-        return test.matches(PHONE_VALIDATION_REGEX);
+        return test.matches(UNIQUEID_VALIDATION_REGEX);
     }
 
     @Override
@@ -64,5 +69,4 @@ public class UniqueId {
     public int hashCode() {
         return value.hashCode();
     }
-
 }

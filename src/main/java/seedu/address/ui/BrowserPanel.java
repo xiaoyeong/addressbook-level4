@@ -12,8 +12,9 @@ import javafx.scene.layout.Region;
 import javafx.scene.web.WebView;
 import seedu.address.MainApp;
 import seedu.address.commons.core.LogsCenter;
-import seedu.address.commons.events.ui.PersonPanelSelectionChangedEvent;
-import seedu.address.model.person.Person;
+import seedu.address.commons.events.ui.TransactionPanelSelectionChangedEvent;
+import seedu.address.model.transaction.Transaction;
+import seedu.address.commons.events.ui.ShowCalendarEvent;
 
 /**
  * The Browser Panel of the App.
@@ -23,6 +24,8 @@ public class BrowserPanel extends UiPart<Region> {
     public static final String DEFAULT_PAGE = "default.html";
     public static final String SEARCH_PAGE_URL =
             "https://se-edu.github.io/addressbook-level4/DummySearchPage.html?name=";
+    public static final String CALENDAR_PAGE_URL =
+            "https://calendar.google.com/calendar/b/1/embed?src=";
 
     private static final String FXML = "BrowserPanel.fxml";
 
@@ -41,9 +44,11 @@ public class BrowserPanel extends UiPart<Region> {
         registerAsAnEventHandler(this);
     }
 
-    private void loadPersonPage(Person person) {
-        loadPage(SEARCH_PAGE_URL + person.getName().fullName);
+    private void loadTransactionPage(Transaction transaction) {
+        loadPage(SEARCH_PAGE_URL + transaction.getDeadline().value);
     }
+
+    private void loadCalendarPage(String id) { loadPage(CALENDAR_PAGE_URL + id + "&ctz=Asia/Singapore");}
 
     public void loadPage(String url) {
         Platform.runLater(() -> browser.getEngine().load(url));
@@ -65,8 +70,14 @@ public class BrowserPanel extends UiPart<Region> {
     }
 
     @Subscribe
-    private void handlePersonPanelSelectionChangedEvent(PersonPanelSelectionChangedEvent event) {
+    private void handleTransactionPanelSelectionChangedEvent(TransactionPanelSelectionChangedEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
-        loadPersonPage(event.getNewSelection());
+        loadTransactionPage(event.getNewSelection());
+    }
+
+    @Subscribe
+    private void handleShowCalendarEvent(ShowCalendarEvent event){
+        logger.info(LogsCenter.getEventHandlingLogMessage(event));
+        loadCalendarPage(event.getCalendarId());
     }
 }

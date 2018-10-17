@@ -11,13 +11,13 @@ import seedu.address.commons.events.ui.JumpToListRequestEvent;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-import seedu.address.model.person.Person;
+import seedu.address.model.transaction.Transaction;
 
 
 
 
 /**
- * Selects a person identified using it's displayed index from the address book.
+ * Selects a transaction identified using it's displayed index from the address book.
  */
 public class SelectCommand extends Command {
 
@@ -25,7 +25,7 @@ public class SelectCommand extends Command {
     public static final String COMMAND_ALIAS = "s";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Selects the person identified by the index number used in the displayed person list.\n"
+            + ": Selects the transaction identified by the index number used in the displayed transaction list.\n"
             + "Parameters: INDEX (must be a positive integer)\n"
             + "Example: " + COMMAND_WORD + " 1";
 
@@ -41,7 +41,7 @@ public class SelectCommand extends Command {
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
 
-        List<Person> filteredPersonList = model.getFilteredPersonList();
+        List<Transaction> filteredPersonList = model.getFilteredTransactionList();
 
         if (targetIndex.getZeroBased() >= filteredPersonList.size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
