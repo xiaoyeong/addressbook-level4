@@ -22,7 +22,8 @@ public class Amount {
               "The transaction amount must be real number rounded to two decimal places, "
             + "prefixed by a three letter currency code";
     /*
-     * The transaction amount must be in the following format:
+     * The transaction amount must be rounded to two decimal digits and must have a 3-letter
+     * currency code prefixed to it following the official ISO 4217 standard.
      */
     public static final String TRANSACTION_AMOUNT_VALIDATION_REGEX = "\\w{3} \\d{1,}.\\d{2}";
 

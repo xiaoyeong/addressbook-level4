@@ -4,7 +4,7 @@ import static java.time.Duration.ofMillis;
 import static org.junit.Assert.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTimeoutPreemptively;
 import static seedu.address.testutil.EventsUtil.postNow;
-import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_PERSON;
+import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_TRANSACTION;
 import static seedu.address.testutil.TypicalTransactions.getTypicalTransactions;
 import static seedu.address.ui.testutil.GuiTestAssert.assertCardDisplaysTransaction;
 import static seedu.address.ui.testutil.GuiTestAssert.assertCardEquals;
@@ -32,7 +32,7 @@ public class TransactionListPanelTest extends GuiUnitTest {
     private static final ObservableList<Transaction> TYPICAL_PERSONS =
             FXCollections.observableList(getTypicalTransactions());
 
-    private static final JumpToListRequestEvent JUMP_TO_SECOND_EVENT = new JumpToListRequestEvent(INDEX_SECOND_PERSON);
+    private static final JumpToListRequestEvent JUMP_TO_SECOND_EVENT = new JumpToListRequestEvent(INDEX_SECOND_TRANSACTION);
 
     private static final Path TEST_DATA_FOLDER = Paths.get("src", "test", "data", "sandbox");
 
@@ -61,7 +61,7 @@ public class TransactionListPanelTest extends GuiUnitTest {
         guiRobot.pauseForHuman();
 
         TransactionCardHandle expectedPerson = transactionListPanelHandle
-                .getPersonCardHandle(INDEX_SECOND_PERSON.getZeroBased());
+                .getPersonCardHandle(INDEX_SECOND_TRANSACTION.getZeroBased());
         TransactionCardHandle selectedPerson = transactionListPanelHandle.getHandleToSelectedCard();
         assertCardEquals(expectedPerson, selectedPerson);
     }
