@@ -17,14 +17,12 @@ public class Photo {
 
     public static final String DEFAULT_MESSAGE_PHOTO = "Filepath be less than 10MB and FilePath must be valid ";
     public static final String DEFAULT_PHOTO = "images/default_person.png";
+
+    private static final int tenMB = 1048576;
     private static final String FOLDER = getOperatingPath();
-    //cannot be blank space
-    //double space equals to one in java
-    private static final String PHOTO_INTITAL_REGEX = "[^\\s].*";
-    private static final int TENMB = 1048576;
+    private static final String PHOTO_INTITAL_REGEX_ = "[^\\s].*";
 
     private String photoPath;
-
 
     public Photo() {
         this.photoPath = DEFAULT_PHOTO;
@@ -51,7 +49,6 @@ public class Photo {
         }
         //link to the path
         this.photoPath = FOLDER + "//" + newPhoto;
-
         makePhoto(filePath, newPhoto);
     }
 
@@ -67,9 +64,8 @@ public class Photo {
 
         //create file object
         File pictureFinal = new File(FOLDER + "//" + newPhoto);
-
-
-        //if cannot get file object create an empty object
+        
+         //if cannot get file object create an empty object
         if (!pictureFinal.exists()) {
             try {
                 pictureFinal.createNewFile();
@@ -97,39 +93,49 @@ public class Photo {
         }
     }
 
+    /**
+     * Check the Operating System that the user's local machine is running
+     */
+
     private static String getOperatingPath() {
         String oSystem = System.getProperty("os.name");
 
-        //first condition handles the Mac Operating System while the second citio
+        //mac
         if (oSystem.contains("mac")) {
             return System.getProperty("user.home") + "/Documents/cs2103/debt-tracker/PhotoFolder";
         } else {
             return System.getenv("APPDATA") + "/PhotoFolder";
         }
     }
-
+  
+    /**
+     * Get Operating System of User
+     */
     private static String getOsName() {
         return System.getProperty("os.name");
     }
 
+    /**
+     * Returns the path of the image file within the directory structure.
+     */
     public String getPicturePath() {
         return this.photoPath;
     }
 
-    /**
-     *
-     */
+     /**
+      * Checks whether the path of the given picture meets certain criteria.
+      */
+
     public static boolean checkPath(String path) {
         if (path.equals(DEFAULT_PHOTO)) {
             return true;
         }
-
-        if (path.matches(PHOTO_INTITAL_REGEX)) {
+  
+        if (path.matches(PHOTO_INTITAL_REGEX_)) {
             return checkPicture(path);
         }
-
+  
         return false;
-
     }
 
     /**
@@ -148,5 +154,12 @@ public class Photo {
             return false;
         }
         return true;
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof Photo // instanceof handles nulls
+                && this.photoPath.equals(((Photo) other).photoPath));
     }
 }
