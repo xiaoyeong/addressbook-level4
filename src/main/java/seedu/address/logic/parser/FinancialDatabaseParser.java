@@ -11,6 +11,7 @@ import seedu.address.logic.commands.AnalyticsCommand;
 import seedu.address.logic.commands.CalendarCommand;
 import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.Command;
+import seedu.address.logic.commands.ConvertCommand;
 import seedu.address.logic.commands.DeleteCommand;
 import seedu.address.logic.commands.EditCommand;
 import seedu.address.logic.commands.ExitCommand;
@@ -54,7 +55,6 @@ public class FinancialDatabaseParser {
         final String commandWord = matcher.group("commandWord");
         final String arguments = matcher.group("arguments");
         switch (commandWord) {
-
         case AddCommand.COMMAND_WORD:
         case AddCommand.COMMAND_ALIAS:
             return new AddCommandParser().parse(arguments);
@@ -63,41 +63,53 @@ public class FinancialDatabaseParser {
         case AnalyticsCommand.COMMAND_ALIAS:
             return new AnalyticsCommand();
 
-        case EditCommand.COMMAND_WORD:
-        case EditCommand.COMMAND_ALIAS:
-            return new EditCommandParser().parse(arguments);
-
-        case SelectCommand.COMMAND_WORD:
-        case SelectCommand.COMMAND_ALIAS:
-            return new SelectCommandParser().parse(arguments);
-
-        case DeleteCommand.COMMAND_WORD:
-        case DeleteCommand.COMMAND_ALIAS:
-            return new DeleteCommandParser().parse(arguments);
+        case CalendarCommand.COMMAND_WORD:
+        case CalendarCommand.COMMAND_ALIAS:
+            return new CalendarCommandParser().parse(arguments);
 
         case ClearCommand.COMMAND_WORD:
         case ClearCommand.COMMAND_ALIAS:
             return new ClearCommand();
 
-        case FindCommand.COMMAND_WORD:
-        case FindCommand.COMMAND_ALIAS:
-            return new FindCommandParser().parse(arguments);
+        case ConvertCommand.COMMAND_WORD:
+        case ConvertCommand.COMMAND_ALIAS:
+            return new ConvertCommandParser().parse(arguments);
 
-        case ListCommand.COMMAND_WORD:
-        case ListCommand.COMMAND_ALIAS:
-            return new ListCommand();
+        case DeleteCommand.COMMAND_WORD:
+        case DeleteCommand.COMMAND_ALIAS:
+            return new DeleteCommandParser().parse(arguments);
 
-        case HistoryCommand.COMMAND_WORD:
-        case HistoryCommand.COMMAND_ALIAS:
-            return new HistoryCommand();
+        case EditCommand.COMMAND_WORD:
+        case EditCommand.COMMAND_ALIAS:
+            return new EditCommandParser().parse(arguments);
 
         case ExitCommand.COMMAND_WORD:
         case ExitCommand.COMMAND_ALIAS:
             return new ExitCommand();
 
+        case FilterCommand.COMMAND_WORD:
+        case FilterCommand.COMMAND_ALIAS:
+            return new FilterCommandParser().parse(arguments);
+
+        case FindCommand.COMMAND_WORD:
+        case FindCommand.COMMAND_ALIAS:
+            return new FindCommandParser().parse(arguments);
+
         case HelpCommand.COMMAND_WORD:
         case HelpCommand.COMMAND_ALIAS:
             return new HelpCommand();
+
+        case HistoryCommand.COMMAND_WORD:
+        case HistoryCommand.COMMAND_ALIAS:
+            return new HistoryCommand();
+
+        case ListCommand.COMMAND_WORD:
+        case ListCommand.COMMAND_ALIAS:
+            return new ListCommand();
+
+        case ModeCommand.COMMAND_WORD:
+        case ModeCommand.COMMAND_ALIAS:
+            return new ModeCommand();
 
         case UndoCommand.COMMAND_WORD:
         case UndoCommand.COMMAND_ALIAS:
@@ -107,25 +119,17 @@ public class FinancialDatabaseParser {
         case RedoCommand.COMMAND_ALIAS:
             return new RedoCommand();
 
-        case FilterCommand.COMMAND_WORD:
-        case FilterCommand.COMMAND_ALIAS:
-            return new FilterCommandParser().parse(arguments);
-
-        case ModeCommand.COMMAND_WORD:
-        case ModeCommand.COMMAND_ALIAS:
-            return new ModeCommand();
-
-        case CalendarCommand.COMMAND_WORD:
-        case CalendarCommand.COMMAND_ALIAS:
-            return new CalendarCommandParser().parse(arguments);
-
-        case WildcardSearchCommand.COMMAND_WORD:
-        case WildcardSearchCommand.COMMAND_ALIAS:
-            return new WildcardSearchCommandParser().parse(arguments);
+        case SelectCommand.COMMAND_WORD:
+        case SelectCommand.COMMAND_ALIAS:
+            return new SelectCommandParser().parse(arguments);
 
         case ToDoListAddCommand.COMMAND_WORD:
         case ToDoListAddCommand.COMMAND_ALIAS:
             return new ToDoListAddCommandParser().parse(arguments);
+
+        case WildcardSearchCommand.COMMAND_WORD:
+        case WildcardSearchCommand.COMMAND_ALIAS:
+            return new WildcardSearchCommandParser().parse(arguments);
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
