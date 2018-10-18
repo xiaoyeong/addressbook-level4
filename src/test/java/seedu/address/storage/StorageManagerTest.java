@@ -77,8 +77,9 @@ public class StorageManagerTest {
     @Test
     public void handleFinancialDatabaseChangedEvent_exceptionThrown_eventRaised() {
         // Create a StorageManager while injecting a stub that  throws an exception when the save method is called
-        Storage storage = new StorageManager(new XmlFinancialDatabaseStorageExceptionThrowingStub(Paths.get("dummy")),
-                                             new JsonUserPrefsStorage(Paths.get("dummy")));
+        Storage storage = new StorageManager(
+                new XmlFinancialDatabaseStorageExceptionThrowingStub(Paths.get("dummy")),
+                new JsonUserPrefsStorage(Paths.get("dummy")));
         storage.handleFinancialDatabaseChangedEvent(new FinancialDatabaseChangedEvent(new FinancialDatabase()));
         assertTrue(eventsCollectorRule.eventsCollector.getMostRecent() instanceof DataSavingExceptionEvent);
     }
@@ -94,7 +95,8 @@ public class StorageManagerTest {
         }
 
         @Override
-        public void saveFinancialDatabase(ReadOnlyFinancialDatabase financialDatabase, Path filePath) throws IOException {
+        public void saveFinancialDatabase(ReadOnlyFinancialDatabase financialDatabase, Path filePath)
+                throws IOException {
             throw new IOException("dummy exception");
         }
     }

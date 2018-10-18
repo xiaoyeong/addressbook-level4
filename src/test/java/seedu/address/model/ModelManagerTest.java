@@ -47,7 +47,9 @@ public class ModelManagerTest {
 
     @Test
     public void equals() {
-        FinancialDatabase addressBook = new FinancialDatabaseBuilder().withTransaction(ALICE_TRANSACTION).withTransaction(BOB_TRANSACTION).build();
+        FinancialDatabase addressBook = new FinancialDatabaseBuilder()
+                .withTransaction(ALICE_TRANSACTION)
+                .withTransaction(BOB_TRANSACTION).build();
         FinancialDatabase differentAddressBook = new FinancialDatabase();
         UserPrefs userPrefs = new UserPrefs();
 

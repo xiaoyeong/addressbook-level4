@@ -27,9 +27,10 @@ import guitests.guihandles.BrowserPanelHandle;
 import guitests.guihandles.CommandBoxHandle;
 import guitests.guihandles.MainMenuHandle;
 import guitests.guihandles.MainWindowHandle;
-import guitests.guihandles.TransactionListPanelHandle;
 import guitests.guihandles.ResultDisplayHandle;
 import guitests.guihandles.StatusBarFooterHandle;
+import guitests.guihandles.TransactionListPanelHandle;
+
 import seedu.address.MainApp;
 import seedu.address.TestApp;
 import seedu.address.commons.core.EventsCenter;
@@ -40,7 +41,6 @@ import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.SelectCommand;
 import seedu.address.model.FinancialDatabase;
 import seedu.address.model.Model;
-import seedu.address.testutil.TypicalPersons;
 import seedu.address.testutil.TypicalTransactions;
 import seedu.address.ui.BrowserPanel;
 import seedu.address.ui.CommandBox;
@@ -153,8 +153,8 @@ public abstract class FinancialDatabaseSystemTest {
      */
     protected void showPersonsWithName(String keyword) {
         executeCommand(FindCommand.COMMAND_WORD + " " + keyword);
-        assertTrue(getModel().getFilteredTransactionList().size() <
-                getModel().getFinancialDatabase().getTransactionList().size());
+        assertTrue(getModel().getFilteredTransactionList().size()
+                < getModel().getFinancialDatabase().getTransactionList().size());
     }
 
     /**
@@ -182,13 +182,14 @@ public abstract class FinancialDatabaseSystemTest {
             Model expectedModel) {
         assertEquals(expectedCommandInput, getCommandBox().getInput());
         assertEquals(expectedResultMessage, getResultDisplay().getText());
-        assertEquals(new FinancialDatabase(expectedModel.getFinancialDatabase()), testApp.readStorageFinancialDatabase());
+        assertEquals(new FinancialDatabase(expectedModel.getFinancialDatabase()),
+                testApp.readStorageFinancialDatabase());
         assertListMatching(getTransactionListPanel(), expectedModel.getFilteredTransactionList());
     }
 
     /**
-     * Calls {@code BrowserPanelHandle}, {@code TransactionListPanelHandle} and {@code StatusBarFooterHandle} to remember
-     * their current state.
+     * Calls {@code BrowserPanelHandle}, {@code TransactionListPanelHandle} and {@code StatusBarFooterHandle} to
+     * remember their current state.
      */
     private void rememberStates() {
         StatusBarFooterHandle statusBarFooterHandle = getStatusBarFooter();
@@ -209,8 +210,8 @@ public abstract class FinancialDatabaseSystemTest {
     }
 
     /**
-     * Asserts that the browser's url is changed to display the details of the transaction in the transaction list panel at
-     * {@code expectedSelectedCardIndex}, and only the card at {@code expectedSelectedCardIndex} is selected.
+     *Asserts that the browser's url is changed to display the details of the transaction in the transaction list panel
+     * at {@code expectedSelectedCardIndex}, and only the card at {@code expectedSelectedCardIndex} is selected.
      * @see BrowserPanelHandle#isUrlChanged()
      * @see TransactionListPanelHandle#isSelectedPersonCardChanged()
      */
