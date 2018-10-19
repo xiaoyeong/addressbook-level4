@@ -31,7 +31,8 @@ public class DeleteCommandSystemTest extends FinancialDatabaseSystemTest {
 
         /* Case: delete the first transaction in the list, command with leading spaces and trailing spaces -> deleted */
         Model expectedModel = getModel();
-        String command = "     " + DeleteCommand.COMMAND_WORD + "      " + INDEX_FIRST_TRANSACTION.getOneBased() + "       ";
+        String command = "     " + DeleteCommand.COMMAND_WORD + "      " + INDEX_FIRST_TRANSACTION.getOneBased()
+                + "       ";
         Transaction deletedPerson = removePerson(expectedModel, INDEX_FIRST_TRANSACTION);
         String expectedResultMessage = String.format(MESSAGE_DELETE_PERSON_SUCCESS, deletedPerson);
         assertCommandSuccess(command, expectedModel, expectedResultMessage);
