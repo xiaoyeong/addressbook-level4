@@ -19,16 +19,14 @@ public interface FinancialDatabaseStorage {
 
     /**
      * Returns AddressBook data as a {@link seedu.address.model.ReadOnlyFinancialDatabase}.
-     *   Returns {@code Optional.empty()} if storage file is not found.
+     * Returns {@code Optional.empty()} if storage file is not found.
      * @throws DataConversionException if the data in storage is not in the expected format.
      * @throws IOException if there was any problem when reading from the storage.
      */
-    Optional<ReadOnlyFinancialDatabase> readFinancialDatabase() throws DataConversionException, IOException;
-
-    /**
-     * @see #getAddressBookFilePath()
-     */
-    Optional<ReadOnlyFinancialDatabase> readFinancialDatabase(Path filePath) throws DataConversionException, IOException;
+    Optional<ReadOnlyFinancialDatabase> readFinancialDatabase()
+            throws DataConversionException, IOException;
+    Optional<ReadOnlyFinancialDatabase> readFinancialDatabase(Path filePath)
+            throws DataConversionException, IOException;
 
     /**
      * Saves the given {@link ReadOnlyFinancialDatabase} to the storage.

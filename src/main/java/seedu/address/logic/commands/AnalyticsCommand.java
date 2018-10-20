@@ -14,21 +14,22 @@ import seedu.address.model.transaction.Transaction;
  * Analyse the your financial status
  */
 public class AnalyticsCommand extends Command {
-    public static final String COMMAND_WORD = "Analytics";
+    public static final String COMMAND_WORD = "analytics";
     public static final String COMMAND_ALIAS = "an";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Analyse the your financial status and generate \n"
             + "your financial status to view.\n";
 
-    public static final String MESSAGE_SUCCESS = "Financial status : $ ";
+    public static final String MESSAGE_SUCCESS = "Financial status : SGD";
 
 
 
     @Override
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
-        int amount;
+        double amount;
         amount = 0;
         requireNonNull(model);
+
         //List<Person> personList = model.getFilteredPersonList();
         List<Transaction> transactionList = model.getFilteredTransactionList();
 
@@ -36,9 +37,9 @@ public class AnalyticsCommand extends Command {
             Transaction t = transactionList.get(i);
 
             if (t.getType().toString().compareTo("Debt") == 0) {
-                amount += t.getAmount().getVal();
+                amount += Double.parseDouble(t.getAmount().getValue());
             } else {
-                amount -= t.getAmount().getVal();
+                amount -= Double.parseDouble(t.getAmount().getValue());
             }
         }
 

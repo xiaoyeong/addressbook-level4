@@ -12,11 +12,12 @@ import org.junit.rules.ExpectedException;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.commons.util.XmlUtil;
 import seedu.address.model.FinancialDatabase;
-import seedu.address.testutil.TypicalPersons;
+import seedu.address.testutil.TypicalTransactions;
 
 public class XmlSerializableAddressBookTest {
 
-    private static final Path TEST_DATA_FOLDER = Paths.get("src", "test", "data", "XmlSerializableFinancialDatabaseTest");
+    private static final Path TEST_DATA_FOLDER = Paths.get("src", "test", "data",
+            "XmlSerializableFinancialDatabaseTest");
     private static final Path TYPICAL_PERSONS_FILE = TEST_DATA_FOLDER.resolve("typicalPersonsAddressBook.xml");
     private static final Path INVALID_PERSON_FILE = TEST_DATA_FOLDER.resolve("invalidPersonAddressBook.xml");
     private static final Path DUPLICATE_PERSON_FILE = TEST_DATA_FOLDER.resolve("duplicatePersonAddressBook.xml");
@@ -29,7 +30,7 @@ public class XmlSerializableAddressBookTest {
         XmlSerializableFinancialDatabase dataFromFile = XmlUtil.getDataFromFile(TYPICAL_PERSONS_FILE,
                 XmlSerializableFinancialDatabase.class);
         FinancialDatabase addressBookFromFile = dataFromFile.toModelType();
-        FinancialDatabase typicalPersonsAddressBook = TypicalPersons.getTypicalFinancialDatabase();
+        FinancialDatabase typicalPersonsAddressBook = TypicalTransactions.getTypicalFinancialDatabase();
         assertEquals(addressBookFromFile, typicalPersonsAddressBook);
     }
 

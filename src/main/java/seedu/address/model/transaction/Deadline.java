@@ -1,9 +1,11 @@
 package seedu.address.model.transaction;
 
-import java.time.DateTimeException;
-import java.time.LocalDate;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
+
+import java.time.DateTimeException;
+import java.time.LocalDate;
+
 
 /**
  * Represents the deadline by which payment has to be made
@@ -11,8 +13,8 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
  */
 public class Deadline {
     public static final String MESSAGE_TRANSACTION_DEADLINE_CONSTRAINTS =
-            "The transaction deadline must be a valid date in the future in the DD/MM/YYY format";
-    public static final String TRANSACTION_DEADLINE_VALIDATION_REGEX = "\\d{2}/\\d{2}/\\d{4}";
+            "The transaction deadline must be a valid date in the future in the DD/MM/YYYY format";
+    public static final String TRANSACTION_DEADLINE_VALIDATION_REGEX = "\\d{1,2}/\\d{1,2}/\\d{4}";
     public final String value;
 
     /**
@@ -63,8 +65,8 @@ public class Deadline {
         if (!(other instanceof Type)) {
             return false;
         }
-        Type Type = (Type) other;
-        return other == this || value.equals(Type.value);
+        Type type = (Type) other;
+        return other == this || value.equals(type.value);
     }
 
     @Override
