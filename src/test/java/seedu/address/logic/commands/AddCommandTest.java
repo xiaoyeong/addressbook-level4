@@ -14,6 +14,7 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
 import javafx.collections.ObservableList;
+
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.FinancialDatabase;
@@ -101,30 +102,30 @@ public class AddCommandTest {
 
 
         @Override
-        public void addTransaction(seedu.address.model.transaction.Transaction transaction) {
+        public void addTransaction(Transaction transaction) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public boolean hasTransaction(seedu.address.model.transaction.Transaction transaction) {
+        public boolean hasTransaction(Transaction transaction) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void updateTransaction(seedu.address.model.transaction.Transaction target, seedu.address.model.transaction.Transaction editedTransaction) {
+        public void updateTransaction(Transaction target, Transaction editedTransaction) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void deleteTransaction(seedu.address.model.transaction.Transaction target) {
+        public void deleteTransaction(Transaction target) {
             throw new AssertionError("This method should not be called.");
         }
 
-        public ObservableList<seedu.address.model.transaction.Transaction> getFilteredTransactionList() {
+        public ObservableList<Transaction> getFilteredTransactionList() {
             throw new AssertionError("This method should not be called.");
         }
 
-        public void updateFilteredTransactionList(Predicate<seedu.address.model.transaction.Transaction> predicate) {
+        public void updateFilteredTransactionList(Predicate<Transaction> predicate) {
             throw new AssertionError("This method should not be called.");
         }
 

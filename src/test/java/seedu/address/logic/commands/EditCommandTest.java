@@ -3,9 +3,18 @@ package seedu.address.logic.commands;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertTrue;
-import static seedu.address.logic.commands.CommandTestUtil.*;
-import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
-import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_PERSON;
+import static seedu.address.logic.commands.CommandTestUtil.DESC_AMY;
+import static seedu.address.logic.commands.CommandTestUtil.DESC_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_AMOUNT_AMY;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_TYPE_AMY;
+import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
+import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
+import static seedu.address.logic.commands.CommandTestUtil.showTransactionAtIndex;
+import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_TRANSACTION;
+import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_TRANSACTION;
 import static seedu.address.testutil.TypicalTransactions.getTypicalFinancialDatabase;
 
 import org.junit.Test;
@@ -34,7 +43,7 @@ public class EditCommandTest {
     public void execute_allFieldsSpecifiedUnfilteredList_success() {
         Transaction editedPerson = new TransactionBuilder().build();
         EditTransactionDescriptor descriptor = new EditTransactionDescriptorBuilder(editedPerson).build();
-        EditCommand editCommand = new EditCommand(INDEX_FIRST_PERSON, descriptor);
+        EditCommand editCommand = new EditCommand(INDEX_FIRST_TRANSACTION, descriptor);
 
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_TRANSACTION_SUCCESS, editedPerson);
 
@@ -69,8 +78,8 @@ public class EditCommandTest {
 
     @Test
     public void execute_noFieldSpecifiedUnfilteredList_success() {
-        EditCommand editCommand = new EditCommand(INDEX_FIRST_PERSON, new EditTransactionDescriptor());
-        Transaction editedPerson = model.getFilteredTransactionList().get(INDEX_FIRST_PERSON.getZeroBased());
+        EditCommand editCommand = new EditCommand(INDEX_FIRST_TRANSACTION, new EditTransactionDescriptor());
+        Transaction editedPerson = model.getFilteredTransactionList().get(INDEX_FIRST_TRANSACTION.getZeroBased());
 
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_TRANSACTION_SUCCESS, editedPerson);
 
@@ -82,11 +91,11 @@ public class EditCommandTest {
 
     @Test
     public void execute_filteredList_success() {
-        showTransactionAtIndex(model, INDEX_FIRST_PERSON);
+        showTransactionAtIndex(model, INDEX_FIRST_TRANSACTION);
 
-        Transaction personInFilteredList = model.getFilteredTransactionList().get(INDEX_FIRST_PERSON.getZeroBased());
+        Transaction personInFilteredList = model.getFilteredTransactionList().get(INDEX_FIRST_TRANSACTION.getZeroBased());
         Transaction editedPerson = new TransactionBuilder(personInFilteredList).withName(VALID_NAME_BOB).build();
-        EditCommand editCommand = new EditCommand(INDEX_FIRST_PERSON,
+        EditCommand editCommand = new EditCommand(INDEX_FIRST_TRANSACTION,
                 new EditTransactionDescriptorBuilder().withName(VALID_NAME_BOB).build());
 
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_TRANSACTION_SUCCESS, editedPerson);
@@ -100,20 +109,21 @@ public class EditCommandTest {
 
     @Test
     public void execute_duplicatePersonUnfilteredList_failure() {
-        Transaction firstPerson = model.getFilteredTransactionList().get(INDEX_FIRST_PERSON.getZeroBased());
+        Transaction firstPerson = model.getFilteredTransactionList().get(INDEX_FIRST_TRANSACTION.getZeroBased());
         EditTransactionDescriptor descriptor = new EditTransactionDescriptorBuilder(firstPerson).build();
-        EditCommand editCommand = new EditCommand(INDEX_SECOND_PERSON, descriptor);
+        EditCommand editCommand = new EditCommand(INDEX_SECOND_TRANSACTION, descriptor);
 
         assertCommandFailure(editCommand, model, commandHistory, EditCommand.MESSAGE_DUPLICATE_TRANSACTION);
     }
 
     @Test
     public void execute_duplicatePersonFilteredList_failure() {
-        showTransactionAtIndex(model, INDEX_FIRST_PERSON);
+        showTransactionAtIndex(model, INDEX_FIRST_TRANSACTION);
 
         // edit transaction in filtered list into a duplicate in address book
-        Transaction personInList = model.getFinancialDatabase().getTransactionList().get(INDEX_SECOND_PERSON.getZeroBased());
-        EditCommand editCommand = new EditCommand(INDEX_FIRST_PERSON,
+        Transaction personInList = model.getFinancialDatabase().getTransactionList()
+                .get(INDEX_SECOND_TRANSACTION.getZeroBased());
+        EditCommand editCommand = new EditCommand(INDEX_FIRST_TRANSACTION,
                 new EditTransactionDescriptorBuilder(personInList).build());
 
         assertCommandFailure(editCommand, model, commandHistory, EditCommand.MESSAGE_DUPLICATE_TRANSACTION);
@@ -134,8 +144,8 @@ public class EditCommandTest {
      */
     @Test
     public void execute_invalidPersonIndexFilteredList_failure() {
-        showTransactionAtIndex(model, INDEX_FIRST_PERSON);
-        Index outOfBoundIndex = INDEX_SECOND_PERSON;
+        showTransactionAtIndex(model, INDEX_FIRST_TRANSACTION);
+        Index outOfBoundIndex = INDEX_SECOND_TRANSACTION;
         // ensures that outOfBoundIndex is still in bounds of address book list
         assertTrue(outOfBoundIndex.getZeroBased() < model.getFinancialDatabase().getTransactionList().size());
 
@@ -148,9 +158,9 @@ public class EditCommandTest {
     @Test
     public void executeUndoRedo_validIndexUnfilteredList_success() throws Exception {
         Transaction editedPerson = new TransactionBuilder().build();
-        Transaction personToEdit = model.getFilteredTransactionList().get(INDEX_FIRST_PERSON.getZeroBased());
+        Transaction personToEdit = model.getFilteredTransactionList().get(INDEX_FIRST_TRANSACTION.getZeroBased());
         EditTransactionDescriptor descriptor = new EditTransactionDescriptorBuilder(editedPerson).build();
-        EditCommand editCommand = new EditCommand(INDEX_FIRST_PERSON, descriptor);
+        EditCommand editCommand = new EditCommand(INDEX_FIRST_TRANSACTION, descriptor);
         Model expectedModel = new ModelManager(new FinancialDatabase(model.getFinancialDatabase()), new UserPrefs());
         expectedModel.updateTransaction(personToEdit, editedPerson);
         expectedModel.commitFinancialDatabase();
@@ -192,22 +202,23 @@ public class EditCommandTest {
     public void executeUndoRedo_validIndexFilteredList_samePersonEdited() throws Exception {
         Transaction editedPerson = new TransactionBuilder().build();
         EditTransactionDescriptor descriptor = new EditTransactionDescriptorBuilder(editedPerson).build();
-        EditCommand editCommand = new EditCommand(INDEX_FIRST_PERSON, descriptor);
+        EditCommand editCommand = new EditCommand(INDEX_FIRST_TRANSACTION, descriptor);
         Model expectedModel = new ModelManager(new FinancialDatabase(model.getFinancialDatabase()), new UserPrefs());
 
-        showTransactionAtIndex(model, INDEX_SECOND_PERSON);
-        Transaction personToEdit = model.getFilteredTransactionList().get(INDEX_FIRST_PERSON.getZeroBased());
+        showTransactionAtIndex(model, INDEX_SECOND_TRANSACTION);
+        Transaction personToEdit = model.getFilteredTransactionList().get(INDEX_FIRST_TRANSACTION.getZeroBased());
         expectedModel.updateTransaction(personToEdit, editedPerson);
         expectedModel.commitFinancialDatabase();
 
-        // edit -> edits second transaction in unfiltered transaction list / first transaction in filtered transaction list
+        // edit -> edits second transaction in unfiltered transaction list / first transaction
+        // in filtered transaction list
         editCommand.execute(model, commandHistory);
 
         // undo -> reverts addressbook back to previous state and filtered transaction list to show all persons
         expectedModel.undoFinancialDatabase();
         assertCommandSuccess(new UndoCommand(), model, commandHistory, UndoCommand.MESSAGE_SUCCESS, expectedModel);
 
-        assertNotEquals(model.getFilteredTransactionList().get(INDEX_FIRST_PERSON.getZeroBased()), personToEdit);
+        assertNotEquals(model.getFilteredTransactionList().get(INDEX_FIRST_TRANSACTION.getZeroBased()), personToEdit);
         // redo -> edits same second transaction in unfiltered transaction list
         expectedModel.redoFinancialDatabase();
         assertCommandSuccess(new RedoCommand(), model, commandHistory, RedoCommand.MESSAGE_SUCCESS, expectedModel);
@@ -215,11 +226,11 @@ public class EditCommandTest {
 
     @Test
     public void equals() {
-        final EditCommand standardCommand = new EditCommand(INDEX_FIRST_PERSON, DESC_AMY);
+        final EditCommand standardCommand = new EditCommand(INDEX_FIRST_TRANSACTION, DESC_AMY);
 
         // same values -> returns true
         EditTransactionDescriptor copyDescriptor = new EditTransactionDescriptor(DESC_AMY);
-        EditCommand commandWithSameValues = new EditCommand(INDEX_FIRST_PERSON, copyDescriptor);
+        EditCommand commandWithSameValues = new EditCommand(INDEX_FIRST_TRANSACTION, copyDescriptor);
         assertTrue(standardCommand.equals(commandWithSameValues));
 
         // same object -> returns true
@@ -232,10 +243,10 @@ public class EditCommandTest {
         assertFalse(standardCommand.equals(new ClearCommand()));
 
         // different index -> returns false
-        assertFalse(standardCommand.equals(new EditCommand(INDEX_SECOND_PERSON, DESC_AMY)));
+        assertFalse(standardCommand.equals(new EditCommand(INDEX_SECOND_TRANSACTION, DESC_AMY)));
 
         // different descriptor -> returns false
-        assertFalse(standardCommand.equals(new EditCommand(INDEX_FIRST_PERSON, DESC_BOB)));
+        assertFalse(standardCommand.equals(new EditCommand(INDEX_FIRST_TRANSACTION, DESC_BOB)));
     }
 
 }

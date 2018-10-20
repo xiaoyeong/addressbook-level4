@@ -10,11 +10,13 @@ import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.scene.layout.Region;
 import javafx.scene.web.WebView;
+
 import seedu.address.MainApp;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.commons.events.ui.ShowCalendarEvent;
 import seedu.address.commons.events.ui.TransactionPanelSelectionChangedEvent;
 import seedu.address.model.transaction.Transaction;
-import seedu.address.commons.events.ui.ShowCalendarEvent;
+
 
 /**
  * The Browser Panel of the App.
@@ -48,7 +50,9 @@ public class BrowserPanel extends UiPart<Region> {
         loadPage(SEARCH_PAGE_URL + transaction.getDeadline().value);
     }
 
-    private void loadCalendarPage(String id) { loadPage(CALENDAR_PAGE_URL + id + "&ctz=Asia/Singapore");}
+    private void loadCalendarPage(String id) {
+        loadPage(CALENDAR_PAGE_URL + id + "&ctz=Asia/Singapore");
+    }
 
     public void loadPage(String url) {
         Platform.runLater(() -> browser.getEngine().load(url));
@@ -76,7 +80,7 @@ public class BrowserPanel extends UiPart<Region> {
     }
 
     @Subscribe
-    private void handleShowCalendarEvent(ShowCalendarEvent event){
+    private void handleShowCalendarEvent(ShowCalendarEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
         loadCalendarPage(event.getCalendarId());
     }

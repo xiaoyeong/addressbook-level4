@@ -1,8 +1,8 @@
 package seedu.address.model.transaction;
 
-import seedu.address.model.person.Person;
-
 import java.util.Objects;
+
+import seedu.address.model.person.Person;
 
 /**
  * {@code Transaction} class encapsulates a transaction added to the financial database

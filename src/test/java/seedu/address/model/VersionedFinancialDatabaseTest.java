@@ -4,9 +4,6 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertThrows;
-import static seedu.address.testutil.TypicalPersons.AMY;
-import static seedu.address.testutil.TypicalPersons.BOB;
-import static seedu.address.testutil.TypicalPersons.CARL;
 import static seedu.address.testutil.TypicalTransactions.ALICE_TRANSACTION;
 import static seedu.address.testutil.TypicalTransactions.BOB_TRANSACTION;
 import static seedu.address.testutil.TypicalTransactions.CARL_TRANSACTION;
@@ -21,17 +18,23 @@ import seedu.address.testutil.FinancialDatabaseBuilder;
 
 public class VersionedFinancialDatabaseTest {
 
-    private final ReadOnlyFinancialDatabase addressBookWithAmy = new FinancialDatabaseBuilder().withTransaction(ALICE_TRANSACTION).build();
-    private final ReadOnlyFinancialDatabase addressBookWithBob = new FinancialDatabaseBuilder().withTransaction(BOB_TRANSACTION).build();
-    private final ReadOnlyFinancialDatabase addressBookWithCarl = new FinancialDatabaseBuilder().withTransaction(CARL_TRANSACTION).build();
+    private final ReadOnlyFinancialDatabase addressBookWithAmy = new FinancialDatabaseBuilder()
+            .withTransaction(ALICE_TRANSACTION)
+            .build();
+    private final ReadOnlyFinancialDatabase addressBookWithBob = new FinancialDatabaseBuilder()
+            .withTransaction(BOB_TRANSACTION)
+            .build();
+    private final ReadOnlyFinancialDatabase addressBookWithCarl = new FinancialDatabaseBuilder()
+            .withTransaction(CARL_TRANSACTION)
+            .build();
     private final ReadOnlyFinancialDatabase emptyAddressBook = new FinancialDatabaseBuilder().build();
 
     @Test
     public void commit_singleAddressBook_noStatesRemovedCurrentStateSaved() {
-        VersionedFinancialDatabase VersionedFinancialDatabase = prepareAddressBookList(emptyAddressBook);
+        VersionedFinancialDatabase versionedFinancialDatabase = prepareAddressBookList(emptyAddressBook);
 
-        VersionedFinancialDatabase.commit();
-        assertAddressBookListStatus(VersionedFinancialDatabase,
+        versionedFinancialDatabase.commit();
+        assertAddressBookListStatus(versionedFinancialDatabase,
                 Collections.singletonList(emptyAddressBook),
                 emptyAddressBook,
                 Collections.emptyList());
@@ -39,11 +42,11 @@ public class VersionedFinancialDatabaseTest {
 
     @Test
     public void commit_multipleAddressBookPointerAtEndOfStateList_noStatesRemovedCurrentStateSaved() {
-        VersionedFinancialDatabase VersionedFinancialDatabase = prepareAddressBookList(
+        VersionedFinancialDatabase versionedFinancialDatabase = prepareAddressBookList(
                 emptyAddressBook, addressBookWithAmy, addressBookWithBob);
 
-        VersionedFinancialDatabase.commit();
-        assertAddressBookListStatus(VersionedFinancialDatabase,
+        versionedFinancialDatabase.commit();
+        assertAddressBookListStatus(versionedFinancialDatabase,
                 Arrays.asList(emptyAddressBook, addressBookWithAmy, addressBookWithBob),
                 addressBookWithBob,
                 Collections.emptyList());
@@ -51,12 +54,12 @@ public class VersionedFinancialDatabaseTest {
 
     @Test
     public void commit_multipleAddressBookPointerNotAtEndOfStateList_statesAfterPointerRemovedCurrentStateSaved() {
-        VersionedFinancialDatabase VersionedFinancialDatabase = prepareAddressBookList(
+        VersionedFinancialDatabase versionedFinancialDatabase = prepareAddressBookList(
                 emptyAddressBook, addressBookWithAmy, addressBookWithBob);
-        shiftCurrentStatePointerLeftwards(VersionedFinancialDatabase, 2);
+        shiftCurrentStatePointerLeftwards(versionedFinancialDatabase, 2);
 
-        VersionedFinancialDatabase.commit();
-        assertAddressBookListStatus(VersionedFinancialDatabase,
+        versionedFinancialDatabase.commit();
+        assertAddressBookListStatus(versionedFinancialDatabase,
                 Collections.singletonList(emptyAddressBook),
                 emptyAddressBook,
                 Collections.emptyList());
@@ -64,77 +67,77 @@ public class VersionedFinancialDatabaseTest {
 
     @Test
     public void canUndo_multipleAddressBookPointerAtEndOfStateList_returnsTrue() {
-        VersionedFinancialDatabase VersionedFinancialDatabase = prepareAddressBookList(
+        VersionedFinancialDatabase versionedFinancialDatabase = prepareAddressBookList(
                 emptyAddressBook, addressBookWithAmy, addressBookWithBob);
 
-        assertTrue(VersionedFinancialDatabase.canUndo());
+        assertTrue(versionedFinancialDatabase.canUndo());
     }
 
     @Test
     public void canUndo_multipleAddressBookPointerAtStartOfStateList_returnsTrue() {
-        VersionedFinancialDatabase VersionedFinancialDatabase = prepareAddressBookList(
+        VersionedFinancialDatabase versionedFinancialDatabase = prepareAddressBookList(
                 emptyAddressBook, addressBookWithAmy, addressBookWithBob);
-        shiftCurrentStatePointerLeftwards(VersionedFinancialDatabase, 1);
+        shiftCurrentStatePointerLeftwards(versionedFinancialDatabase, 1);
 
-        assertTrue(VersionedFinancialDatabase.canUndo());
+        assertTrue(versionedFinancialDatabase.canUndo());
     }
 
     @Test
     public void canUndo_singleAddressBook_returnsFalse() {
-        VersionedFinancialDatabase VersionedFinancialDatabase = prepareAddressBookList(emptyAddressBook);
+        VersionedFinancialDatabase versionedFinancialDatabase = prepareAddressBookList(emptyAddressBook);
 
-        assertFalse(VersionedFinancialDatabase.canUndo());
+        assertFalse(versionedFinancialDatabase.canUndo());
     }
 
     @Test
     public void canUndo_multipleAddressBookPointerAtStartOfStateList_returnsFalse() {
-        VersionedFinancialDatabase VersionedFinancialDatabase = prepareAddressBookList(
+        VersionedFinancialDatabase versionedFinancialDatabase = prepareAddressBookList(
                 emptyAddressBook, addressBookWithAmy, addressBookWithBob);
-        shiftCurrentStatePointerLeftwards(VersionedFinancialDatabase, 2);
+        shiftCurrentStatePointerLeftwards(versionedFinancialDatabase, 2);
 
-        assertFalse(VersionedFinancialDatabase.canUndo());
+        assertFalse(versionedFinancialDatabase.canUndo());
     }
 
     @Test
     public void canRedo_multipleAddressBookPointerNotAtEndOfStateList_returnsTrue() {
-        VersionedFinancialDatabase VersionedFinancialDatabase = prepareAddressBookList(
+        VersionedFinancialDatabase versionedFinancialDatabase = prepareAddressBookList(
                 emptyAddressBook, addressBookWithAmy, addressBookWithBob);
-        shiftCurrentStatePointerLeftwards(VersionedFinancialDatabase, 1);
+        shiftCurrentStatePointerLeftwards(versionedFinancialDatabase, 1);
 
-        assertTrue(VersionedFinancialDatabase.canRedo());
+        assertTrue(versionedFinancialDatabase.canRedo());
     }
 
     @Test
     public void canRedo_multipleAddressBookPointerAtStartOfStateList_returnsTrue() {
-        VersionedFinancialDatabase VersionedFinancialDatabase = prepareAddressBookList(
+        VersionedFinancialDatabase versionedFinancialDatabase = prepareAddressBookList(
                 emptyAddressBook, addressBookWithAmy, addressBookWithBob);
-        shiftCurrentStatePointerLeftwards(VersionedFinancialDatabase, 2);
+        shiftCurrentStatePointerLeftwards(versionedFinancialDatabase, 2);
 
-        assertTrue(VersionedFinancialDatabase.canRedo());
+        assertTrue(versionedFinancialDatabase.canRedo());
     }
 
     @Test
     public void canRedo_singleAddressBook_returnsFalse() {
-        VersionedFinancialDatabase VersionedFinancialDatabase = prepareAddressBookList(emptyAddressBook);
+        VersionedFinancialDatabase versionedFinancialDatabase = prepareAddressBookList(emptyAddressBook);
 
-        assertFalse(VersionedFinancialDatabase.canRedo());
+        assertFalse(versionedFinancialDatabase.canRedo());
     }
 
     @Test
     public void canRedo_multipleAddressBookPointerAtEndOfStateList_returnsFalse() {
-        VersionedFinancialDatabase VersionedFinancialDatabase = prepareAddressBookList(
+        VersionedFinancialDatabase versionedFinancialDatabase = prepareAddressBookList(
                 emptyAddressBook, addressBookWithAmy, addressBookWithBob);
 
-        assertFalse(VersionedFinancialDatabase.canRedo());
+        assertFalse(versionedFinancialDatabase.canRedo());
     }
 
     @Test
     public void undo_multipleAddressBookPointerAtEndOfStateList_success() {
-        VersionedFinancialDatabase VersionedFinancialDatabase = prepareAddressBookList(
+        VersionedFinancialDatabase versionedFinancialDatabase = prepareAddressBookList(
                 emptyAddressBook, addressBookWithAmy, addressBookWithBob);
 
-        VersionedFinancialDatabase.undo();
-        assertAddressBookListStatus(VersionedFinancialDatabase,
+        versionedFinancialDatabase.undo();
+        assertAddressBookListStatus(versionedFinancialDatabase,
                 Collections.singletonList(emptyAddressBook),
                 addressBookWithAmy,
                 Collections.singletonList(addressBookWithBob));
@@ -142,12 +145,12 @@ public class VersionedFinancialDatabaseTest {
 
     @Test
     public void undo_multipleAddressBookPointerNotAtStartOfStateList_success() {
-        VersionedFinancialDatabase VersionedFinancialDatabase = prepareAddressBookList(
+        VersionedFinancialDatabase versionedFinancialDatabase = prepareAddressBookList(
                 emptyAddressBook, addressBookWithAmy, addressBookWithBob);
-        shiftCurrentStatePointerLeftwards(VersionedFinancialDatabase, 1);
+        shiftCurrentStatePointerLeftwards(versionedFinancialDatabase, 1);
 
-        VersionedFinancialDatabase.undo();
-        assertAddressBookListStatus(VersionedFinancialDatabase,
+        versionedFinancialDatabase.undo();
+        assertAddressBookListStatus(versionedFinancialDatabase,
                 Collections.emptyList(),
                 emptyAddressBook,
                 Arrays.asList(addressBookWithAmy, addressBookWithBob));
@@ -155,28 +158,28 @@ public class VersionedFinancialDatabaseTest {
 
     @Test
     public void undo_singleAddressBook_throwsNoUndoableStateException() {
-        VersionedFinancialDatabase VersionedFinancialDatabase = prepareAddressBookList(emptyAddressBook);
+        VersionedFinancialDatabase versionedFinancialDatabase = prepareAddressBookList(emptyAddressBook);
 
-        assertThrows(VersionedFinancialDatabase.NoUndoableStateException.class, VersionedFinancialDatabase::undo);
+        assertThrows(VersionedFinancialDatabase.NoUndoableStateException.class, versionedFinancialDatabase::undo);
     }
 
     @Test
     public void undo_multipleAddressBookPointerAtStartOfStateList_throwsNoUndoableStateException() {
-        VersionedFinancialDatabase VersionedFinancialDatabase = prepareAddressBookList(
+        VersionedFinancialDatabase versionedFinancialDatabase = prepareAddressBookList(
                 emptyAddressBook, addressBookWithAmy, addressBookWithBob);
-        shiftCurrentStatePointerLeftwards(VersionedFinancialDatabase, 2);
+        shiftCurrentStatePointerLeftwards(versionedFinancialDatabase, 2);
 
-        assertThrows(VersionedFinancialDatabase.NoUndoableStateException.class, VersionedFinancialDatabase::undo);
+        assertThrows(VersionedFinancialDatabase.NoUndoableStateException.class, versionedFinancialDatabase::undo);
     }
 
     @Test
     public void redo_multipleAddressBookPointerNotAtEndOfStateList_success() {
-        VersionedFinancialDatabase VersionedFinancialDatabase = prepareAddressBookList(
+        VersionedFinancialDatabase versionedFinancialDatabase = prepareAddressBookList(
                 emptyAddressBook, addressBookWithAmy, addressBookWithBob);
-        shiftCurrentStatePointerLeftwards(VersionedFinancialDatabase, 1);
+        shiftCurrentStatePointerLeftwards(versionedFinancialDatabase, 1);
 
-        VersionedFinancialDatabase.redo();
-        assertAddressBookListStatus(VersionedFinancialDatabase,
+        versionedFinancialDatabase.redo();
+        assertAddressBookListStatus(versionedFinancialDatabase,
                 Arrays.asList(emptyAddressBook, addressBookWithAmy),
                 addressBookWithBob,
                 Collections.emptyList());
@@ -184,12 +187,12 @@ public class VersionedFinancialDatabaseTest {
 
     @Test
     public void redo_multipleAddressBookPointerAtStartOfStateList_success() {
-        VersionedFinancialDatabase VersionedFinancialDatabase = prepareAddressBookList(
+        VersionedFinancialDatabase versionedFinancialDatabase = prepareAddressBookList(
                 emptyAddressBook, addressBookWithAmy, addressBookWithBob);
-        shiftCurrentStatePointerLeftwards(VersionedFinancialDatabase, 2);
+        shiftCurrentStatePointerLeftwards(versionedFinancialDatabase, 2);
 
-        VersionedFinancialDatabase.redo();
-        assertAddressBookListStatus(VersionedFinancialDatabase,
+        versionedFinancialDatabase.redo();
+        assertAddressBookListStatus(versionedFinancialDatabase,
                 Collections.singletonList(emptyAddressBook),
                 addressBookWithAmy,
                 Collections.singletonList(addressBookWithBob));
@@ -197,105 +200,108 @@ public class VersionedFinancialDatabaseTest {
 
     @Test
     public void redo_singleAddressBook_throwsNoRedoableStateException() {
-        VersionedFinancialDatabase VersionedFinancialDatabase = prepareAddressBookList(emptyAddressBook);
+        VersionedFinancialDatabase versionedFinancialDatabase = prepareAddressBookList(emptyAddressBook);
 
-        assertThrows(VersionedFinancialDatabase.NoRedoableStateException.class, VersionedFinancialDatabase::redo);
+        assertThrows(VersionedFinancialDatabase.NoRedoableStateException.class, versionedFinancialDatabase::redo);
     }
 
     @Test
     public void redo_multipleAddressBookPointerAtEndOfStateList_throwsNoRedoableStateException() {
-        VersionedFinancialDatabase VersionedFinancialDatabase = prepareAddressBookList(
+        VersionedFinancialDatabase versionedFinancialDatabase = prepareAddressBookList(
                 emptyAddressBook, addressBookWithAmy, addressBookWithBob);
 
-        assertThrows(VersionedFinancialDatabase.NoRedoableStateException.class, VersionedFinancialDatabase::redo);
+        assertThrows(VersionedFinancialDatabase.NoRedoableStateException.class, versionedFinancialDatabase::redo);
     }
 
     @Test
     public void equals() {
-        VersionedFinancialDatabase VersionedFinancialDatabase = prepareAddressBookList(addressBookWithAmy, addressBookWithBob);
+        VersionedFinancialDatabase versionedFinancialDatabase = prepareAddressBookList(addressBookWithAmy,
+                addressBookWithBob);
 
         // same values -> returns true
         VersionedFinancialDatabase copy = prepareAddressBookList(addressBookWithAmy, addressBookWithBob);
-        assertTrue(VersionedFinancialDatabase.equals(copy));
+        assertTrue(versionedFinancialDatabase.equals(copy));
 
         // same object -> returns true
-        assertTrue(VersionedFinancialDatabase.equals(VersionedFinancialDatabase));
+        assertTrue(versionedFinancialDatabase.equals(versionedFinancialDatabase));
 
         // null -> returns false
-        assertFalse(VersionedFinancialDatabase.equals(null));
+        assertFalse(versionedFinancialDatabase.equals(null));
 
         // different types -> returns false
-        assertFalse(VersionedFinancialDatabase.equals(1));
+        assertFalse(versionedFinancialDatabase.equals(1));
 
         // different state list -> returns false
-        VersionedFinancialDatabase differentAddressBookList = prepareAddressBookList(addressBookWithBob, addressBookWithCarl);
-        assertFalse(VersionedFinancialDatabase.equals(differentAddressBookList));
+        VersionedFinancialDatabase differentAddressBookList = prepareAddressBookList(addressBookWithBob,
+                addressBookWithCarl);
+        assertFalse(versionedFinancialDatabase.equals(differentAddressBookList));
 
         // different current pointer index -> returns false
         VersionedFinancialDatabase differentCurrentStatePointer = prepareAddressBookList(
                 addressBookWithAmy, addressBookWithBob);
-        shiftCurrentStatePointerLeftwards(VersionedFinancialDatabase, 1);
-        assertFalse(VersionedFinancialDatabase.equals(differentCurrentStatePointer));
+        shiftCurrentStatePointerLeftwards(versionedFinancialDatabase, 1);
+        assertFalse(versionedFinancialDatabase.equals(differentCurrentStatePointer));
     }
 
     /**
      * Asserts that {@code VersionedFinancialDatabase} is currently pointing at {@code expectedCurrentState},
-     * states before {@code VersionedFinancialDatabase#currentStatePointer} is equal to {@code expectedStatesBeforePointer},
-     * and states after {@code VersionedFinancialDatabase#currentStatePointer} is equal to {@code expectedStatesAfterPointer}.
+     * states before {@code VersionedFinancialDatabase#currentStatePointer} is equal to
+     * {@code expectedStatesBeforePointer}, and states after {@code VersionedFinancialDatabase#currentStatePointer}
+     * is equal to {@code expectedStatesAfterPointer}.
      */
-    private void assertAddressBookListStatus(VersionedFinancialDatabase VersionedFinancialDatabase,
+    private void assertAddressBookListStatus(VersionedFinancialDatabase versionedFinancialDatabase,
                                              List<ReadOnlyFinancialDatabase> expectedStatesBeforePointer,
                                              ReadOnlyFinancialDatabase expectedCurrentState,
                                              List<ReadOnlyFinancialDatabase> expectedStatesAfterPointer) {
         // check state currently pointing at is correct
-        assertEquals(new FinancialDatabase(VersionedFinancialDatabase), expectedCurrentState);
+        assertEquals(new FinancialDatabase(versionedFinancialDatabase), expectedCurrentState);
 
         // shift pointer to start of state list
-        while (VersionedFinancialDatabase.canUndo()) {
-            VersionedFinancialDatabase.undo();
+        while (versionedFinancialDatabase.canUndo()) {
+            versionedFinancialDatabase.undo();
         }
 
         // check states before pointer are correct
         for (ReadOnlyFinancialDatabase expectedAddressBook : expectedStatesBeforePointer) {
-            assertEquals(expectedAddressBook, new FinancialDatabase(VersionedFinancialDatabase));
-            VersionedFinancialDatabase.redo();
+            assertEquals(expectedAddressBook, new FinancialDatabase(versionedFinancialDatabase));
+            versionedFinancialDatabase.redo();
         }
 
         // check states after pointer are correct
         for (ReadOnlyFinancialDatabase expectedAddressBook : expectedStatesAfterPointer) {
-            VersionedFinancialDatabase.redo();
-            assertEquals(expectedAddressBook, new FinancialDatabase(VersionedFinancialDatabase));
+            versionedFinancialDatabase.redo();
+            assertEquals(expectedAddressBook, new FinancialDatabase(versionedFinancialDatabase));
         }
 
         // check that there are no more states after pointer
-        assertFalse(VersionedFinancialDatabase.canRedo());
+        assertFalse(versionedFinancialDatabase.canRedo());
 
         // revert pointer to original position
-        expectedStatesAfterPointer.forEach(unused -> VersionedFinancialDatabase.undo());
+        expectedStatesAfterPointer.forEach(unused -> versionedFinancialDatabase.undo());
     }
 
     /**
-     * Creates and returns a {@code VersionedFinancialDatabase} with the {@code addressBookStates} added into it, and the
-     * {@code VersionedFinancialDatabase#currentStatePointer} at the end of list.
+     * Creates and returns a {@code VersionedFinancialDatabase} with the {@code addressBookStates} added into it,
+     * and the {@code VersionedFinancialDatabase#currentStatePointer} at the end of list.
      */
     private VersionedFinancialDatabase prepareAddressBookList(ReadOnlyFinancialDatabase... addressBookStates) {
         assertFalse(addressBookStates.length == 0);
 
-        VersionedFinancialDatabase VersionedFinancialDatabase = new VersionedFinancialDatabase(addressBookStates[0]);
+        VersionedFinancialDatabase versionedFinancialDatabase = new VersionedFinancialDatabase(addressBookStates[0]);
         for (int i = 1; i < addressBookStates.length; i++) {
-            VersionedFinancialDatabase.resetData(addressBookStates[i]);
-            VersionedFinancialDatabase.commit();
+            versionedFinancialDatabase.resetData(addressBookStates[i]);
+            versionedFinancialDatabase.commit();
         }
 
-        return VersionedFinancialDatabase;
+        return versionedFinancialDatabase;
     }
 
     /**
      * Shifts the {@code VersionedFinancialDatabase#currentStatePointer} by {@code count} to the left of its list.
      */
-    private void shiftCurrentStatePointerLeftwards(VersionedFinancialDatabase VersionedFinancialDatabase, int count) {
+    private void shiftCurrentStatePointerLeftwards(VersionedFinancialDatabase versionedFinancialDatabase, int count) {
         for (int i = 0; i < count; i++) {
-            VersionedFinancialDatabase.undo();
+            versionedFinancialDatabase.undo();
         }
     }
 }

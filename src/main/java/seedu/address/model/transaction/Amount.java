@@ -3,14 +3,9 @@ package seedu.address.model.transaction;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.Currency;
-import java.util.Optional;
 import java.util.Set;
 
-import seedu.address.commons.exceptions.DataConversionException;
-import seedu.address.commons.util.JsonUtil;
 
 /**
  * Represents the amount of money loaned/owed to end user.
@@ -22,14 +17,12 @@ public class Amount {
               "The transaction amount must be real number rounded to two decimal places, "
             + "prefixed by a three letter currency code";
     /*
-     * The transaction amount must be in the following format:
+     * The transaction amount must be rounded to two decimal digits and must have a 3-letter
+     * currency code prefixed to it following the official ISO 4217 standard.
      */
     public static final String TRANSACTION_AMOUNT_VALIDATION_REGEX = "\\w{3} \\d{1,}.\\d{2}";
 
     public final String value;
-    private float val;
-
-
     /**
      * Constructs an {@code TransactionAmount}.
      *
@@ -41,9 +34,10 @@ public class Amount {
         value = amount;
     }
 
-    public float getVal() {
-        return val;
+    public String getValue() {
+        return value;
     }
+
 
     /**
      * Returns true if a given string is a valid transaction amount.
@@ -52,24 +46,6 @@ public class Amount {
      */
     public static boolean isValidAmount(String test) {
         return test.matches(TRANSACTION_AMOUNT_VALIDATION_REGEX) && checkCurrency(test);
-    }
-
-    /**
-     * Handles the conversion of foreign currency to Singaporean currency.
-     *
-     * @param amount the amount in a given currency which is to be converted to Singaporean currency
-     */
-    private static void convertCurrency(String amount) {
-        String currencyCode = amount.split(" ")[0].toUpperCase();
-        Path filePath = Paths.get(String.format(
-                "http://free.currencyconverterapi.com/api/v5/convert?q=%s_SGD&compact=y", currencyCode));
-        try {
-            Optional<Amount> valueData = JsonUtil.readJsonFile(filePath, Amount.class);
-            System.out.println(valueData);
-        } catch (DataConversionException ex) {
-            ex.printStackTrace();
-        }
-
     }
 
     /**

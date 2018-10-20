@@ -3,16 +3,16 @@ package seedu.address.logic.parser;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
 import java.util.Arrays;
+
 import seedu.address.logic.commands.WildcardSearchCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.transaction.NameContainsLettersPredicate;
 
 /**
- *
+ * Parses input arguments and creates a new WildCardSearchCommand object
  */
 
-public class WildcardSearchCommandParser implements Parser<WildcardSearchCommand>{
-
+public class WildcardSearchCommandParser implements Parser<WildcardSearchCommand> {
     /**
      * Parses the given {@code String} of arguments in the context of the WildcardSearchCommand
      * and returns an WildcardSearchCommand object for execution.
