@@ -34,7 +34,7 @@ public class DeleteCommandTest {
         Transaction personToDelete = model.getFilteredTransactionList().get(INDEX_FIRST_TRANSACTION.getZeroBased());
         DeleteCommand deleteCommand = new DeleteCommand(INDEX_FIRST_TRANSACTION);
 
-        String expectedMessage = String.format(DeleteCommand.MESSAGE_DELETE_PERSON_SUCCESS, personToDelete);
+        String expectedMessage = String.format(DeleteCommand.MESSAGE_DELETE_TRANSACTION_SUCCESS, personToDelete);
 
         ModelManager expectedModel = new ModelManager(model.getFinancialDatabase(), new UserPrefs());
         expectedModel.deleteTransaction(personToDelete);
@@ -58,7 +58,7 @@ public class DeleteCommandTest {
         Transaction personToDelete = model.getFilteredTransactionList().get(INDEX_FIRST_TRANSACTION.getZeroBased());
         DeleteCommand deleteCommand = new DeleteCommand(INDEX_FIRST_TRANSACTION);
 
-        String expectedMessage = String.format(DeleteCommand.MESSAGE_DELETE_PERSON_SUCCESS, personToDelete);
+        String expectedMessage = String.format(DeleteCommand.MESSAGE_DELETE_TRANSACTION_SUCCESS, personToDelete);
 
         Model expectedModel = new ModelManager(model.getFinancialDatabase(), new UserPrefs());
         expectedModel.deleteTransaction(personToDelete);

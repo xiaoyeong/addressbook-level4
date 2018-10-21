@@ -32,7 +32,8 @@ public class TransactionListPanelTest extends GuiUnitTest {
     private static final ObservableList<Transaction> TYPICAL_PERSONS =
             FXCollections.observableList(getTypicalTransactions());
 
-    private static final JumpToListRequestEvent JUMP_TO_SECOND_EVENT = new JumpToListRequestEvent(INDEX_SECOND_TRANSACTION);
+    private static final JumpToListRequestEvent JUMP_TO_SECOND_EVENT =
+            new JumpToListRequestEvent(INDEX_SECOND_TRANSACTION);
 
     private static final Path TEST_DATA_FOLDER = Paths.get("src", "test", "data", "sandbox");
 

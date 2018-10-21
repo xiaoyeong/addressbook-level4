@@ -33,7 +33,8 @@ public class FindCommand extends Command {
         requireNonNull(model);
         model.updateFilteredTransactionList(predicate);
         return new CommandResult(
-                String.format(Messages.MESSAGE_PERSONS_LISTED_OVERVIEW, model.getFilteredTransactionList().size()));
+                String.format(Messages.MESSAGE_TRANSACTIONS_LISTED_OVERVIEW,
+                        model.getFilteredTransactionList().size()));
     }
 
     @Override

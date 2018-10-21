@@ -64,8 +64,8 @@ public class Photo {
 
         //create file object
         File pictureFinal = new File(FOLDER + "//" + newPhoto);
-        
-         //if cannot get file object create an empty object
+
+        //if cannot get file object create an empty object
         if (!pictureFinal.exists()) {
             try {
                 pictureFinal.createNewFile();
@@ -107,7 +107,7 @@ public class Photo {
             return System.getenv("APPDATA") + "/PhotoFolder";
         }
     }
-  
+
     /**
      * Get Operating System of User
      */
@@ -122,19 +122,16 @@ public class Photo {
         return this.photoPath;
     }
 
-     /**
-      * Checks whether the path of the given picture meets certain criteria.
-      */
-
+    /**
+     * Checks whether the path of the given picture meets certain criteria.
+     */
     public static boolean checkPath(String path) {
         if (path.equals(DEFAULT_PHOTO)) {
             return true;
         }
-  
         if (path.matches(PHOTO_INTITAL_REGEX_)) {
             return checkPicture(path);
         }
-  
         return false;
     }
 

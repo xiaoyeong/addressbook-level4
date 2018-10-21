@@ -14,6 +14,8 @@ public class Transaction {
     private final Person person;
     private final Deadline deadline;
 
+    private Interest interest;
+
     /**
      * Represents a transaction with non null fields {@code type}, {@code amount}, {@code deadline}
      * and {@code transaction}
@@ -46,6 +48,11 @@ public class Transaction {
         return person;
     }
 
+    public Interest getInterest() {
+        return interest;
+    }
+
+
     @Override
     public int hashCode() {
         return Objects.hash(type, amount, deadline, person);
@@ -65,13 +72,19 @@ public class Transaction {
     @Override
     public String toString() {
         final StringBuilder builder = new StringBuilder();
-        builder.append("Person: ")
+        builder.append("\nPerson Details: ")
                .append(person.toString())
-               .append("\n Transaction Details: \n")
-               .append("Type: ")
+               .append("\nTransaction Details: ")
+               .append(" Type: ")
                .append(type)
-               .append("\n Amount: ")
-               .append(amount);
+               .append(" Amount: ")
+               .append(amount)
+               .append(" Deadline: ")
+               .append(deadline);
+        if (interest != null) {
+            builder.append(" Interest: ")
+                   .append(interest);
+        }
         return builder.toString();
     }
 }
