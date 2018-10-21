@@ -18,7 +18,7 @@ public class ConvertCommandTest {
     @Test
     public void execute_multipleAmounts_multipleCurrenciesConverted() {
         String[] amounts = {"USD", "45.20", "AUD", "54.60", "MYR", "33.40"};
-        String expectedMessage = "Converted Amounts: SGD 62.35 SGD 53.69 SGD 11.06";
+        String expectedMessage = "Converted Amounts: SGD 62.30 SGD 53.54 SGD 11.07";
         ConvertCommand convertCommand = new ConvertCommand(Arrays.asList(amounts));
         assertCommandSuccess(convertCommand, model, history, expectedMessage, expectedModel);
     }

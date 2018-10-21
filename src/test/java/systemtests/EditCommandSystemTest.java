@@ -26,7 +26,6 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_TRANSACTIONS;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_TRANSACTION;
-import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_TRANSACTION;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_TRANSACTION;
 import static seedu.address.testutil.TypicalPersons.BOB;
 import static seedu.address.testutil.TypicalPersons.KEYWORD_MATCHING_MEIER;
@@ -107,7 +106,8 @@ public class EditCommandSystemTest extends FinancialDatabaseSystemTest {
         index = INDEX_SECOND_TRANSACTION;
         command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_BOB + PHONE_DESC_AMY + EMAIL_DESC_AMY
                 + ADDRESS_DESC_BOB + TAG_DESC_FRIEND + TAG_DESC_HUSBAND;
-        editedTransaction = new TransactionBuilder(BOB_TRANSACTION).withPhone(VALID_PHONE_AMY).withEmail(VALID_EMAIL_AMY)
+        editedTransaction = new TransactionBuilder(BOB_TRANSACTION).withPhone(VALID_PHONE_AMY)
+                .withEmail(VALID_EMAIL_AMY)
                 .build();
         assertCommandSuccess(command, index, editedTransaction);
 
@@ -121,7 +121,7 @@ public class EditCommandSystemTest extends FinancialDatabaseSystemTest {
         /* ------------------ Performing edit operation while a filtered list is being shown ------------------------ */
 
         /* Case: filtered transaction list, edit index within bounds of address book and transaction list -> edited */
-        showPersonsWithName(KEYWORD_MATCHING_MEIER);
+        showTransactionsWithName(KEYWORD_MATCHING_MEIER);
         index = INDEX_FIRST_TRANSACTION;
         assertTrue(index.getZeroBased() < getModel().getFilteredTransactionList().size());
         command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + " " + NAME_DESC_BOB;
@@ -132,7 +132,7 @@ public class EditCommandSystemTest extends FinancialDatabaseSystemTest {
         /* Case: filtered transaction list, edit index within bounds of address book but out of bounds of transaction
          * list -> rejected
          */
-        showPersonsWithName(KEYWORD_MATCHING_MEIER);
+        showTransactionsWithName(KEYWORD_MATCHING_MEIER);
         int invalidIndex = getModel().getFinancialDatabase().getTransactionList().size();
         assertCommandFailure(EditCommand.COMMAND_WORD + " " + invalidIndex + NAME_DESC_BOB,
                 Messages.MESSAGE_INVALID_TRANSACTION_DISPLAYED_INDEX);
@@ -142,9 +142,9 @@ public class EditCommandSystemTest extends FinancialDatabaseSystemTest {
         /* Case: selects first card in the transaction list, edit a transaction -> edited, card selection remains
          * unchanged but browser url changes.
          */
-        showAllPersons();
+        showAllTransactions();
         index = INDEX_FIRST_TRANSACTION;
-        selectPerson(index);
+        selectTransaction(index);
         command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_AMY + PHONE_DESC_AMY + EMAIL_DESC_AMY
                 + ADDRESS_DESC_AMY + TAG_DESC_FRIEND;
         // this can be misleading: card selection actually remains unchanged but the
@@ -175,24 +175,24 @@ public class EditCommandSystemTest extends FinancialDatabaseSystemTest {
                 EditCommand.MESSAGE_NOT_EDITED);
 
         /* Case: invalid name -> rejected */
-        assertCommandFailure(EditCommand.COMMAND_WORD + " " + INDEX_FIRST_TRANSACTION.getOneBased() + INVALID_NAME_DESC,
-                Name.MESSAGE_NAME_CONSTRAINTS);
+        assertCommandFailure(EditCommand.COMMAND_WORD + " " + INDEX_FIRST_TRANSACTION.getOneBased()
+                        + INVALID_NAME_DESC, Name.MESSAGE_NAME_CONSTRAINTS);
 
         /* Case: invalid phone -> rejected */
-        assertCommandFailure(EditCommand.COMMAND_WORD + " " + INDEX_FIRST_TRANSACTION.getOneBased() + INVALID_PHONE_DESC,
-                Phone.MESSAGE_PHONE_CONSTRAINTS);
+        assertCommandFailure(EditCommand.COMMAND_WORD + " " + INDEX_FIRST_TRANSACTION.getOneBased()
+                        + INVALID_PHONE_DESC, Phone.MESSAGE_PHONE_CONSTRAINTS);
 
         /* Case: invalid email -> rejected */
-        assertCommandFailure(EditCommand.COMMAND_WORD + " " + INDEX_FIRST_TRANSACTION.getOneBased() + INVALID_EMAIL_DESC,
-                Email.MESSAGE_EMAIL_CONSTRAINTS);
+        assertCommandFailure(EditCommand.COMMAND_WORD + " " + INDEX_FIRST_TRANSACTION.getOneBased()
+                        + INVALID_EMAIL_DESC, Email.MESSAGE_EMAIL_CONSTRAINTS);
 
         /* Case: invalid address -> rejected */
-        assertCommandFailure(EditCommand.COMMAND_WORD + " " + INDEX_FIRST_TRANSACTION.getOneBased() + INVALID_ADDRESS_DESC,
-                Address.MESSAGE_ADDRESS_CONSTRAINTS);
+        assertCommandFailure(EditCommand.COMMAND_WORD + " " + INDEX_FIRST_TRANSACTION.getOneBased()
+                        + INVALID_ADDRESS_DESC, Address.MESSAGE_ADDRESS_CONSTRAINTS);
 
         /* Case: invalid tag -> rejected */
-        assertCommandFailure(EditCommand.COMMAND_WORD + " " + INDEX_FIRST_TRANSACTION.getOneBased() + INVALID_TAG_DESC,
-                Tag.MESSAGE_TAG_CONSTRAINTS);
+        assertCommandFailure(EditCommand.COMMAND_WORD + " " + INDEX_FIRST_TRANSACTION.getOneBased()
+                        + INVALID_TAG_DESC, Tag.MESSAGE_TAG_CONSTRAINTS);
 
         /* Case: edit a transaction with new values same as another transaction's values -> rejected */
         executeCommand(TransactionUtil.getAddCommand(BOB_TRANSACTION));
@@ -258,7 +258,8 @@ public class EditCommandSystemTest extends FinancialDatabaseSystemTest {
         expectedModel.updateFilteredTransactionList(PREDICATE_SHOW_ALL_TRANSACTIONS);
 
         assertCommandSuccess(command, expectedModel,
-                String.format(EditCommand.MESSAGE_EDIT_TRANSACTION_SUCCESS, editedTransaction), expectedSelectedCardIndex);
+                String.format(EditCommand.MESSAGE_EDIT_TRANSACTION_SUCCESS, editedTransaction),
+                expectedSelectedCardIndex);
     }
 
     /**

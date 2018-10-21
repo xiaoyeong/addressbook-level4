@@ -18,7 +18,7 @@ public class Photo {
     public static final String DEFAULT_MESSAGE_PHOTO = "Filepath be less than 10MB and FilePath must be valid ";
     public static final String DEFAULT_PHOTO = "images/default_person.png";
 
-    private static final int tenMB = 1048576;
+    private static final int TENMB = 1048576;
     private static final String FOLDER = getOperatingPath();
     private static final String PHOTO_INTITAL_REGEX_ = "[^\\s].*";
 
@@ -64,8 +64,8 @@ public class Photo {
 
         //create file object
         File pictureFinal = new File(FOLDER + "//" + newPhoto);
-        
-         //if cannot get file object create an empty object
+
+        //if cannot get file object create an empty object
         if (!pictureFinal.exists()) {
             try {
                 pictureFinal.createNewFile();
@@ -107,7 +107,7 @@ public class Photo {
             return System.getenv("APPDATA") + "/PhotoFolder";
         }
     }
-  
+
     /**
      * Get Operating System of User
      */
@@ -122,19 +122,16 @@ public class Photo {
         return this.photoPath;
     }
 
-     /**
-      * Checks whether the path of the given picture meets certain criteria.
-      */
-
+    /**
+     * Checks whether the path of the given picture meets certain criteria.
+     */
     public static boolean checkPath(String path) {
         if (path.equals(DEFAULT_PHOTO)) {
             return true;
         }
-  
         if (path.matches(PHOTO_INTITAL_REGEX_)) {
             return checkPicture(path);
         }
-  
         return false;
     }
 

@@ -49,7 +49,7 @@ public class TestUtil {
     /**
      * Returns the transaction in the {@code model}'s transaction list at {@code index}.
      */
-    public static Transaction getPerson(Model model, Index index) {
+    public static Transaction getTransaction(Model model, Index index) {
         return model.getFilteredTransactionList().get(index.getZeroBased());
     }
 }

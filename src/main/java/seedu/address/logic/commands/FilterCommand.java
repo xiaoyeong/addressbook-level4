@@ -36,7 +36,8 @@ public class FilterCommand extends Command {
             model.updateFilteredTransactionList(predicates.get(i));
         }
         return new CommandResult(
-                String.format(Messages.MESSAGE_PERSONS_LISTED_OVERVIEW, model.getFilteredTransactionList().size()));
+                String.format(Messages.MESSAGE_TRANSACTIONS_LISTED_OVERVIEW,
+                        model.getFilteredTransactionList().size()));
     }
 
     @Override
