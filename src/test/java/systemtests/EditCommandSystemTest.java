@@ -121,7 +121,7 @@ public class EditCommandSystemTest extends FinancialDatabaseSystemTest {
         /* ------------------ Performing edit operation while a filtered list is being shown ------------------------ */
 
         /* Case: filtered transaction list, edit index within bounds of address book and transaction list -> edited */
-        showPersonsWithName(KEYWORD_MATCHING_MEIER);
+        showTransactionsWithName(KEYWORD_MATCHING_MEIER);
         index = INDEX_FIRST_TRANSACTION;
         assertTrue(index.getZeroBased() < getModel().getFilteredTransactionList().size());
         command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + " " + NAME_DESC_BOB;
@@ -132,7 +132,7 @@ public class EditCommandSystemTest extends FinancialDatabaseSystemTest {
         /* Case: filtered transaction list, edit index within bounds of address book but out of bounds of transaction
          * list -> rejected
          */
-        showPersonsWithName(KEYWORD_MATCHING_MEIER);
+        showTransactionsWithName(KEYWORD_MATCHING_MEIER);
         int invalidIndex = getModel().getFinancialDatabase().getTransactionList().size();
         assertCommandFailure(EditCommand.COMMAND_WORD + " " + invalidIndex + NAME_DESC_BOB,
                 Messages.MESSAGE_INVALID_TRANSACTION_DISPLAYED_INDEX);
@@ -142,9 +142,9 @@ public class EditCommandSystemTest extends FinancialDatabaseSystemTest {
         /* Case: selects first card in the transaction list, edit a transaction -> edited, card selection remains
          * unchanged but browser url changes.
          */
-        showAllPersons();
+        showAllTransactions();
         index = INDEX_FIRST_TRANSACTION;
-        selectPerson(index);
+        selectTransaction(index);
         command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_AMY + PHONE_DESC_AMY + EMAIL_DESC_AMY
                 + ADDRESS_DESC_AMY + TAG_DESC_FRIEND;
         // this can be misleading: card selection actually remains unchanged but the
