@@ -26,15 +26,16 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_FRIEND;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertAddParseSuccess;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
-import static seedu.address.testutil.TypicalPersons.AMY;
-import static seedu.address.testutil.TypicalPersons.BOB;
 import static seedu.address.testutil.TypicalTransactions.ALICE_TRANSACTION;
 import static seedu.address.testutil.TypicalTransactions.BOB_TRANSACTION;
 
 import org.junit.Test;
 
-import seedu.address.model.person.*;
 import seedu.address.logic.commands.AddCommand;
+import seedu.address.model.person.Address;
+import seedu.address.model.person.Email;
+import seedu.address.model.person.Name;
+import seedu.address.model.person.Phone;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.transaction.Transaction;
 import seedu.address.testutil.TransactionBuilder;
@@ -68,7 +69,8 @@ public class AddCommandParserTest {
                 + ADDRESS_DESC_BOB + TAG_DESC_FRIEND, new AddCommand(expectedPerson));
 
         // multiple tags - all accepted
-        Transaction expectedPersonMultipleTags = new TransactionBuilder(BOB_TRANSACTION).withTags(VALID_TAG_FRIEND, VALID_TAG_HUSBAND)
+        Transaction expectedPersonMultipleTags = new TransactionBuilder(BOB_TRANSACTION)
+                .withTags(VALID_TAG_FRIEND, VALID_TAG_HUSBAND)
                 .build();
         assertAddParseSuccess(parser, NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB + ADDRESS_DESC_BOB
                 + TAG_DESC_HUSBAND + TAG_DESC_FRIEND, new AddCommand(expectedPersonMultipleTags));

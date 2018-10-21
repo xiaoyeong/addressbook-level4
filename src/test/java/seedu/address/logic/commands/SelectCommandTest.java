@@ -6,9 +6,9 @@ import static org.junit.Assert.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.logic.commands.CommandTestUtil.showTransactionAtIndex;
-import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
-import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_PERSON;
-import static seedu.address.testutil.TypicalIndexes.INDEX_THIRD_PERSON;
+import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_TRANSACTION;
+import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_TRANSACTION;
+import static seedu.address.testutil.TypicalIndexes.INDEX_THIRD_TRANSACTION;
 import static seedu.address.testutil.TypicalTransactions.getTypicalFinancialDatabase;
 
 import org.junit.Rule;
@@ -38,8 +38,8 @@ public class SelectCommandTest {
     public void execute_validIndexUnfilteredList_success() {
         Index lastPersonIndex = Index.fromOneBased(model.getFilteredTransactionList().size());
 
-        assertExecutionSuccess(INDEX_FIRST_PERSON);
-        assertExecutionSuccess(INDEX_THIRD_PERSON);
+        assertExecutionSuccess(INDEX_FIRST_TRANSACTION);
+        assertExecutionSuccess(INDEX_THIRD_TRANSACTION);
         assertExecutionSuccess(lastPersonIndex);
     }
 
@@ -52,18 +52,18 @@ public class SelectCommandTest {
 
     @Test
     public void execute_validIndexFilteredList_success() {
-        showTransactionAtIndex(model, INDEX_FIRST_PERSON);
-        showTransactionAtIndex(expectedModel, INDEX_FIRST_PERSON);
+        showTransactionAtIndex(model, INDEX_FIRST_TRANSACTION);
+        showTransactionAtIndex(expectedModel, INDEX_FIRST_TRANSACTION);
 
-        assertExecutionSuccess(INDEX_FIRST_PERSON);
+        assertExecutionSuccess(INDEX_FIRST_TRANSACTION);
     }
 
     @Test
     public void execute_invalidIndexFilteredList_failure() {
-        showTransactionAtIndex(model, INDEX_FIRST_PERSON);
-        showTransactionAtIndex(expectedModel, INDEX_FIRST_PERSON);
+        showTransactionAtIndex(model, INDEX_FIRST_TRANSACTION);
+        showTransactionAtIndex(expectedModel, INDEX_FIRST_TRANSACTION);
 
-        Index outOfBoundsIndex = INDEX_SECOND_PERSON;
+        Index outOfBoundsIndex = INDEX_SECOND_TRANSACTION;
         // ensures that outOfBoundIndex is still in bounds of address book list
         assertTrue(outOfBoundsIndex.getZeroBased() < model.getFinancialDatabase().getTransactionList().size());
 
@@ -72,14 +72,14 @@ public class SelectCommandTest {
 
     @Test
     public void equals() {
-        SelectCommand selectFirstCommand = new SelectCommand(INDEX_FIRST_PERSON);
-        SelectCommand selectSecondCommand = new SelectCommand(INDEX_SECOND_PERSON);
+        SelectCommand selectFirstCommand = new SelectCommand(INDEX_FIRST_TRANSACTION);
+        SelectCommand selectSecondCommand = new SelectCommand(INDEX_SECOND_TRANSACTION);
 
         // same object -> returns true
         assertTrue(selectFirstCommand.equals(selectFirstCommand));
 
         // same values -> returns true
-        SelectCommand selectFirstCommandCopy = new SelectCommand(INDEX_FIRST_PERSON);
+        SelectCommand selectFirstCommandCopy = new SelectCommand(INDEX_FIRST_TRANSACTION);
         assertTrue(selectFirstCommand.equals(selectFirstCommandCopy));
 
         // different types -> returns false
@@ -98,7 +98,7 @@ public class SelectCommandTest {
      */
     private void assertExecutionSuccess(Index index) {
         SelectCommand selectCommand = new SelectCommand(index);
-        String expectedMessage = String.format(SelectCommand.MESSAGE_SELECT_PERSON_SUCCESS, index.getOneBased());
+        String expectedMessage = String.format(SelectCommand.MESSAGE_SELECT_TRANSACTION_SUCCESS, index.getOneBased());
 
         assertCommandSuccess(selectCommand, model, commandHistory, expectedMessage, expectedModel);
 

@@ -7,7 +7,7 @@ import static seedu.address.logic.commands.DeleteCommand.MESSAGE_DELETE_PERSON_S
 import static seedu.address.testutil.TestUtil.getLastIndex;
 import static seedu.address.testutil.TestUtil.getMidIndex;
 import static seedu.address.testutil.TestUtil.getPerson;
-import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
+import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_TRANSACTION;
 import static seedu.address.testutil.TypicalPersons.KEYWORD_MATCHING_MEIER;
 
 import org.junit.Test;
@@ -31,8 +31,8 @@ public class DeleteCommandSystemTest extends FinancialDatabaseSystemTest {
 
         /* Case: delete the first transaction in the list, command with leading spaces and trailing spaces -> deleted */
         Model expectedModel = getModel();
-        String command = "     " + DeleteCommand.COMMAND_WORD + "      " + INDEX_FIRST_PERSON.getOneBased() + "       ";
-        Transaction deletedPerson = removePerson(expectedModel, INDEX_FIRST_PERSON);
+        String command = "     " + DeleteCommand.COMMAND_WORD + "      " + INDEX_FIRST_TRANSACTION.getOneBased() + "       ";
+        Transaction deletedPerson = removePerson(expectedModel, INDEX_FIRST_TRANSACTION);
         String expectedResultMessage = String.format(MESSAGE_DELETE_PERSON_SUCCESS, deletedPerson);
         assertCommandSuccess(command, expectedModel, expectedResultMessage);
 
@@ -58,13 +58,16 @@ public class DeleteCommandSystemTest extends FinancialDatabaseSystemTest {
 
         /* ------------------ Performing delete operation while a filtered list is being shown ---------------------- */
 
-        /* Case: filtered transaction list, delete index within bounds of address book and transaction list -> deleted */
+        /* Case: filtered transaction list, delete index within bounds of address book and
+         * transaction list -> deleted
+         */
         showPersonsWithName(KEYWORD_MATCHING_MEIER);
-        Index index = INDEX_FIRST_PERSON;
+        Index index = INDEX_FIRST_TRANSACTION;
         assertTrue(index.getZeroBased() < getModel().getFilteredTransactionList().size());
         assertCommandSuccess(index);
 
-        /* Case: filtered transaction list, delete index within bounds of address book but out of bounds of transaction list
+        /* Case: filtered transaction list, delete index within bounds of address book but out of bounds of
+         * transaction list
          * -> rejected
          */
         showPersonsWithName(KEYWORD_MATCHING_MEIER);
@@ -72,9 +75,11 @@ public class DeleteCommandSystemTest extends FinancialDatabaseSystemTest {
         command = DeleteCommand.COMMAND_WORD + " " + invalidIndex;
         assertCommandFailure(command, MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
 
-        /* --------------------- Performing delete operation while a transaction card is selected ------------------------ */
+        /* --------------------- Performing delete operation while a transaction card is selected ------------------- */
 
-        /* Case: delete the selected transaction -> transaction list panel selects the transaction before the deleted transaction */
+        /* Case: delete the selected transaction -> transaction list panel selects the transaction before the deleted
+         * transaction
+         */
         showAllPersons();
         expectedModel = getModel();
         Index selectedIndex = getLastIndex(expectedModel);
@@ -122,8 +127,8 @@ public class DeleteCommandSystemTest extends FinancialDatabaseSystemTest {
     }
 
     /**
-     * Deletes the transaction at {@code toDelete} by creating a default {@code DeleteCommand} using {@code toDelete} and
-     * performs the same verification as {@code assertCommandSuccess(String, Model, String)}.
+     * Deletes the transaction at {@code toDelete} by creating a default {@code DeleteCommand} using {@code toDelete}
+     * and performs the same verification as {@code assertCommandSuccess(String, Model, String)}.
      * @see DeleteCommandSystemTest#assertCommandSuccess(String, Model, String)
      */
     private void assertCommandSuccess(Index toDelete) {

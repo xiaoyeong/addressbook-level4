@@ -5,9 +5,10 @@ import static org.junit.Assert.assertEquals;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import guitests.guihandles.ResultDisplayHandle;
 import guitests.guihandles.TransactionCardHandle;
 import guitests.guihandles.TransactionListPanelHandle;
-import guitests.guihandles.ResultDisplayHandle;
+
 import seedu.address.model.person.Person;
 import seedu.address.model.transaction.Transaction;
 
@@ -32,7 +33,8 @@ public class GuiTestAssert {
     /**
      * Asserts that {@code actualCard} displays the details of {@code expectedTransaction}.
      */
-    public static void assertCardDisplaysTransaction(Transaction expectedTransaction, TransactionCardHandle actualCard) {
+    public static void assertCardDisplaysTransaction(Transaction expectedTransaction,
+                                                     TransactionCardHandle actualCard) {
         Person person = expectedTransaction.getPerson();
         assertEquals(expectedTransaction.getType().value, actualCard.getType());
         assertEquals(expectedTransaction.getAmount().value, actualCard.getAmount());
@@ -49,7 +51,8 @@ public class GuiTestAssert {
      * Asserts that the list in {@code transactionListPanelHandle} displays the details of {@code persons} correctly and
      * in the correct order.
      */
-    public static void assertListMatching(TransactionListPanelHandle transactionListPanelHandle, Transaction... persons) {
+    public static void assertListMatching(TransactionListPanelHandle transactionListPanelHandle,
+                                          Transaction... persons) {
         for (int i = 0; i < persons.length; i++) {
             transactionListPanelHandle.navigateToCard(i);
             assertCardDisplaysTransaction(persons[i], transactionListPanelHandle.getPersonCardHandle(i));
@@ -60,7 +63,8 @@ public class GuiTestAssert {
      * Asserts that the list in {@code transactionListPanelHandle} displays the details of {@code persons} correctly and
      * in the correct order.
      */
-    public static void assertListMatching(TransactionListPanelHandle transactionListPanelHandle, List<Transaction> persons) {
+    public static void assertListMatching(TransactionListPanelHandle transactionListPanelHandle,
+                                          List<Transaction> persons) {
         assertListMatching(transactionListPanelHandle, persons.toArray(new Transaction[0]));
     }
 

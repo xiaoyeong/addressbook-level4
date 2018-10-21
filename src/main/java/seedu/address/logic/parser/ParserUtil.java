@@ -17,7 +17,6 @@ import seedu.address.model.person.UniqueId;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.transaction.Amount;
 import seedu.address.model.transaction.Deadline;
-import seedu.address.model.transaction.PersonId;
 import seedu.address.model.transaction.Type;
 
 /**
@@ -131,21 +130,6 @@ public class ParserUtil {
     }
 
     /**
-     * Parses a string {@code uniqueId} into an {@code UniqueId}.
-     * Leading and trailing whitespaces will be trimmed.
-     *
-     * @throws ParseException if the given {@code uniqueId} is invalid.
-     */
-    public static PersonId parsePersonId(String uniqueId) throws ParseException {
-        requireNonNull(uniqueId);
-        String trimmedId = uniqueId.trim();
-        if (uniqueId.isEmpty()) {
-            throw new ParseException(PersonId.MESSAGE_TRANSACTION_PERSONID_CONSTRAINTS);
-        }
-        return new PersonId(trimmedId);
-    }
-
-    /**
      * Parses a string {@code email} into an {@code Email}.
      * Leading and trailing whitespaces will be trimmed.
      *
@@ -154,7 +138,7 @@ public class ParserUtil {
     public static Deadline parseDeadline(String deadline) throws ParseException {
         requireNonNull(deadline);
         String trimmedDeadline = deadline.trim();
-        if (deadline.isEmpty()) {
+        if (deadline.isEmpty() || !Deadline.isValidDeadline(trimmedDeadline)) {
             throw new ParseException(UniqueId.MESSAGE_TRANSACTION_PERSONUID_CONSTRAINTS);
         }
         return new Deadline(trimmedDeadline);

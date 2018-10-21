@@ -1,7 +1,5 @@
 package seedu.address.logic.commands;
 
-import static seedu.address.logic.parser.CliSyntax.PREFIX_TO_DO_LIST;
-
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
@@ -12,11 +10,11 @@ import seedu.address.model.Model;
  */
 public class ToDoListAddCommand extends Command {
     public static final String COMMAND_WORD = "todo";
-    public static final String COMMAND_ALIAS = "td";
+    public static final String COMMAND_ALIAS = "toDo";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds an action to the user's to-do list. "
-            + "Parameters: "
-            + PREFIX_TO_DO_LIST + "Buy some eggs.";
+            + "Example: "
+            + COMMAND_WORD + " Buy some eggs.";
 
     private final String action;
 

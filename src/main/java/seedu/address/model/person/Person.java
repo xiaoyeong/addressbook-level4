@@ -1,13 +1,13 @@
 package seedu.address.model.person;
 
-import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
+import seedu.address.model.tag.Tag;
 
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
-import seedu.address.model.tag.Tag;
+import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 /**
  * Represents a Person in the address book.
@@ -16,13 +16,14 @@ import seedu.address.model.tag.Tag;
 public class Person {
 
     // Identity fields
+    private final Email email;
     private final Name name;
     private final Phone phone;
-    private final Email email;
 
     // Data fields
     private final Address address;
     private final Set<Tag> tags = new HashSet<>();
+    private Photo photo;
 
     /**
      * Parameterized constructor that takes in a UniqueId argument

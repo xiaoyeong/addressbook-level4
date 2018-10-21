@@ -3,8 +3,12 @@ package seedu.address.model.transaction;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.time.DateTimeException;
 import java.time.LocalDate;
+import java.util.Date;
+
 
 
 /**
@@ -13,8 +17,8 @@ import java.time.LocalDate;
  */
 public class Deadline {
     public static final String MESSAGE_TRANSACTION_DEADLINE_CONSTRAINTS =
-            "The transaction deadline must be a valid date in the future in the DD/MM/YYY format";
-    public static final String TRANSACTION_DEADLINE_VALIDATION_REGEX = "\\d{2}/\\d{2}/\\d{4}";
+            "The transaction deadline must be a valid date in the future in the DD/MM/YYYY format";
+    public static final String TRANSACTION_DEADLINE_VALIDATION_REGEX = "\\d{1,2}/\\d{1,2}/\\d{4}";
     public final String value;
 
     /**
@@ -73,4 +77,22 @@ public class Deadline {
     public int hashCode() {
         return value.hashCode();
     }
+
+    /**
+     * Compare two deadline and check which deadline is nearer
+     * @param other the other deadline to compare.
+     */
+    public int compareTo(Deadline other) {
+        try {
+            Date dateOne = new SimpleDateFormat("dd/MM/yyyy").parse(this.toString());
+            Date dateTwo = new SimpleDateFormat("dd/MM/yyyy").parse(other.toString());
+            if (dateOne.compareTo(dateTwo) > -1) {
+                return 1;
+            }
+            return -1;
+        } catch (ParseException e) {
+            return 2;
+        }
+    }
+
 }
