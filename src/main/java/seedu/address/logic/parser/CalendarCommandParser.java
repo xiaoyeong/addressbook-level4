@@ -18,7 +18,7 @@ public class CalendarCommandParser implements Parser<CalendarCommand> {
      * and returns an FindCommand object for execution.
      * @throws ParseException if the user input does not conform the expected format
      */
-    public AddCommand parse(String args) throws ParseException {
+    public CalendarCommand parse(String args) throws ParseException {
         String trimmedArgs = args.trim();
         switch (trimmedArgs) {
         case "show":

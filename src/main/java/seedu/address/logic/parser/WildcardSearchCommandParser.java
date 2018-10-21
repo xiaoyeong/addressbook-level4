@@ -20,7 +20,7 @@ public class WildcardSearchCommandParser implements Parser<WildcardSearchCommand
      * @throws ParseException if the user input does not conform the expected format
      */
 
-    public AddCommand parse(String args) throws ParseException {
+    public WildcardSearchCommand parse(String args) throws ParseException {
         String trimmedArgs = args.trim();
         if (trimmedArgs.isEmpty()) {
             throw new ParseException(

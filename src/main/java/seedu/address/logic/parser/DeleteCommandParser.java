@@ -17,7 +17,7 @@ public class DeleteCommandParser implements Parser<DeleteCommand> {
      * and returns an DeleteCommand object for execution.
      * @throws ParseException if the user input does not conform the expected format
      */
-    public AddCommand parse(String args) throws ParseException {
+    public DeleteCommand parse(String args) throws ParseException {
         try {
             Index index = ParserUtil.parseIndex(args);
             return new DeleteCommand(index);

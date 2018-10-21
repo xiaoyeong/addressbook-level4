@@ -17,7 +17,7 @@ public class ToDoListAddCommandParser implements Parser<ToDoListAddCommand> {
      * @throws ParseException if the user input does not conform the expected format
      */
 
-    public AddCommand parse(String args) throws ParseException {
+    public ToDoListAddCommand parse(String args) throws ParseException {
         if (args.isEmpty()) {
             throw new ParseException(
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, ToDoListAddCommand.MESSAGE_USAGE));

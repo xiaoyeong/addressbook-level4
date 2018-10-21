@@ -18,7 +18,7 @@ public class ConvertCommandParser implements Parser<ConvertCommand> {
      * @throws ParseException if the user input does not conform the expected format
      */
     @Override
-    public AddCommand parse(String args) throws ParseException {
+    public ConvertCommand parse(String args) throws ParseException {
         String trimmedArgs = args.trim();
         if (trimmedArgs.isEmpty()) {
             throw new ParseException(

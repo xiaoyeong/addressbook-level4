@@ -17,7 +17,7 @@ public class SelectCommandParser implements Parser<SelectCommand> {
      * and returns an SelectCommand object for execution.
      * @throws ParseException if the user input does not conform the expected format
      */
-    public AddCommand parse(String args) throws ParseException {
+    public SelectCommand parse(String args) throws ParseException {
         try {
             Index index = ParserUtil.parseIndex(args);
             return new SelectCommand(index);
