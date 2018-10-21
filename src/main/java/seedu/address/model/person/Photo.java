@@ -150,9 +150,11 @@ public class Photo {
         } catch (IOException error) {
             return false;
         }
+        /*
         if (pictureNew.length() > TENMB) {
             return false;
         }
+        */
         return true;
     }
 
