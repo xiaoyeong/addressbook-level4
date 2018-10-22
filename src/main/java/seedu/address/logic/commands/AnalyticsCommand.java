@@ -9,6 +9,7 @@ import seedu.address.commons.core.Messages;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
+import seedu.address.model.transaction.Amount;
 import seedu.address.model.transaction.Deadline;
 import seedu.address.model.transaction.Transaction;
 
@@ -33,10 +34,11 @@ public class AnalyticsCommand extends Command {
         this.deadline = deadline;
     }
 
+
     @Override
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         double amount;
-        amount = 0;
+        amount = 0.0;
         requireNonNull(model);
         List<Transaction> transactionList = model.getFilteredTransactionList();
 
@@ -47,11 +49,14 @@ public class AnalyticsCommand extends Command {
 
         for (int i = 0; i < transactionList.size(); i++) {
             Transaction t = transactionList.get(i);
-            if (true) {
-                if (t.getType().toString().compareTo("Debt") == 0) {
-                    amount += Double.parseDouble(t.getAmount().getValue());
-                } else if ((t.getType().toString().compareTo("Loan") == 0)) {
-                    amount -= Double.parseDouble(t.getAmount().getValue());
+            if (deadline == null || deadline.compareTo(t.getDeadline()) == 1) {
+                Amount currentAmount = Amount.convertCurrency(t.getAmount());
+                if (currentAmount != null) {
+                    if (t.getType().toString().compareTo("debt") == 0) {
+                        amount += Double.parseDouble(currentAmount.getValue().split(" ")[1]);
+                    } else if ((t.getType().toString().compareTo("loan") == 0)) {
+                        amount -= Double.parseDouble(currentAmount.getValue().split(" ")[1]);
+                    }
                 }
             }
         }

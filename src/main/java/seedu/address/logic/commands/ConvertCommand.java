@@ -41,36 +41,10 @@ public class ConvertCommand extends Command {
         requireNonNull(model);
         StringBuilder convertedAmounts = new StringBuilder();
         for (int i = 0; i < amounts.size(); i += 2) {
-            convertedAmounts.append(convertCurrency(amounts.get(i) + " " + amounts.get(i + 1)));
+            Amount currentAmount = new Amount(amounts.get(i) + " " + amounts.get(i + 1));
+            convertedAmounts.append(Amount.convertCurrency(currentAmount));
         }
         return new CommandResult(String.format(MESSAGE_SUCCESS, convertedAmounts));
-    }
-
-    /**
-     * Handles the conversion of foreign currency to Singaporean currency.
-     *
-     * @param amount the amount in a given currency which is to be converted to Singaporean currency
-     */
-    private static String convertCurrency(String amount) {
-        if (!Amount.isValidAmount(amount)) {
-            return "";
-        }
-        String currencyCode = amount.split(" ")[0].toUpperCase();
-        String currencyConverterFilePath = String.format(
-                "http://free.currencyconverterapi.com/api/v5/convert?q=%s_SGD&compact=y", currencyCode);
-        ObjectMapper mapper = new ObjectMapper();
-        try {
-            InputStream is = new URL(currencyConverterFilePath).openStream();
-            BufferedReader rd = new BufferedReader(new InputStreamReader(is, Charset.forName("UTF-8")));
-            String jsonText = rd.readLine();
-            Map<String, Map<String, Double>> map = mapper.readValue(jsonText, Map.class);
-            double result = map.get(String.format("%s_SGD", currencyCode)).get("val");
-            result *= Double.parseDouble(amount.split(" ")[1]);
-            return String.format("SGD %.2f ", result);
-        } catch (Exception ex) {
-            ex.printStackTrace();
-            return "";
-        }
     }
 }
 
