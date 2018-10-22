@@ -1,7 +1,7 @@
 package seedu.address.commons.core;
 
 /**
- * Container for user visible messages.
+ * Represents error messages displayed to the user
  */
 public class Messages {
     public static final String MESSAGE_UNKNOWN_COMMAND = "Unknown command";
