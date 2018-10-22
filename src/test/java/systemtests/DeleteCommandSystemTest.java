@@ -1,12 +1,12 @@
 package systemtests;
 
 import static org.junit.Assert.assertTrue;
-import static seedu.address.commons.core.Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX;
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_TRANSACTION_DISPLAYED_INDEX;
 import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
-import static seedu.address.logic.commands.DeleteCommand.MESSAGE_DELETE_PERSON_SUCCESS;
+import static seedu.address.logic.commands.DeleteCommand.MESSAGE_DELETE_TRANSACTION_SUCCESS;
 import static seedu.address.testutil.TestUtil.getLastIndex;
 import static seedu.address.testutil.TestUtil.getMidIndex;
-import static seedu.address.testutil.TestUtil.getPerson;
+import static seedu.address.testutil.TestUtil.getTransaction;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_TRANSACTION;
 import static seedu.address.testutil.TypicalPersons.KEYWORD_MATCHING_MEIER;
 
@@ -31,15 +31,16 @@ public class DeleteCommandSystemTest extends FinancialDatabaseSystemTest {
 
         /* Case: delete the first transaction in the list, command with leading spaces and trailing spaces -> deleted */
         Model expectedModel = getModel();
-        String command = "     " + DeleteCommand.COMMAND_WORD + "      " + INDEX_FIRST_TRANSACTION.getOneBased() + "       ";
-        Transaction deletedPerson = removePerson(expectedModel, INDEX_FIRST_TRANSACTION);
-        String expectedResultMessage = String.format(MESSAGE_DELETE_PERSON_SUCCESS, deletedPerson);
+        String command = "     " + DeleteCommand.COMMAND_WORD + "      " + INDEX_FIRST_TRANSACTION.getOneBased()
+                + "       ";
+        Transaction deletedTransaction = removeTransaction(expectedModel, INDEX_FIRST_TRANSACTION);
+        String expectedResultMessage = String.format(MESSAGE_DELETE_TRANSACTION_SUCCESS, deletedTransaction);
         assertCommandSuccess(command, expectedModel, expectedResultMessage);
 
         /* Case: delete the last transaction in the list -> deleted */
         Model modelBeforeDeletingLast = getModel();
-        Index lastPersonIndex = getLastIndex(modelBeforeDeletingLast);
-        assertCommandSuccess(lastPersonIndex);
+        Index lastTransactionIndex = getLastIndex(modelBeforeDeletingLast);
+        assertCommandSuccess(lastTransactionIndex);
 
         /* Case: undo deleting the last transaction in the list -> last transaction restored */
         command = UndoCommand.COMMAND_WORD;
@@ -48,20 +49,20 @@ public class DeleteCommandSystemTest extends FinancialDatabaseSystemTest {
 
         /* Case: redo deleting the last transaction in the list -> last transaction deleted again */
         command = RedoCommand.COMMAND_WORD;
-        removePerson(modelBeforeDeletingLast, lastPersonIndex);
+        removeTransaction(modelBeforeDeletingLast, lastTransactionIndex);
         expectedResultMessage = RedoCommand.MESSAGE_SUCCESS;
         assertCommandSuccess(command, modelBeforeDeletingLast, expectedResultMessage);
 
         /* Case: delete the middle transaction in the list -> deleted */
-        Index middlePersonIndex = getMidIndex(getModel());
-        assertCommandSuccess(middlePersonIndex);
+        Index middleTransactionIndex = getMidIndex(getModel());
+        assertCommandSuccess(middleTransactionIndex);
 
         /* ------------------ Performing delete operation while a filtered list is being shown ---------------------- */
 
         /* Case: filtered transaction list, delete index within bounds of address book and
          * transaction list -> deleted
          */
-        showPersonsWithName(KEYWORD_MATCHING_MEIER);
+        showTransactionsWithName(KEYWORD_MATCHING_MEIER);
         Index index = INDEX_FIRST_TRANSACTION;
         assertTrue(index.getZeroBased() < getModel().getFilteredTransactionList().size());
         assertCommandSuccess(index);
@@ -70,24 +71,24 @@ public class DeleteCommandSystemTest extends FinancialDatabaseSystemTest {
          * transaction list
          * -> rejected
          */
-        showPersonsWithName(KEYWORD_MATCHING_MEIER);
+        showTransactionsWithName(KEYWORD_MATCHING_MEIER);
         int invalidIndex = getModel().getFinancialDatabase().getTransactionList().size();
         command = DeleteCommand.COMMAND_WORD + " " + invalidIndex;
-        assertCommandFailure(command, MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+        assertCommandFailure(command, MESSAGE_INVALID_TRANSACTION_DISPLAYED_INDEX);
 
         /* --------------------- Performing delete operation while a transaction card is selected ------------------- */
 
         /* Case: delete the selected transaction -> transaction list panel selects the transaction before the deleted
          * transaction
          */
-        showAllPersons();
+        showAllTransactions();
         expectedModel = getModel();
         Index selectedIndex = getLastIndex(expectedModel);
         Index expectedIndex = Index.fromZeroBased(selectedIndex.getZeroBased() - 1);
-        selectPerson(selectedIndex);
+        selectTransaction(selectedIndex);
         command = DeleteCommand.COMMAND_WORD + " " + selectedIndex.getOneBased();
-        deletedPerson = removePerson(expectedModel, selectedIndex);
-        expectedResultMessage = String.format(MESSAGE_DELETE_PERSON_SUCCESS, deletedPerson);
+        deletedTransaction = removeTransaction(expectedModel, selectedIndex);
+        expectedResultMessage = String.format(MESSAGE_DELETE_TRANSACTION_SUCCESS, deletedTransaction);
         assertCommandSuccess(command, expectedModel, expectedResultMessage, expectedIndex);
 
         /* --------------------------------- Performing invalid delete operation ------------------------------------ */
@@ -104,7 +105,7 @@ public class DeleteCommandSystemTest extends FinancialDatabaseSystemTest {
         Index outOfBoundsIndex = Index.fromOneBased(
                 getModel().getFinancialDatabase().getTransactionList().size() + 1);
         command = DeleteCommand.COMMAND_WORD + " " + outOfBoundsIndex.getOneBased();
-        assertCommandFailure(command, MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+        assertCommandFailure(command, MESSAGE_INVALID_TRANSACTION_DISPLAYED_INDEX);
 
         /* Case: invalid arguments (alphabets) -> rejected */
         assertCommandFailure(DeleteCommand.COMMAND_WORD + " abc", MESSAGE_INVALID_DELETE_COMMAND_FORMAT);
@@ -117,13 +118,13 @@ public class DeleteCommandSystemTest extends FinancialDatabaseSystemTest {
     }
 
     /**
-     * Removes the {@code Person} at the specified {@code index} in {@code model}'s address book.
+     * Removes the {@code Transaction} at the specified {@code index} in {@code model}'s address book.
      * @return the removed transaction
      */
-    private Transaction removePerson(Model model, Index index) {
-        Transaction targetPerson = getPerson(model, index);
-        model.deleteTransaction(targetPerson);
-        return targetPerson;
+    private Transaction removeTransaction(Model model, Index index) {
+        Transaction targetTransaction = getTransaction(model, index);
+        model.deleteTransaction(targetTransaction);
+        return targetTransaction;
     }
 
     /**
@@ -133,8 +134,8 @@ public class DeleteCommandSystemTest extends FinancialDatabaseSystemTest {
      */
     private void assertCommandSuccess(Index toDelete) {
         Model expectedModel = getModel();
-        Transaction deletedPerson = removePerson(expectedModel, toDelete);
-        String expectedResultMessage = String.format(MESSAGE_DELETE_PERSON_SUCCESS, deletedPerson);
+        Transaction deletedTransaction = removeTransaction(expectedModel, toDelete);
+        String expectedResultMessage = String.format(MESSAGE_DELETE_TRANSACTION_SUCCESS, deletedTransaction);
 
         assertCommandSuccess(
                 DeleteCommand.COMMAND_WORD + " " + toDelete.getOneBased(), expectedModel, expectedResultMessage);

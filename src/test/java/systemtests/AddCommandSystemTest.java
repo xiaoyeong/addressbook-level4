@@ -86,14 +86,14 @@ public class AddCommandSystemTest extends FinancialDatabaseSystemTest {
         /* -------------------------- Perform add operation on the shown filtered list ------------------------------ */
 
         /* Case: filters the transaction list before adding -> added */
-        showPersonsWithName(KEYWORD_MATCHING_MEIER);
+        showTransactionsWithName(KEYWORD_MATCHING_MEIER);
         assertCommandSuccess(DANIEL_TRANSACTION);
 
         /* ------------------------ Perform add operation while a transaction card is selected ---------------------- */
 
         /* Case: selects first card in the transaction list, add a transaction -> added, card selection remains
            unchanged */
-        selectPerson(Index.fromOneBased(1));
+        selectTransaction(Index.fromOneBased(1));
         assertCommandSuccess(CARL_TRANSACTION);
 
         /* ----------------------------------- Perform invalid add operations --------------------------------------- */

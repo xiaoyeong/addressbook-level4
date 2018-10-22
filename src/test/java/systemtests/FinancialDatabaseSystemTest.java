@@ -142,7 +142,7 @@ public abstract class FinancialDatabaseSystemTest {
     /**
      * Displays all persons in the address book.
      */
-    protected void showAllPersons() {
+    protected void showAllTransactions() {
         executeCommand(ListCommand.COMMAND_WORD);
         assertEquals(getModel().getFinancialDatabase().getTransactionList().size(),
                 getModel().getFilteredTransactionList().size());
@@ -151,7 +151,7 @@ public abstract class FinancialDatabaseSystemTest {
     /**
      * Displays all persons with any parts of their names matching {@code keyword} (case-insensitive).
      */
-    protected void showPersonsWithName(String keyword) {
+    protected void showTransactionsWithName(String keyword) {
         executeCommand(FindCommand.COMMAND_WORD + " " + keyword);
         assertTrue(getModel().getFilteredTransactionList().size()
                 < getModel().getFinancialDatabase().getTransactionList().size());
@@ -160,7 +160,7 @@ public abstract class FinancialDatabaseSystemTest {
     /**
      * Selects the transaction at {@code index} of the displayed list.
      */
-    protected void selectPerson(Index index) {
+    protected void selectTransaction(Index index) {
         executeCommand(SelectCommand.COMMAND_WORD + " " + index.getOneBased());
         assertEquals(index.getZeroBased(), getTransactionListPanel().getSelectedCardIndex());
     }

@@ -93,7 +93,8 @@ public class EditCommandTest {
     public void execute_filteredList_success() {
         showTransactionAtIndex(model, INDEX_FIRST_TRANSACTION);
 
-        Transaction personInFilteredList = model.getFilteredTransactionList().get(INDEX_FIRST_TRANSACTION.getZeroBased());
+        Transaction personInFilteredList = model.getFilteredTransactionList()
+                .get(INDEX_FIRST_TRANSACTION.getZeroBased());
         Transaction editedPerson = new TransactionBuilder(personInFilteredList).withName(VALID_NAME_BOB).build();
         EditCommand editCommand = new EditCommand(INDEX_FIRST_TRANSACTION,
                 new EditTransactionDescriptorBuilder().withName(VALID_NAME_BOB).build());

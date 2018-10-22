@@ -16,13 +16,9 @@ public class Amount {
     public static final String MESSAGE_TRANSACTION_AMOUNT_CONSTRAINTS =
               "The transaction amount must be real number rounded to two decimal places, "
             + "prefixed by a three letter currency code";
-    /*
-     * The transaction amount must be rounded to two decimal digits and must have a 3-letter
-     * currency code prefixed to it following the official ISO 4217 standard.
-     */
     public static final String TRANSACTION_AMOUNT_VALIDATION_REGEX = "\\w{3} \\d{1,}.\\d{2}";
-
     public final String value;
+
     /**
      * Constructs an {@code TransactionAmount}.
      *
@@ -40,7 +36,7 @@ public class Amount {
 
 
     /**
-     * Returns true if a given string is a valid transaction amount.
+     * Returns true if the given string represents a valid transaction amount.
      *
      * @param test the command line argument to be parsed
      */
