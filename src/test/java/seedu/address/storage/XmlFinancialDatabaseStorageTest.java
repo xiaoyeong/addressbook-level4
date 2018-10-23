@@ -2,10 +2,11 @@ package seedu.address.storage;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
-import static seedu.address.testutil.TypicalPersons.ALICE;
-import static seedu.address.testutil.TypicalPersons.HOON;
-import static seedu.address.testutil.TypicalPersons.IDA;
-import static seedu.address.testutil.TypicalPersons.getTypicalFinancialDatabase;
+import static seedu.address.testutil.TypicalTransactions.ALICE_TRANSACTION;
+import static seedu.address.testutil.TypicalTransactions.BOB_TRANSACTION;
+import static seedu.address.testutil.TypicalTransactions.CARL_TRANSACTION;
+
+import static seedu.address.testutil.TypicalTransactions.getTypicalFinancialDatabase;
 
 import java.io.IOException;
 import java.nio.file.Path;
@@ -21,7 +22,8 @@ import seedu.address.model.FinancialDatabase;
 import seedu.address.model.ReadOnlyFinancialDatabase;
 
 public class XmlFinancialDatabaseStorageTest {
-    private static final Path TEST_DATA_FOLDER = Paths.get("src", "test", "data", "XmlFinancialDatabaseStorageTest");
+    private static final Path TEST_DATA_FOLDER = Paths.get("src", "test", "data",
+            "XmlFinancialDatabaseStorageTest");
 
     @Rule
     public ExpectedException thrown = ExpectedException.none();
@@ -36,7 +38,8 @@ public class XmlFinancialDatabaseStorageTest {
     }
 
     private java.util.Optional<ReadOnlyFinancialDatabase> readAddressBook(String filePath) throws Exception {
-        return new XmlFinancialDatabaseStorage(Paths.get(filePath)).readFinancialDatabase(addToTestDataPathIfNotNull(filePath));
+        return new XmlFinancialDatabaseStorage(Paths.get(filePath))
+                .readFinancialDatabase(addToTestDataPathIfNotNull(filePath));
     }
 
     private Path addToTestDataPathIfNotNull(String prefsFileInTestDataFolder) {
@@ -85,14 +88,14 @@ public class XmlFinancialDatabaseStorageTest {
         assertEquals(original, new FinancialDatabase(readBack));
 
         //Modify data, overwrite exiting file, and read back
-        original.addPerson(HOON);
-        original.removePerson(ALICE);
+        original.addTransaction(BOB_TRANSACTION);
+        original.removeTransaction(ALICE_TRANSACTION);
         xmlAddressBookStorage.saveFinancialDatabase(original, filePath);
         readBack = xmlAddressBookStorage.readFinancialDatabase(filePath).get();
         assertEquals(original, new FinancialDatabase(readBack));
 
         //Save and read without specifying file path
-        original.addPerson(IDA);
+        original.addTransaction(CARL_TRANSACTION);
         xmlAddressBookStorage.saveFinancialDatabase(original); //file path not specified
         readBack = xmlAddressBookStorage.readFinancialDatabase().get(); //file path not specified
         assertEquals(original, new FinancialDatabase(readBack));

@@ -12,11 +12,12 @@ import seedu.address.model.transaction.exceptions.DuplicateTransactionException;
 import seedu.address.model.transaction.exceptions.TransactionNotFoundException;
 
 /**
- * A list of Transactions that enforces uniqueness between its elements and does not allow nulls.
- * A Transaction is considered unique by comparing using {@code Transaction#isSameTransaction(Transaction)}. As such, adding and updating of
- * Transactions uses Transaction#isSameTransaction(Transaction) for equality so as to ensure that the Transaction being added or updated is
- * unique in terms of identity in the UniqueTransactionList. However, the removal of a Transaction uses Transaction#equals(Object) so
- * as to ensure that the Transaction with exactly the same fields will be removed.
+ * A list of transactions that enforces uniqueness between its elements and does not allow nulls.
+ * A Transaction is considered unique by comparing using {@code Transaction#isSameTransaction(Transaction)}.
+ * As such, adding and updating of transactions uses Transaction#isSameTransaction(Transaction) for equality
+ * so as to ensure that the transaction being added or updated is unique in terms of identity in the
+ * UniqueTransactionList. However, the removal of a transaction uses Transaction#equals(Object) so
+ * as to ensure that the transaction with exactly the same fields will be removed.
  *
  * Supports a minimal set of list operations.
  *
@@ -88,7 +89,7 @@ public class UniqueTransactionList implements Iterable<Transaction> {
      */
     public void setTransactions(List<Transaction> transactions) {
         requireAllNonNull(transactions);
-        if (!TransactionsAreUnique(transactions)) {
+        if (!transactionsAreUnique(transactions)) {
             throw new DuplicateTransactionException();
         }
 
@@ -120,9 +121,9 @@ public class UniqueTransactionList implements Iterable<Transaction> {
     }
 
     /**
-     * Returns true if {@code Transactions} contains only unique Transactions.
+     * Returns true if {@code transactions} contains only unique Transactions.
      */
-    private boolean TransactionsAreUnique(List<Transaction> transactions) {
+    private boolean transactionsAreUnique(List<Transaction> transactions) {
         for (int i = 0; i < transactions.size() - 1; i++) {
             for (int j = i + 1; j < transactions.size(); j++) {
                 if (transactions.get(i).equals(transactions.get(j))) {
