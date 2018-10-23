@@ -55,7 +55,7 @@ public class FinancialDatabaseParser {
 
         final String commandWord = matcher.group("commandWord");
         final String arguments = matcher.group("arguments");
-        switch (commandWord.toLowerCase()) {
+        switch (commandWord) {
         case AddCommand.COMMAND_WORD:
         case AddCommand.COMMAND_ALIAS:
             return new AddCommandParser().parse(arguments);

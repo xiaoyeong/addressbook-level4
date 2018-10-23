@@ -396,8 +396,9 @@ public class CalendarManager extends ComponentManager {
             });
 
         }
-
-        b.execute();
+        if (b.size() > 0) {
+            b.execute();
+        }
     }
 
 

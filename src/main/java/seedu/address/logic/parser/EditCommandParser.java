@@ -60,6 +60,18 @@ public class EditCommandParser implements Parser<EditCommand> {
         if (argMultimap.getValue(PREFIX_ADDRESS).isPresent()) {
             editTransactionDescriptor.setAddress(ParserUtil.parseAddress(argMultimap.getValue(PREFIX_ADDRESS).get()));
         }
+        if (argMultimap.getValue(PREFIX_TRANSACTION_AMOUNT).isPresent()) {
+            editTransactionDescriptor.setAmount(ParserUtil.parseAmount(argMultimap
+                    .getValue(PREFIX_TRANSACTION_AMOUNT).get()));
+        }
+        if (argMultimap.getValue(PREFIX_TRANSACTION_TYPE).isPresent()) {
+            editTransactionDescriptor.setType(ParserUtil.parseType(argMultimap
+                    .getValue(PREFIX_TRANSACTION_TYPE).get()));
+        }
+        if (argMultimap.getValue(PREFIX_TRANSACTION_DEADLINE).isPresent()) {
+            editTransactionDescriptor.setDeadline(ParserUtil.parseDeadline(argMultimap
+                    .getValue(PREFIX_TRANSACTION_DEADLINE).get()));
+        }
         parseTagsForEdit(argMultimap.getAllValues(PREFIX_TAG)).ifPresent(editTransactionDescriptor::setTags);
 
         if (!editTransactionDescriptor.isAnyFieldEdited()) {
