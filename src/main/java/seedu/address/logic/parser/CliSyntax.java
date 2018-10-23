@@ -13,6 +13,6 @@ public class CliSyntax {
     public static final Prefix PREFIX_TRANSACTION_AMOUNT = new Prefix("ta/");
     public static final Prefix PREFIX_TRANSACTION_TYPE = new Prefix("tt/");
     public static final Prefix PREFIX_TRANSACTION_DEADLINE = new Prefix("td/");
-    public static final Prefix PREFIX_PHOTO_PATH = new Prefix("ph/");
+    public static final Prefix PREFIX_PHOTO_PATH = new Prefix("up/");
 
 }

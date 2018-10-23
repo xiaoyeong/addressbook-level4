@@ -1,6 +1,7 @@
 package seedu.address.logic.parser;
 
 import seedu.address.commons.core.Messages;
+import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.UploadPhotoCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
@@ -19,25 +20,26 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_PHOTO_PATH;
 public class UpdatePhotoCommandParser implements Parser<UploadPhotoCommand> {
 
     public UploadPhotoCommand parse(String args) throws ParseException {
-
         requireNonNull(args);
-
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_PHOTO_PATH);
+        System.out.println("argMultimap");
+        String tt = requireNonNull(argMultimap.getValue(PREFIX_PHOTO_PATH).get());
+        System.out.println(tt);
 
-        if (!arePrefixesPresent(argMultimap, PREFIX_PHOTO_PATH)  || !argMultimap.getPreamble().isEmpty()) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, Messages.MESSAGE_INVALID_COMMAND_FORMAT));
+        if (!arePrefixesPresent(argMultimap, PREFIX_PHOTO_PATH)  || argMultimap.getPreamble().isEmpty()) {
+            System.out.println("inside");
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, UploadPhotoCommand.MESSAGE_USAGE));
         }
 
         //get the currentTransaction Index and the currentTransactionPhoto
+        Index getcurrentTransactionIndex = requireNonNull(Index.fromOneBased( Integer.parseInt( argMultimap.getPreamble()) ));
+        String getPhotoPath = requireNonNull(argMultimap.getValue(PREFIX_PHOTO_PATH).get());
 
-        String getPhoto = requireNonNull(argMultimap.getPreamble().trim());
-        String getcurrentTransactionIndex = requireNonNull(argMultimap.getPreamble());
+        System.out.println("uploading");
+        System.out.println(getPhotoPath);
+        System.out.println(getcurrentTransactionIndex);
+        return new UploadPhotoCommand(getcurrentTransactionIndex, getPhotoPath );
 
-
-
-
-
-        return null;
     }
 
     private static boolean arePrefixesPresent(ArgumentMultimap argumentMultimap, Prefix... prefixes) {
