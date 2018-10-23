@@ -21,15 +21,16 @@ public class AnalyticsCommand extends Command {
     public static final String COMMAND_ALIAS = "an";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Analyse the your financial status and generate \n"
-            + "your financial status to view.\n";
+            + "your financial status to view.\n"
+            + "It will either generate your financial status base on all the list,\n"
+            + "or generate to a certain date, base on the date you input."
+            + "eg an or an dd/mm/yyyy";
 
     public static final String MESSAGE_SUCCESS = "Financial status : SGD %.2f";
 
     private final Deadline deadline;
 
-    public AnalyticsCommand() {
-        this.deadline = null;
-    }
+    public AnalyticsCommand() { this.deadline = null; }
     public AnalyticsCommand(Deadline deadline) {
         this.deadline = deadline;
     }
@@ -53,9 +54,9 @@ public class AnalyticsCommand extends Command {
                 Amount currentAmount = Amount.convertCurrency(t.getAmount());
                 if (currentAmount != null) {
                     if (t.getType().toString().compareTo("debt") == 0) {
-                        amount += Double.parseDouble(currentAmount.getValue().split(" ")[1]);
-                    } else if ((t.getType().toString().compareTo("loan") == 0)) {
                         amount -= Double.parseDouble(currentAmount.getValue().split(" ")[1]);
+                    } else if ((t.getType().toString().compareTo("loan") == 0)) {
+                        amount += Double.parseDouble(currentAmount.getValue().split(" ")[1]);
                     }
                 }
             }
