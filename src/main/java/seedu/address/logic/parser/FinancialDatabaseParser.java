@@ -62,7 +62,7 @@ public class FinancialDatabaseParser {
 
         case AnalyticsCommand.COMMAND_WORD:
         case AnalyticsCommand.COMMAND_ALIAS:
-            return new AnalyticsCommand();
+            return new AnalyticsCommandParser().parse(arguments);
 
         case CalendarCommand.COMMAND_WORD:
         case CalendarCommand.COMMAND_ALIAS:
