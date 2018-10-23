@@ -10,11 +10,7 @@ import java.util.stream.Collectors;
 import javax.xml.bind.annotation.XmlElement;
 
 import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.model.person.Address;
-import seedu.address.model.person.Email;
-import seedu.address.model.person.Name;
-import seedu.address.model.person.Person;
-import seedu.address.model.person.Phone;
+import seedu.address.model.person.*;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.transaction.Amount;
 import seedu.address.model.transaction.Deadline;
@@ -45,7 +41,8 @@ public class XmlAdaptedTransaction {
     private String email;
     @XmlElement(required = true)
     private String address;
-
+    @XmlElement(required = true)
+    private String photo;
     @XmlElement
     private List<XmlAdaptedTag> tagged = new ArrayList<>();
 
@@ -71,6 +68,7 @@ public class XmlAdaptedTransaction {
         if (tagged != null) {
             this.tagged = new ArrayList<>(tagged);
         }
+
     }
 
     /**
@@ -90,6 +88,7 @@ public class XmlAdaptedTransaction {
         amount = source.getAmount().value;
         type = source.getType().value;
         deadline = source.getDeadline().value;
+        photo = source.getPhoto().getPicturePath();
     }
 
     /**
@@ -167,7 +166,18 @@ public class XmlAdaptedTransaction {
         final Set<Tag> modelTags = new HashSet<>(personTags);
         final Person modelPerson = new Person(modelName, modelPhone, modelEmail, modelAddress, modelTags);
 
-        return new Transaction(modelType, modelAmount, modelDeadline, modelPerson);
+        int a = 0;
+        int b = 0;
+        Photo phot = new Photo();
+        if (this.photo == null){
+            a = 1;
+            b = 1;
+        }
+        if ( a == 0 && Photo.isValidPhoto(this.photo) && b == 0) {
+            phot = new Photo(this.photo);
+        }
+
+        return new Transaction(modelType, modelAmount, modelDeadline, modelPerson, phot);
     }
 
     @Override
@@ -189,6 +199,7 @@ public class XmlAdaptedTransaction {
                 && Objects.equals(phone, otherTransaction.phone)
                 && Objects.equals(email, otherTransaction.email)
                 && Objects.equals(address, otherTransaction.address)
+                && Objects.equals(photo, otherTransaction.photo)
                 && tagged.equals(otherTransaction.tagged);
     }
 }

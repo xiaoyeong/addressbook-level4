@@ -26,6 +26,7 @@ import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.SelectCommand;
 import seedu.address.logic.commands.ToDoListAddCommand;
 import seedu.address.logic.commands.UndoCommand;
+import seedu.address.logic.commands.UploadPhotoCommand;
 import seedu.address.logic.commands.WildcardSearchCommand;
 
 import seedu.address.logic.parser.exceptions.ParseException;
@@ -135,6 +136,10 @@ public class FinancialDatabaseParser {
         case WildcardSearchCommand.COMMAND_WORD:
         case WildcardSearchCommand.COMMAND_ALIAS:
             return new WildcardSearchCommandParser().parse(arguments);
+
+        case UploadPhotoCommand.COMMAND_WORD:
+        case UploadPhotoCommand.COMMAND_ALIAS:
+            return new UpdatePhotoCommandParser().parse(arguments);
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);

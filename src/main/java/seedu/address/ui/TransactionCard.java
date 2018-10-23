@@ -1,17 +1,30 @@
 package seedu.address.ui;
 
 import javafx.fxml.FXML;
+import java.util.logging.Logger;
+
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
+import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.person.Person;
 import seedu.address.model.transaction.Transaction;
+
+import java.io.File;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.nio.file.Paths;
 
 /**
  * An UI component that displays information of a {@code Person}.
  */
 public class TransactionCard extends UiPart<Region> {
+    private final Logger logger = LogsCenter.getLogger(getClass());
+
+    private static final String default_image = "lejolly.png";
 
     private static final String FXML = "TransactionListCard.fxml";
 
@@ -43,6 +56,8 @@ public class TransactionCard extends UiPart<Region> {
     private Label address;
     @FXML
     private FlowPane tags;
+    @FXML
+    private ImageView imageView;
 
     public TransactionCard(Transaction transaction, int displayedIndex) {
         super(FXML);
@@ -56,7 +71,57 @@ public class TransactionCard extends UiPart<Region> {
         address.setText(person.getAddress().value);
         email.setText(person.getEmail().value);
         person.getTags().forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
+       String link = transaction.getPhoto().getPicturePath().trim();
+        logger.info("before fail");
+        logger.info(link);
+//        Image profileImage;
+//        if (transaction.getPhoto().isValidPhoto(link)) {
+//            profileImage  = new Image(link, 120, 120, true, false);
+//        } else {
+//            String failPhoto = "images/default_person.png";
+//            profileImage =  new Image(failPhoto, 120, 120, true, false);
+//
+//        }
+
+//        imageView.setImage(new Image(default_image, 120, 120, true, false) );
+        addPicture(transaction);
     }
+
+    public void addPicture(Transaction transaction) {
+
+        String currentpath = System.getProperty("user.dir");
+        logger.info("current path is:" + currentpath);
+//        try {
+//            //String url = transaction.getPhoto().getPicturePath();
+//            imageView.setImage(new Image("lejolly.png", 128, 128, true, false));
+//        } catch (Exception e) {
+//            e.printStackTrace();
+            try {
+                String url = transaction.getPhoto().getPicturePath();
+
+                if (url.startsWith("images/default_person")){
+                    url = "/Users/weiqing/Documents/cs2103/debt-tracker/docs/images/default_person.png";
+                }
+
+
+                URL newtry = new File(url).toURI().toURL();
+                imageView.setImage(new Image(String.valueOf(newtry), 208, 208, true, false));
+
+            } catch (MalformedURLException e1) {
+                e1.printStackTrace();
+//                String tt = transaction.getPhoto().getPicturePath();
+                URL newtry ;
+                try {
+                    newtry = new File(default_image).toURI().toURL();
+                    imageView.setImage(new Image(String.valueOf(newtry), 208, 208, true, true));
+
+                } catch (MalformedURLException e) {
+                    e.printStackTrace();
+                }
+
+            }
+    }
+
 
     @Override
     public boolean equals(Object other) {

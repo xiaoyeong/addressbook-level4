@@ -6,14 +6,18 @@ import static java.util.Objects.requireNonNull;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
+import java.util.logging.Logger;
 import javax.imageio.ImageIO;
 
+import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.exceptions.IllegalValueException;
 
 /**
  * Represent a photo object associated with each unique person involved in a transaction with the user.
  */
 public class Photo {
+    private final Logger logger = LogsCenter.getLogger(getClass());
+
 
     public static final String DEFAULT_MESSAGE_PHOTO = "Filepath be less than 10MB and FilePath must be valid ";
     public static final String DEFAULT_PHOTO = "images/default_person.png";
@@ -28,10 +32,17 @@ public class Photo {
         this.photoPath = DEFAULT_PHOTO;
     }
 
+    public static boolean isValidPhoto(String path) {
+
+        if (checkPath(path)) {
+            return true;
+        } else {
+            return false;
+        }
+
+    }
     public Photo(String path) {
-
         requireNonNull(path);
-
         if (checkPath(path)) {
             this.photoPath = path;
         } else {
@@ -40,15 +51,17 @@ public class Photo {
 
     }
 
-
     public Photo(String filePath, String newPhoto) throws IllegalValueException {
+        logger.info("before photo");
+        logger.info(filePath);
         requireNonNull(filePath);
 
         if (checkPath(filePath)) {
             throw new IllegalValueException(DEFAULT_MESSAGE_PHOTO);
         }
         //link to the path
-        this.photoPath = FOLDER + "//" + newPhoto;
+        this.photoPath = FOLDER + "/" + newPhoto+".png";
+        logger.info(FOLDER);
         makePhoto(filePath, newPhoto);
     }
 
@@ -59,11 +72,16 @@ public class Photo {
 
         makePhotoFolder();
 
+        logger.info("makephoto");
+        logger.info(filePath);
         //get image from source
+        String immm =  System.getProperty("user.home") + "/Documents/cs2103/debt-tracker/docs/images/weiqing-nic.png";
         File getImage = new File(filePath);
+        //File getImage = new File(immm);
+
 
         //create file object
-        File pictureFinal = new File(FOLDER + "//" + newPhoto);
+        File pictureFinal = new File(FOLDER + "/" + newPhoto+".png");
 
         //if cannot get file object create an empty object
         if (!pictureFinal.exists()) {
@@ -98,10 +116,10 @@ public class Photo {
      */
 
     private static String getOperatingPath() {
-        String oSystem = System.getProperty("os.name");
+        String oSystem = System.getProperty("os.name").toLowerCase();
 
         //mac
-        if (oSystem.contains("mac")) {
+        if (oSystem.contains("mac") || oSystem.contains("nux")) {
             return System.getProperty("user.home") + "/Documents/cs2103/debt-tracker/PhotoFolder";
         } else {
             return System.getenv("APPDATA") + "/PhotoFolder";
@@ -132,6 +150,7 @@ public class Photo {
         if (path.matches(PHOTO_INTITAL_REGEX_)) {
             return checkPicture(path);
         }
+
         return false;
     }
 
