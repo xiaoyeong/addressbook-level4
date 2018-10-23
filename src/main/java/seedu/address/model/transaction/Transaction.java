@@ -1,8 +1,10 @@
 package seedu.address.model.transaction;
 
 import java.util.Objects;
+import java.util.logging.Logger;
 import java.util.Random;
 
+import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Photo;
@@ -12,6 +14,7 @@ import seedu.address.model.person.Photo;
  */
 public class Transaction {
 
+
     private final Type type;
     private final Amount amount;
     private final Person person;
@@ -19,6 +22,8 @@ public class Transaction {
     private  Photo photo;
 
     private Interest interest;
+    private final Logger logger = LogsCenter.getLogger(getClass());
+
 
     /**
      * Represents a transaction with non null fields {@code type}, {@code amount}, {@code deadline}
@@ -83,7 +88,7 @@ public class Transaction {
             throw new IllegalValueException("Cannot set new photo");
         }
 
-        System.out.println("passsetphoto");
+        logger.info("passsetphoto");
 
     }
 

@@ -6,14 +6,18 @@ import static java.util.Objects.requireNonNull;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
+import java.util.logging.Logger;
 import javax.imageio.ImageIO;
 
+import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.exceptions.IllegalValueException;
 
 /**
  * Represent a photo object associated with each unique person involved in a transaction with the user.
  */
 public class Photo {
+    private final Logger logger = LogsCenter.getLogger(getClass());
+
 
     public static final String DEFAULT_MESSAGE_PHOTO = "Filepath be less than 10MB and FilePath must be valid ";
     public static final String DEFAULT_PHOTO = "images/default_person.png";
@@ -48,8 +52,8 @@ public class Photo {
     }
 
     public Photo(String filePath, String newPhoto) throws IllegalValueException {
-        System.out.println("before photo");
-        System.out.println(filePath);
+        logger.info("before photo");
+        logger.info(filePath);
         requireNonNull(filePath);
 
         if (checkPath(filePath)) {
@@ -57,7 +61,7 @@ public class Photo {
         }
         //link to the path
         this.photoPath = FOLDER + "/" + newPhoto+".png";
-        System.out.println(FOLDER);
+        logger.info(FOLDER);
         makePhoto(filePath, newPhoto);
     }
 
@@ -68,8 +72,8 @@ public class Photo {
 
         makePhotoFolder();
 
-        System.out.println("makephoto");
-        System.out.println(filePath);
+        logger.info("makephoto");
+        logger.info(filePath);
         //get image from source
         String immm =  System.getProperty("user.home") + "/Documents/cs2103/debt-tracker/docs/images/weiqing-nic.png";
         File getImage = new File(filePath);
@@ -116,7 +120,6 @@ public class Photo {
 
         //mac
         if (oSystem.contains("mac") || oSystem.contains("nux")) {
-            System.out.println(System.getProperty("user.home"));
             return System.getProperty("user.home") + "/Documents/cs2103/debt-tracker/PhotoFolder";
         } else {
             return System.getenv("APPDATA") + "/PhotoFolder";
@@ -141,15 +144,12 @@ public class Photo {
      * Checks whether the path of the given picture meets certain criteria.
      */
     public static boolean checkPath(String path) {
-        System.out.println(path);
         if (path.equals(DEFAULT_PHOTO)) {
-            System.out.println("lol");
             return true;
         }
         if (path.matches(PHOTO_INTITAL_REGEX_)) {
             return checkPicture(path);
         }
-        System.out.println("lol");
 
         return false;
     }

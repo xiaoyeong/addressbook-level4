@@ -1,12 +1,15 @@
 package seedu.address.ui;
 
 import javafx.fxml.FXML;
+import java.util.logging.Logger;
+
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
+import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.person.Person;
 import seedu.address.model.transaction.Transaction;
 
@@ -19,6 +22,8 @@ import java.nio.file.Paths;
  * An UI component that displays information of a {@code Person}.
  */
 public class TransactionCard extends UiPart<Region> {
+    private final Logger logger = LogsCenter.getLogger(getClass());
+
     private static final String default_image = "lejolly.png";
 
     private static final String FXML = "TransactionListCard.fxml";
@@ -67,8 +72,8 @@ public class TransactionCard extends UiPart<Region> {
         email.setText(person.getEmail().value);
         person.getTags().forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
        String link = transaction.getPhoto().getPicturePath().trim();
-      System.out.println("before fail");
-       System.out.println(link);
+        logger.info("before fail");
+        logger.info(link);
 //        Image profileImage;
 //        if (transaction.getPhoto().isValidPhoto(link)) {
 //            profileImage  = new Image(link, 120, 120, true, false);
@@ -85,7 +90,7 @@ public class TransactionCard extends UiPart<Region> {
     public void addPicture(Transaction transaction) {
 
         String currentpath = System.getProperty("user.dir");
-        System.out.println("current path is:" + currentpath);
+        logger.info("current path is:" + currentpath);
 //        try {
 //            //String url = transaction.getPhoto().getPicturePath();
 //            imageView.setImage(new Image("lejolly.png", 128, 128, true, false));
