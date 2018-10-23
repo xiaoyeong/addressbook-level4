@@ -102,11 +102,11 @@ public class Amount {
 
     @Override
     public boolean equals(Object other) {
-        if (!(other instanceof Type)) {
+        if (!(other instanceof Amount)) {
             return false;
         }
-        Type type = (Type) other;
-        return other == this || value.equals(type.value);
+        Amount amount = (Amount) other;
+        return other == this || value.equals(amount.value);
     }
 
     @Override

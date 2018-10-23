@@ -39,6 +39,7 @@ public class TransactionBuilder {
         type = transactionToCopy.getType();
         amount = transactionToCopy.getAmount();
         person = transactionToCopy.getPerson();
+        deadline = transactionToCopy.getDeadline();
     }
 
     /**
