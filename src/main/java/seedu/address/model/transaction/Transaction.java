@@ -66,7 +66,8 @@ public class Transaction {
         Transaction transaction = (Transaction) other;
         return other == this || (type.equals(transaction.type)
                 && amount.equals(transaction.amount)
-                && person.equals(transaction.person));
+                && person.equals(transaction.person)
+                && deadline.equals(transaction.deadline));
     }
 
     @Override

@@ -9,6 +9,7 @@ import java.util.logging.Logger;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
+import seedu.address.commons.core.CalendarManager;
 import seedu.address.commons.core.ComponentManager;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.model.FinancialDatabaseChangedEvent;
@@ -65,6 +66,9 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public void deleteTransaction(Transaction target) {
         versionedFinancialDatabase.removeTransaction(target);
+        if (CalendarManager.getInstance() != null) {
+            CalendarManager.getInstance().syncCalendar(this);
+        }
         indicateFinancialDatabaseChanged();
     }
 
@@ -72,6 +76,9 @@ public class ModelManager extends ComponentManager implements Model {
     public void addTransaction(Transaction person) {
         versionedFinancialDatabase.addTransaction(person);
         updateFilteredTransactionList(PREDICATE_SHOW_ALL_TRANSACTIONS);
+        if (CalendarManager.getInstance() != null) {
+            CalendarManager.getInstance().syncCalendar(this);
+        }
         indicateFinancialDatabaseChanged();
     }
 
@@ -80,6 +87,9 @@ public class ModelManager extends ComponentManager implements Model {
         requireAllNonNull(target, editedTransaction);
 
         versionedFinancialDatabase.updateTransaction(target, editedTransaction);
+        if (CalendarManager.getInstance() != null) {
+            CalendarManager.getInstance().syncCalendar(this);
+        }
         indicateFinancialDatabaseChanged();
     }
 
