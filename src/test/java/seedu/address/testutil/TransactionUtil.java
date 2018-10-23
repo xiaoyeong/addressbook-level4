@@ -14,8 +14,9 @@ import java.util.Set;
 import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.commands.EditCommand.EditTransactionDescriptor;
 import seedu.address.model.person.Person;
-import seedu.address.model.transaction.Transaction;
 import seedu.address.model.tag.Tag;
+import seedu.address.model.transaction.Transaction;
+
 
 /**
  * A utility class for Person.
@@ -35,9 +36,9 @@ public class TransactionUtil {
     public static String getTransactionDetails(Transaction transaction) {
         StringBuilder sb = new StringBuilder();
         Person person = transaction.getPerson();
-        sb.append(PREFIX_TRANSACTION_TYPE + transaction.getType().value+ " ");
-        sb.append(PREFIX_TRANSACTION_AMOUNT+ transaction.getAmount().value + " ");
-        sb.append(PREFIX_TRANSACTION_DEADLINE+ transaction.getDeadline().value + " ");
+        sb.append(PREFIX_TRANSACTION_TYPE + transaction.getType().value + " ");
+        sb.append(PREFIX_TRANSACTION_AMOUNT + transaction.getAmount().value + " ");
+        sb.append(PREFIX_TRANSACTION_DEADLINE + transaction.getDeadline().value + " ");
         sb.append(PREFIX_NAME + person.getName().fullName + " ");
         sb.append(PREFIX_PHONE + person.getPhone().value + " ");
         sb.append(PREFIX_EMAIL + person.getEmail().value + " ");

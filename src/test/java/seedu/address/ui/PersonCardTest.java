@@ -5,8 +5,9 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static seedu.address.ui.testutil.GuiTestAssert.assertCardDisplaysTransaction;
 
-import guitests.guihandles.TransactionCardHandle;
 import org.junit.Test;
+
+import guitests.guihandles.TransactionCardHandle;
 
 import seedu.address.model.transaction.Transaction;
 import seedu.address.testutil.TransactionBuilder;

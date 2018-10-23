@@ -74,7 +74,8 @@ public class XmlUtilTest {
 
     @Test
     public void getDataFromFile_validFile_validResult() throws Exception {
-        FinancialDatabase dataFromFile = XmlUtil.getDataFromFile(VALID_FILE, XmlSerializableFinancialDatabase.class).toModelType();
+        FinancialDatabase dataFromFile = XmlUtil.getDataFromFile(VALID_FILE,
+                XmlSerializableFinancialDatabase.class).toModelType();
         assertEquals(9, dataFromFile.getTransactionList().size());
     }
 
@@ -131,7 +132,8 @@ public class XmlUtilTest {
         FileUtil.createFile(TEMP_FILE);
         XmlSerializableFinancialDatabase dataToWrite = new XmlSerializableFinancialDatabase(new FinancialDatabase());
         XmlUtil.saveDataToFile(TEMP_FILE, dataToWrite);
-        XmlSerializableFinancialDatabase dataFromFile = XmlUtil.getDataFromFile(TEMP_FILE, XmlSerializableFinancialDatabase.class);
+        XmlSerializableFinancialDatabase dataFromFile = XmlUtil.getDataFromFile(TEMP_FILE,
+                XmlSerializableFinancialDatabase.class);
         assertEquals(dataToWrite, dataFromFile);
 
         FinancialDatabaseBuilder builder = new FinancialDatabaseBuilder(new FinancialDatabase());

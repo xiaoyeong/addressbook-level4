@@ -1,8 +1,8 @@
 package seedu.address.model.transaction;
 
-import seedu.address.model.person.Person;
-
 import java.util.Objects;
+
+import seedu.address.model.person.Person;
 
 /**
  * {@code Transaction} class encapsulates a transaction added to the financial database
@@ -13,6 +13,8 @@ public class Transaction {
     private final Amount amount;
     private final Person person;
     private final Deadline deadline;
+
+    private Interest interest;
 
     /**
      * Represents a transaction with non null fields {@code type}, {@code amount}, {@code deadline}
@@ -46,6 +48,11 @@ public class Transaction {
         return person;
     }
 
+    public Interest getInterest() {
+        return interest;
+    }
+
+
     @Override
     public int hashCode() {
         return Objects.hash(type, amount, deadline, person);
@@ -65,13 +72,19 @@ public class Transaction {
     @Override
     public String toString() {
         final StringBuilder builder = new StringBuilder();
-        builder.append("Person: ")
+        builder.append("\nPerson Details: ")
                .append(person.toString())
-               .append("\n Transaction Details: \n")
-               .append("Type: ")
+               .append("\nTransaction Details: ")
+               .append(" Type: ")
                .append(type)
-               .append("\n Amount: ")
-               .append(amount);
+               .append(" Amount: ")
+               .append(amount)
+               .append(" Deadline: ")
+               .append(deadline);
+        if (interest != null) {
+            builder.append(" Interest: ")
+                   .append(interest);
+        }
         return builder.toString();
     }
 }

@@ -29,9 +29,9 @@ import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
 import seedu.address.model.tag.Tag;
-import seedu.address.model.transaction.Transaction;
 import seedu.address.model.transaction.Amount;
 import seedu.address.model.transaction.Deadline;
+import seedu.address.model.transaction.Transaction;
 import seedu.address.model.transaction.Type;
 
 /**
@@ -86,8 +86,9 @@ public class EditCommand extends Command {
             throw new CommandException(Messages.MESSAGE_INVALID_TRANSACTION_DISPLAYED_INDEX);
         }
 
-        seedu.address.model.transaction.Transaction transactionToEdit = lastShownList.get(index.getZeroBased());
-        seedu.address.model.transaction.Transaction editedTransaction = createEditedTransaction(transactionToEdit, editTransactionDescriptor);
+        Transaction transactionToEdit = lastShownList.get(index.getZeroBased());
+        Transaction editedTransaction = createEditedTransaction(transactionToEdit,
+                editTransactionDescriptor);
 
         if (!transactionToEdit.equals(editedTransaction) && model.hasTransaction(editedTransaction)) {
             throw new CommandException(MESSAGE_DUPLICATE_TRANSACTION);
@@ -103,8 +104,8 @@ public class EditCommand extends Command {
      * Creates and returns a {@code transaction} with the details of {@code transactionToEdit}
      * edited with {@code editTransactionDescriptor}.
      */
-    private static Transaction createEditedTransaction(seedu.address.model.transaction.Transaction transactionToEdit,
-                                                                                       EditTransactionDescriptor editTransactionDescriptor) {
+    private static Transaction createEditedTransaction(Transaction transactionToEdit,
+                                                       EditTransactionDescriptor editTransactionDescriptor) {
         assert transactionToEdit != null;
 
         Type updatedType = editTransactionDescriptor.getType().orElse(transactionToEdit.getType());
@@ -119,7 +120,8 @@ public class EditCommand extends Command {
         Set<Tag> updatedTags = editTransactionDescriptor.getTags().orElse(transactionToEdit.getPerson().getTags());
         Person updatedPerson = new Person(updatedName, updatedPhone, updatedEmail, updatedAddress, updatedTags);
 
-        return new seedu.address.model.transaction.Transaction(updatedType, updatedAmount, updatedDeadline, updatedPerson);
+        return new seedu.address.model.transaction.Transaction(updatedType, updatedAmount, updatedDeadline,
+                updatedPerson);
     }
 
     @Override

@@ -2,12 +2,12 @@ package systemtests;
 
 import static org.junit.Assert.assertTrue;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.commons.core.Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX;
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_TRANSACTION_DISPLAYED_INDEX;
 import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
-import static seedu.address.logic.commands.SelectCommand.MESSAGE_SELECT_PERSON_SUCCESS;
+import static seedu.address.logic.commands.SelectCommand.MESSAGE_SELECT_TRANSACTION_SUCCESS;
 import static seedu.address.testutil.TestUtil.getLastIndex;
 import static seedu.address.testutil.TestUtil.getMidIndex;
-import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
+import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_TRANSACTION;
 import static seedu.address.testutil.TypicalPersons.KEYWORD_MATCHING_MEIER;
 
 import org.junit.Test;
@@ -26,8 +26,8 @@ public class SelectCommandSystemTest extends FinancialDatabaseSystemTest {
         /* Case: select the first card in the transaction list, command with leading spaces and trailing spaces
          * -> selected
          */
-        String command = "   " + SelectCommand.COMMAND_WORD + " " + INDEX_FIRST_PERSON.getOneBased() + "   ";
-        assertCommandSuccess(command, INDEX_FIRST_PERSON);
+        String command = "   " + SelectCommand.COMMAND_WORD + " " + INDEX_FIRST_TRANSACTION.getOneBased() + "   ";
+        assertCommandSuccess(command, INDEX_FIRST_TRANSACTION);
 
         /* Case: select the last card in the transaction list -> selected */
         Index personCount = getLastIndex(getModel());
@@ -54,14 +54,16 @@ public class SelectCommandSystemTest extends FinancialDatabaseSystemTest {
 
         /* ------------------------ Perform select operations on the shown filtered list ---------------------------- */
 
-        /* Case: filtered transaction list, select index within bounds of address book but out of bounds of transaction list
-         * -> rejected
+        /* Case: filtered transaction list, select index within bounds of address book but out of bounds of transaction
+         * list -> rejected
          */
-        showPersonsWithName(KEYWORD_MATCHING_MEIER);
+        showTransactionsWithName(KEYWORD_MATCHING_MEIER);
         int invalidIndex = getModel().getFinancialDatabase().getTransactionList().size();
-        assertCommandFailure(SelectCommand.COMMAND_WORD + " " + invalidIndex, MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+        assertCommandFailure(SelectCommand.COMMAND_WORD + " " + invalidIndex,
+                MESSAGE_INVALID_TRANSACTION_DISPLAYED_INDEX);
 
-        /* Case: filtered transaction list, select index within bounds of address book and transaction list -> selected */
+        /* Case: filtered transaction list, select index within bounds of address book and transaction list -> selected
+         */
         Index validIndex = Index.fromOneBased(1);
         assertTrue(validIndex.getZeroBased() < getModel().getFilteredTransactionList().size());
         command = SelectCommand.COMMAND_WORD + " " + validIndex.getOneBased();
@@ -79,7 +81,8 @@ public class SelectCommandSystemTest extends FinancialDatabaseSystemTest {
 
         /* Case: invalid index (size + 1) -> rejected */
         invalidIndex = getModel().getFilteredTransactionList().size() + 1;
-        assertCommandFailure(SelectCommand.COMMAND_WORD + " " + invalidIndex, MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+        assertCommandFailure(SelectCommand.COMMAND_WORD + " " + invalidIndex,
+                MESSAGE_INVALID_TRANSACTION_DISPLAYED_INDEX);
 
         /* Case: invalid arguments (alphabets) -> rejected */
         assertCommandFailure(SelectCommand.COMMAND_WORD + " abc",
@@ -94,8 +97,8 @@ public class SelectCommandSystemTest extends FinancialDatabaseSystemTest {
 
         /* Case: select from empty address book -> rejected */
         deleteAllTransactions();
-        assertCommandFailure(SelectCommand.COMMAND_WORD + " " + INDEX_FIRST_PERSON.getOneBased(),
-                MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+        assertCommandFailure(SelectCommand.COMMAND_WORD + " " + INDEX_FIRST_TRANSACTION.getOneBased(),
+                MESSAGE_INVALID_TRANSACTION_DISPLAYED_INDEX);
     }
 
     /**
@@ -115,7 +118,7 @@ public class SelectCommandSystemTest extends FinancialDatabaseSystemTest {
     private void assertCommandSuccess(String command, Index expectedSelectedCardIndex) {
         Model expectedModel = getModel();
         String expectedResultMessage = String.format(
-                MESSAGE_SELECT_PERSON_SUCCESS, expectedSelectedCardIndex.getOneBased());
+                MESSAGE_SELECT_TRANSACTION_SUCCESS, expectedSelectedCardIndex.getOneBased());
         int preExecutionSelectedCardIndex = getTransactionListPanel().getSelectedCardIndex();
 
         executeCommand(command);

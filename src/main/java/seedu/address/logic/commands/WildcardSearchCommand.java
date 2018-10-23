@@ -16,7 +16,7 @@ public class WildcardSearchCommand extends Command {
     public static final String COMMAND_ALIAS = "wcs";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Performs a wildcard search on the address book's "
-            + "contacts based on user's input."
+            + "contacts based on user's input. "
             + "Parameters: KEYWORD [MORE_KEYWORDS]...\n"
             + "Example: " + COMMAND_WORD + " oh";
 
@@ -31,6 +31,7 @@ public class WildcardSearchCommand extends Command {
         requireNonNull(model);
         model.updateFilteredTransactionList(predicate);
         return new CommandResult(
-                String.format(Messages.MESSAGE_PERSONS_LISTED_OVERVIEW, model.getFilteredTransactionList().size()));
+                String.format(Messages.MESSAGE_TRANSACTIONS_LISTED_OVERVIEW,
+                        model.getFilteredTransactionList().size()));
     }
 }

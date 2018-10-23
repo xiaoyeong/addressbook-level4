@@ -6,6 +6,7 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
 import java.time.DateTimeException;
 import java.time.LocalDate;
 
+import seedu.address.commons.core.LogsCenter;
 
 /**
  * Represents the deadline by which payment has to be made
@@ -13,8 +14,8 @@ import java.time.LocalDate;
  */
 public class Deadline {
     public static final String MESSAGE_TRANSACTION_DEADLINE_CONSTRAINTS =
-            "The transaction deadline must be a valid date in the future in the DD/MM/YYY format";
-    public static final String TRANSACTION_DEADLINE_VALIDATION_REGEX = "\\d{2}/\\d{2}/\\d{4}";
+            "The transaction deadline must be a valid date in the future following the DD/MM/YYYY format";
+    public static final String TRANSACTION_DEADLINE_VALIDATION_REGEX = "\\d{1,2}/\\d{1,2}/\\d{4}";
     public final String value;
 
     /**
@@ -50,6 +51,7 @@ public class Deadline {
             LocalDate date = LocalDate.of(year, month, dayOfMonth);
             return !date.isBefore(LocalDate.now());
         } catch (DateTimeException ex) {
+            LogsCenter.getLogger(Deadline.class).warning(ex.getMessage());
             return false;
         }
 

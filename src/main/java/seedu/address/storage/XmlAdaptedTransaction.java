@@ -18,6 +18,7 @@ import seedu.address.model.person.Phone;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.transaction.Amount;
 import seedu.address.model.transaction.Deadline;
+import seedu.address.model.transaction.Transaction;
 import seedu.address.model.transaction.Type;
 
 
@@ -137,9 +138,6 @@ public class XmlAdaptedTransaction {
             throw new IllegalValueException(Amount.MESSAGE_TRANSACTION_AMOUNT_CONSTRAINTS);
         }
         final Address modelAddress = new Address(address);
-        final Set<Tag> modelTags = new HashSet<>(personTags);
-
-        final Person modelPerson = new Person(modelName, modelPhone, modelEmail, modelAddress, modelTags);
 
         if (amount == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
@@ -161,11 +159,15 @@ public class XmlAdaptedTransaction {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
                     Deadline.class.getSimpleName()));
         }
-        if (!Type.isValidType(deadline)) {
+        if (!Deadline.isValidDeadline(deadline)) {
             throw new IllegalValueException(Deadline.MESSAGE_TRANSACTION_DEADLINE_CONSTRAINTS);
         }
         final Deadline modelDeadline = new Deadline(deadline);
-        return new seedu.address.model.transaction.Transaction(modelType, modelAmount, modelDeadline, modelPerson);
+
+        final Set<Tag> modelTags = new HashSet<>(personTags);
+        final Person modelPerson = new Person(modelName, modelPhone, modelEmail, modelAddress, modelTags);
+
+        return new Transaction(modelType, modelAmount, modelDeadline, modelPerson);
     }
 
     @Override
