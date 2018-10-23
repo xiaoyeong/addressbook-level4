@@ -30,8 +30,6 @@ public class XmlAdaptedTransaction {
     public static final String MISSING_FIELD_MESSAGE_FORMAT = "Transaction's %s field is missing!";
 
     @XmlElement(required = true)
-    private String uniqueId;
-    @XmlElement(required = true)
     private String amount;
     @XmlElement(required = true)
     private String type;
@@ -135,7 +133,7 @@ public class XmlAdaptedTransaction {
                     Address.class.getSimpleName()));
         }
         if (!Address.isValidAddress(address)) {
-            throw new IllegalValueException(Amount.MESSAGE_TRANSACTION_AMOUNT_CONSTRAINTS);
+            throw new IllegalValueException(Address.MESSAGE_ADDRESS_CONSTRAINTS);
         }
         final Address modelAddress = new Address(address);
 
@@ -185,10 +183,31 @@ public class XmlAdaptedTransaction {
                 && Objects.equals(amount, otherTransaction.amount)
                 && Objects.equals(deadline, otherTransaction.deadline)
                 && Objects.equals(name, otherTransaction.name)
-                && Objects.equals(uniqueId, otherTransaction.uniqueId)
                 && Objects.equals(phone, otherTransaction.phone)
                 && Objects.equals(email, otherTransaction.email)
                 && Objects.equals(address, otherTransaction.address)
                 && tagged.equals(otherTransaction.tagged);
+    }
+
+    @Override
+    public String toString(){
+
+        String tagss = "";
+        for (XmlAdaptedTag tag:tagged){
+            try {
+                tagss += tag.toModelType().tagName + ";";
+            }
+            catch (IllegalValueException ex){
+
+            }
+        }
+        return "type: " + type + "\n"
+                + "amount: " + amount + "\n"
+                + "deadline: " + deadline + "\n"
+                + "name: " + name + "\n"
+                + "phone: " + phone + "\n"
+                + "email: " + email + "\n"
+                + "address: " + address + "\n"
+                + "tagged: " + tagged;
     }
 }
