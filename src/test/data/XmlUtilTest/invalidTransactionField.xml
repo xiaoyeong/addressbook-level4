@@ -3,10 +3,10 @@
 <transaction>
 	<type>Loan</type>
     <amount>342.60</amount>
-    <deadline>15/11/2018</deadline>
+    <deadline>16/11/2018</deadline>
     <name>Hans Muster</name>
     <phone>9482424</phone>
-    <email>hans@example</email>
+    <email>hans@example.com</email>
     <address>4th street</address>
     <tagged>friends</tagged>
 </transaction>

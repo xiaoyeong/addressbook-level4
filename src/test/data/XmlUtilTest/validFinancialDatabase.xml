@@ -31,6 +31,7 @@
         <type>Loan</type>
         <amount>JPY 386.50</amount>
         <deadline>27/10/2018</deadline>
+		<name>Cornelia Meier</name>
         <phone isPrivate="false">87652533</phone>
         <email isPrivate="false">cornelia@example.com</email>
         <address isPrivate="false">10th street</address>
@@ -39,6 +40,7 @@
         <type>Loan</type>
         <amount>CNY 455.20</amount>
         <deadline>06/11/2025</deadline>
+		<name>Werner Meyer</name>
         <phone isPrivate="false">9482224</phone>
         <email isPrivate="false">werner@example.com</email>
         <address isPrivate="false">michegan ave</address>
@@ -72,7 +74,7 @@
     </transactions>
     <transactions>
         <type>Debt</type>
-        <amount>SGF 374.50</amount>
+        <amount>SGD 374.50</amount>
         <deadline>16/01/2019</deadline>
         <name>Martin Mueller</name>
         <phone isPrivate="false">8482131</phone>

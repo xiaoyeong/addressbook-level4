@@ -59,6 +59,14 @@ public class TransactionBuilder {
     }
 
     /**
+     * Sets the {@code Deadline} of the {@code Transaction} that we are building.
+     */
+    public TransactionBuilder withDeadline(String deadline) {
+        this.deadline = new Deadline(deadline);
+        return this;
+    }
+
+    /**
      * Sets the {@code Person} of the {@code Transaction} that we are building.
      */
     public TransactionBuilder withPerson(Person person) {
