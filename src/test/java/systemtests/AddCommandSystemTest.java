@@ -3,6 +3,10 @@ package systemtests;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.commands.CommandTestUtil.ADDRESS_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.ADDRESS_DESC_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.AMOUNT_DESC_AMY;
+import static seedu.address.logic.commands.CommandTestUtil.AMOUNT_DESC_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.DEADLINE_DESC_AMY;
+import static seedu.address.logic.commands.CommandTestUtil.DEADLINE_DESC_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.EMAIL_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.EMAIL_DESC_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_ADDRESS_DESC;
@@ -16,15 +20,15 @@ import static seedu.address.logic.commands.CommandTestUtil.PHONE_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.PHONE_DESC_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_FRIEND;
 import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_HUSBAND;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_EMAIL_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_AMY;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
+import static seedu.address.logic.commands.CommandTestUtil.TYPE_DESC_AMY;
+import static seedu.address.logic.commands.CommandTestUtil.TYPE_DESC_BOB;
 import static seedu.address.testutil.TypicalPersons.KEYWORD_MATCHING_MEIER;
 import static seedu.address.testutil.TypicalTransactions.ALICE_TRANSACTION;
+import static seedu.address.testutil.TypicalTransactions.AMY_TRANSACTION;
 import static seedu.address.testutil.TypicalTransactions.BOB_TRANSACTION;
 import static seedu.address.testutil.TypicalTransactions.CARL_TRANSACTION;
-import static seedu.address.testutil.TypicalTransactions.DANIEL_TRANSACTION;
+import static seedu.address.testutil.TypicalTransactions.HOON_TRANSACTION;
+import static seedu.address.testutil.TypicalTransactions.IDA_TRANSACTION;
 
 import org.junit.Test;
 
@@ -40,7 +44,6 @@ import seedu.address.model.person.Name;
 import seedu.address.model.person.Phone;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.transaction.Transaction;
-import seedu.address.testutil.TransactionBuilder;
 import seedu.address.testutil.TransactionUtil;
 
 public class AddCommandSystemTest extends FinancialDatabaseSystemTest {
@@ -54,9 +57,11 @@ public class AddCommandSystemTest extends FinancialDatabaseSystemTest {
         /* Case: add a transaction without tags to a non-empty address book, command with leading spaces and trailing
          * spaces -> added
          */
-        Transaction toAdd = ALICE_TRANSACTION;
+        Transaction toAdd = AMY_TRANSACTION;
         String command = "   " + AddCommand.COMMAND_WORD + "  " + NAME_DESC_AMY + "  " + PHONE_DESC_AMY + " "
-                + EMAIL_DESC_AMY + "   " + ADDRESS_DESC_AMY + "   " + TAG_DESC_FRIEND + " ";
+                + EMAIL_DESC_AMY + "   " + ADDRESS_DESC_AMY + "   " + AMOUNT_DESC_AMY + "  " + TYPE_DESC_AMY + "  "
+                + DEADLINE_DESC_AMY + "  " + TAG_DESC_FRIEND + " ";
+
         assertCommandSuccess(command, toAdd);
 
         /* Case: undo adding Amy to the list -> Amy deleted */
@@ -77,17 +82,17 @@ public class AddCommandSystemTest extends FinancialDatabaseSystemTest {
         /* Case: add a transaction with tags, command with parameters in random order -> added */
         toAdd = BOB_TRANSACTION;
         command = AddCommand.COMMAND_WORD + TAG_DESC_FRIEND + PHONE_DESC_BOB + ADDRESS_DESC_BOB + NAME_DESC_BOB
-                + TAG_DESC_HUSBAND + EMAIL_DESC_BOB;
+                + TAG_DESC_HUSBAND + EMAIL_DESC_BOB + TYPE_DESC_BOB + AMOUNT_DESC_BOB + DEADLINE_DESC_BOB;
         assertCommandSuccess(command, toAdd);
 
         /* Case: add a transaction, missing tags -> added */
-        assertCommandSuccess(BOB_TRANSACTION);
+        assertCommandSuccess(HOON_TRANSACTION);
 
         /* -------------------------- Perform add operation on the shown filtered list ------------------------------ */
 
         /* Case: filters the transaction list before adding -> added */
         showTransactionsWithName(KEYWORD_MATCHING_MEIER);
-        assertCommandSuccess(DANIEL_TRANSACTION);
+        assertCommandSuccess(IDA_TRANSACTION);
 
         /* ------------------------ Perform add operation while a transaction card is selected ---------------------- */
 
@@ -99,42 +104,27 @@ public class AddCommandSystemTest extends FinancialDatabaseSystemTest {
         /* ----------------------------------- Perform invalid add operations --------------------------------------- */
 
         /* Case: add a duplicate transaction -> rejected */
-        command = TransactionUtil.getAddCommand(BOB_TRANSACTION);
-        assertCommandFailure(command, AddCommand.MESSAGE_DUPLICATE_TRANSACTION);
-
-        /* Case: add a duplicate transaction except with different phone -> rejected */
-        toAdd = new TransactionBuilder(BOB_TRANSACTION).withPhone(VALID_PHONE_AMY).build();
-        command = TransactionUtil.getAddCommand(toAdd);
-        assertCommandFailure(command, AddCommand.MESSAGE_DUPLICATE_TRANSACTION);
-
-        /* Case: add a duplicate transaction except with different email -> rejected */
-        toAdd = new TransactionBuilder(BOB_TRANSACTION).withEmail(VALID_EMAIL_AMY).build();
-        command = TransactionUtil.getAddCommand(toAdd);
-        assertCommandFailure(command, AddCommand.MESSAGE_DUPLICATE_TRANSACTION);
-
-        /* Case: add a duplicate transaction except with different address -> rejected */
-        toAdd = new TransactionBuilder(BOB_TRANSACTION).withAddress(VALID_ADDRESS_AMY).build();
-        command = TransactionUtil.getAddCommand(toAdd);
-        assertCommandFailure(command, AddCommand.MESSAGE_DUPLICATE_TRANSACTION);
-
-        /* Case: add a duplicate transaction except with different tags -> rejected */
-        command = TransactionUtil.getAddCommand(BOB_TRANSACTION) + " " + PREFIX_TAG.getPrefix() + "friends";
+        command = TransactionUtil.getAddCommand(HOON_TRANSACTION);
         assertCommandFailure(command, AddCommand.MESSAGE_DUPLICATE_TRANSACTION);
 
         /* Case: missing name -> rejected */
-        command = AddCommand.COMMAND_WORD + PHONE_DESC_AMY + EMAIL_DESC_AMY + ADDRESS_DESC_AMY;
+        command = AddCommand.COMMAND_WORD + PHONE_DESC_AMY + EMAIL_DESC_AMY + ADDRESS_DESC_AMY + AMOUNT_DESC_AMY
+                + TYPE_DESC_AMY + DEADLINE_DESC_AMY;
         assertCommandFailure(command, String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
 
         /* Case: missing phone -> rejected */
-        command = AddCommand.COMMAND_WORD + NAME_DESC_AMY + EMAIL_DESC_AMY + ADDRESS_DESC_AMY;
+        command = AddCommand.COMMAND_WORD + NAME_DESC_AMY + EMAIL_DESC_AMY + ADDRESS_DESC_AMY + AMOUNT_DESC_AMY
+                + TYPE_DESC_AMY + DEADLINE_DESC_AMY;
         assertCommandFailure(command, String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
 
         /* Case: missing email -> rejected */
-        command = AddCommand.COMMAND_WORD + NAME_DESC_AMY + PHONE_DESC_AMY + ADDRESS_DESC_AMY;
+        command = AddCommand.COMMAND_WORD + NAME_DESC_AMY + PHONE_DESC_AMY + ADDRESS_DESC_AMY + AMOUNT_DESC_AMY
+                + TYPE_DESC_AMY + DEADLINE_DESC_AMY;
         assertCommandFailure(command, String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
 
         /* Case: missing address -> rejected */
-        command = AddCommand.COMMAND_WORD + NAME_DESC_AMY + PHONE_DESC_AMY + EMAIL_DESC_AMY;
+        command = AddCommand.COMMAND_WORD + NAME_DESC_AMY + PHONE_DESC_AMY + EMAIL_DESC_AMY + AMOUNT_DESC_AMY
+                + TYPE_DESC_AMY + DEADLINE_DESC_AMY;
         assertCommandFailure(command, String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
 
         /* Case: invalid keyword -> rejected */
@@ -142,24 +132,28 @@ public class AddCommandSystemTest extends FinancialDatabaseSystemTest {
         assertCommandFailure(command, Messages.MESSAGE_UNKNOWN_COMMAND);
 
         /* Case: invalid name -> rejected */
-        command = AddCommand.COMMAND_WORD + INVALID_NAME_DESC + PHONE_DESC_AMY + EMAIL_DESC_AMY + ADDRESS_DESC_AMY;
+        command = AddCommand.COMMAND_WORD + INVALID_NAME_DESC + PHONE_DESC_AMY + EMAIL_DESC_AMY + ADDRESS_DESC_AMY
+                + AMOUNT_DESC_AMY + TYPE_DESC_AMY + DEADLINE_DESC_AMY;
         assertCommandFailure(command, Name.MESSAGE_NAME_CONSTRAINTS);
 
         /* Case: invalid phone -> rejected */
-        command = AddCommand.COMMAND_WORD + NAME_DESC_AMY + INVALID_PHONE_DESC + EMAIL_DESC_AMY + ADDRESS_DESC_AMY;
+        command = AddCommand.COMMAND_WORD + NAME_DESC_AMY + INVALID_PHONE_DESC + EMAIL_DESC_AMY + ADDRESS_DESC_AMY
+                + AMOUNT_DESC_AMY + TYPE_DESC_AMY + DEADLINE_DESC_AMY;
         assertCommandFailure(command, Phone.MESSAGE_PHONE_CONSTRAINTS);
 
         /* Case: invalid email -> rejected */
-        command = AddCommand.COMMAND_WORD + NAME_DESC_AMY + PHONE_DESC_AMY + INVALID_EMAIL_DESC + ADDRESS_DESC_AMY;
+        command = AddCommand.COMMAND_WORD + NAME_DESC_AMY + PHONE_DESC_AMY + INVALID_EMAIL_DESC + ADDRESS_DESC_AMY
+                + AMOUNT_DESC_AMY + TYPE_DESC_AMY + DEADLINE_DESC_AMY;
         assertCommandFailure(command, Email.MESSAGE_EMAIL_CONSTRAINTS);
 
         /* Case: invalid address -> rejected */
-        command = AddCommand.COMMAND_WORD + NAME_DESC_AMY + PHONE_DESC_AMY + EMAIL_DESC_AMY + INVALID_ADDRESS_DESC;
+        command = AddCommand.COMMAND_WORD + NAME_DESC_AMY + PHONE_DESC_AMY + EMAIL_DESC_AMY + INVALID_ADDRESS_DESC
+                + AMOUNT_DESC_AMY + TYPE_DESC_AMY + DEADLINE_DESC_AMY;
         assertCommandFailure(command, Address.MESSAGE_ADDRESS_CONSTRAINTS);
 
         /* Case: invalid tag -> rejected */
         command = AddCommand.COMMAND_WORD + NAME_DESC_AMY + PHONE_DESC_AMY + EMAIL_DESC_AMY + ADDRESS_DESC_AMY
-                + INVALID_TAG_DESC;
+                + AMOUNT_DESC_AMY + TYPE_DESC_AMY + DEADLINE_DESC_AMY + INVALID_TAG_DESC;
         assertCommandFailure(command, Tag.MESSAGE_TAG_CONSTRAINTS);
     }
 

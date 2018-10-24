@@ -13,6 +13,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Stream;
 
+import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.commands.FilterCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.transaction.FieldContainsKeywordsPredicate;

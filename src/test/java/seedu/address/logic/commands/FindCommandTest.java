@@ -8,7 +8,7 @@ import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.testutil.TypicalPersons.CARL;
 import static seedu.address.testutil.TypicalPersons.ELLE;
 import static seedu.address.testutil.TypicalPersons.FIONA;
-import static seedu.address.testutil.TypicalTransactions.getTypicalFinancialDatabase;
+import static seedu.address.testutil.TypicalTransactions.*;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -73,7 +73,8 @@ public class FindCommandTest {
         FindCommand command = new FindCommand(predicate);
         expectedModel.updateFilteredTransactionList(predicate);
         assertCommandSuccess(command, model, commandHistory, expectedMessage, expectedModel);
-        assertEquals(Arrays.asList(CARL, ELLE, FIONA), model.getFilteredTransactionList());
+        assertEquals(Arrays.asList(CARL_TRANSACTION, ELLE_TRANSACTION, FIONA_TRANSACTION),
+                model.getFilteredTransactionList());
     }
 
     /**

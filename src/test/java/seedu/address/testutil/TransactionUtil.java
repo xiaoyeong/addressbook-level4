@@ -59,6 +59,12 @@ public class TransactionUtil {
         descriptor.getPhone().ifPresent(phone -> sb.append(PREFIX_PHONE).append(phone.value).append(" "));
         descriptor.getEmail().ifPresent(email -> sb.append(PREFIX_EMAIL).append(email.value).append(" "));
         descriptor.getAddress().ifPresent(address -> sb.append(PREFIX_ADDRESS).append(address.value).append(" "));
+        descriptor.getAmount().ifPresent(amount -> sb.append(PREFIX_TRANSACTION_AMOUNT).append(amount.value)
+                .append(" "));
+        descriptor.getDeadline().ifPresent(deadline -> sb.append(PREFIX_TRANSACTION_DEADLINE).append(deadline.value)
+                .append(" "));
+        descriptor.getType().ifPresent(type -> sb.append(PREFIX_TRANSACTION_TYPE).append(type.value)
+                .append(" "));
         if (descriptor.getTags().isPresent()) {
             Set<Tag> tags = descriptor.getTags().get();
             if (tags.isEmpty()) {

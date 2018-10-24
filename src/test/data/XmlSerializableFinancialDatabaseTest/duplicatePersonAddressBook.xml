@@ -1,22 +1,27 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <financialdatabase>
 
-    <persons>
-		<uniqueId>1</uniqueId>
+    <transactions>
+        <amount>SGD 42.50</amount>
+        <type>Loan</type>
+        <deadline>12/11/2018</deadline>
         <name>Alice Pauline</name>
         <phone>94351253</phone>
         <email>alice@example.com</email>
         <address>123, Jurong West Ave 6, #08-111</address>
         <tagged>friends</tagged>
-    </persons>
+    </transactions>
 
     <!-- Person with same identity as Alice Pauline -->
-    <persons>
-		<uniqueId>1</uniqueId>
+    <transactions>
+        <amount>SGD 42.50</amount>
+        <type>Loan</type>
+        <deadline>12/11/2018</deadline>
         <name>Alice Pauline</name>
         <phone>94351253</phone>
-        <email>pauline@example.com</email>
-        <address>4th street</address>
-    </persons>
+        <email>alice@example.com</email>
+        <address>123, Jurong West Ave 6, #08-111</address>
+        <tagged>friends</tagged>
+    </transactions>
 
 </financialdatabase>

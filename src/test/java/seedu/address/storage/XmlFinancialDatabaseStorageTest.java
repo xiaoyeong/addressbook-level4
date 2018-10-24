@@ -3,8 +3,8 @@ package seedu.address.storage;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static seedu.address.testutil.TypicalTransactions.ALICE_TRANSACTION;
-import static seedu.address.testutil.TypicalTransactions.BOB_TRANSACTION;
-import static seedu.address.testutil.TypicalTransactions.CARL_TRANSACTION;
+import static seedu.address.testutil.TypicalTransactions.HOON_TRANSACTION;
+import static seedu.address.testutil.TypicalTransactions.IDA_TRANSACTION;
 
 import static seedu.address.testutil.TypicalTransactions.getTypicalFinancialDatabase;
 
@@ -88,14 +88,14 @@ public class XmlFinancialDatabaseStorageTest {
         assertEquals(original, new FinancialDatabase(readBack));
 
         //Modify data, overwrite exiting file, and read back
-        original.addTransaction(BOB_TRANSACTION);
+        original.addTransaction(HOON_TRANSACTION);
         original.removeTransaction(ALICE_TRANSACTION);
         xmlAddressBookStorage.saveFinancialDatabase(original, filePath);
         readBack = xmlAddressBookStorage.readFinancialDatabase(filePath).get();
         assertEquals(original, new FinancialDatabase(readBack));
 
         //Save and read without specifying file path
-        original.addTransaction(CARL_TRANSACTION);
+        original.addTransaction(IDA_TRANSACTION);
         xmlAddressBookStorage.saveFinancialDatabase(original); //file path not specified
         readBack = xmlAddressBookStorage.readFinancialDatabase().get(); //file path not specified
         assertEquals(original, new FinancialDatabase(readBack));

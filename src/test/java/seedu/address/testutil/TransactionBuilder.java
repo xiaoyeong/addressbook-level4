@@ -59,10 +59,10 @@ public class TransactionBuilder {
     }
 
     /**
-     * Sets the {@code Amount} of the {@code Transaction} that we are building.
+     * Sets the {@code Deadline} of the {@code Transaction} that we are building.
      */
-    public TransactionBuilder withDeadline(String amount) {
-        this.amount = new Amount(amount);
+    public TransactionBuilder withDeadline(String deadline) {
+        this.deadline = new Deadline(deadline);
         return this;
     }
 
