@@ -15,10 +15,10 @@ import seedu.address.model.util.SampleDataUtil;
  *
  */
 public class TransactionBuilder {
-    public static final String DEFAULT_TYPE = "Loan";
-    public static final String DEFAULT_AMOUNT = "SGD 10.00";
-    public static final Person DEFAULT_PERSON = TypicalPersons.AMY;
-    public static final String DEFAULT_DEADLINE = "12/11/2018";
+    private static final String DEFAULT_TYPE = "Loan";
+    private static final String DEFAULT_AMOUNT = "SGD 10.00";
+    private static final Person DEFAULT_PERSON = TypicalPersons.AMY;
+    private static final String DEFAULT_DEADLINE = "12/11/2018";
 
     private Type type;
     private Amount amount;

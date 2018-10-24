@@ -30,7 +30,10 @@ public class AnalyticsCommand extends Command {
 
     private final Deadline deadline;
 
-    public AnalyticsCommand() { this.deadline = null; }
+    public AnalyticsCommand() {
+        this.deadline = null;
+    }
+
     public AnalyticsCommand(Deadline deadline) {
         this.deadline = deadline;
     }

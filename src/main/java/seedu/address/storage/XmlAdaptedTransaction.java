@@ -10,13 +10,17 @@ import java.util.stream.Collectors;
 import javax.xml.bind.annotation.XmlElement;
 
 import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.model.person.*;
+import seedu.address.model.person.Address;
+import seedu.address.model.person.Email;
+import seedu.address.model.person.Name;
+import seedu.address.model.person.Person;
+import seedu.address.model.person.Phone;
+import seedu.address.model.person.Photo;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.transaction.Amount;
 import seedu.address.model.transaction.Deadline;
 import seedu.address.model.transaction.Transaction;
 import seedu.address.model.transaction.Type;
-
 
 /**
  * JAXB-friendly version of the Person.
@@ -167,11 +171,11 @@ public class XmlAdaptedTransaction {
         int a = 0;
         int b = 0;
         Photo phot = new Photo();
-        if (this.photo == null){
+        if (this.photo == null) {
             a = 1;
             b = 1;
         }
-        if ( a == 0 && Photo.isValidPhoto(this.photo) && b == 0) {
+        if (a == 0 && Photo.isValidPhoto(this.photo) && b == 0) {
             phot = new Photo(this.photo);
         }
 
@@ -201,15 +205,13 @@ public class XmlAdaptedTransaction {
     }
 
     @Override
-    public String toString(){
-
+    public String toString() {
         String tagss = "";
-        for (XmlAdaptedTag tag:tagged){
+        for (XmlAdaptedTag tag:tagged) {
             try {
                 tagss += tag.toModelType().tagName + ";";
-            }
-            catch (IllegalValueException ex){
-
+            } catch (IllegalValueException ex) {
+                ex.printStackTrace();
             }
         }
         return "type: " + type + "\n"

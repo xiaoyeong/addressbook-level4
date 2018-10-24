@@ -18,11 +18,9 @@ import org.junit.rules.ExpectedException;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import seedu.address.model.person.Person;
 import seedu.address.model.transaction.Transaction;
 import seedu.address.model.transaction.exceptions.DuplicateTransactionException;
 import seedu.address.testutil.TransactionBuilder;
-import seedu.address.testutil.TypicalPersons;
 
 public class FinancialDatabaseTest {
 

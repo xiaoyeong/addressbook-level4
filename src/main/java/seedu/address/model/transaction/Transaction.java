@@ -1,8 +1,8 @@
 package seedu.address.model.transaction;
 
 import java.util.Objects;
-import java.util.logging.Logger;
 import java.util.Random;
+import java.util.logging.Logger;
 
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.exceptions.IllegalValueException;
@@ -19,7 +19,7 @@ public class Transaction {
     private final Amount amount;
     private final Person person;
     private final Deadline deadline;
-    private  Photo photo;
+    private Photo photo;
 
     private Interest interest;
     private final Logger logger = LogsCenter.getLogger(getClass());
@@ -41,8 +41,9 @@ public class Transaction {
         this.photo = photo;
     }
     //create a copy instance
-    public Transaction(Transaction thisTransaction){
-        this(thisTransaction.getType(),thisTransaction.getAmount(),thisTransaction.getDeadline(),thisTransaction.getPerson(), thisTransaction.getPhoto() );
+    public Transaction(Transaction thisTransaction) {
+        this(thisTransaction.getType(), thisTransaction.getAmount(), thisTransaction.getDeadline(),
+                thisTransaction.getPerson(), thisTransaction.getPhoto());
     }
 
     public Transaction(Type type, Amount amount, Deadline deadline, Person person) {
@@ -74,14 +75,18 @@ public class Transaction {
         return interest;
     }
 
-    public Photo getPhoto() { return photo; }
+    public Photo getPhoto() {
+        return photo;
+    }
 
-    public void deletePhoto() { this.photo = new Photo(); }
+    public void deletePhoto() {
+        this.photo = new Photo();
+    }
 
     public void setPhoto(String photoPath) throws IllegalValueException {
         Photo previousPhoto = this.photo;
         try {
-            this.photo = new Photo( photoPath, photoUniqueId());
+            this.photo = new Photo(photoPath, photoUniqueId());
         } catch (IllegalValueException e) {
             //if could not change photo setback to the previous photo
             this.photo = previousPhoto;
@@ -92,6 +97,9 @@ public class Transaction {
 
     }
 
+    /**
+     * Generates a unique id for each photo.
+     */
     public String photoUniqueId() {
         int targetStringLength = 15;
         String value;
@@ -110,9 +118,7 @@ public class Transaction {
             }
             buffer.append(randomLimitedInt);
         }
-        String generatedString = buffer.toString();
-        value = generatedString;
-        return value;
+        return buffer.toString();
     }
 
     @Override
