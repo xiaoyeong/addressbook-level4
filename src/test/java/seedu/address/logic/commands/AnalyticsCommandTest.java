@@ -35,7 +35,7 @@ public class AnalyticsCommandTest {
             AnalyticsCommand analyticsCommand = new AnalyticsCommand(checkDate);
             assertCommandSuccess(analyticsCommand, model, history, expectedMessage, expectedModel);
         } catch (Exception DataConversionException ) {
-            //Test case is no longer valid as the date have pass.
+            //Test case is no longer valid as the date has already passed.
         }
     }
 
@@ -54,7 +54,7 @@ public class AnalyticsCommandTest {
             AnalyticsCommand analyticsCommand = new AnalyticsCommand(checkDate);
             assertCommandSuccess(analyticsCommand, modelWithData, history, expectedMessage, expectedModelWithData);
         } catch (Exception DataConversionException ) {
-            //Test case is no longer valid as the date have pass.
+            //Test case is no longer valid as the date has already passed.
         }
     }
 
@@ -67,7 +67,7 @@ public class AnalyticsCommandTest {
             AnalyticsCommand analyticsCommand = new AnalyticsCommand(checkDate);
             assertCommandSuccess(analyticsCommand, modelWithData, history, expectedMessage, expectedModelWithData);
         } catch (Exception DataConversionException ) {
-            //Test case is no longer valid as the date have pass.
+            //Test case is no longer valid as the date has already passed.
         }
     }
 
@@ -80,7 +80,7 @@ public class AnalyticsCommandTest {
             AnalyticsCommand analyticsCommand = new AnalyticsCommand(checkDate);
             assertCommandSuccess(analyticsCommand, modelWithData, history, expectedMessage, expectedModelWithData);
         } catch (Exception DataConversionException ) {
-        //Test case is no longer valid as the date have pass.
+        //Test case is no longer valid as the date has already passed.
     }
     }
     @Test
@@ -92,7 +92,7 @@ public class AnalyticsCommandTest {
             AnalyticsCommand analyticsCommand = new AnalyticsCommand(checkDate);
             assertCommandSuccess(analyticsCommand, modelWithData, history, expectedMessage, expectedModelWithData);
         } catch (Exception DataConversionException ) {
-            //Test case is no longer valid as the date have pass.
+            //Test case is no longer valid as the date has already passed.
         }
     }
 }
