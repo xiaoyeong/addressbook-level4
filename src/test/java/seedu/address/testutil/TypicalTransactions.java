@@ -52,7 +52,7 @@ public class TypicalTransactions {
             .withAmount("SGD 42.50")
             .withType("Loan")
             .withDeadline("12/11/2018").build();
-    public static final Transaction CALVIN_TRANSACTION = new TransactionBuilder().withPerson(TypicalPersons.BOB)
+    public static final Transaction CALVIN_TRANSACTION = new TransactionBuilder().withPerson(TypicalPersons.CALVIN)
             .withAmount("SGD 42.50")
             .withType("Debt")
             .withDeadline("19/11/2018").build();

@@ -21,81 +21,61 @@ public class AnalyticsCommandTest {
 
 
     @Test
-    public void execute_emptyFinancialList() {
+    public void execute_emptyFinancialListWithNoDate() {
         String expectedMessage = "Financial status : SGD 0.00";
         AnalyticsCommand analyticsCommand = new AnalyticsCommand();
         assertCommandSuccess(analyticsCommand, model, history, expectedMessage, expectedModel);
     }
     
     @Test
-    public void execute_emptyFinancialList_withValidDate() {
-        try {
-            String date = "12/12/2020";
-            Deadline checkDate = new Deadline(date);
-            String expectedMessage = "Financial status : SGD 0.00";
-            AnalyticsCommand analyticsCommand = new AnalyticsCommand(checkDate);
-            assertCommandSuccess(analyticsCommand, model, history, expectedMessage, expectedModel);
-        } catch (Exception DataConversionException ) {
-            //Test case is no longer valid as the date has already passed.
-        }
+    public void execute_emptyFinancialListWithDate_When_DatePassed_Then_TestWillFail() {
+        String date = "12/12/2020";
+        Deadline checkDate = new Deadline(date);
+        String expectedMessage = "Financial status : SGD 0.00";
+        AnalyticsCommand analyticsCommand = new AnalyticsCommand(checkDate);
+        assertCommandSuccess(analyticsCommand, model, history, expectedMessage, expectedModel);
     }
 
     @Test
-    public void execute_non_emptyFinancialList_withNoDate() {
+    public void execute_non_emptyFinancialListWithNoDate() {
         String expectedMessage = "Financial status : SGD 188.10";
         AnalyticsCommand analyticsCommand = new AnalyticsCommand();
         assertCommandSuccess(analyticsCommand, modelWithData, history, expectedMessage, expectedModelWithData);
     }
     
     @Test
-    public void execute_non_emptyFinancialList_withDate() {
-        try {
-            String date = "11/11/2018";
-            Deadline checkDate = new Deadline(date);
-            String expectedMessage = "Financial status : SGD 0.00";
-            AnalyticsCommand analyticsCommand = new AnalyticsCommand(checkDate);
-            assertCommandSuccess(analyticsCommand, modelWithData, history, expectedMessage, expectedModelWithData);
-        } catch (Exception DataConversionException ) {
-            //Test case is no longer valid as the date has already passed.
-        }
+    public void execute_non_emptyFinancialListWithDate_When_DatePassed_Then_TestWillFail() {
+        String date = "11/11/2018";
+        Deadline checkDate = new Deadline(date);
+        String expectedMessage = "Financial status : SGD 0.00";
+        AnalyticsCommand analyticsCommand = new AnalyticsCommand(checkDate);
+        assertCommandSuccess(analyticsCommand, modelWithData, history, expectedMessage, expectedModelWithData);
     }
 
     @Test
-    public void execute_non_emptyFinancialList_withDateTest2() {
-        try {
-            String date = "12/11/2018";
-            Deadline checkDate = new Deadline(date);
-            String expectedMessage = "Financial status : SGD 85.00";
-            AnalyticsCommand analyticsCommand = new AnalyticsCommand(checkDate);
-            assertCommandSuccess(analyticsCommand, modelWithData, history, expectedMessage, expectedModelWithData);
-        } catch (Exception DataConversionException ) {
-            //Test case is no longer valid as the date has already passed.
-        }
+    public void execute_non_emptyFinancialListWithDateTest2_When_DatePassed_Then_TestWillFail() {
+        String date = "12/11/2018";
+        Deadline checkDate = new Deadline(date);
+        String expectedMessage = "Financial status : SGD 85.00";
+        AnalyticsCommand analyticsCommand = new AnalyticsCommand(checkDate);
+        assertCommandSuccess(analyticsCommand, modelWithData, history, expectedMessage, expectedModelWithData);
     }
 
     @Test
-    public void execute_non_emptyFinancialList_withDateTest3() {
-        try {
-            String date = "18/11/2018";
-            Deadline checkDate = new Deadline(date);
-            String expectedMessage = "Financial status : SGD 230.60";
-            AnalyticsCommand analyticsCommand = new AnalyticsCommand(checkDate);
-            assertCommandSuccess(analyticsCommand, modelWithData, history, expectedMessage, expectedModelWithData);
-        } catch (Exception DataConversionException ) {
-        //Test case is no longer valid as the date has already passed.
-        }
+    public void execute_non_emptyFinancialListWithDateTest3_When_DatePassed_Then_TestWillFail() {
+        String date = "18/11/2018";
+        Deadline checkDate = new Deadline(date);
+        String expectedMessage = "Financial status : SGD 230.60";
+        AnalyticsCommand analyticsCommand = new AnalyticsCommand(checkDate);
+        assertCommandSuccess(analyticsCommand, modelWithData, history, expectedMessage, expectedModelWithData);
     }
     
     @Test
-    public void execute_non_emptyFinancialList_withDateTest4() {
-        try{
-            String date = "12/12/2018";
-            Deadline checkDate = new Deadline(date);
-            String expectedMessage = "Financial status : SGD 188.10";
-            AnalyticsCommand analyticsCommand = new AnalyticsCommand(checkDate);
-            assertCommandSuccess(analyticsCommand, modelWithData, history, expectedMessage, expectedModelWithData);
-        } catch (Exception DataConversionException ) {
-            //Test case is no longer valid as the date has already passed.
-        }
+    public void execute_non_emptyFinancialListWithDateTest4_When_DatePassed_Then_TestWillFail() {
+        String date = "12/12/2018";
+        Deadline checkDate = new Deadline(date);
+        String expectedMessage = "Financial status : SGD 188.10";
+        AnalyticsCommand analyticsCommand = new AnalyticsCommand(checkDate);
+        assertCommandSuccess(analyticsCommand, modelWithData, history, expectedMessage, expectedModelWithData);
     }
 }
