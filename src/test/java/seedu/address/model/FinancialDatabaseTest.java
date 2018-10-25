@@ -3,12 +3,7 @@ package seedu.address.model;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_AMOUNT_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_TYPE_BOB;
-import static seedu.address.testutil.TypicalPersons.BOB;
+import static seedu.address.testutil.TypicalPersons.ALICE;
 import static seedu.address.testutil.TypicalTransactions.ALICE_TRANSACTION;
 import static seedu.address.testutil.TypicalTransactions.getTypicalFinancialDatabase;
 
@@ -23,10 +18,8 @@ import org.junit.rules.ExpectedException;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import seedu.address.model.person.Person;
-import seedu.address.model.person.exceptions.DuplicatePersonException;
 import seedu.address.model.transaction.Transaction;
-import seedu.address.testutil.PersonBuilder;
+import seedu.address.model.transaction.exceptions.DuplicateTransactionException;
 import seedu.address.testutil.TransactionBuilder;
 
 public class FinancialDatabaseTest {
@@ -56,15 +49,13 @@ public class FinancialDatabaseTest {
 
     @Test
     public void resetData_withDuplicatePersons_throwsDuplicatePersonException() {
-        // Two persons with the same identity fields
-        Person alice = new PersonBuilder().withName(VALID_NAME_BOB).withAddress(VALID_ADDRESS_BOB)
-                .withTags(VALID_TAG_HUSBAND).build();
-        Transaction editedAliceTransaction = new TransactionBuilder().withAmount(VALID_AMOUNT_BOB)
-                .withPerson(alice).build();
+        // Two transactions with the same fields
+        Transaction editedAliceTransaction = new TransactionBuilder().withPerson(ALICE).withAmount("SGD 42.50")
+                .withType("Loan").build();
         List<Transaction> newTransactions = Arrays.asList(ALICE_TRANSACTION, editedAliceTransaction);
         FinancialDatabaseStub newData = new FinancialDatabaseStub(newTransactions);
 
-        thrown.expect(DuplicatePersonException.class);
+        thrown.expect(DuplicateTransactionException.class);
         financialDatabase.resetData(newData);
     }
 
@@ -89,7 +80,6 @@ public class FinancialDatabaseTest {
     public void hasTransaction_identicalTransactionInFinancialDatabase_returnsTrue() {
         financialDatabase.addTransaction(ALICE_TRANSACTION);
         Transaction editedAlice = new TransactionBuilder(ALICE_TRANSACTION)
-                .withAmount(VALID_AMOUNT_BOB).withType(VALID_TYPE_BOB).withPerson(BOB)
                 .build();
         assertTrue(financialDatabase.hasTransaction(editedAlice));
     }

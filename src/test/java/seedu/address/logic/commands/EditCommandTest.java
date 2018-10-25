@@ -1,15 +1,16 @@
 package seedu.address.logic.commands;
 
-import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.DESC_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_AMOUNT_AMY;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_AMOUNT_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_DEADLINE_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_TYPE_AMY;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_TYPE_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.logic.commands.CommandTestUtil.showTransactionAtIndex;
@@ -56,21 +57,24 @@ public class EditCommandTest {
 
     @Test
     public void execute_someFieldsSpecifiedUnfilteredList_success() {
-        Index indexLastPerson = Index.fromOneBased(model.getFilteredTransactionList().size());
-        Transaction lastPerson = model.getFilteredTransactionList().get(indexLastPerson.getZeroBased());
+        Index indexLastTransaction = Index.fromOneBased(model.getFilteredTransactionList().size());
+        Transaction lastTransaction = model.getFilteredTransactionList().get(indexLastTransaction.getZeroBased());
 
 
-        TransactionBuilder personInList = new TransactionBuilder(lastPerson);
-        Transaction editedPerson = personInList.withAmount(VALID_AMOUNT_AMY).withType(VALID_TYPE_AMY).build();
+        TransactionBuilder transactionInList = new TransactionBuilder(lastTransaction);
+        Transaction editedTransaction = transactionInList.withName(VALID_NAME_BOB).withPhone(VALID_PHONE_BOB)
+                .withAmount(VALID_AMOUNT_BOB).withType(VALID_TYPE_BOB).withDeadline(VALID_DEADLINE_BOB)
+                .withTags(VALID_TAG_HUSBAND).build();
 
         EditTransactionDescriptor descriptor = new EditTransactionDescriptorBuilder().withName(VALID_NAME_BOB)
-                .withPhone(VALID_PHONE_BOB).withTags(VALID_TAG_HUSBAND).build();
-        EditCommand editCommand = new EditCommand(indexLastPerson, descriptor);
+                .withPhone(VALID_PHONE_BOB).withAmount(VALID_AMOUNT_BOB).withType(VALID_TYPE_BOB)
+                .withDeadline(VALID_DEADLINE_BOB).withTags(VALID_TAG_HUSBAND).build();
+        EditCommand editCommand = new EditCommand(indexLastTransaction, descriptor);
 
-        String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_TRANSACTION_SUCCESS, editedPerson);
+        String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_TRANSACTION_SUCCESS, editedTransaction);
 
         Model expectedModel = new ModelManager(new FinancialDatabase(model.getFinancialDatabase()), new UserPrefs());
-        expectedModel.updateTransaction(lastPerson, editedPerson);
+        expectedModel.updateTransaction(lastTransaction, editedTransaction);
         expectedModel.commitFinancialDatabase();
 
         assertCommandSuccess(editCommand, model, commandHistory, expectedMessage, expectedModel);
@@ -232,22 +236,22 @@ public class EditCommandTest {
         // same values -> returns true
         EditTransactionDescriptor copyDescriptor = new EditTransactionDescriptor(DESC_AMY);
         EditCommand commandWithSameValues = new EditCommand(INDEX_FIRST_TRANSACTION, copyDescriptor);
-        assertTrue(standardCommand.equals(commandWithSameValues));
+        assertEquals(standardCommand, commandWithSameValues);
 
         // same object -> returns true
-        assertTrue(standardCommand.equals(standardCommand));
+        assertEquals(standardCommand, standardCommand);
 
         // null -> returns false
-        assertFalse(standardCommand.equals(null));
+        assertNotEquals(null, standardCommand);
 
         // different types -> returns false
-        assertFalse(standardCommand.equals(new ClearCommand()));
+        assertNotEquals(standardCommand, new ClearCommand());
 
         // different index -> returns false
-        assertFalse(standardCommand.equals(new EditCommand(INDEX_SECOND_TRANSACTION, DESC_AMY)));
+        assertNotEquals(standardCommand, new EditCommand(INDEX_SECOND_TRANSACTION, DESC_AMY));
 
         // different descriptor -> returns false
-        assertFalse(standardCommand.equals(new EditCommand(INDEX_FIRST_TRANSACTION, DESC_BOB)));
+        assertNotEquals(standardCommand, new EditCommand(INDEX_FIRST_TRANSACTION, DESC_BOB));
     }
 
 }

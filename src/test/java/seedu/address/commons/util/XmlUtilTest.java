@@ -41,7 +41,7 @@ public class XmlUtilTest {
     private static final String VALID_DEADLINE = "16/11/2018";
     private static final String VALID_NAME = "Hans Muster";
     private static final String VALID_PHONE = "9482424";
-    private static final String VALID_EMAIL = "hans@example";
+    private static final String VALID_EMAIL = "hans@example.com";
     private static final String VALID_ADDRESS = "4th street";
     private static final List<XmlAdaptedTag> VALID_TAGS = Collections.singletonList(new XmlAdaptedTag("friends"));
 
@@ -94,7 +94,7 @@ public class XmlUtilTest {
         XmlAdaptedTransaction actualTransaction = XmlUtil.getDataFromFile(
                 INVALID_TRANSACTION_FIELD_FILE, XmlAdaptedTransactionWithRootElement.class);
         XmlAdaptedTransaction expectedTransaction = new XmlAdaptedTransaction(
-                INVALID_AMOUNT, VALID_TYPE, VALID_DEADLINE, VALID_NAME, VALID_EMAIL, VALID_PHONE,
+                VALID_TYPE, INVALID_AMOUNT, VALID_DEADLINE, VALID_NAME, VALID_PHONE, VALID_EMAIL,
                 VALID_ADDRESS, VALID_TAGS);
         assertEquals(expectedTransaction, actualTransaction);
     }
@@ -104,7 +104,7 @@ public class XmlUtilTest {
         XmlAdaptedTransaction actualTransaction = XmlUtil.getDataFromFile(
                 VALID_TRANSACTION_FILE, XmlAdaptedTransactionWithRootElement.class);
         XmlAdaptedTransaction expectedTransaction = new XmlAdaptedTransaction(
-                VALID_TYPE, VALID_AMOUNT, VALID_DEADLINE, VALID_NAME, VALID_EMAIL, VALID_PHONE,
+                VALID_TYPE, VALID_AMOUNT, VALID_DEADLINE, VALID_NAME, VALID_PHONE, VALID_EMAIL,
                 VALID_ADDRESS, VALID_TAGS);
         assertEquals(expectedTransaction, actualTransaction);
     }

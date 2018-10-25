@@ -11,7 +11,7 @@ import com.fasterxml.jackson.annotation.JsonValue;
  */
 public class Version implements Comparable<Version> {
 
-    public static final String VERSION_REGEX = "V(\\d+)\\.(\\d+)\\.(\\d+)(ea)?";
+    private static final String VERSION_REGEX = "V(\\d+)\\.(\\d+)\\.(\\d+)(ea)?";
 
     private static final String EXCEPTION_STRING_NOT_VERSION = "String is not a valid Version. %s";
 
@@ -29,19 +29,19 @@ public class Version implements Comparable<Version> {
         this.isEarlyAccess = isEarlyAccess;
     }
 
-    public int getMajor() {
+    int getMajor() {
         return major;
     }
 
-    public int getMinor() {
+    int getMinor() {
         return minor;
     }
 
-    public int getPatch() {
+    int getPatch() {
         return patch;
     }
 
-    public boolean isEarlyAccess() {
+    boolean isEarlyAccess() {
         return isEarlyAccess;
     }
 
@@ -61,7 +61,7 @@ public class Version implements Comparable<Version> {
         return new Version(Integer.parseInt(versionMatcher.group(1)),
                 Integer.parseInt(versionMatcher.group(2)),
                 Integer.parseInt(versionMatcher.group(3)),
-                versionMatcher.group(4) == null ? false : true);
+                versionMatcher.group(4) != null);
     }
 
     @JsonValue

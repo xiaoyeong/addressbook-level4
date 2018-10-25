@@ -20,7 +20,7 @@ public class Type {
     public Type(String type) {
         requireNonNull(type);
         checkArgument(isValidType(type), MESSAGE_TRANSACTION_TYPE_CONSTRAINTS);
-        value = type;
+        value = type.toLowerCase();
     }
 
 
@@ -45,7 +45,7 @@ public class Type {
             return false;
         }
         Type type = (Type) other;
-        return other == this || value.equals(type.value);
+        return other == this || value.equalsIgnoreCase(type.value);
     }
 
     @Override

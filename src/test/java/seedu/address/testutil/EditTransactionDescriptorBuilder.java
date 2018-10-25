@@ -38,7 +38,11 @@ public class EditTransactionDescriptorBuilder {
         descriptor.setAmount(transaction.getAmount());
         descriptor.setType(transaction.getType());
         descriptor.setDeadline(transaction.getDeadline());
-
+        descriptor.setAddress(transaction.getPerson().getAddress());
+        descriptor.setEmail(transaction.getPerson().getEmail());
+        descriptor.setName(transaction.getPerson().getName());
+        descriptor.setPhone(transaction.getPerson().getPhone());
+        descriptor.setTags(transaction.getPerson().getTags());
     }
 
     /**

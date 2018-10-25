@@ -138,7 +138,7 @@ public class ParserUtil {
     public static Deadline parseDeadline(String deadline) throws ParseException {
         requireNonNull(deadline);
         String trimmedDeadline = deadline.trim();
-        if (deadline.isEmpty()) {
+        if (deadline.isEmpty() || !Deadline.isValidDeadline(trimmedDeadline)) {
             throw new ParseException(UniqueId.MESSAGE_TRANSACTION_PERSONUID_CONSTRAINTS);
         }
         return new Deadline(trimmedDeadline);

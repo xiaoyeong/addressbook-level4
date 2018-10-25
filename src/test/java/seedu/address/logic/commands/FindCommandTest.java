@@ -5,9 +5,9 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static seedu.address.commons.core.Messages.MESSAGE_TRANSACTIONS_LISTED_OVERVIEW;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static seedu.address.testutil.TypicalPersons.CARL;
-import static seedu.address.testutil.TypicalPersons.ELLE;
-import static seedu.address.testutil.TypicalPersons.FIONA;
+import static seedu.address.testutil.TypicalTransactions.CARL_TRANSACTION;
+import static seedu.address.testutil.TypicalTransactions.ELLE_TRANSACTION;
+import static seedu.address.testutil.TypicalTransactions.FIONA_TRANSACTION;
 import static seedu.address.testutil.TypicalTransactions.getTypicalFinancialDatabase;
 
 import java.util.Arrays;
@@ -73,7 +73,8 @@ public class FindCommandTest {
         FindCommand command = new FindCommand(predicate);
         expectedModel.updateFilteredTransactionList(predicate);
         assertCommandSuccess(command, model, commandHistory, expectedMessage, expectedModel);
-        assertEquals(Arrays.asList(CARL, ELLE, FIONA), model.getFilteredTransactionList());
+        assertEquals(Arrays.asList(CARL_TRANSACTION, ELLE_TRANSACTION, FIONA_TRANSACTION),
+                model.getFilteredTransactionList());
     }
 
     /**

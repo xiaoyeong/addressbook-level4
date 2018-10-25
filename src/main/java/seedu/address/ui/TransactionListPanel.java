@@ -23,7 +23,7 @@ public class TransactionListPanel extends UiPart<Region> {
     private final Logger logger = LogsCenter.getLogger(TransactionListPanel.class);
 
     @FXML
-    private ListView<Transaction> personListView;
+    private ListView<Transaction> transactionListView;
 
     public TransactionListPanel(ObservableList<Transaction> transactionList) {
         super(FXML);
@@ -32,14 +32,14 @@ public class TransactionListPanel extends UiPart<Region> {
     }
 
     private void setConnections(ObservableList<Transaction> personList) {
-        personListView.setItems(personList);
-        personListView.setCellFactory(listView -> new TransactionListViewCell());
+        transactionListView.setItems(personList);
+        transactionListView.setCellFactory(listView -> new TransactionListViewCell());
         setEventHandlerForSelectionChangeEvent();
     }
 
 
     private void setEventHandlerForSelectionChangeEvent() {
-        personListView.getSelectionModel().selectedItemProperty()
+        transactionListView.getSelectionModel().selectedItemProperty()
                 .addListener((observable, oldValue, newValue) -> {
                     if (newValue != null) {
                         logger.fine("Selection in transaction list panel changed to : '" + newValue + "'");
@@ -53,8 +53,8 @@ public class TransactionListPanel extends UiPart<Region> {
      */
     private void scrollTo(int index) {
         Platform.runLater(() -> {
-            personListView.scrollTo(index);
-            personListView.getSelectionModel().clearAndSelect(index);
+            transactionListView.scrollTo(index);
+            transactionListView.getSelectionModel().clearAndSelect(index);
         });
     }
 

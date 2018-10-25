@@ -3,8 +3,11 @@ package seedu.address.model.transaction;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.time.DateTimeException;
 import java.time.LocalDate;
+import java.util.Date;
 
 import seedu.address.commons.core.LogsCenter;
 
@@ -64,15 +67,33 @@ public class Deadline {
 
     @Override
     public boolean equals(Object other) {
-        if (!(other instanceof Type)) {
+        if (!(other instanceof Deadline)) {
             return false;
         }
-        Type type = (Type) other;
-        return other == this || value.equals(type.value);
+        Deadline deadline = (Deadline) other;
+        return other == this || value.equals(deadline.value);
     }
 
     @Override
     public int hashCode() {
         return value.hashCode();
     }
+
+    /**
+     * Compare two deadline and check which deadline is nearer
+     * @param other the other deadline to compare.
+     */
+    public int compareTo(Deadline other) {
+        try {
+            Date dateOne = new SimpleDateFormat("dd/MM/yyyy").parse(this.toString());
+            Date dateTwo = new SimpleDateFormat("dd/MM/yyyy").parse(other.toString());
+            if (dateOne.compareTo(dateTwo) > -1) {
+                return 1;
+            }
+            return -1;
+        } catch (ParseException e) {
+            return 2;
+        }
+    }
+
 }

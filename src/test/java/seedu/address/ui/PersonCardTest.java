@@ -1,8 +1,7 @@
 package seedu.address.ui;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.assertNotEquals;
 import static seedu.address.ui.testutil.GuiTestAssert.assertCardDisplaysTransaction;
 
 import org.junit.Test;
@@ -17,7 +16,7 @@ public class PersonCardTest extends GuiUnitTest {
     @Test
     public void display() {
         // no tags
-        Transaction personWithNoTags = new TransactionBuilder().withTags(new String[0]).build();
+        Transaction personWithNoTags = new TransactionBuilder().withTags().build();
         TransactionCard personCard = new TransactionCard(personWithNoTags, 1);
         uiPartRule.setUiPart(personCard);
         assertCardDisplay(personCard, personWithNoTags, 1);
@@ -36,23 +35,23 @@ public class PersonCardTest extends GuiUnitTest {
 
         // same transaction, same index -> returns true
         TransactionCard copy = new TransactionCard(person, 0);
-        assertTrue(personCard.equals(copy));
+        assertEquals(personCard, copy);
 
         // same object -> returns true
-        assertTrue(personCard.equals(personCard));
+        assertEquals(personCard, personCard);
 
         // null -> returns false
-        assertFalse(personCard.equals(null));
+        assertNotEquals(null, personCard);
 
         // different types -> returns false
-        assertFalse(personCard.equals(0));
+        assertNotEquals(0, personCard);
 
         // different transaction, same index -> returns false
         Transaction differentPerson = new TransactionBuilder().withName("differentName").build();
-        assertFalse(personCard.equals(new TransactionCard(differentPerson, 0)));
+        assertNotEquals(personCard, new TransactionCard(differentPerson, 0));
 
         // same transaction, different index -> returns false
-        assertFalse(personCard.equals(new TransactionCard(person, 1)));
+        assertNotEquals(personCard, new TransactionCard(person, 1));
     }
 
     /**

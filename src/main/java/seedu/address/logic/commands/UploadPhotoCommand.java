@@ -19,15 +19,13 @@ import seedu.address.model.transaction.Transaction;
  * Uploads a photo for a person involved in a transaction with the user.
  */
 public class UploadPhotoCommand extends Command {
-    private final Logger logger = LogsCenter.getLogger(getClass());
-
-    public static final String COMMAND_WORD = "uploadphoto";
     public static final String COMMAND_ALIAS = "uploadp";
     public static final String MESSAGE_SUCCESS = "New photo added: %1$s";
-
+    public static final String COMMAND_WORD = "uploadphoto";
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": upload image to that transaction contact";
 
+    private final Logger logger = LogsCenter.getLogger(getClass());
     private String filePath;
     private Index photoIndex;
 
