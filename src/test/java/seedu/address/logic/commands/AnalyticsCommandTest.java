@@ -28,7 +28,7 @@ public class AnalyticsCommandTest {
     }
 
     @Test
-    public void execute_emptyFinancialListWithDate_When_DatePassed_Then_TestWillFail() {
+    public void execute_emptyFinancialListWithDate_whenDatePassedThenTestWillFail() {
         String date = "12/12/2020";
         Deadline checkDate = new Deadline(date);
         String expectedMessage = "Financial status : SGD 0.00";
@@ -44,7 +44,7 @@ public class AnalyticsCommandTest {
     }
 
     @Test
-    public void execute_non_emptyFinancialListWithDate_When_DatePassed_Then_TestWillFail() {
+    public void execute_nonEmptyFinancialListWithDate_whenDatePassedThenTestWillFail() {
         String date = "11/11/2018";
         Deadline checkDate = new Deadline(date);
         String expectedMessage = "Financial status : SGD 0.00";
@@ -53,7 +53,7 @@ public class AnalyticsCommandTest {
     }
 
     @Test
-    public void execute_non_emptyFinancialListWithDateTest2_When_DatePassed_Then_TestWillFail() {
+    public void execute_nonEmptyFinancialListWithDateTest2_whenDatePassedThenTestWillFail() {
         String date = "12/11/2018";
         Deadline checkDate = new Deadline(date);
         String expectedMessage = "Financial status : SGD 85.00";
@@ -62,7 +62,7 @@ public class AnalyticsCommandTest {
     }
 
     @Test
-    public void execute_non_emptyFinancialListWithDateTest3_When_DatePassed_Then_TestWillFail() {
+    public void execute_nonEmptyFinancialListWithDateTest3_whenDatePassedThenTestWillFail() {
         String date = "18/11/2018";
         Deadline checkDate = new Deadline(date);
         String expectedMessage = "Financial status : SGD 230.60";
@@ -71,7 +71,7 @@ public class AnalyticsCommandTest {
     }
 
     @Test
-    public void execute_non_emptyFinancialListWithDateTest4_When_DatePassed_Then_TestWillFail() {
+    public void execute_nonEmptyFinancialListWithDateTest4_whenDatePassedThenTestWillFail() {
         String date = "12/12/2018";
         Deadline checkDate = new Deadline(date);
         String expectedMessage = "Financial status : SGD 188.10";

@@ -33,7 +33,7 @@ public class ConvertCommand extends Command {
         StringBuilder convertedAmounts = new StringBuilder();
         for (int i = 0; i < amounts.size(); i += 2) {
             Amount currentAmount = new Amount(amounts.get(i) + " " + amounts.get(i + 1));
-            convertedAmounts.append(Amount.convertCurrency(currentAmount));
+            convertedAmounts.append(Amount.convertCurrency(currentAmount)).append(" ");
         }
         return new CommandResult(String.format(MESSAGE_SUCCESS, convertedAmounts));
     }
