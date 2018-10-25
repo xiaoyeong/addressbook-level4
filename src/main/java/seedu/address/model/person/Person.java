@@ -23,7 +23,6 @@ public class Person {
     // Data fields
     private final Address address;
     private final Set<Tag> tags = new HashSet<>();
-    private Photo photo;
 
     /**
      * Parameterized constructor that takes in a UniqueId argument

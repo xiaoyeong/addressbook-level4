@@ -9,7 +9,6 @@ import java.time.DateTimeException;
 import java.time.LocalDate;
 import java.util.Date;
 
-
 import seedu.address.commons.core.LogsCenter;
 
 /**
@@ -68,11 +67,11 @@ public class Deadline {
 
     @Override
     public boolean equals(Object other) {
-        if (!(other instanceof Type)) {
+        if (!(other instanceof Deadline)) {
             return false;
         }
-        Type type = (Type) other;
-        return other == this || value.equals(type.value);
+        Deadline deadline = (Deadline) other;
+        return other == this || value.equals(deadline.value);
     }
 
     @Override

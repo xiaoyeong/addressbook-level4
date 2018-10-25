@@ -17,10 +17,6 @@ import seedu.address.logic.commands.FilterCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.transaction.FieldContainsKeywordsPredicate;
 
-
-
-
-
 /**
  * Parses input arguments and creates a new AddCommand object
  */

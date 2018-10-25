@@ -20,6 +20,7 @@ import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
+import seedu.address.model.person.Photo;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.transaction.Amount;
 import seedu.address.model.transaction.Deadline;
@@ -58,7 +59,8 @@ public class AddCommandParser implements Parser<AddCommand> {
         Deadline deadline = ParserUtil.parseDeadline(argMultimap.getValue(PREFIX_TRANSACTION_DEADLINE).get());
 
         Person person = new Person(name, phone, email, address, tagList);
-        Transaction transaction = new Transaction(type, amount, deadline, person);
+        Photo pic = new Photo();
+        Transaction transaction = new Transaction(type, amount, deadline, person, pic);
         return new AddCommand(transaction);
     }
 
@@ -87,9 +89,9 @@ public class AddCommandParser implements Parser<AddCommand> {
         Email email = ParserUtil.parseEmail(argMultimap.getValue(PREFIX_EMAIL).get());
         Address address = ParserUtil.parseAddress(argMultimap.getValue(PREFIX_ADDRESS).get());
         Set<Tag> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
-
+        Photo pic = new Photo();
         Transaction transaction = new Transaction(type, amount, deadline, new Person(name, phone, email, address,
-                tagList));
+                tagList), pic);
 
         return new AddCommand(transaction);
     }

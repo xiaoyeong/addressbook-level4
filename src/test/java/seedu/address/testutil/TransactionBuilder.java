@@ -15,10 +15,10 @@ import seedu.address.model.util.SampleDataUtil;
  *
  */
 public class TransactionBuilder {
-    public static final String DEFAULT_TYPE = "Loan";
-    public static final String DEFAULT_AMOUNT = "SGD 10.00";
-    public static final Person DEFAULT_PERSON = TypicalPersons.AMY;
-    public static final String DEFAULT_DEADLINE = "12/11/2018";
+    private static final String DEFAULT_TYPE = "Loan";
+    private static final String DEFAULT_AMOUNT = "SGD 10.00";
+    private static final Person DEFAULT_PERSON = TypicalPersons.AMY;
+    private static final String DEFAULT_DEADLINE = "12/11/2018";
 
     private Type type;
     private Amount amount;
@@ -39,6 +39,7 @@ public class TransactionBuilder {
         type = transactionToCopy.getType();
         amount = transactionToCopy.getAmount();
         person = transactionToCopy.getPerson();
+        deadline = transactionToCopy.getDeadline();
     }
 
     /**
@@ -54,6 +55,14 @@ public class TransactionBuilder {
      */
     public TransactionBuilder withAmount(String amount) {
         this.amount = new Amount(amount);
+        return this;
+    }
+
+    /**
+     * Sets the {@code Deadline} of the {@code Transaction} that we are building.
+     */
+    public TransactionBuilder withDeadline(String deadline) {
+        this.deadline = new Deadline(deadline);
         return this;
     }
 

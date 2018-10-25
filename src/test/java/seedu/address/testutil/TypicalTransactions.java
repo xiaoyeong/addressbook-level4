@@ -13,16 +13,45 @@ import seedu.address.model.transaction.Transaction;
 public class TypicalTransactions {
 
     //TODO: Update according to accepted currencies
-    public static final Transaction ALICE_TRANSACTION = new TransactionBuilder().withAmount("SGD 42.50")
+    public static final Transaction ALICE_TRANSACTION = new TransactionBuilder().withPerson(TypicalPersons.ALICE)
+            .withAmount("SGD 42.50")
             .withType("Loan").build();
-    public static final Transaction BOB_TRANSACTION = new TransactionBuilder().withAmount("AUD 12.85")
+    public static final Transaction BENSON_TRANSACTION = new TransactionBuilder().withPerson(TypicalPersons.BENSON)
+            .withAmount("AUD 12.85")
             .withType("Debt").build();
-    public static final Transaction CARL_TRANSACTION = new TransactionBuilder().withAmount("USD 57.60")
+    public static final Transaction CARL_TRANSACTION = new TransactionBuilder().withPerson(TypicalPersons.CARL)
+            .withAmount("USD 57.60")
             .withType("Debt").build();
-    public static final Transaction DANIEL_TRANSACTION = new TransactionBuilder().withAmount("INR 44.70")
+    public static final Transaction DANIEL_TRANSACTION = new TransactionBuilder().withPerson(TypicalPersons.DANIEL)
+            .withAmount("INR 44.70")
             .withType("Loan").build();
-    public static final Transaction ELLE_TRANSACTION = new TransactionBuilder().withAmount("CNY 47.65")
+    public static final Transaction ELLE_TRANSACTION = new TransactionBuilder().withPerson(TypicalPersons.ELLE)
+            .withAmount("CNY 47.65")
             .withType("Debt").build();
+    public static final Transaction FIONA_TRANSACTION = new TransactionBuilder().withPerson(TypicalPersons.FIONA)
+            .withAmount("CNY 47.25")
+            .withType("Debt").build();
+    public static final Transaction GEORGE_TRANSACTION = new TransactionBuilder().withPerson(TypicalPersons.GEORGE)
+            .withAmount("CNY 47.15")
+            .withType("Debt").build();
+
+    // Manually added
+    public static final Transaction HOON_TRANSACTION = new TransactionBuilder().withPerson(TypicalPersons.HOON)
+            .withAmount("CNY 77.15")
+            .withType("Debt").build();
+    public static final Transaction IDA_TRANSACTION = new TransactionBuilder().withPerson(TypicalPersons.IDA)
+            .withAmount("CNY 67.15")
+            .withType("Debt").build();
+
+    // Manually added - Person's details found in {@code CommandTestUtil}
+    public static final Transaction AMY_TRANSACTION = new TransactionBuilder().withPerson(TypicalPersons.AMY)
+            .withAmount("SGD 145.60")
+            .withType("Loan")
+            .withDeadline("17/11/2018").build();
+    public static final Transaction BOB_TRANSACTION = new TransactionBuilder().withPerson(TypicalPersons.BOB)
+            .withAmount("SGD 42.50")
+            .withType("Loan")
+            .withDeadline("12/11/2018").build();
 
     private TypicalTransactions() {} // prevents instantiation
 
@@ -38,7 +67,7 @@ public class TypicalTransactions {
     }
 
     public static List<Transaction> getTypicalTransactions() {
-        return new ArrayList<>(Arrays.asList(ALICE_TRANSACTION, BOB_TRANSACTION, CARL_TRANSACTION,
-                DANIEL_TRANSACTION, ELLE_TRANSACTION));
+        return new ArrayList<>(Arrays.asList(ALICE_TRANSACTION, BENSON_TRANSACTION, CARL_TRANSACTION,
+                DANIEL_TRANSACTION, ELLE_TRANSACTION, FIONA_TRANSACTION, GEORGE_TRANSACTION));
     }
 }

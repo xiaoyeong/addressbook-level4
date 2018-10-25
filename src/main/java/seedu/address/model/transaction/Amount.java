@@ -1,8 +1,5 @@
 package seedu.address.model.transaction;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import seedu.address.commons.core.LogsCenter;
-
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
@@ -15,6 +12,7 @@ import java.util.Currency;
 import java.util.Map;
 import java.util.Set;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 /**
  * Represents the amount of money loaned/owed to end user.
@@ -102,11 +100,11 @@ public class Amount {
 
     @Override
     public boolean equals(Object other) {
-        if (!(other instanceof Type)) {
+        if (!(other instanceof Amount)) {
             return false;
         }
-        Type type = (Type) other;
-        return other == this || value.equals(type.value);
+        Amount amount = (Amount) other;
+        return other == this || value.equals(amount.value);
     }
 
     @Override

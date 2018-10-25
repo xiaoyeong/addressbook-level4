@@ -1,20 +1,29 @@
 package seedu.address.model.transaction;
 
 import java.util.Objects;
+import java.util.Random;
+import java.util.logging.Logger;
 
+import seedu.address.commons.core.LogsCenter;
+import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.person.Person;
+import seedu.address.model.person.Photo;
 
 /**
  * {@code Transaction} class encapsulates a transaction added to the financial database
  */
 public class Transaction {
 
+
     private final Type type;
     private final Amount amount;
     private final Person person;
     private final Deadline deadline;
+    private Photo photo;
 
     private Interest interest;
+    private final Logger logger = LogsCenter.getLogger(getClass());
+
 
     /**
      * Represents a transaction with non null fields {@code type}, {@code amount}, {@code deadline}
@@ -24,11 +33,25 @@ public class Transaction {
      * @param deadline the date on which the payment is to be made
      * @param person the transactor loaning/borrowing the {@code amount}
      */
+    public Transaction(Type type, Amount amount, Deadline deadline, Person person, Photo photo) {
+        this.type = type;
+        this.amount = amount;
+        this.person = person;
+        this.deadline = deadline;
+        this.photo = photo;
+    }
+    //create a copy instance
+    public Transaction(Transaction thisTransaction) {
+        this(thisTransaction.getType(), thisTransaction.getAmount(), thisTransaction.getDeadline(),
+                thisTransaction.getPerson(), thisTransaction.getPhoto());
+    }
+
     public Transaction(Type type, Amount amount, Deadline deadline, Person person) {
         this.type = type;
         this.amount = amount;
         this.person = person;
         this.deadline = deadline;
+        this.photo = new Photo();
     }
 
 
@@ -52,6 +75,51 @@ public class Transaction {
         return interest;
     }
 
+    public Photo getPhoto() {
+        return photo;
+    }
+
+    public void deletePhoto() {
+        this.photo = new Photo();
+    }
+
+    public void setPhoto(String photoPath) throws IllegalValueException {
+        Photo previousPhoto = this.photo;
+        try {
+            this.photo = new Photo(photoPath, photoUniqueId());
+        } catch (IllegalValueException e) {
+            //if could not change photo setback to the previous photo
+            this.photo = previousPhoto;
+            throw new IllegalValueException("Cannot set new photo");
+        }
+
+        logger.info("passsetphoto");
+
+    }
+
+    /**
+     * Generates a unique id for each photo.
+     */
+    public String photoUniqueId() {
+        int targetStringLength = 15;
+        String value;
+        Random random = new Random();
+        StringBuilder buffer = new StringBuilder(targetStringLength);
+        for (int i = 0; i < targetStringLength; i++) {
+            char randomLimitedInt;
+
+            int randomNumber = random.nextInt(52);
+
+
+            if (randomNumber <= 25) {
+                randomLimitedInt = (char) ('A' + randomNumber);
+            } else {
+                randomLimitedInt = (char) ('a' + randomNumber - 26);
+            }
+            buffer.append(randomLimitedInt);
+        }
+        return buffer.toString();
+    }
 
     @Override
     public int hashCode() {
@@ -66,7 +134,8 @@ public class Transaction {
         Transaction transaction = (Transaction) other;
         return other == this || (type.equals(transaction.type)
                 && amount.equals(transaction.amount)
-                && person.equals(transaction.person));
+                && person.equals(transaction.person)
+                && deadline.equals(transaction.deadline));
     }
 
     @Override
