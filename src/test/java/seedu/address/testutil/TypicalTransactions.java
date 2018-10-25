@@ -52,6 +52,10 @@ public class TypicalTransactions {
             .withAmount("SGD 42.50")
             .withType("Loan")
             .withDeadline("12/11/2018").build();
+    public static final Transaction CALVIN_TRANSACTION = new TransactionBuilder().withPerson(TypicalPersons.BOB)
+            .withAmount("SGD 42.50")
+            .withType("Debt")
+            .withDeadline("19/11/2018").build();
 
     private TypicalTransactions() {} // prevents instantiation
 
@@ -69,5 +73,20 @@ public class TypicalTransactions {
     public static List<Transaction> getTypicalTransactions() {
         return new ArrayList<>(Arrays.asList(ALICE_TRANSACTION, BENSON_TRANSACTION, CARL_TRANSACTION,
                 DANIEL_TRANSACTION, ELLE_TRANSACTION, FIONA_TRANSACTION, GEORGE_TRANSACTION));
+    }
+
+    /**
+     * Returns an {@code AddressBook} with all the unique persons.
+     */
+    public static FinancialDatabase getUniqueFinancialDatabase() {
+        FinancialDatabase database = new FinancialDatabase();
+        for (Transaction transaction : getUniqueTransactions()) {
+            database.addTransaction(transaction);
+        }
+        return database;
+    }
+    public static List<Transaction> getUniqueTransactions() {
+        return new ArrayList<>(Arrays.asList(ALICE_TRANSACTION, AMY_TRANSACTION, BOB_TRANSACTION,
+                 CALVIN_TRANSACTION));
     }
 }
