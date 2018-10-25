@@ -21,3 +21,4 @@ out/
 allTest.sh
 tokens/
 !_reposense/config.json
+#.profile#

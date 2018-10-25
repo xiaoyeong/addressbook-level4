@@ -24,7 +24,7 @@ public class AnalyticsCommand extends Command {
             + "your financial status to view.\n"
             + "It will either generate your financial status base on all the list,\n"
             + "or generate to a certain date, base on the date you input."
-            + "eg an or an dd/mm/yyyy";
+            + "eg analytics or analytics dd/mm/yyyy";
 
     public static final String MESSAGE_SUCCESS = "Financial status : SGD %.2f";
 
