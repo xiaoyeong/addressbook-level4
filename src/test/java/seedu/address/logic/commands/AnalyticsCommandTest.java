@@ -26,6 +26,7 @@ public class AnalyticsCommandTest {
         AnalyticsCommand analyticsCommand = new AnalyticsCommand();
         assertCommandSuccess(analyticsCommand, model, history, expectedMessage, expectedModel);
     }
+    
     @Test
     public void execute_emptyFinancialList_withValidDate() {
         try {
@@ -45,6 +46,7 @@ public class AnalyticsCommandTest {
         AnalyticsCommand analyticsCommand = new AnalyticsCommand();
         assertCommandSuccess(analyticsCommand, modelWithData, history, expectedMessage, expectedModelWithData);
     }
+    
     @Test
     public void execute_non_emptyFinancialList_withDate() {
         try {
@@ -81,8 +83,9 @@ public class AnalyticsCommandTest {
             assertCommandSuccess(analyticsCommand, modelWithData, history, expectedMessage, expectedModelWithData);
         } catch (Exception DataConversionException ) {
         //Test case is no longer valid as the date has already passed.
+        }
     }
-    }
+    
     @Test
     public void execute_non_emptyFinancialList_withDateTest4() {
         try{
