@@ -42,6 +42,10 @@ public class TypicalTransactions {
     public static final Transaction IDA_TRANSACTION = new TransactionBuilder().withPerson(TypicalPersons.IDA)
             .withAmount("CNY 67.15")
             .withType("Debt").build();
+    public static final Transaction JACK_TRANSACTION = new TransactionBuilder().withPerson(TypicalPersons.JACK)
+            .withAmount("SGD 42.50")
+            .withType("Debt")
+            .withDeadline("19/11/2018").build();
 
     // Manually added - Person's details found in {@code CommandTestUtil}
     public static final Transaction AMY_TRANSACTION = new TransactionBuilder().withPerson(TypicalPersons.AMY)
@@ -52,6 +56,7 @@ public class TypicalTransactions {
             .withAmount("SGD 42.50")
             .withType("Loan")
             .withDeadline("12/11/2018").build();
+
 
     private TypicalTransactions() {} // prevents instantiation
 
@@ -69,5 +74,21 @@ public class TypicalTransactions {
     public static List<Transaction> getTypicalTransactions() {
         return new ArrayList<>(Arrays.asList(ALICE_TRANSACTION, BENSON_TRANSACTION, CARL_TRANSACTION,
                 DANIEL_TRANSACTION, ELLE_TRANSACTION, FIONA_TRANSACTION, GEORGE_TRANSACTION));
+    }
+
+    /**
+     * Returns an {@code AddressBook} with all the unique persons.
+     */
+    public static FinancialDatabase getUniqueFinancialDatabase() {
+        FinancialDatabase database = new FinancialDatabase();
+        for (Transaction transaction : getUniqueTransactions()) {
+            database.addTransaction(transaction);
+        }
+        return database;
+    }
+    
+    public static List<Transaction> getUniqueTransactions() {
+        return new ArrayList<>(Arrays.asList(ALICE_TRANSACTION, AMY_TRANSACTION, BOB_TRANSACTION,
+                 JACK_TRANSACTION));
     }
 }
