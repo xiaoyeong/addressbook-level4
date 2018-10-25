@@ -12,7 +12,7 @@ import seedu.address.model.transaction.Transaction;
  * Provides a handle for {@code TransactionListPanel} containing the list of {@code PersonCard}.
  */
 public class TransactionListPanelHandle extends NodeHandle<ListView<Transaction>> {
-    public static final String PERSON_LIST_VIEW_ID = "#personListView";
+    public static final String PERSON_LIST_VIEW_ID = "#transactionListView";
 
     private static final String CARD_PANE_ID = "#cardPane";
 
