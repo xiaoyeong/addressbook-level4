@@ -26,7 +26,7 @@ public class AnalyticsCommandTest {
         AnalyticsCommand analyticsCommand = new AnalyticsCommand();
         assertCommandSuccess(analyticsCommand, model, history, expectedMessage, expectedModel);
     }
-    
+
     @Test
     public void execute_emptyFinancialListWithDate_When_DatePassed_Then_TestWillFail() {
         String date = "12/12/2020";
@@ -42,7 +42,7 @@ public class AnalyticsCommandTest {
         AnalyticsCommand analyticsCommand = new AnalyticsCommand();
         assertCommandSuccess(analyticsCommand, modelWithData, history, expectedMessage, expectedModelWithData);
     }
-    
+
     @Test
     public void execute_non_emptyFinancialListWithDate_When_DatePassed_Then_TestWillFail() {
         String date = "11/11/2018";
@@ -69,7 +69,7 @@ public class AnalyticsCommandTest {
         AnalyticsCommand analyticsCommand = new AnalyticsCommand(checkDate);
         assertCommandSuccess(analyticsCommand, modelWithData, history, expectedMessage, expectedModelWithData);
     }
-    
+
     @Test
     public void execute_non_emptyFinancialListWithDateTest4_When_DatePassed_Then_TestWillFail() {
         String date = "12/12/2018";

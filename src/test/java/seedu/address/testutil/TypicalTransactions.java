@@ -42,6 +42,10 @@ public class TypicalTransactions {
     public static final Transaction IDA_TRANSACTION = new TransactionBuilder().withPerson(TypicalPersons.IDA)
             .withAmount("CNY 67.15")
             .withType("Debt").build();
+    public static final Transaction JACK_TRANSACTION = new TransactionBuilder().withPerson(TypicalPersons.JACK)
+            .withAmount("SGD 42.50")
+            .withType("Debt")
+            .withDeadline("19/11/2018").build();
 
     // Manually added - Person's details found in {@code CommandTestUtil}
     public static final Transaction AMY_TRANSACTION = new TransactionBuilder().withPerson(TypicalPersons.AMY)
@@ -52,10 +56,7 @@ public class TypicalTransactions {
             .withAmount("SGD 42.50")
             .withType("Loan")
             .withDeadline("12/11/2018").build();
-    public static final Transaction CALVIN_TRANSACTION = new TransactionBuilder().withPerson(TypicalPersons.CALVIN)
-            .withAmount("SGD 42.50")
-            .withType("Debt")
-            .withDeadline("19/11/2018").build();
+
 
     private TypicalTransactions() {} // prevents instantiation
 
@@ -88,6 +89,6 @@ public class TypicalTransactions {
     
     public static List<Transaction> getUniqueTransactions() {
         return new ArrayList<>(Arrays.asList(ALICE_TRANSACTION, AMY_TRANSACTION, BOB_TRANSACTION,
-                 CALVIN_TRANSACTION));
+                 JACK_TRANSACTION));
     }
 }
