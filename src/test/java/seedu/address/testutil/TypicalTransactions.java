@@ -86,7 +86,6 @@ public class TypicalTransactions {
         }
         return database;
     }
-    
     public static List<Transaction> getUniqueTransactions() {
         return new ArrayList<>(Arrays.asList(ALICE_TRANSACTION, AMY_TRANSACTION, BOB_TRANSACTION,
                  JACK_TRANSACTION));

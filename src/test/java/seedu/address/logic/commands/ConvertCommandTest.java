@@ -20,9 +20,9 @@ public class ConvertCommandTest {
     @Test
     public void execute_multipleAmounts_multipleCurrenciesConverted() {
         String[] amounts = {"USD", "45.20", "AUD", "54.60", "MYR", "33.40"};
-        StringBuilder expectedMessage = new StringBuilder();
+        StringBuilder expectedMessage = new StringBuilder("Converted Amounts: ");
         for (int i = 0; i < amounts.length; i += 2) {
-            expectedMessage.append(Amount.convertCurrency(new Amount(amounts[i] + " " + amounts[i + 1])));
+            expectedMessage.append(Amount.convertCurrency(new Amount(amounts[i] + " " + amounts[i + 1]))).append(" ");
         }
         ConvertCommand convertCommand = new ConvertCommand(Arrays.asList(amounts));
         assertCommandSuccess(convertCommand, model, history, expectedMessage.toString(), expectedModel);
