@@ -51,7 +51,7 @@ public class UploadPhotoCommand extends Command {
         }
 
         Transaction currentTransaction = latestTransactionList.get(zeroBasedTransationIndex);
-        Transaction editTransaction = new Transaction(currentTransaction);
+        Transaction editTransaction = Transaction.copy(currentTransaction);
 
         logger.info("before fail");
         logger.info(filePath);

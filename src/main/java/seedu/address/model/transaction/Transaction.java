@@ -6,6 +6,7 @@ import java.util.logging.Logger;
 
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.exceptions.IllegalValueException;
+import seedu.address.logic.commands.InterestRate;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Photo;
 
@@ -13,15 +14,14 @@ import seedu.address.model.person.Photo;
  * {@code Transaction} class encapsulates a transaction added to the financial database
  */
 public class Transaction {
-
-
     private final Type type;
     private final Amount amount;
     private final Person person;
     private final Deadline deadline;
     private Photo photo;
-
     private Interest interest;
+    private InterestScheme interestScheme;
+    private InterestRate interestRate;
     private final Logger logger = LogsCenter.getLogger(getClass());
 
 
@@ -40,11 +40,7 @@ public class Transaction {
         this.deadline = deadline;
         this.photo = photo;
     }
-    //create a copy instance
-    public Transaction(Transaction thisTransaction) {
-        this(thisTransaction.getType(), thisTransaction.getAmount(), thisTransaction.getDeadline(),
-                thisTransaction.getPerson(), thisTransaction.getPhoto());
-    }
+
 
     public Transaction(Type type, Amount amount, Deadline deadline, Person person) {
         this.type = type;
@@ -54,6 +50,9 @@ public class Transaction {
         this.photo = new Photo();
     }
 
+    public static Transaction copy(Transaction other) {
+        return new Transaction(other.type, other.amount, other.deadline, other.person, other.photo);
+    }
 
     public Type getType() {
         return type;
@@ -119,6 +118,20 @@ public class Transaction {
             buffer.append(randomLimitedInt);
         }
         return buffer.toString();
+    }
+
+    /**
+     * Calculates interest based on scheme and rate inputted by the user.
+     */
+    public void calculateInterest(String interestScheme, String interestRate) {
+        long monthsDifference = Deadline.CURRENT_DATE.getMonthsDifference(deadline);
+        this.interestRate = new InterestRate(interestRate);
+        if (interestScheme.equalsIgnoreCase("simple")) {
+            this.interestScheme = InterestScheme.Simple;
+        } else if (interestScheme.equalsIgnoreCase("compound")) {
+            this.interestScheme = InterestScheme.Compound;
+        }
+        interest = new Interest(amount, this.interestRate, this.interestScheme, monthsDifference);
     }
 
     @Override
