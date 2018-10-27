@@ -24,8 +24,13 @@ public class Amount {
               "The transaction amount must be real number rounded to two decimal places, "
             + "prefixed by a three letter currency code";
     public static final String TRANSACTION_AMOUNT_VALIDATION_REGEX = "\\w{3} \\d{1,}.\\d{2}";
-    public final String value;
+    public Currency currency;
+    public Double value;
 
+    public Amount() {
+        currency = Currency.getInstance("SGD");
+        value = 0.0;
+    }
     /**
      * Constructs an {@code TransactionAmount}.
      *
@@ -34,13 +39,17 @@ public class Amount {
     public Amount(String amount) {
         requireNonNull(amount);
         checkArgument(isValidAmount(amount), MESSAGE_TRANSACTION_AMOUNT_CONSTRAINTS);
-        value = amount;
+        currency = Currency.getInstance(amount.split("\\s+")[0]);
+        value = Double.parseDouble(amount.split("\\s+")[1]);
     }
 
-    public String getValue() {
+    public double getValue() {
         return value;
     }
 
+    public Currency getCurrency() {
+        return currency;
+    }
 
     /**
      * Returns true if the given string represents a valid transaction amount.
@@ -71,11 +80,10 @@ public class Amount {
      * @param amount the amount in a given currency which is to be converted to Singaporean currency
      */
     public static Amount convertCurrency(Amount amount) {
-        String amountValue = amount.value;
-        if (!Amount.isValidAmount(amountValue)) {
+        if (!Amount.isValidAmount(amount.toString())) {
             return null;
         }
-        String currencyCode = amountValue.split(" ")[0].toUpperCase();
+        Currency currencyCode = amount.currency;
         String currencyConverterFilePath = String.format(
                 "http://free.currencyconverterapi.com/api/v5/convert?q=%s_SGD&compact=y", currencyCode);
         ObjectMapper mapper = new ObjectMapper();
@@ -85,8 +93,7 @@ public class Amount {
             String jsonText = rd.readLine();
             Map<String, Map<String, Number>> map = mapper.readValue(jsonText, Map.class);
             double result = 1.00 * map.get(String.format("%s_SGD", currencyCode)).get("val").doubleValue();
-            result *= Double.parseDouble(amountValue.split(" ")[1]);
-
+            result *= amount.value;
             return new Amount(String.format("SGD %.2f", result));
         } catch (Exception ex) {
             ex.printStackTrace();
@@ -95,7 +102,7 @@ public class Amount {
     }
     @Override
     public String toString() {
-        return value;
+        return currency + " " + value;
     }
 
     @Override

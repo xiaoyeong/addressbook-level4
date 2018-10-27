@@ -1,8 +1,8 @@
 package seedu.address.logic.parser;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_INTEREST_RATE;
 
-import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.commands.InterestCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
@@ -15,11 +15,12 @@ public class InterestCommandParser implements Parser<InterestCommand> {
         String trimmedArgs = args.trim();
         if (trimmedArgs.isEmpty()) {
             throw new ParseException(
-                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE));
+                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, InterestCommand.MESSAGE_USAGE));
         }
 
         String[] nameKeywords = trimmedArgs.split("\\s+");
-
-        return new InterestCommand();
+        String scheme = nameKeywords[0];
+        String rate = nameKeywords[1];
+        return new InterestCommand(scheme, rate);
     }
 }

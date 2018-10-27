@@ -64,7 +64,7 @@ public class TransactionCard extends UiPart<Region> {
         Person person = transaction.getPerson();
         id.setText(displayedIndex + ". ");
         type.setText(transaction.getType().value);
-        amount.setText(transaction.getAmount().value);
+        amount.setText(transaction.getAmount().toString());
         deadline.setText(transaction.getDeadline().value);
         name.setText(person.getName().fullName);
         phone.setText(person.getPhone().value);

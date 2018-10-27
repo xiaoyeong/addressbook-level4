@@ -3,22 +3,24 @@ package seedu.address.model.transaction;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.time.DateTimeException;
 import java.time.LocalDate;
-import java.util.Date;
+import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
 
+import com.sun.istack.NotNull;
 import seedu.address.commons.core.LogsCenter;
 
 /**
  * Represents the deadline by which payment has to be made
  * Guarantees: immutable; is valid as declared in {@link #isValidDeadline(String)}
  */
-public class Deadline {
+public class Deadline implements Comparable<Deadline> {
     public static final String MESSAGE_TRANSACTION_DEADLINE_CONSTRAINTS =
             "The transaction deadline must be a valid date in the future following the DD/MM/YYYY format";
     public static final String TRANSACTION_DEADLINE_VALIDATION_REGEX = "\\d{1,2}/\\d{1,2}/\\d{4}";
+    public static final Deadline CURRENT_DATE =
+            new Deadline(LocalDate.now().format(DateTimeFormatter.ofPattern("dd/MM/YYYY")));
     public final String value;
 
     /**
@@ -30,6 +32,10 @@ public class Deadline {
         requireNonNull(deadline);
         checkArgument(isValidDeadline(deadline), MESSAGE_TRANSACTION_DEADLINE_CONSTRAINTS);
         value = deadline;
+    }
+
+    public String getValue() {
+        return value;
     }
 
     /**
@@ -79,21 +85,59 @@ public class Deadline {
         return value.hashCode();
     }
 
-    /**
-     * Compare two deadline and check which deadline is nearer
-     * @param other the other deadline to compare.
-     */
-    public int compareTo(Deadline other) {
-        try {
-            Date dateOne = new SimpleDateFormat("dd/MM/yyyy").parse(this.toString());
-            Date dateTwo = new SimpleDateFormat("dd/MM/yyyy").parse(other.toString());
-            if (dateOne.compareTo(dateTwo) > -1) {
-                return 1;
-            }
-            return -1;
-        } catch (ParseException e) {
-            return 2;
-        }
+    private LocalDate convertToDate() {
+        int dayOfMonth = Integer.parseInt(value.split("/")[0]);
+        int month = Integer.parseInt(value.split("/")[1]);
+        int year = Integer.parseInt(value.split("/")[2]);
+        return LocalDate.of(year, month, dayOfMonth);
     }
 
+    private long getDifference(Deadline other, String timeUnit) {
+        LocalDate currentDate = this.convertToDate();
+        LocalDate otherDate = other.convertToDate();
+        long result;
+        switch (timeUnit) {
+            case "months":
+                result = currentDate.until(otherDate, ChronoUnit.MONTHS);
+                break;
+            case "days":
+                result = currentDate.until(otherDate, ChronoUnit.DAYS);
+                break;
+            case "years":
+                result = currentDate.until(otherDate, ChronoUnit.YEARS);
+                break;
+            default:
+                result = 0;
+        }
+        return result;
+    }
+
+    public long getMonthsDifference(Deadline other) {
+        return getDifference(other, "months");
+    }
+
+    public long getDaysDifference(Deadline other) {
+        return getDifference(other, "days");
+    }
+
+    public long getYearsDifference(Deadline other) {
+        return getDifference(other, "days");
+    }
+
+    /**
+     * Compares two deadlines in chronological order.
+     * @param other the other deadline to compare.
+     */
+    public int compareTo(@NotNull Deadline other) {
+        if (getYearsDifference(other) > 0
+                || (getYearsDifference(other) == 0 && getMonthsDifference(other) > 0)
+                || (getYearsDifference(other) == 0 && getMonthsDifference(other) == 0
+                && getDaysDifference(other) > 0)) {
+            return 1;
+        } else if (getYearsDifference(other) == 0 && getMonthsDifference(other) == 0 && getDaysDifference(other) == 0) {
+            return 0;
+        } else {
+            return -1;
+        }
+    }
 }
