@@ -54,6 +54,8 @@ public class TransactionCard extends UiPart<Region> {
     @FXML
     private Label address;
     @FXML
+    private Label interest;
+    @FXML
     private FlowPane tags;
     @FXML
     private ImageView imageView;
@@ -70,6 +72,11 @@ public class TransactionCard extends UiPart<Region> {
         phone.setText(person.getPhone().value);
         address.setText(person.getAddress().value);
         email.setText(person.getEmail().value);
+        if (transaction.getInterest() != null) {
+            interest.setText(transaction.getInterest().toString());
+        } else {
+            interest.setText("");
+        }
         person.getTags().forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
         String link = transaction.getPhoto().getPicturePath().trim();
         logger.info("before fail");

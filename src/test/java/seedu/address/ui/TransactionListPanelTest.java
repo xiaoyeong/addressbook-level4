@@ -61,10 +61,10 @@ public class TransactionListPanelTest extends GuiUnitTest {
         postNow(JUMP_TO_SECOND_EVENT);
         guiRobot.pauseForHuman();
 
-        TransactionCardHandle expectedPerson = transactionListPanelHandle
+        TransactionCardHandle expectedTransaction = transactionListPanelHandle
                 .getPersonCardHandle(INDEX_SECOND_TRANSACTION.getZeroBased());
-        TransactionCardHandle selectedPerson = transactionListPanelHandle.getHandleToSelectedCard();
-        assertCardEquals(expectedPerson, selectedPerson);
+        TransactionCardHandle selectedTransaction = transactionListPanelHandle.getHandleToSelectedCard();
+        assertCardEquals(expectedTransaction, selectedTransaction);
     }
 
     /**

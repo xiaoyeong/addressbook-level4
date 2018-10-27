@@ -23,9 +23,9 @@ public class Amount {
     public static final String MESSAGE_TRANSACTION_AMOUNT_CONSTRAINTS =
               "The transaction amount must be real number rounded to two decimal places, "
             + "prefixed by a three letter currency code";
-    public static final String TRANSACTION_AMOUNT_VALIDATION_REGEX = "\\w{3} \\d{1,}.\\d{2}";
-    public Currency currency;
-    public Double value;
+    public static final String TRANSACTION_AMOUNT_VALIDATION_REGEX = "\\w{3} \\d{1,}.\\d{1,2}";
+    protected Currency currency;
+    protected Double value;
 
     public Amount() {
         currency = Currency.getInstance("SGD");

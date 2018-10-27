@@ -9,6 +9,7 @@ import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 
 import com.sun.istack.NotNull;
+
 import seedu.address.commons.core.LogsCenter;
 
 /**
@@ -85,6 +86,9 @@ public class Deadline implements Comparable<Deadline> {
         return value.hashCode();
     }
 
+    /**
+     * Converts a Deadline object to a LocalDateTime object.
+     */
     private LocalDate convertToDate() {
         int dayOfMonth = Integer.parseInt(value.split("/")[0]);
         int month = Integer.parseInt(value.split("/")[1]);
@@ -97,17 +101,17 @@ public class Deadline implements Comparable<Deadline> {
         LocalDate otherDate = other.convertToDate();
         long result;
         switch (timeUnit) {
-            case "months":
-                result = currentDate.until(otherDate, ChronoUnit.MONTHS);
-                break;
-            case "days":
-                result = currentDate.until(otherDate, ChronoUnit.DAYS);
-                break;
-            case "years":
-                result = currentDate.until(otherDate, ChronoUnit.YEARS);
-                break;
-            default:
-                result = 0;
+        case "months":
+            result = currentDate.until(otherDate, ChronoUnit.MONTHS);
+            break;
+        case "days":
+            result = currentDate.until(otherDate, ChronoUnit.DAYS);
+            break;
+        case "years":
+            result = currentDate.until(otherDate, ChronoUnit.YEARS);
+            break;
+        default:
+            result = 0;
         }
         return result;
     }

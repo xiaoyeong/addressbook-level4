@@ -31,7 +31,6 @@ import seedu.address.model.person.Phone;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.transaction.Amount;
 import seedu.address.model.transaction.Deadline;
-import seedu.address.model.transaction.Interest;
 import seedu.address.model.transaction.Transaction;
 import seedu.address.model.transaction.Type;
 

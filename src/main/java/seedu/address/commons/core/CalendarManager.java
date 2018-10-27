@@ -327,7 +327,7 @@ public class CalendarManager extends ComponentManager {
                     + add.transaction.getPerson().getAddress().value + "\n"
                     + add.transaction.getPerson().getEmail().value + "\n"
                     + add.transaction.getType().value + "\n"
-                    + add.transaction.getAmount().value;
+                    + add.transaction.getAmount();
             if (!add.transaction.getPerson().getTags().isEmpty()) {
                 Set<String> tagStrings = new HashSet<>();
                 for (Tag tag : add.transaction.getPerson().getTags()) {

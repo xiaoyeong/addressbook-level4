@@ -1,7 +1,5 @@
 package seedu.address.model.transaction;
 
-import static seedu.address.commons.util.AppUtil.checkArgument;
-
 import java.util.Objects;
 import java.util.Random;
 import java.util.logging.Logger;
@@ -122,6 +120,9 @@ public class Transaction {
         return buffer.toString();
     }
 
+    /**
+     * Calculates interest based on scheme and rate inputted by the user.
+     */
     public void calculateInterest(String interestScheme, String interestRate) {
         long monthsDifference = Deadline.CURRENT_DATE.getMonthsDifference(deadline);
         this.interestRate = new InterestRate(interestRate);

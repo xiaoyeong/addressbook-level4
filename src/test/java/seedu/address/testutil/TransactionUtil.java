@@ -37,7 +37,7 @@ public class TransactionUtil {
         StringBuilder sb = new StringBuilder();
         Person person = transaction.getPerson();
         sb.append(PREFIX_TRANSACTION_TYPE + transaction.getType().value + " ");
-        sb.append(PREFIX_TRANSACTION_AMOUNT + transaction.getAmount().value + " ");
+        sb.append(PREFIX_TRANSACTION_AMOUNT + transaction.getAmount().toString() + " ");
         sb.append(PREFIX_TRANSACTION_DEADLINE + transaction.getDeadline().value + " ");
         sb.append(PREFIX_NAME + person.getName().fullName + " ");
         sb.append(PREFIX_PHONE + person.getPhone().value + " ");
@@ -59,7 +59,7 @@ public class TransactionUtil {
         descriptor.getPhone().ifPresent(phone -> sb.append(PREFIX_PHONE).append(phone.value).append(" "));
         descriptor.getEmail().ifPresent(email -> sb.append(PREFIX_EMAIL).append(email.value).append(" "));
         descriptor.getAddress().ifPresent(address -> sb.append(PREFIX_ADDRESS).append(address.value).append(" "));
-        descriptor.getAmount().ifPresent(amount -> sb.append(PREFIX_TRANSACTION_AMOUNT).append(amount.value)
+        descriptor.getAmount().ifPresent(amount -> sb.append(PREFIX_TRANSACTION_AMOUNT).append(amount.toString())
                 .append(" "));
         descriptor.getDeadline().ifPresent(deadline -> sb.append(PREFIX_TRANSACTION_DEADLINE).append(deadline.value)
                 .append(" "));
