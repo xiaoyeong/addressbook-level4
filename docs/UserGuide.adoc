@@ -1,4 +1,4 @@
-    = AddressBook Level 4 - User Guide
+= AddressBook Level 4 - User Guide
 :site-section: UserGuide
 :toc:
 :toc-title:
@@ -37,37 +37,35 @@ Refer to Section 3, “Features” for details of each command.
 [[Features]]
 == Features
 
-=== Viewing help : `help`
-
-Invokes the user guide for handy reference when typing commands.
-Format: `help`
-
 === Adding a transaction : `add`
 
 Adds a transaction to the database.
 Format: add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS d/DEBT dl/DEADLINE [t/TAG]…​
 
-=== Adding interest rate to a debt : `interest`
+=== Clearing all entries : `clear`
 
-Adds an interest rate to a specific recorded debt for app to track.
-Format: interest int/INTEREST_RATE
+Clears all entries from the Debt Tracker.
+Format: clear
 
-=== Hiding transactions with a private contact : `hide`
+=== Currency conversion of transaction amounts: `convert`
 
-Makes transactions exchanged with people tagged as private invisible. Can be toggled.
-Format: hide n/NAME
+Converts the transaction amounts from their respective foreign currencies to Singapore Dollars.
+Format: convert AMOUNT [MORE_AMOUNTS]
 
-=== Updating a transaction : `update`
+=== Deleting a transaction : `delete`
 
-Edit an existing transaction’s details.
-Format: edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]…​
+Deletes the specified transaction from the address book.
+Format: delete INDEX
 
-=== Sorting transactions : `sort`
+=== Editing a transaction : `edit`
 
-Sort people by the amount of money loaned to or from them, the deadlines of the debts
-(be it whether you owe them or money or vice versa), or whether they are debtors or
-creditors.
-Format: sort [t/TAG]...
+Edits the fields of a particular transaction indentified by INDEX (must be a positive integer).
+Format: edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]
+
+=== Exiting the program : `exit`
+
+Exits the program.
+Format: clear
 
 === Filtering transactions: `filter`
 
@@ -79,10 +77,32 @@ Format: filter [t/TAG]...
 Finds transactions exchanged with any transaction whose name contains any of the given keywords.
 Format: find KEYWORD [MORE_KEYWORDS]
 
-=== Deleting a transaction : `delete`
+=== Viewing help : `help`
 
-Deletes the specified transaction from the address book.
-Format: delete INDEX
+Invokes the user guide for handy reference when typing commands.
+Format: `help`
+
+=== Hiding transactions with a private contact : `hide`
+
+Makes transactions exchanged with people tagged as private invisible. Can be toggled.
+Format: hide n/NAME
+
+=== Listing all recorded expenses : `history`
+
+Lists all the commands that you have entered in reverse chronological order.
+
+Lists all the expenses that you have recorded in the app, in reverse chronological order.
+Format: history
+
+=== Adding interest rate to a debt : `interest`
+
+Adds an interest amount to all transactions based on the interest scheme and interest rate you input.
+Format: interest INTEREST_SCHEME INTEREST_RATE
+
+=== Redoing the previously undone command : `redo`
+
+Reverses the most recent undo command.
+Format: redo
 
 === Removing a debt : `remove`
 
@@ -94,32 +114,23 @@ The number of debts removed is up to the user’s selection.
 Selects the transaction identified by the index number used in the displayed transaction list.
 Format: select INDEX
 
-=== Listing all recorded expenses : `history`
+=== Sorting transactions : `sort`
 
-Lists all the commands that you have entered in reverse chronological order.
-
-Lists all the expenses that you have recorded in the app, in reverse chronological order.
-Format: history
+Sort people by the amount of money loaned to or from them, the deadlines of the debts
+(be it whether you owe them or money or vice versa), or whether they are debtors or
+creditors.
+Format: sort [t/TAG]...
 
 === Undoing previous command : `undo`
 
 Restores the address book to the state before the previous undoable command was executed. +
 Format: undo
 
-=== Redoing the previously undone command : `redo`
+=== Updating a transaction : `update`
 
-Reverses the most recent undo command.
-Format: redo
+Edit an existing transaction’s details.
+Format: edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]…​
 
-=== Clearing all entries : `clear`
-
-Clears all entries from the Debt Tracker.
-Format: clear
-
-=== Exiting the program : `exit`
-
-Exits the program.
-Format: clear
 
 === Saving the data
 
@@ -127,47 +138,50 @@ Debt Tracker data is saved in the hard disk automatically after any command that
 
 == FAQ
 
-Q: How do I transfer my data to another Computer?
+Q: How do I transfer my data to another Computer? +
 A: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous Address Book folder.
 
 == Command Summary
 
-Add add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS d/DEBT dl/DEADLINE [t/TAG]…​
-e.g. add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665  d/+500.00 dl/20 09 2019 t/friend t/colleague
+Add: add tt/TRANSACTION_TYPE ta/TRANSACTION_AMOUNT td/TRANSACTION_DEADLINE +
+         n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]…​ +
+e.g. add tt/Loan ta/SGD 50.00 td/24/11/2018 n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend
 
 Clear : clear
 
-Delete : delete INDEX
+Convert: convert AMOUNT [MORE_AMOUNTS] +
+e.g. convert USD 20.00  KRW 35.50  MYR 130.60
+
+Delete : delete INDEX +
 e.g. delete 3
 
-Update : update INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] d/DEBT dl/DEADLINE [t/TAG]…​
-e.g. edit 2 n/James Lee e/jameslee@example.com
-
-Find : find KEYWORD [MORE_KEYWORDS]
-e.g. find James Jake
-
-Hide : hide n/NAME
-e.g. hide n/Shawn
-
-Sort: sort [t/TAG]...
-E.g. sort t/creditor
-
-Filter: filter[t/TAG]...
-E.g. filter t/debtor
-
-Format : interest int/INTEREST_RATE
-e.g. int/1.10
-
-List : list
+Edit: edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]
+e.g. edit 1 p/91234567 e/jondoe@example.com
 
 Help : help
 
-Select : select INDEX
-e.g.select 2
+Hide : hide n/NAME +
+e.g. hide n/Shawn
 
 History : history
 
-Undo : undo
+Interest: interest INTEREST_RATE INTEREST_SCHEME +
+e.g. interest simple 1.1%
+
+List : list
+
+Filter: filter[t/TAG]... +
+E.g. filter t/debtor
+
+Find : find KEYWORD [MORE_KEYWORDS] +
+e.g. find James Jake
 
 Redo : redo
 
+Select : select INDEX +
+e.g.select 2
+
+Sort: sort [t/TAG]... +
+E.g. sort t/creditor
+
+Undo : undo

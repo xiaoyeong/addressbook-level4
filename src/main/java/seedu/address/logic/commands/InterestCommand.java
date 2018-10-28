@@ -18,7 +18,7 @@ public class InterestCommand extends Command {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Calculates interest on all transactions "
             + "based on the interest scheme and value that the user inputs.\n"
-            + "Parameters: SCHEME INTEREST_RATE...\n"
+            + "Parameters: INTEREST_SCHEME INTEREST_RATE...\n"
             + "Example: " + COMMAND_WORD + " simple 1.1%";
     public static final String MESSAGE_SUCCESS = "Interest calculated for all %d transactions!";
     private final String scheme;

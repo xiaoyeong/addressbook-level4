@@ -125,6 +125,9 @@ public class Transaction {
      * Calculates interest based on scheme and rate inputted by the user.
      */
     public void calculateInterest(String interestScheme, String interestRate) {
+        if (type.value.equalsIgnoreCase("debt")) {
+            return;
+        }
         requireNonNull(interestScheme);
         requireNonNull(interestRate);
         long monthsDifference = Deadline.CURRENT_DATE.getMonthsDifference(deadline);
