@@ -20,7 +20,7 @@ public class InterestCommand extends Command {
             + "based on the interest scheme and value that the user inputs.\n"
             + "Parameters: SCHEME INTEREST_RATE...\n"
             + "Example: " + COMMAND_WORD + " simple 1.1%";
-    private static final String MESSAGE_INCORRECT_ARGUMENTS = "In";
+    public static final String MESSAGE_SUCCESS = "Interest calculated for all %d transactions!";
     private final String scheme;
     private final String rate;
 
@@ -34,12 +34,24 @@ public class InterestCommand extends Command {
     public CommandResult execute(Model model, CommandHistory history) {
         requireNonNull(model);
         List<Transaction> lastShownList = model.getFilteredTransactionList();
-        for (int i = 0; i < lastShownList.size(); i++) {
+        int i;
+        for (i = 0; i < lastShownList.size(); i++) {
             Transaction target = lastShownList.get(i);
             Transaction editedTransaction = Transaction.copy(target);
             editedTransaction.calculateInterest(scheme, rate);
             model.updateTransaction(target, editedTransaction);
         }
-        return new CommandResult("");
+        return new CommandResult(String.format(MESSAGE_SUCCESS, i));
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        if (!(other instanceof InterestCommand)) {
+            return false;
+        }
+        InterestCommand command = (InterestCommand) other;
+        return command == this
+                || (scheme.equals(command.scheme)
+                 && rate.equals(command.rate));
     }
 }
