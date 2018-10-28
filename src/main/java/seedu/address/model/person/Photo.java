@@ -65,11 +65,12 @@ public class Photo {
 
         logger.info("makephoto");
         logger.info(filePath);
-        if (filePath ==  "delete") {
+        if (filePath == "delete") {
             filePath = "images/default_person.png";
         } else {
             //get image from source
-            String immm = System.getProperty("user.home") + "/Documents/cs2103/debt-tracker/docs/images/weiqing-nic.png";
+            //String immm = System.getProperty("user.home") +
+            // "/Documents/cs2103/debt-tracker/docs/images/weiqing-nic.png";
             //System.out.println(immm);
             filePath = "/" + filePath;
         }
@@ -98,7 +99,7 @@ public class Photo {
         }
 
         try {
-            if (filePath ==  "delete"){
+            if (filePath == "delete") {
                 this.photoPath = "images/default_person.png";
             } else {
                 Files.copy(getImage.toPath(), pictureFinal.toPath(), REPLACE_EXISTING);
