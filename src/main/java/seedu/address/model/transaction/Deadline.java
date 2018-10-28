@@ -102,13 +102,13 @@ public class Deadline implements Comparable<Deadline> {
         long result;
         switch (timeUnit) {
         case "months":
-            result = otherDate.until(currentDate, ChronoUnit.MONTHS);
+            result = currentDate.until(otherDate, ChronoUnit.MONTHS);
             break;
         case "days":
-            result = otherDate.until(currentDate, ChronoUnit.DAYS);
+            result = currentDate.until(otherDate, ChronoUnit.DAYS);
             break;
         case "years":
-            result = otherDate.until(currentDate, ChronoUnit.YEARS);
+            result = currentDate.until(otherDate, ChronoUnit.YEARS);
             break;
         default:
             result = 0;
@@ -125,7 +125,7 @@ public class Deadline implements Comparable<Deadline> {
     }
 
     public long getYearsDifference(Deadline other) {
-        return getDifference(other, "days");
+        return getDifference(other, "years");
     }
 
     /**

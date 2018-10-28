@@ -1,19 +1,18 @@
-package seedu.address.logic.commands;
+package seedu.address.model.transaction;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
 import java.util.Objects;
 
-import seedu.address.model.transaction.Interest;
-
 
 /**
- * Represents the interest value and the given scheme .
+ * Represents the rate of interest calculated on each transaction.
  */
 public class InterestRate {
     public static final String MESSAGE_INTEREST_RATE_CONSTRAINTS =
-            "Interest value should be a real number rounded to two decimal places";
+            "Interest rate should be expressed as a percentage \n"
+            + "with the value rounded to two decimal places.";
     public static final String TRANSACTION_INTEREST_RATE_VALIDATION_REGEX = "\\d{1,2}.\\d{1,2}\\%";
     public final double value;
 
@@ -24,7 +23,7 @@ public class InterestRate {
     }
 
     public double getValue() {
-        return value;
+        return value * 0.01;
     }
 
     /**
