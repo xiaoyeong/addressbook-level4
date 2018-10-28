@@ -47,7 +47,7 @@ public class AnalyticsCommandTest {
     public void execute_nonEmptyFinancialListWithDate_whenDatePassedThenTestWillFail() {
         String date = "11/11/2018";
         Deadline checkDate = new Deadline(date);
-        String expectedMessage = "Financial status : SGD 0.00";
+        String expectedMessage = "Financial status : SGD 188.10";
         AnalyticsCommand analyticsCommand = new AnalyticsCommand(checkDate);
         assertCommandSuccess(analyticsCommand, modelWithData, history, expectedMessage, expectedModelWithData);
     }
@@ -56,7 +56,7 @@ public class AnalyticsCommandTest {
     public void execute_nonEmptyFinancialListWithDateTest2_whenDatePassedThenTestWillFail() {
         String date = "12/11/2018";
         Deadline checkDate = new Deadline(date);
-        String expectedMessage = "Financial status : SGD 0.00";
+        String expectedMessage = "Financial status : SGD 103.10";
         AnalyticsCommand analyticsCommand = new AnalyticsCommand(checkDate);
         assertCommandSuccess(analyticsCommand, modelWithData, history, expectedMessage, expectedModelWithData);
     }
@@ -65,7 +65,7 @@ public class AnalyticsCommandTest {
     public void execute_nonEmptyFinancialListWithDateTest3_whenDatePassedThenTestWillFail() {
         String date = "18/11/2018";
         Deadline checkDate = new Deadline(date);
-        String expectedMessage = "Financial status : SGD 230.60";
+        String expectedMessage = "Financial status : SGD -42.50";
         AnalyticsCommand analyticsCommand = new AnalyticsCommand(checkDate);
         assertCommandSuccess(analyticsCommand, modelWithData, history, expectedMessage, expectedModelWithData);
     }
@@ -74,7 +74,7 @@ public class AnalyticsCommandTest {
     public void execute_nonEmptyFinancialListWithDateTest4_whenDatePassedThenTestWillFail() {
         String date = "12/12/2018";
         Deadline checkDate = new Deadline(date);
-        String expectedMessage = "Financial status : SGD 188.10";
+        String expectedMessage = "Financial status : SGD 0.00";
         AnalyticsCommand analyticsCommand = new AnalyticsCommand(checkDate);
         assertCommandSuccess(analyticsCommand, modelWithData, history, expectedMessage, expectedModelWithData);
     }
