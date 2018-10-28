@@ -87,7 +87,7 @@ public class XmlAdaptedTransaction {
                 .stream()
                 .map(XmlAdaptedTag::new)
                 .collect(Collectors.toList());
-        amount = source.getAmount().value;
+        amount = source.getAmount().toString();
         type = source.getType().value;
         deadline = source.getDeadline().value;
         photo = source.getPhoto().getPicturePath();
