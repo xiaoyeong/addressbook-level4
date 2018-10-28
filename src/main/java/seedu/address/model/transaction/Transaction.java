@@ -1,12 +1,13 @@
 package seedu.address.model.transaction;
 
+import static java.util.Objects.requireNonNull;
+
 import java.util.Objects;
 import java.util.Random;
 import java.util.logging.Logger;
 
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.logic.commands.InterestRate;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Photo;
 
@@ -124,14 +125,12 @@ public class Transaction {
      * Calculates interest based on scheme and rate inputted by the user.
      */
     public void calculateInterest(String interestScheme, String interestRate) {
+        requireNonNull(interestScheme);
+        requireNonNull(interestRate);
         long monthsDifference = Deadline.CURRENT_DATE.getMonthsDifference(deadline);
+        this.interestScheme = new InterestScheme(interestScheme);
         this.interestRate = new InterestRate(interestRate);
-        if (interestScheme.equalsIgnoreCase("simple")) {
-            this.interestScheme = InterestScheme.Simple;
-        } else if (interestScheme.equalsIgnoreCase("compound")) {
-            this.interestScheme = InterestScheme.Compound;
-        }
-        interest = new Interest(amount, this.interestRate, this.interestScheme, monthsDifference);
+        interest = new Interest(amount, this.interestScheme, this.interestRate, monthsDifference);
     }
 
     @Override
