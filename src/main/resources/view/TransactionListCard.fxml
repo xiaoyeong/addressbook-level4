@@ -36,6 +36,7 @@
 	  <Label fx:id="type" styleClass="cell_small_label" text="\$type" />
 	  <Label fx:id="amount" styleClass="cell_small_label" text="\$amount" />
 	  <Label fx:id="deadline" styleClass="cell_small_label" text="\$deadline" />
+      <Label fx:id="interest" styleClass="cell_small_label"/>
     </VBox>
           <ImageView fx:id="imageView" fitHeight="108" fitWidth="108">
           </ImageView>

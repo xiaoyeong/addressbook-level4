@@ -17,9 +17,7 @@ import java.util.Optional;
 import java.util.Set;
 
 import seedu.address.commons.core.index.Index;
-import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.commands.EditCommand;
-import seedu.address.logic.commands.EditCommand.EditTransactionDescriptor;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.tag.Tag;
 
@@ -48,7 +46,7 @@ public class EditCommandParser implements Parser<EditCommand> {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE), pe);
         }
 
-        EditTransactionDescriptor editTransactionDescriptor = new EditTransactionDescriptor();
+        EditCommand.EditTransactionDescriptor editTransactionDescriptor = new EditCommand.EditTransactionDescriptor();
         if (argMultimap.getValue(PREFIX_NAME).isPresent()) {
             editTransactionDescriptor.setName(ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get()));
         }
@@ -60,6 +58,18 @@ public class EditCommandParser implements Parser<EditCommand> {
         }
         if (argMultimap.getValue(PREFIX_ADDRESS).isPresent()) {
             editTransactionDescriptor.setAddress(ParserUtil.parseAddress(argMultimap.getValue(PREFIX_ADDRESS).get()));
+        }
+        if (argMultimap.getValue(PREFIX_TRANSACTION_AMOUNT).isPresent()) {
+            editTransactionDescriptor.setAmount(ParserUtil.parseAmount(argMultimap
+                    .getValue(PREFIX_TRANSACTION_AMOUNT).get()));
+        }
+        if (argMultimap.getValue(PREFIX_TRANSACTION_TYPE).isPresent()) {
+            editTransactionDescriptor.setType(ParserUtil.parseType(argMultimap
+                    .getValue(PREFIX_TRANSACTION_TYPE).get()));
+        }
+        if (argMultimap.getValue(PREFIX_TRANSACTION_DEADLINE).isPresent()) {
+            editTransactionDescriptor.setDeadline(ParserUtil.parseDeadline(argMultimap
+                    .getValue(PREFIX_TRANSACTION_DEADLINE).get()));
         }
         parseTagsForEdit(argMultimap.getAllValues(PREFIX_TAG)).ifPresent(editTransactionDescriptor::setTags);
 
@@ -84,5 +94,6 @@ public class EditCommandParser implements Parser<EditCommand> {
         Collection<String> tagSet = tags.size() == 1 && tags.contains("") ? Collections.emptySet() : tags;
         return Optional.of(ParserUtil.parseTags(tagSet));
     }
-
 }
+
+

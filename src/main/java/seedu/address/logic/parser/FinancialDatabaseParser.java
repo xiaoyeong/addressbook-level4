@@ -21,7 +21,6 @@ import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.HistoryCommand;
 import seedu.address.logic.commands.InterestCommand;
 import seedu.address.logic.commands.ListCommand;
-import seedu.address.logic.commands.ModeCommand;
 import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.SelectCommand;
 import seedu.address.logic.commands.ToDoListAddCommand;
@@ -56,14 +55,14 @@ public class FinancialDatabaseParser {
 
         final String commandWord = matcher.group("commandWord");
         final String arguments = matcher.group("arguments");
-        switch (commandWord.toLowerCase()) {
+        switch (commandWord) {
         case AddCommand.COMMAND_WORD:
         case AddCommand.COMMAND_ALIAS:
             return new AddCommandParser().parse(arguments);
 
         case AnalyticsCommand.COMMAND_WORD:
         case AnalyticsCommand.COMMAND_ALIAS:
-            return new AnalyticsCommand();
+            return new AnalyticsCommandParser().parse(arguments);
 
         case CalendarCommand.COMMAND_WORD:
         case CalendarCommand.COMMAND_ALIAS:
@@ -112,10 +111,6 @@ public class FinancialDatabaseParser {
         case ListCommand.COMMAND_WORD:
         case ListCommand.COMMAND_ALIAS:
             return new ListCommand();
-
-        case ModeCommand.COMMAND_WORD:
-        case ModeCommand.COMMAND_ALIAS:
-            return new ModeCommand();
 
         case UndoCommand.COMMAND_WORD:
         case UndoCommand.COMMAND_ALIAS:

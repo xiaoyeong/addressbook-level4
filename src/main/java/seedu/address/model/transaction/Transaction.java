@@ -1,8 +1,12 @@
 package seedu.address.model.transaction;
 
+import static java.util.Objects.requireNonNull;
+
 import java.util.Objects;
 import java.util.Random;
+import java.util.logging.Logger;
 
+import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Photo;
@@ -11,14 +15,16 @@ import seedu.address.model.person.Photo;
  * {@code Transaction} class encapsulates a transaction added to the financial database
  */
 public class Transaction {
-
     private final Type type;
     private final Amount amount;
     private final Person person;
     private final Deadline deadline;
-    private  Photo photo;
-
+    private Photo photo;
     private Interest interest;
+    private InterestScheme interestScheme;
+    private InterestRate interestRate;
+    private final Logger logger = LogsCenter.getLogger(getClass());
+
 
     /**
      * Represents a transaction with non null fields {@code type}, {@code amount}, {@code deadline}
@@ -35,10 +41,7 @@ public class Transaction {
         this.deadline = deadline;
         this.photo = photo;
     }
-    //create a copy instance
-    public Transaction(Transaction thisTransaction){
-        this(thisTransaction.getType(),thisTransaction.getAmount(),thisTransaction.getDeadline(),thisTransaction.getPerson(), thisTransaction.getPhoto() );
-    }
+
 
     public Transaction(Type type, Amount amount, Deadline deadline, Person person) {
         this.type = type;
@@ -48,6 +51,9 @@ public class Transaction {
         this.photo = new Photo();
     }
 
+    public static Transaction copy(Transaction other) {
+        return new Transaction(other.type, other.amount, other.deadline, other.person, other.photo);
+    }
 
     public Type getType() {
         return type;
@@ -69,24 +75,27 @@ public class Transaction {
         return interest;
     }
 
-    public Photo getPhoto() { return photo; }
-
-    public void deletePhoto() { this.photo = new Photo(); }
+    public Photo getPhoto() {
+        return photo;
+    }
 
     public void setPhoto(String photoPath) throws IllegalValueException {
         Photo previousPhoto = this.photo;
         try {
-            this.photo = new Photo( photoPath, photoUniqueId());
+            this.photo = new Photo(photoPath, photoUniqueId());
         } catch (IllegalValueException e) {
             //if could not change photo setback to the previous photo
             this.photo = previousPhoto;
             throw new IllegalValueException("Cannot set new photo");
         }
 
-        System.out.println("passsetphoto");
+        logger.info("passsetphoto");
 
     }
 
+    /**
+     * Generates a unique id for each photo.
+     */
     public String photoUniqueId() {
         int targetStringLength = 15;
         String value;
@@ -105,9 +114,19 @@ public class Transaction {
             }
             buffer.append(randomLimitedInt);
         }
-        String generatedString = buffer.toString();
-        value = generatedString;
-        return value;
+        return buffer.toString();
+    }
+
+    /**
+     * Calculates interest based on scheme and rate inputted by the user.
+     */
+    public void calculateInterest(String interestScheme, String interestRate) {
+        requireNonNull(interestScheme);
+        requireNonNull(interestRate);
+        long monthsDifference = Deadline.CURRENT_DATE.getMonthsDifference(deadline);
+        this.interestScheme = new InterestScheme(interestScheme);
+        this.interestRate = new InterestRate(interestRate);
+        interest = new Interest(amount, this.interestScheme, this.interestRate, monthsDifference);
     }
 
     @Override
@@ -123,7 +142,8 @@ public class Transaction {
         Transaction transaction = (Transaction) other;
         return other == this || (type.equals(transaction.type)
                 && amount.equals(transaction.amount)
-                && person.equals(transaction.person));
+                && person.equals(transaction.person)
+                && deadline.equals(transaction.deadline));
     }
 
     @Override

@@ -217,10 +217,10 @@ public abstract class FinancialDatabaseSystemTest {
      */
     protected void assertSelectedCardChanged(Index expectedSelectedCardIndex) {
         getTransactionListPanel().navigateToCard(getTransactionListPanel().getSelectedCardIndex());
-        String selectedCardName = getTransactionListPanel().getHandleToSelectedCard().getName();
+        String selectedCardDeadline = getTransactionListPanel().getHandleToSelectedCard().getDeadline();
         URL expectedUrl;
         try {
-            expectedUrl = new URL(BrowserPanel.SEARCH_PAGE_URL + selectedCardName.replaceAll(" ", "%20"));
+            expectedUrl = new URL(BrowserPanel.SEARCH_PAGE_URL + selectedCardDeadline.replaceAll(" ", "%20"));
         } catch (MalformedURLException mue) {
             throw new AssertionError("URL expected to be valid.", mue);
         }
