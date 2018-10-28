@@ -82,30 +82,6 @@ public class DeadlineTest {
     }
 
     @Test
-    public void getMonthsDifference_sameDeadlines_returnZero() {
-        String date = generateOneDate();
-        Deadline firstDeadline = new Deadline(date);
-        Deadline secondDeadline = new Deadline(date);
-        assertEquals(firstDeadline.getMonthsDifference(secondDeadline), 0);
-    }
-
-    @Test
-    public void getYearsDifference_sameDeadlines_returnZero() {
-        String date = generateOneDate();
-        Deadline firstDeadline = new Deadline(date);
-        Deadline secondDeadline = new Deadline(date);
-        assertEquals(firstDeadline.getYearsDifference(secondDeadline), 0);
-    }
-
-    @Test
-    public void getDaysDifference_sameDeadlines_returnZero() {
-        String date = generateOneDate();
-        Deadline firstDeadline = new Deadline(date);
-        Deadline secondDeadline = new Deadline(date);
-        assertEquals(firstDeadline.getDaysDifference(secondDeadline), 0);
-    }
-
-    @Test
     public void compareTo_sameDeadlines_returnZero() {
         String date = generateOneDate();
         Deadline firstDeadline = new Deadline(date);

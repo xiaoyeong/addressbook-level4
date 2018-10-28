@@ -74,7 +74,7 @@ public class FinancialDatabaseParser {
 
         case ConvertCommand.COMMAND_WORD:
         case ConvertCommand.COMMAND_ALIAS:
-            return new ConvertCommandParser().parse(arguments);
+            return new ConvertCommand();
 
         case DeleteCommand.COMMAND_WORD:
         case DeleteCommand.COMMAND_ALIAS:

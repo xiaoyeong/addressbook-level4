@@ -34,9 +34,10 @@ public class Type {
         return lower.equals("loan") || lower.equals("debt");
     }
 
+
     @Override
     public String toString() {
-        return value;
+        return "" + value;
     }
 
     @Override
