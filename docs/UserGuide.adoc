@@ -50,7 +50,7 @@ Format: clear
 === Currency conversion of transaction amounts: `convert`
 
 Converts the transaction amounts from their respective foreign currencies to Singapore Dollars.
-Format: convert AMOUNT [MORE_AMOUNTS]
+Format: convert
 
 === Deleting a transaction : `delete`
 
@@ -149,8 +149,7 @@ e.g. add tt/Loan ta/SGD 50.00 td/24/11/2018 n/James Ho p/22224444 e/jamesho@exam
 
 Clear : clear
 
-Convert: convert AMOUNT [MORE_AMOUNTS] +
-e.g. convert USD 20.00  KRW 35.50  MYR 130.60
+Convert: convert
 
 Delete : delete INDEX +
 e.g. delete 3

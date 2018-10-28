@@ -42,11 +42,11 @@ public class InterestRate {
 
     @Override
     public boolean equals(Object other) {
-        if (!(other instanceof Interest)) {
+        if (!(other instanceof InterestRate)) {
             return false;
         }
         InterestRate interestRate = (InterestRate) other;
-        return other == this || (interestRate.value == interestRate.value);
+        return other == this || (value == interestRate.value);
     }
 
     @Override

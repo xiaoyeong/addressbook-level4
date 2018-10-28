@@ -24,8 +24,11 @@ public class Amount {
               "The transaction amount must be real number rounded to two decimal places, "
             + "prefixed by a three letter currency code";
     public static final String TRANSACTION_AMOUNT_VALIDATION_REGEX = "\\w{3} \\d{1,}.\\d{1,2}";
-    protected Currency currency;
-    protected Double value;
+    private static final int MONTHS_IN_A_YEAR = 12;
+    private Currency currency;
+    private Double value;
+    private InterestScheme interestScheme;
+    private InterestRate interestRate;
 
     public Amount() {
         currency = Currency.getInstance("SGD");
@@ -72,6 +75,29 @@ public class Amount {
             }
         }
         return false;
+    }
+
+    /**
+     * Calculates interest based on interestScheme and interestRate inputted by the user.
+     */
+    public static Amount calculateInterest(Amount principalAmount, String interestScheme, String interestRate,
+                                  long durationInMonths) {
+        Amount convertedAmount = new Amount();
+        convertedAmount.interestScheme = new InterestScheme(interestScheme);
+        convertedAmount.interestRate = new InterestRate(interestRate);
+
+        if (convertedAmount.interestScheme.getValue().equals("simple")) {
+            convertedAmount.value = principalAmount.value + Double.parseDouble(String.format("%.2f",
+                            principalAmount.value * convertedAmount.interestRate.getValue() * durationInMonths));
+        } else {
+            double originalValue = principalAmount.value;
+            double calculatedValue =
+                    originalValue * Math.pow(1.0 + convertedAmount.interestRate.getValue() / MONTHS_IN_A_YEAR,
+                            durationInMonths);
+            convertedAmount.value = principalAmount.value + Double.parseDouble(String.format("%.2f",
+                    calculatedValue - originalValue));
+        }
+        return convertedAmount;
     }
 
     /**

@@ -115,16 +115,19 @@ public class Deadline implements Comparable<Deadline> {
         }
         return result;
     }
+    public long getMonthsDifference() {
+        return Deadline.CURRENT_DATE.getMonthsDifference(this);
+    }
 
-    public long getMonthsDifference(Deadline other) {
+    private long getMonthsDifference(Deadline other) {
         return getDifference(other, "months");
     }
 
-    public long getDaysDifference(Deadline other) {
+    private long getDaysDifference(Deadline other) {
         return getDifference(other, "days");
     }
 
-    public long getYearsDifference(Deadline other) {
+    private long getYearsDifference(Deadline other) {
         return getDifference(other, "years");
     }
 

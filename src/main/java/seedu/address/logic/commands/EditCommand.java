@@ -119,9 +119,7 @@ public class EditCommand extends Command {
                 .orElse(transactionToEdit.getPerson().getAddress());
         Set<Tag> updatedTags = editTransactionDescriptor.getTags().orElse(transactionToEdit.getPerson().getTags());
         Person updatedPerson = new Person(updatedName, updatedPhone, updatedEmail, updatedAddress, updatedTags);
-
-        return new seedu.address.model.transaction.Transaction(updatedType, updatedAmount, updatedDeadline,
-                updatedPerson);
+        return new Transaction(updatedType, updatedAmount, updatedDeadline, updatedPerson);
     }
 
     @Override
