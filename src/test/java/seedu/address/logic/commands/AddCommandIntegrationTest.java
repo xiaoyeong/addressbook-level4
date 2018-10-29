@@ -1,7 +1,7 @@
 package seedu.address.logic.commands;
 
-import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
-import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
+import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailureWithNoModelChange;
+import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccessWithNoModelChange;
 import static seedu.address.testutil.TypicalTransactions.getTypicalFinancialDatabase;
 
 import org.junit.Before;
@@ -35,14 +35,14 @@ public class AddCommandIntegrationTest {
         expectedModel.addTransaction(validTransaction);
         expectedModel.commitFinancialDatabase();
 
-        assertCommandSuccess(new AddCommand(validTransaction), model, commandHistory,
+        assertCommandSuccessWithNoModelChange(new AddCommand(validTransaction), model, commandHistory,
                 String.format(AddCommand.MESSAGE_SUCCESS, validTransaction), expectedModel);
     }
 
     @Test
     public void execute_duplicatePerson_throwsCommandException() {
         Transaction transactionInList = model.getFinancialDatabase().getTransactionList().get(0);
-        assertCommandFailure(new AddCommand(transactionInList), model, commandHistory,
+        assertCommandFailureWithNoModelChange(new AddCommand(transactionInList), model, commandHistory,
                 AddCommand.MESSAGE_DUPLICATE_TRANSACTION);
     }
 

@@ -18,14 +18,22 @@ import com.fasterxml.jackson.databind.ObjectMapper;
  * Represents the amount of money loaned/owed to end user.
  * Guarantees: immutable; is valid as declared in {@link #isValidAmount(String)}
  */
-public class Amount {
+public class Amount implements Comparable<Amount> {
     public static final Set<Currency> CURRENCIES = Currency.getAvailableCurrencies();
     public static final String MESSAGE_TRANSACTION_AMOUNT_CONSTRAINTS =
               "The transaction amount must be real number rounded to two decimal places, "
             + "prefixed by a three letter currency code";
-    public static final String TRANSACTION_AMOUNT_VALIDATION_REGEX = "\\w{3} \\d{1,}.\\d{2}";
-    public final String value;
+    public static final String TRANSACTION_AMOUNT_VALIDATION_REGEX = "\\w{3} \\d{1,}.\\d{1,2}";
+    private static final int MONTHS_IN_A_YEAR = 12;
+    private Currency currency;
+    private Double value;
+    private InterestScheme interestScheme;
+    private InterestRate interestRate;
 
+    public Amount() {
+        currency = Currency.getInstance("SGD");
+        value = 0.0;
+    }
     /**
      * Constructs an {@code TransactionAmount}.
      *
@@ -34,13 +42,17 @@ public class Amount {
     public Amount(String amount) {
         requireNonNull(amount);
         checkArgument(isValidAmount(amount), MESSAGE_TRANSACTION_AMOUNT_CONSTRAINTS);
-        value = amount;
+        currency = Currency.getInstance(amount.split("\\s+")[0]);
+        value = Double.parseDouble(amount.split("\\s+")[1]);
     }
 
-    public String getValue() {
+    public double getValue() {
         return value;
     }
 
+    public Currency getCurrency() {
+        return currency;
+    }
 
     /**
      * Returns true if the given string represents a valid transaction amount.
@@ -66,16 +78,38 @@ public class Amount {
     }
 
     /**
+     * Calculates interest based on interestScheme and interestRate inputted by the user.
+     */
+    public static Amount calculateInterest(Amount principalAmount, String interestScheme, String interestRate,
+                                  long durationInMonths) {
+        Amount convertedAmount = new Amount();
+        convertedAmount.interestScheme = new InterestScheme(interestScheme);
+        convertedAmount.interestRate = new InterestRate(interestRate);
+
+        if (convertedAmount.interestScheme.getValue().equals("simple")) {
+            convertedAmount.value = principalAmount.value + Double.parseDouble(String.format("%.2f",
+                            principalAmount.value * convertedAmount.interestRate.getValue() * durationInMonths));
+        } else {
+            double originalValue = principalAmount.value;
+            double calculatedValue =
+                    originalValue * Math.pow(1.0 + convertedAmount.interestRate.getValue() / MONTHS_IN_A_YEAR,
+                            durationInMonths);
+            convertedAmount.value = principalAmount.value + Double.parseDouble(String.format("%.2f",
+                    calculatedValue - originalValue));
+        }
+        return convertedAmount;
+    }
+
+    /**
      * Handles the conversion of foreign currency to Singaporean currency.
      *
      * @param amount the amount in a given currency which is to be converted to Singaporean currency
      */
     public static Amount convertCurrency(Amount amount) {
-        String amountValue = amount.value;
-        if (!Amount.isValidAmount(amountValue)) {
+        if (!Amount.isValidAmount(amount.toString())) {
             return null;
         }
-        String currencyCode = amountValue.split(" ")[0].toUpperCase();
+        Currency currencyCode = amount.currency;
         String currencyConverterFilePath = String.format(
                 "http://free.currencyconverterapi.com/api/v5/convert?q=%s_SGD&compact=y", currencyCode);
         ObjectMapper mapper = new ObjectMapper();
@@ -85,8 +119,7 @@ public class Amount {
             String jsonText = rd.readLine();
             Map<String, Map<String, Number>> map = mapper.readValue(jsonText, Map.class);
             double result = 1.00 * map.get(String.format("%s_SGD", currencyCode)).get("val").doubleValue();
-            result *= Double.parseDouble(amountValue.split(" ")[1]);
-
+            result *= amount.value;
             return new Amount(String.format("SGD %.2f", result));
         } catch (Exception ex) {
             ex.printStackTrace();
@@ -95,7 +128,7 @@ public class Amount {
     }
     @Override
     public String toString() {
-        return value;
+        return currency + " " + value;
     }
 
     @Override
@@ -110,5 +143,10 @@ public class Amount {
     @Override
     public int hashCode() {
         return value.hashCode();
+    }
+
+    @Override
+    public int compareTo(Amount otherAmount) {
+        return value.compareTo(otherAmount.value);
     }
 }

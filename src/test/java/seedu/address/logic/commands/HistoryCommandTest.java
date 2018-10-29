@@ -1,6 +1,6 @@
 package seedu.address.logic.commands;
 
-import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
+import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccessWithNoModelChange;
 
 import org.junit.Test;
 
@@ -15,11 +15,12 @@ public class HistoryCommandTest {
 
     @Test
     public void execute() {
-        assertCommandSuccess(new HistoryCommand(), model, history, HistoryCommand.MESSAGE_NO_HISTORY, expectedModel);
+        assertCommandSuccessWithNoModelChange(new HistoryCommand(), model, history,
+                HistoryCommand.MESSAGE_NO_HISTORY, expectedModel);
 
         String command1 = "clear";
         history.add(command1);
-        assertCommandSuccess(new HistoryCommand(), model, history,
+        assertCommandSuccessWithNoModelChange(new HistoryCommand(), model, history,
                 String.format(HistoryCommand.MESSAGE_SUCCESS, command1), expectedModel);
 
         String command2 = "randomCommand";
@@ -29,7 +30,7 @@ public class HistoryCommandTest {
 
         String expectedMessage = String.format(HistoryCommand.MESSAGE_SUCCESS,
                 String.join("\n", command3, command2, command1));
-        assertCommandSuccess(new HistoryCommand(), model, history, expectedMessage, expectedModel);
+        assertCommandSuccessWithNoModelChange(new HistoryCommand(), model, history, expectedMessage, expectedModel);
     }
 
 }

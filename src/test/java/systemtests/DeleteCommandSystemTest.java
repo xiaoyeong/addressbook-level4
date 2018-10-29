@@ -129,7 +129,7 @@ public class DeleteCommandSystemTest extends FinancialDatabaseSystemTest {
 
     /**
      * Deletes the transaction at {@code toDelete} by creating a default {@code DeleteCommand} using {@code toDelete}
-     * and performs the same verification as {@code assertCommandSuccess(String, Model, String)}.
+     * and performs the same verification as {@code assertCommandSuccessWithNoModelChange(String, Model, String)}.
      * @see DeleteCommandSystemTest#assertCommandSuccess(String, Model, String)
      */
     private void assertCommandSuccess(Index toDelete) {
@@ -157,8 +157,9 @@ public class DeleteCommandSystemTest extends FinancialDatabaseSystemTest {
     }
 
     /**
-     * Performs the same verification as {@code assertCommandSuccess(String, Model, String)} except that the browser url
-     * and selected card are expected to update accordingly depending on the card at {@code expectedSelectedCardIndex}.
+     * Performs the same verification as {@code assertCommandSuccessWithNoModelChange(String, Model, String)} except
+     * that the browser url and selected card are expected to update accordingly depending on the
+     * card at {@code expectedSelectedCardIndex}.
      * @see DeleteCommandSystemTest#assertCommandSuccess(String, Model, String)
      * @see FinancialDatabaseSystemTest#assertSelectedCardChanged(Index)
      */

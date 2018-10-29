@@ -214,8 +214,8 @@ public class EditCommandSystemTest extends FinancialDatabaseSystemTest {
     }
 
     /**
-     * Performs the same verification as {@code assertCommandSuccess(String, Index, Person, Index)} except that
-     * the browser url and selected card remain unchanged.
+     * Performs the same verification as {@code assertCommandSuccessWithNoModelChange(String, Index, Person, Index)}
+     * except that the browser url and selected card remain unchanged.
      * @param toEdit the index of the current model's filtered list
      * @see EditCommandSystemTest#assertCommandSuccess(String, Index, Transaction, Index)
      */
@@ -224,7 +224,8 @@ public class EditCommandSystemTest extends FinancialDatabaseSystemTest {
     }
 
     /**
-     * Performs the same verification as {@code assertCommandSuccess(String, Model, String, Index)} and in addition,<br>
+     * Performs the same verification as {@code assertCommandSuccessWithNoModelChange(String, Model, String, Index)}
+     * and in addition,<br>
      * 1. Asserts that result display box displays the success message of executing {@code EditCommand}.<br>
      * 2. Asserts that the model related components are updated to reflect the transaction at index {@code toEdit} being
      * updated to values specified {@code editedTransaction}.<br>
@@ -244,8 +245,8 @@ public class EditCommandSystemTest extends FinancialDatabaseSystemTest {
     }
 
     /**
-     * Performs the same verification as {@code assertCommandSuccess(String, Model, String, Index)} except that the
-     * browser url and selected card remain unchanged.
+     * Performs the same verification as {@code assertCommandSuccessWithNoModelChange(String, Model, String, Index)}
+     * except that the browser url and selected card remain unchanged.
      * @see EditCommandSystemTest#assertCommandSuccess(String, Model, String, Index)
      */
     private void assertCommandSuccess(String command, Model expectedModel, String expectedResultMessage) {
