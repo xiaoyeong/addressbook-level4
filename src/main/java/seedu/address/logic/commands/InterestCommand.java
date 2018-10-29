@@ -35,8 +35,7 @@ public class InterestCommand extends Command {
     public CommandResult execute(Model model, CommandHistory history) {
         requireNonNull(model);
         List<Transaction> lastShownList = model.getFilteredTransactionList();
-        for (int i = 0; i < lastShownList.size(); i++) {
-            Transaction transactionToEdit = lastShownList.get(i);
+        for (Transaction transactionToEdit : lastShownList) {
             Amount principalAmount = transactionToEdit.getAmount();
             long monthsDifference = transactionToEdit.getDeadline().getMonthsDifference();
             Amount convertedAmount = Amount.calculateInterest(principalAmount, scheme, rate, monthsDifference);

@@ -18,7 +18,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
  * Represents the amount of money loaned/owed to end user.
  * Guarantees: immutable; is valid as declared in {@link #isValidAmount(String)}
  */
-public class Amount {
+public class Amount implements Comparable<Amount>{
     public static final Set<Currency> CURRENCIES = Currency.getAvailableCurrencies();
     public static final String MESSAGE_TRANSACTION_AMOUNT_CONSTRAINTS =
               "The transaction amount must be real number rounded to two decimal places, "
@@ -143,5 +143,10 @@ public class Amount {
     @Override
     public int hashCode() {
         return value.hashCode();
+    }
+
+    @Override
+    public int compareTo(Amount otherAmount) {
+        return value.compareTo(otherAmount.value);
     }
 }

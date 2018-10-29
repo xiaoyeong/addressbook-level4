@@ -27,8 +27,7 @@ public class ConvertCommand extends Command {
     public CommandResult execute(Model model, CommandHistory history) {
         requireNonNull(model);
         List<Transaction> lastShownList = model.getFilteredTransactionList();
-        for (int i = 0; i < lastShownList.size(); i++) {
-            Transaction transactionToEdit = lastShownList.get(i);
+        for (Transaction transactionToEdit : lastShownList) {
             Amount convertedAmount = Amount.convertCurrency(transactionToEdit.getAmount());
             Transaction editedTransaction = Transaction.copy(transactionToEdit);
             editedTransaction.setAmount(convertedAmount);
