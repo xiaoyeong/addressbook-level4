@@ -22,6 +22,7 @@ import seedu.address.logic.commands.HistoryCommand;
 import seedu.address.logic.commands.InterestCommand;
 import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.ModeCommand;
+import seedu.address.logic.commands.NextTransactionCommand;
 import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.SelectCommand;
 import seedu.address.logic.commands.ToDoListAddCommand;
@@ -116,6 +117,10 @@ public class FinancialDatabaseParser {
         case ModeCommand.COMMAND_WORD:
         case ModeCommand.COMMAND_ALIAS:
             return new ModeCommand();
+
+        case NextTransactionCommand.COMMAND_WORD:
+        case NextTransactionCommand.COMMAND_ALIAS:
+            return new NextTransactionCommand();
 
         case UndoCommand.COMMAND_WORD:
         case UndoCommand.COMMAND_ALIAS:
