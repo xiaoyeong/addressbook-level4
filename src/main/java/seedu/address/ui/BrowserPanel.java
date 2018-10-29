@@ -13,6 +13,7 @@ import javafx.scene.web.WebView;
 
 import seedu.address.MainApp;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.commons.events.ui.RefreshCalendarEvent;
 import seedu.address.commons.events.ui.ShowCalendarEvent;
 import seedu.address.commons.events.ui.TransactionPanelSelectionChangedEvent;
 import seedu.address.model.transaction.Transaction;
@@ -33,6 +34,8 @@ public class BrowserPanel extends UiPart<Region> {
 
     private final Logger logger = LogsCenter.getLogger(getClass());
 
+    private boolean calendarShown;
+
     @FXML
     private WebView browser;
 
@@ -48,10 +51,12 @@ public class BrowserPanel extends UiPart<Region> {
 
     private void loadTransactionPage(Transaction transaction) {
         loadPage(SEARCH_PAGE_URL + transaction.getDeadline().value);
+        calendarShown = false;
     }
 
     private void loadCalendarPage(String id) {
         loadPage(CALENDAR_PAGE_URL + id + "&ctz=Asia/Singapore");
+        calendarShown = true;
     }
 
     public void loadPage(String url) {
@@ -83,5 +88,13 @@ public class BrowserPanel extends UiPart<Region> {
     private void handleShowCalendarEvent(ShowCalendarEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
         loadCalendarPage(event.getCalendarId());
+    }
+
+    @Subscribe
+    private void handleRefreshCalendarEvent(RefreshCalendarEvent event) {
+        logger.info(LogsCenter.getEventHandlingLogMessage(event));
+        if (calendarShown) {
+            loadCalendarPage(event.getCalendarId());
+        }
     }
 }

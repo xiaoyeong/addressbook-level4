@@ -44,7 +44,7 @@ public class MultiFieldPredicate implements Predicate<Transaction> {
                 || (other instanceof MultiFieldPredicate // instanceof handles nulls
                 && predicates.equals(((MultiFieldPredicate) other).predicates)
                 && opType.equals(((MultiFieldPredicate) other).opType)
-        ); // state check
+                ); // state check
     }
 
 

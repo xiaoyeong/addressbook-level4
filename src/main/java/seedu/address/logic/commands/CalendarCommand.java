@@ -23,7 +23,7 @@ public class CalendarCommand extends Command {
             + COMMAND_WORD + " login\n"
             + COMMAND_WORD + " logout\n";
 
-    public static final String MESSAGE_SUCCESS = "Calendar opened";
+    public static final String MESSAGE_SYNC_SUCCESS = "Calendar Synced. %1$s";
 
     private final String action;
 
@@ -52,15 +52,22 @@ public class CalendarCommand extends Command {
                 }
             }
         case "show" :
-            String msg;
             if (CalendarManager.getInstance().isAuthenticated()) {
                 EventsCenter.getInstance()
                         .post(new ShowCalendarEvent(CalendarManager.getInstance().getCalendarId()));
-                msg = "Calendar loaded";
+                return new CommandResult("Calendar loaded");
             } else {
-                msg = "Not logged in. Please enter the following command to login:\ncalendar login";
+                return new CommandResult("Not logged in. "
+                        + "Please enter the following command to login:\ncalendar login");
             }
-            return new CommandResult(msg);
+        case "sync" :
+            if (CalendarManager.getInstance().isAuthenticated()) {
+                CalendarManager.SyncResult result = CalendarManager.getInstance().syncCalendar(model);
+                return new CommandResult(String.format(MESSAGE_SYNC_SUCCESS, result));
+            } else {
+                return new CommandResult("Not logged in. "
+                        + "Please enter the following command to login:\ncalendar login");
+            }
         default:
             return new CommandResult("");
         }

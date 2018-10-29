@@ -1,6 +1,23 @@
 package seedu.address.logic.commands;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+import static seedu.address.commons.core.Messages.MESSAGE_TRANSACTIONS_LISTED_OVERVIEW;
+import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccessWithNoModelChange;
+import static seedu.address.testutil.TypicalTransactions.CARL_TRANSACTION;
+import static seedu.address.testutil.TypicalTransactions.ELLE_TRANSACTION;
+import static seedu.address.testutil.TypicalTransactions.FIONA_TRANSACTION;
+import static seedu.address.testutil.TypicalTransactions.getTypicalFinancialDatabase;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+import java.util.function.Predicate;
+
 import org.junit.Test;
+
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.parser.FieldType;
 import seedu.address.model.Model;
@@ -14,22 +31,6 @@ import seedu.address.model.transaction.DeadlineBoundsPredicate;
 import seedu.address.model.transaction.FieldContainsKeywordsPredicate;
 import seedu.address.model.transaction.MultiFieldPredicate;
 import seedu.address.model.transaction.Transaction;
-
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
-import java.util.function.Predicate;
-
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
-import static seedu.address.commons.core.Messages.MESSAGE_TRANSACTIONS_LISTED_OVERVIEW;
-import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccessWithNoModelChange;
-import static seedu.address.testutil.TypicalTransactions.CARL_TRANSACTION;
-import static seedu.address.testutil.TypicalTransactions.ELLE_TRANSACTION;
-import static seedu.address.testutil.TypicalTransactions.FIONA_TRANSACTION;
-import static seedu.address.testutil.TypicalTransactions.getTypicalFinancialDatabase;
 
 
 /**

@@ -111,17 +111,17 @@ public class Deadline implements Comparable<Deadline> {
         LocalDate otherDate = other.convertToDate();
         long result;
         switch (timeUnit) {
-            case "months":
-                result = currentDate.until(otherDate, ChronoUnit.MONTHS);
-                break;
-            case "days":
-                result = currentDate.until(otherDate, ChronoUnit.DAYS);
-                break;
-            case "years":
-                result = currentDate.until(otherDate, ChronoUnit.YEARS);
-                break;
-            default:
-                result = 0;
+        case "months":
+            result = currentDate.until(otherDate, ChronoUnit.MONTHS);
+            break;
+        case "days":
+            result = currentDate.until(otherDate, ChronoUnit.DAYS);
+            break;
+        case "years":
+            result = currentDate.until(otherDate, ChronoUnit.YEARS);
+            break;
+        default:
+            result = 0;
         }
         return result;
     }

@@ -54,6 +54,6 @@ public class FilterCommand extends Command {
                 || (other instanceof FilterCommand // instanceof handles nulls
                 && predicates.equals(((FilterCommand) other).predicates)
                 && operatorType.equals(((FilterCommand) other).operatorType)
-        ); // state check
+                ); // state check
     }
 }
