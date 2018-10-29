@@ -1,12 +1,10 @@
 package seedu.address.logic.commands;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 import static java.util.Objects.requireNonNull;
 import javafx.collections.ObservableList;
-import javafx.collections.transformation.SortedList;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
@@ -19,8 +17,8 @@ import seedu.address.model.transaction.Type;
 public class SortCommand extends Command {
     public static final String COMMAND_WORD = "sort";
     public static final String MESSAGE_SUCCESS = "%d transactions sorted by %s attribute!";
-    private static final String MESSAGE_INCORRECT_SORT_PARAMETER = "The sort parameter provided is invalid";
-    public final String sortParameter;
+    public static final Object DEFAULT_SORT_PARAMETER = "person";
+    private final String sortParameter;
 
     public SortCommand(String arguments) {
         requireNonNull(arguments);
@@ -31,8 +29,10 @@ public class SortCommand extends Command {
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
         ObservableList<Transaction> originalTransactionList = model.getFilteredTransactionList();
+        int size = originalTransactionList.size();
         Comparator<Transaction> transactionComparator;
         String trimmedSortParameterLowerCase = sortParameter.toLowerCase().trim();
+        String commandResult;
         switch(trimmedSortParameterLowerCase) {
         case "amount":
             transactionComparator = (firstTransaction, secondTransaction) -> {
@@ -40,6 +40,7 @@ public class SortCommand extends Command {
                 Amount secondAmount = secondTransaction.getAmount();
                 return firstAmount.compareTo(secondAmount);
             };
+            commandResult = String.format(MESSAGE_SUCCESS, size, trimmedSortParameterLowerCase);
             break;
         case "deadline":
             transactionComparator = (firstTransaction, secondTransaction) -> {
@@ -47,13 +48,7 @@ public class SortCommand extends Command {
                 Deadline secondDeadline = secondTransaction.getDeadline();
                 return firstDeadline.compareTo(secondDeadline);
             };
-            break;
-        case "person":
-            transactionComparator = (firstTransaction, secondTransaction) -> {
-                Person firstPerson = firstTransaction.getPerson();
-                Person secondPerson = secondTransaction.getPerson();
-                return firstPerson.compareTo(secondPerson);
-            };
+            commandResult = String.format(MESSAGE_SUCCESS, size, trimmedSortParameterLowerCase);
             break;
         case "type":
             transactionComparator = (firstTransaction, secondTransaction) -> {
@@ -61,17 +56,22 @@ public class SortCommand extends Command {
                 Type secondType = secondTransaction.getType();
                 return firstType.compareTo(secondType);
             };
+            commandResult = String.format(MESSAGE_SUCCESS, size, trimmedSortParameterLowerCase);
             break;
         default:
-            throw new CommandException(MESSAGE_INCORRECT_SORT_PARAMETER);
+            transactionComparator = (firstTransaction, secondTransaction) -> {
+                Person firstPerson = firstTransaction.getPerson();
+                Person secondPerson = secondTransaction.getPerson();
+                return firstPerson.compareTo(secondPerson);
+            };
+            commandResult = String.format(MESSAGE_SUCCESS, size, DEFAULT_SORT_PARAMETER);
         }
         List<Transaction> sortedTransactionList = new ArrayList<>(originalTransactionList);
         sortedTransactionList.sort(transactionComparator);
-        int size = originalTransactionList.size();
         model.resetData(model.getFinancialDatabase());
         for (Transaction newTransaction : sortedTransactionList) {
             model.addTransaction(newTransaction);
         }
-        return new CommandResult(String.format(MESSAGE_SUCCESS, size, trimmedSortParameterLowerCase));
+        return new CommandResult(commandResult);
     }
 }
