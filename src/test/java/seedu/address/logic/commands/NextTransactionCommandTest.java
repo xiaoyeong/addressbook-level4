@@ -17,6 +17,9 @@ import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.transaction.DeadlineContainsKeywordsPredicate;
 
+/**
+ * Contains integration tests (interaction with the Model) and unit tests for NextTransactionCommand.
+ */
 public class NextTransactionCommandTest {
     private CommandHistory history = new CommandHistory();
     private Model model = new ModelManager();

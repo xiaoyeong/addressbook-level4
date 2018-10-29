@@ -11,7 +11,9 @@ import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.transaction.Deadline;
 
-
+/**
+ * Contains integration tests (interaction with the Model) and unit tests for AnalyticsCommand.
+ */
 public class AnalyticsCommandTest {
     private CommandHistory history = new CommandHistory();
     private Model model = new ModelManager();

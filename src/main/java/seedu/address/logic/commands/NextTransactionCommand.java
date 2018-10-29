@@ -13,16 +13,15 @@ import seedu.address.model.transaction.DeadlineContainsKeywordsPredicate;
 import seedu.address.model.transaction.Transaction;
 
 /**
- * Finds and lists all persons in address book whose name contains any of the argument keywords.
- * Keyword matching is case insensitive.
+ * Finds and lists all transactions in the database which deadline is closest to current date.
  */
 public class NextTransactionCommand extends Command {
 
-    public static final String COMMAND_WORD = "nextt";
+    public static final String COMMAND_WORD = "nexttransaction";
     public static final String COMMAND_ALIAS = "nt";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Finds all transactions with the nearest"
-            + "deadline contain any of \n"
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Find and lists all transactions in the"
+            + " database which deadline is closest to current date.\n"
             + "Example: " + COMMAND_WORD;
     private DeadlineContainsKeywordsPredicate predicate;
 
@@ -30,7 +29,7 @@ public class NextTransactionCommand extends Command {
     public CommandResult execute(Model model, CommandHistory history) {
         requireNonNull(model);
         List<Transaction> transactionList = model.getFilteredTransactionList();
-        Deadline firstDate = null;
+        Deadline firstDate;
         if (transactionList.size() > 0) {
             firstDate = transactionList.get(0).getDeadline();
 
