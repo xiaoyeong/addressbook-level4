@@ -155,7 +155,7 @@ public class CalendarManager extends ComponentManager {
                 .build();
     }
 
-    public void setReminder(int timePeriod, Transaction transactionToSetReminder) throws IOException{
+    public void setReminder(int timePeriod, Transaction transactionToSetReminder) throws IOException {
         List<Event> calendarEvents = getCalendarEvents();
     }
 

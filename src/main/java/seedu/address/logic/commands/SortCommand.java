@@ -1,9 +1,11 @@
 package seedu.address.logic.commands;
 
+import static java.util.Objects.requireNonNull;
+
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
-import static java.util.Objects.requireNonNull;
+
 import javafx.collections.ObservableList;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -14,6 +16,9 @@ import seedu.address.model.transaction.Deadline;
 import seedu.address.model.transaction.Transaction;
 import seedu.address.model.transaction.Type;
 
+/**
+ * Sorts transactions in the financial database based on a parameter.
+ */
 public class SortCommand extends Command {
     public static final String COMMAND_WORD = "sort";
     public static final String MESSAGE_SUCCESS = "%d transactions sorted by %s attribute!";

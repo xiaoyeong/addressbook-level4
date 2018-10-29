@@ -35,7 +35,7 @@ import seedu.address.model.transaction.Transaction;
 import seedu.address.model.transaction.Type;
 
 /**
- * Edits the details of an existing transaction in the address book.
+ * Edits the details of an existing transaction in the financial database.
  */
 public class EditCommand extends Command {
 

@@ -22,7 +22,6 @@ import seedu.address.logic.commands.HistoryCommand;
 import seedu.address.logic.commands.InterestCommand;
 import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.RedoCommand;
-import seedu.address.logic.commands.ReminderCommand;
 import seedu.address.logic.commands.SelectCommand;
 import seedu.address.logic.commands.SortCommand;
 import seedu.address.logic.commands.ToDoListAddCommand;
