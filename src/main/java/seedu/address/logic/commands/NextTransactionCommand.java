@@ -21,7 +21,8 @@ public class NextTransactionCommand extends Command {
     public static final String COMMAND_WORD = "nextt";
     public static final String COMMAND_ALIAS = "nt";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Finds all transaction with the nearest deadline contain any of \n"
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Finds all transactions with the nearest"
+            + "deadline contain any of \n"
             + "Example: " + COMMAND_WORD;
     private DeadlineContainsKeywordsPredicate predicate;
 
@@ -30,7 +31,7 @@ public class NextTransactionCommand extends Command {
         requireNonNull(model);
         List<Transaction> transactionList = model.getFilteredTransactionList();
         Deadline firstDate = null;
-        if(transactionList.size() > 0) {
+        if (transactionList.size() > 0) {
             firstDate = transactionList.get(0).getDeadline();
 
             for (int i = 1; i < transactionList.size(); i++) {
