@@ -189,8 +189,8 @@ public class AddCommandSystemTest extends FinancialDatabaseSystemTest {
     }
 
     /**
-     * Performs the same verification as {@code assertCommandSuccessWithNoModelChange(String, Person)} except asserts that
-     * the,<br>
+     * Performs the same verification as {@code assertCommandSuccessWithNoModelChange(String, Person)} except asserts
+     * that the,<br>
      * 1. Result display box displays {@code expectedResultMessage}.<br>
      * 2. {@code Storage} and {@code TransactionListPanel} equal to the corresponding components in
      * {@code expectedModel}.<br>

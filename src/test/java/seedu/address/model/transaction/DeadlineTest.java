@@ -90,7 +90,7 @@ public class DeadlineTest {
     }
 
     @Test
-    public void compareTo_DifferentDeadlines_returnPositiveOne() {
+    public void compareTo_differentDeadlines_returnPositiveOne() {
         String[] dates = generateTwoDates();
         Deadline firstDeadline = new Deadline(dates[0]);
         Deadline secondDeadline = new Deadline(dates[1]);
@@ -98,7 +98,7 @@ public class DeadlineTest {
     }
 
     @Test
-    public void compareTo_DifferentDeadlines_returnNegativeOne() {
+    public void compareTo_differentDeadlines_returnNegativeOne() {
         String firstDate = "17/11/2018";
         String secondDate = "15/12/2018";
         Deadline firstDeadline = new Deadline(firstDate);

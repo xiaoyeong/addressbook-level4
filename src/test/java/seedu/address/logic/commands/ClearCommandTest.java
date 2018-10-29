@@ -21,7 +21,8 @@ public class ClearCommandTest {
         Model expectedModel = new ModelManager();
         expectedModel.commitFinancialDatabase();
 
-        assertCommandSuccessWithNoModelChange(new ClearCommand(), model, commandHistory, ClearCommand.MESSAGE_SUCCESS, expectedModel);
+        assertCommandSuccessWithNoModelChange(new ClearCommand(), model, commandHistory, ClearCommand.MESSAGE_SUCCESS,
+                expectedModel);
     }
 
     @Test
@@ -31,7 +32,8 @@ public class ClearCommandTest {
         expectedModel.resetData(new FinancialDatabase());
         expectedModel.commitFinancialDatabase();
 
-        assertCommandSuccessWithNoModelChange(new ClearCommand(), model, commandHistory, ClearCommand.MESSAGE_SUCCESS, expectedModel);
+        assertCommandSuccessWithNoModelChange(new ClearCommand(), model, commandHistory, ClearCommand.MESSAGE_SUCCESS,
+                expectedModel);
     }
 
 }

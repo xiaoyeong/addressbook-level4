@@ -1,13 +1,15 @@
 package seedu.address.logic.commands;
 
-import org.junit.Test;
-import seedu.address.logic.CommandHistory;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccessWithModelChange;
-import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccessWithNoModelChange;
+import static seedu.address.testutil.TypicalTransactions.getTypicalFinancialDatabase;
+
+import org.junit.Test;
+
+import seedu.address.logic.CommandHistory;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
-import static seedu.address.testutil.TypicalTransactions.getTypicalFinancialDatabase;
+
 
 public class SortCommandTest {
     private static final int LIST_SIZE = getTypicalFinancialDatabase().getTransactionList().size();

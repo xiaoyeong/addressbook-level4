@@ -118,7 +118,8 @@ public class EditCommandTest {
         EditTransactionDescriptor descriptor = new EditTransactionDescriptorBuilder(firstPerson).build();
         EditCommand editCommand = new EditCommand(INDEX_SECOND_TRANSACTION, descriptor);
 
-        assertCommandFailureWithNoModelChange(editCommand, model, commandHistory, EditCommand.MESSAGE_DUPLICATE_TRANSACTION);
+        assertCommandFailureWithNoModelChange(editCommand, model, commandHistory,
+                EditCommand.MESSAGE_DUPLICATE_TRANSACTION);
     }
 
     @Test
@@ -131,7 +132,8 @@ public class EditCommandTest {
         EditCommand editCommand = new EditCommand(INDEX_FIRST_TRANSACTION,
                 new EditTransactionDescriptorBuilder(personInList).build());
 
-        assertCommandFailureWithNoModelChange(editCommand, model, commandHistory, EditCommand.MESSAGE_DUPLICATE_TRANSACTION);
+        assertCommandFailureWithNoModelChange(editCommand, model, commandHistory,
+                EditCommand.MESSAGE_DUPLICATE_TRANSACTION);
     }
 
     @Test
@@ -140,7 +142,8 @@ public class EditCommandTest {
         EditTransactionDescriptor descriptor = new EditTransactionDescriptorBuilder().withName(VALID_NAME_BOB).build();
         EditCommand editCommand = new EditCommand(outOfBoundIndex, descriptor);
 
-        assertCommandFailureWithNoModelChange(editCommand, model, commandHistory, Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+        assertCommandFailureWithNoModelChange(editCommand, model, commandHistory,
+                Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
     }
 
     /**
@@ -157,7 +160,8 @@ public class EditCommandTest {
         EditCommand editCommand = new EditCommand(outOfBoundIndex,
                 new EditTransactionDescriptorBuilder().withName(VALID_NAME_BOB).build());
 
-        assertCommandFailureWithNoModelChange(editCommand, model, commandHistory, Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+        assertCommandFailureWithNoModelChange(editCommand, model, commandHistory,
+                Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
     }
 
     @Test
@@ -175,11 +179,13 @@ public class EditCommandTest {
 
         // undo -> reverts addressbook back to previous state and filtered transaction list to show all persons
         expectedModel.undoFinancialDatabase();
-        assertCommandSuccessWithNoModelChange(new UndoCommand(), model, commandHistory, UndoCommand.MESSAGE_SUCCESS, expectedModel);
+        assertCommandSuccessWithNoModelChange(new UndoCommand(), model, commandHistory,
+                UndoCommand.MESSAGE_SUCCESS, expectedModel);
 
         // redo -> same first transaction edited again
         expectedModel.redoFinancialDatabase();
-        assertCommandSuccessWithNoModelChange(new RedoCommand(), model, commandHistory, RedoCommand.MESSAGE_SUCCESS, expectedModel);
+        assertCommandSuccessWithNoModelChange(new RedoCommand(), model, commandHistory,
+                RedoCommand.MESSAGE_SUCCESS, expectedModel);
     }
 
     @Test
@@ -189,7 +195,8 @@ public class EditCommandTest {
         EditCommand editCommand = new EditCommand(outOfBoundIndex, descriptor);
 
         // execution failed -> address book state not added into model
-        assertCommandFailureWithNoModelChange(editCommand, model, commandHistory, Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+        assertCommandFailureWithNoModelChange(editCommand, model, commandHistory,
+                Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
 
         // single address book state in model -> undoCommand and redoCommand fail
         assertCommandFailureWithNoModelChange(new UndoCommand(), model, commandHistory, UndoCommand.MESSAGE_FAILURE);
@@ -221,12 +228,14 @@ public class EditCommandTest {
 
         // undo -> reverts addressbook back to previous state and filtered transaction list to show all persons
         expectedModel.undoFinancialDatabase();
-        assertCommandSuccessWithNoModelChange(new UndoCommand(), model, commandHistory, UndoCommand.MESSAGE_SUCCESS, expectedModel);
+        assertCommandSuccessWithNoModelChange(new UndoCommand(), model, commandHistory,
+                UndoCommand.MESSAGE_SUCCESS, expectedModel);
 
         assertNotEquals(model.getFilteredTransactionList().get(INDEX_FIRST_TRANSACTION.getZeroBased()), personToEdit);
         // redo -> edits same second transaction in unfiltered transaction list
         expectedModel.redoFinancialDatabase();
-        assertCommandSuccessWithNoModelChange(new RedoCommand(), model, commandHistory, RedoCommand.MESSAGE_SUCCESS, expectedModel);
+        assertCommandSuccessWithNoModelChange(new RedoCommand(), model, commandHistory,
+                RedoCommand.MESSAGE_SUCCESS, expectedModel);
     }
 
     @Test

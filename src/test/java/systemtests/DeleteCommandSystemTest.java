@@ -157,8 +157,9 @@ public class DeleteCommandSystemTest extends FinancialDatabaseSystemTest {
     }
 
     /**
-     * Performs the same verification as {@code assertCommandSuccessWithNoModelChange(String, Model, String)} except that the browser url
-     * and selected card are expected to update accordingly depending on the card at {@code expectedSelectedCardIndex}.
+     * Performs the same verification as {@code assertCommandSuccessWithNoModelChange(String, Model, String)} except
+     * that the browser url and selected card are expected to update accordingly depending on the
+     * card at {@code expectedSelectedCardIndex}.
      * @see DeleteCommandSystemTest#assertCommandSuccess(String, Model, String)
      * @see FinancialDatabaseSystemTest#assertSelectedCardChanged(Index)
      */
