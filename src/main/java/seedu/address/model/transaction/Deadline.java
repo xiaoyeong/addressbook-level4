@@ -115,6 +115,7 @@ public class Deadline implements Comparable<Deadline> {
         }
         return result;
     }
+
     public long getMonthsDifference() {
         return Deadline.CURRENT_DATE.getMonthsDifference(this);
     }
@@ -136,15 +137,12 @@ public class Deadline implements Comparable<Deadline> {
      * @param other the other deadline to compare.
      */
     public int compareTo(@NotNull Deadline other) {
-        if (getYearsDifference(other) > 0
-                || (getYearsDifference(other) == 0 && getMonthsDifference(other) > 0)
-                || (getYearsDifference(other) == 0 && getMonthsDifference(other) == 0
-                && getDaysDifference(other) > 0)) {
-            return 1;
+        if (getYearsDifference(other) > 0 || getMonthsDifference(other) > 0 || getDaysDifference(other) > 0) {
+            return -1;
         } else if (getYearsDifference(other) == 0 && getMonthsDifference(other) == 0 && getDaysDifference(other) == 0) {
             return 0;
         } else {
-            return -1;
+            return 1;
         }
     }
 }

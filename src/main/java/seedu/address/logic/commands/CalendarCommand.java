@@ -8,8 +8,6 @@ import seedu.address.commons.events.ui.ShowCalendarEvent;
 import seedu.address.logic.CommandHistory;
 import seedu.address.model.Model;
 
-
-
 /**
  * Lists all persons in the address book to the user.
  */
