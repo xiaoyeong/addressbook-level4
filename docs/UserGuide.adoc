@@ -216,7 +216,7 @@ Find : find KEYWORD [MORE_KEYWORDS] +
 
 e.g. find James Jake
 
-Search : search SUBSTRING + 
+Search : search SUBSTRING +
 
 e.g. search Be
 
@@ -228,7 +228,7 @@ Delete : delete INDEX +
 
 e.g. delete 3
 
-Select : select INDEX + 
+Select : select INDEX +
 
 e.g.select 2
 
