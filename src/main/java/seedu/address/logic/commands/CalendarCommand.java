@@ -57,8 +57,9 @@ public class CalendarCommand extends Command {
                         .post(new ShowCalendarEvent(CalendarManager.getInstance().getCalendarId()));
                 return new CommandResult("Calendar loaded");
             } else {
+                CalendarManager.getInstance().calendarLogin();
                 return new CommandResult("Not logged in. "
-                        + "Please enter the following command to login:\ncalendar login");
+                        + "Please login now or enter the following command to login:\ncalendar login");
             }
         case "sync" :
             if (CalendarManager.getInstance().isAuthenticated()) {

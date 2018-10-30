@@ -42,6 +42,11 @@ Refer to Section 3, “Features” for details of each command.
 Adds a transaction to the database.
 Format: add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS d/DEBT dl/DEADLINE [t/TAG]…​
 
+=== View the calendar : `calendar`
+
+Views the Google Calendar displaying transaction details. Requires user to login to a Google Account.
+Format: calendar show
+
 === Clearing all entries : `clear`
 
 Clears all entries from the Debt Tracker.
@@ -69,8 +74,8 @@ Format: clear
 
 === Filtering transactions: `filter`
 
-Filter people out by whether they are a debtor or a creditor.
-Format: filter [t/TAG]...
+Filters transactions matching specified criteria.
+Format: filter [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [tt/TYPE] [ta/AMOUNT] [td/DEADLINE] [tamin/MIN_AMOUNT] [tamax/MAX_AMOUNT] [tdmin/EARLIEST_DATE] [tdmax/LATEST_DATE]
 
 === Locating transactions by transaction's name : `find`
 
@@ -169,8 +174,8 @@ e.g. interest simple 1.1%
 
 List : list
 
-Filter: filter[t/TAG]... +
-E.g. filter t/debtor
+Filter: filter [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [tt/TYPE] [ta/AMOUNT] [td/DEADLINE] [tamin/MIN_AMOUNT] [tamax/MAX_AMOUNT] [tdmin/EARLIEST_DATE] [tdmax/LATEST_DATE]
+E.g. filter n/Alex e/example.com tt/debt tamin/SGD 10.00 tdmax/31/12/2018
 
 Find : find KEYWORD [MORE_KEYWORDS] +
 e.g. find James Jake
