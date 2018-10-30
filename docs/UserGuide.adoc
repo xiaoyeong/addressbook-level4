@@ -1,4 +1,4 @@
-= Debt Tracker - User Guide
+= AddressBook Level 4 - User Guide
 :site-section: UserGuide
 :toc:
 :toc-title:
@@ -29,8 +29,7 @@ DT can keep a record of your loans and debts as fast as other apps, if not faste
 2. Download the latest debttracker.jar.
 3. Copy the file to the folder you want to use as the home folder for your Debt Tracker.
 4. Double-click the file to start the app. The GUI should appear in a few seconds.
-5. Type the command in the command box and press Enter to execute it. e.g. typing help and pressing Enter
-   will open the help window.
+5. Type the command in the command box and press Enter to execute it. e.g. typing help and pressing Enter will open the help window.
 
 Refer to Section 3, “Features” for details of each command.
 
@@ -38,92 +37,59 @@ Refer to Section 3, “Features” for details of each command.
 [[Features]]
 == Features
 
-=== Viewing help : `help`
-
-Invokes the user guide for handy reference when typing commands. +
-Format: `help`
-
 === Adding a transaction : `add`
 
-Adds a transaction to the database. +
-Format: add tt/TRANSACTION_TYPE ta/TRANSACTION_AMOUNT td/TRANSACTION_DEADLINE +
-n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]…​
+Adds a transaction to the database.
+Format: add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS d/DEBT dl/DEADLINE [t/TAG]…​
 
-=== Uploading/Deleting a photo under a person : `uploadp`
+=== Analyse the your financial status : `analytics`
 
-May upload a photo to a person’s contact based on the index you input, or delete the photo from the index you input.
-For both methods the first input after the command word should be the index of the contact whose photo you wish to
-upload or delete.
-For uploading a photo, the second input after the command word should be "up/" followed by the file path to the image
-file.
-For deleting a photo, the second input after the command word should be "up/" followed by the word "delete".
+Analyse the your financial status and generate your financial status to view.
+It will either generate your financial status base on all the list,
+or generate to a certain date, base on the date you input.
+Format: analytics​
+or
+Format: analytics​ DATE
 
-Formats:
-To upload a photo: uploadp ind/[INDEX] up/[FILE_PATH]
-To delete a photo: uploadp ind/[INDEX] up/delete
+=== Clearing all entries : `clear`
 
-=== View calendar with debt deadlines : `calendar`
+Clears all entries from the Debt Tracker.
+Format: clear
 
-Displays a Google calendar showing the user's transactions and their deadlines.
-This command can only be used with any one of the following keywords: show; login; logout.
-This feature requires linking the deadlines to your Google account.
+=== Currency conversion of transaction amounts: `convert`
 
-Formats:
-To show calendar in the app: calendar show
-To login to your Google account: calendar login
-To logout of your Google account: calendar logout
-
-=== Converting multiple currencies: `convert`
-
-Converts amounts in multiple different foreign currencies to their respective amounts in +
-the base currency, Singapore Dollars.
-Format: convert FIRST_AMOUNT [MORE_AMOUNTS]
-
-=== Calculating interest on transactions: `interest`
-
-Calculates interest on transaction filtered by name(s) based on the interest rate provided.
-Format: interest SCHEME INTEREST_RATE FIRST_NAME [MORE_NAMES]
-
-=== Updating a transaction : `edit`
-
-Edit an existing transaction’s details.
-Format: edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]…​
-
-=== Sorting transactions : `sort` (to be implemented)
-
-Sort transactions by principal sum, deadline of payment or type of transactor (debtor/lender). +
-Format: sort [t/TAG]...
-
-=== Filtering transactions by name of person: `filter` (to be implemented)
-
-Filter transactions by names of the contacts.
-Format: filter FIRST_NAME [MORE_NAMES]
-
-=== Filtering transactions by closest deadline: `nt`
-
-Filtering and listing out the transaction(s) which deadlines are closest to the current date.
-"nt" stands for NextTransaction.
-Format: nt
-
-=== Locating transactions by person's name : `find`
-
-Finds transactions under a person whose name contains any of the given keywords.
-Format: find NAME [MORE_NAMES]
-
-=== Locating transactions by substring : `search`
-
-Finds transactions under a person whose first name or last name contains the substring input by user.
-Format: search SUBSTRING
+Converts the transaction amounts from their respective foreign currencies to Singapore Dollars.
+Format: convert
 
 === Deleting a transaction : `delete`
 
 Deletes the specified transaction from the address book.
 Format: delete INDEX
 
-=== Selecting a transaction : `select`
+=== Editing a transaction : `edit`
 
-Selects the transaction identified by the index number used in the displayed transaction list.
-Format: select INDEX
+Edits the fields of a particular transaction indentified by INDEX (must be a positive integer).
+Format: edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]
+
+=== Exiting the program : `exit`
+
+Exits the program.
+Format: clear
+
+=== Filtering transactions: `filter`
+
+Filter people out by whether they are a debtor or a creditor.
+Format: filter [t/TAG]...
+
+=== Viewing help : `help`
+
+Invokes the user guide for handy reference when typing commands.
+Format: `help`
+
+=== Hiding transactions with a private contact : `hide`
+
+Makes transactions exchanged with people tagged as private invisible. Can be toggled.
+Format: hide n/NAME
 
 === Listing all recorded expenses : `history`
 
@@ -132,30 +98,48 @@ Lists all the commands that you have entered in reverse chronological order.
 Lists all the expenses that you have recorded in the app, in reverse chronological order.
 Format: history
 
-=== Analyzing a possible loan amount : `analytics`
+=== Adding interest rate to a debt : `interest`
 
-Analyses the amount you have left after taking into consideration your loans, and the amount that you can loan out.
-Format: analytics
+Adds an interest amount to all transactions based on the interest scheme and interest rate you input.
+Format: interest INTEREST_SCHEME INTEREST_RATE
 
-=== Undoing previous command : `undo`
+=== Lists all transactions which deadline is closest: `nexttransaction`
 
-Restores the address book to the state before the previous undoable command was executed. +
-Format: undo
+Finds and lists all transactions in the database which deadline is closest to current date.
+Format: nexttransaction
 
 === Redoing the previously undone command : `redo`
 
 Reverses the most recent undo command.
 Format: redo
 
-=== Clearing all entries : `clear`
+=== Removing a debt : `remove`
 
-Clears all entries from the Debt Tracker.
-Format: clear
+Remove away a number of debts from one transaction recorded in the DT using click-and-drag.
+The number of debts removed is up to the user’s selection.
 
-=== Exiting the program : `exit`
+=== Selecting a trasaction : `select`
 
-Exits the program.
-Format: clear
+Selects the transaction identified by the index number used in the displayed transaction list.
+Format: select INDEX
+
+=== Sorting transactions : `sort`
+
+Sort people by the amount of money loaned to or from them, the deadlines of the debts
+(be it whether you owe them or money or vice versa), or whether they are debtors or
+creditors.
+Format: sort [t/TAG]...
+
+=== Undoing previous command : `undo`
+
+Restores the address book to the state before the previous undoable command was executed. +
+Format: undo
+
+=== Updating a transaction : `update`
+
+Edit an existing transaction’s details.
+Format: edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]…​
+
 
 === Saving the data
 
@@ -163,63 +147,51 @@ Debt Tracker data is saved in the hard disk automatically after any command that
 
 == FAQ
 
-Q: How do I transfer my data to another Computer?
+Q: How do I transfer my data to another Computer? +
 A: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous Address Book folder.
 
 == Command Summary
 
-Add : add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS d/DEBT dl/DEADLINE [t/TAG]…​
-e.g. add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665  d/+500.00 dl/20 09 2019 t/friend t/colleague
+Add: add tt/TRANSACTION_TYPE ta/TRANSACTION_AMOUNT td/TRANSACTION_DEADLINE +
+         n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]…​ +
+e.g. add tt/Loan ta/SGD 50.00 td/24/11/2018 n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend
 
-//need to check
-Uploadp : uploadp ind/INDEX up/FILE_PATH
-e.g. uploadp ind/3 up/Users/Photo.png
-OR: uploadp ind/INDEX up/delete
-e.g. uploadp ind/1 up/delete
-
-Calendar : calendar show
-OR: calendar login
-OR: calendar logout
-
-Convert : convert FIRST_AMOUNT [MORE_AMOUNTS]
-e.g. convert USD 20.00 AUD 35.40 MYR 152.60
-
-Interest : int/INTEREST_RATE
-e.g. int/1.10
-
-Update : update INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] d/DEBT dl/DEADLINE [t/TAG]…​
-e.g. edit 2 n/James Lee e/jameslee@example.com
-
-Sort : sort [t/TAG]...
-E.g. sort t/creditor
-
-Filter : filter[t/TAG]...
-e.g. filter t/debtor
-
-Nt (NextTransaction) : nt
-
-Find : find KEYWORD [MORE_KEYWORDS]
-e.g. find James Jake
-
-Search : search SUBSTRING
-e.g. search Be
-
-Delete : delete INDEX
-e.g. delete 3
-
-Select : select INDEX
-e.g.select 2
-
-History : history
-
-Analytics : analytics
-
-Undo : undo
-
-Redo : redo
+Analytics​: analytics​ or analytics​ Date
+e.g. analytics​ or analytics​ 12/12/2018
 
 Clear : clear
 
-List : list
+Convert: convert
+
+Delete : delete INDEX +
+e.g. delete 3
+
+Edit: edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]
+e.g. edit 1 p/91234567 e/jondoe@example.com
 
 Help : help
+
+Hide : hide n/NAME +
+e.g. hide n/Shawn
+
+History : history
+
+Interest: interest INTEREST_RATE INTEREST_SCHEME +
+e.g. interest simple 1.1%
+
+List : list
+
+Filter: filter[t/TAG]... +
+E.g. filter t/debtor
+
+Next Transaction : nexttransaction
+
+Redo : redo
+
+Select : select INDEX +
+e.g.select 2
+
+Sort: sort [t/TAG]... +
+E.g. sort t/creditor
+
+Undo : undo
