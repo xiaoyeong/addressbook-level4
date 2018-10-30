@@ -165,9 +165,9 @@ public class CalendarManager extends ComponentManager {
      * Starts the calendar login process on a new thread and returns true if the user has not already logged in,
      * returns false otherwise.
      */
-    public boolean calendarLogin() {
+    public boolean calendarLogin(Model model) {
         if (service == null) {
-            Thread t = new Thread(new LoginRunnable());
+            Thread t = new Thread(new LoginRunnable(model));
             t.start();
             return true;
         } else {
@@ -497,6 +497,10 @@ public class CalendarManager extends ComponentManager {
      * The login process that is to be executed in a new thread.
      */
     private class LoginRunnable implements Runnable {
+        private Model model;
+        LoginRunnable(Model model) {
+            this.model = model;
+        }
         @Override
         public void run() {
             try {
@@ -512,6 +516,7 @@ public class CalendarManager extends ComponentManager {
                 } else {
                     CalendarManager.getInstance().calendarId = calendarId;
                 }
+                syncCalendarAsync(model);
                 raise(new NewResultAvailableEvent("Logged in successfully!"));
             } catch (IOException | GeneralSecurityException | NullPointerException ex) {
                 logger.info("Error getting user credentials");

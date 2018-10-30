@@ -36,7 +36,7 @@ public class CalendarCommand extends Command {
         requireNonNull(model);
         switch (action) {
         case "login":
-            if (CalendarManager.getInstance().calendarLogin()) {
+            if (CalendarManager.getInstance().calendarLogin(model)) {
                 return new CommandResult("");
             } else {
                 return new CommandResult("Already logged in.");
@@ -57,7 +57,7 @@ public class CalendarCommand extends Command {
                         .post(new ShowCalendarEvent(CalendarManager.getInstance().getCalendarId()));
                 return new CommandResult("Calendar loaded");
             } else {
-                CalendarManager.getInstance().calendarLogin();
+                CalendarManager.getInstance().calendarLogin(model);
                 return new CommandResult("Not logged in. "
                         + "Please login now or enter the following command to login:\ncalendar login");
             }
