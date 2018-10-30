@@ -108,7 +108,7 @@ Format: history
 Adds an interest amount to all transactions based on the interest scheme and interest rate you input.
 Format: interest INTEREST_SCHEME INTEREST_RATE
 
-=== Lists all transactions which deadline is closest to current date : `nexttransaction`
+=== Lists all transactions which deadline is closest: `nexttransaction`
 
 Finds and lists all transactions in the database which deadline is closest to current date.
 Format: nexttransaction
