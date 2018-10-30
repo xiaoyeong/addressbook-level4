@@ -8,7 +8,6 @@ import java.util.List;
 
 import javafx.collections.ObservableList;
 import seedu.address.logic.CommandHistory;
-import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.person.Person;
 import seedu.address.model.transaction.Amount;
@@ -17,7 +16,8 @@ import seedu.address.model.transaction.Transaction;
 import seedu.address.model.transaction.Type;
 
 /**
- * Sorts transactions in the financial database based on a parameter.
+ * Sorts transactions in the financial database based on {@code Type}, {@code Amount}, {@code Deadline} or the
+ * default sort parameter {@code Phone}.
  */
 public class SortCommand extends Command {
     public static final String COMMAND_WORD = "sort";
@@ -31,7 +31,7 @@ public class SortCommand extends Command {
     }
 
     @Override
-    public CommandResult execute(Model model, CommandHistory history) throws CommandException {
+    public CommandResult execute(Model model, CommandHistory history) {
         requireNonNull(model);
         ObservableList<Transaction> originalTransactionList = model.getFilteredTransactionList();
         int size = originalTransactionList.size();

@@ -14,7 +14,7 @@ public class ConvertCommandTest {
     private Model model = new ModelManager();
     private Model expectedModel = new ModelManager();
     @Test
-    public void execute_multipleAmounts_multipleCurrenciesConverted() {
+    public void execute_multipleCurrenciesConverted() {
         String expectedMessage = ConvertCommand.MESSAGE_SUCCESS;
         ConvertCommand convertCommand = new ConvertCommand();
         assertCommandSuccessWithNoModelChange(convertCommand, model, history, expectedMessage, expectedModel);

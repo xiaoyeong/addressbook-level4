@@ -15,6 +15,7 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
 import seedu.address.logic.commands.AddCommand;
+import seedu.address.logic.commands.AnalyticsCommand;
 import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.DeleteCommand;
 import seedu.address.logic.commands.EditCommand;
@@ -28,6 +29,7 @@ import seedu.address.logic.commands.SelectCommand;
 import seedu.address.logic.commands.UndoCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.person.NameContainsKeywordsPredicate;
+import seedu.address.model.transaction.Deadline;
 import seedu.address.model.transaction.Transaction;
 import seedu.address.testutil.EditTransactionDescriptorBuilder;
 import seedu.address.testutil.TransactionBuilder;
@@ -47,6 +49,13 @@ public class FinancialDatabaseParserTest {
         assertEquals(new AddCommand(transaction), command);
     }
 
+    @Test
+    public void parseCommand_analytics() throws Exception {
+        Transaction transaction = new TransactionBuilder().build();
+        AnalyticsCommand command = (AnalyticsCommand)
+                parser.parseCommand(AnalyticsCommand.COMMAND_WORD + " " + Deadline.CURRENT_DATE);
+        assertEquals(new AnalyticsCommand(Deadline.CURRENT_DATE), command);
+    }
     @Test
     public void parseCommand_clear() throws Exception {
         assertTrue(parser.parseCommand(ClearCommand.COMMAND_WORD) instanceof ClearCommand);
