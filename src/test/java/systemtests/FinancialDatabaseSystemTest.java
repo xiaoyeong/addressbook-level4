@@ -179,7 +179,7 @@ public abstract class FinancialDatabaseSystemTest {
      * and the transaction list panel displays the persons in the model correctly.
      */
     protected void assertApplicationDisplaysExpected(String expectedCommandInput, String expectedResultMessage,
-            Model expectedModel) {
+                                                     Model expectedModel) {
         assertEquals(expectedCommandInput, getCommandBox().getInput());
         assertEquals(expectedResultMessage, getResultDisplay().getText());
         assertEquals(new FinancialDatabase(expectedModel.getFinancialDatabase()),
