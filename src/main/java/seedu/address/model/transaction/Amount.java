@@ -21,8 +21,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 public class Amount implements Comparable<Amount> {
     public static final Set<Currency> CURRENCIES = Currency.getAvailableCurrencies();
     public static final String MESSAGE_TRANSACTION_AMOUNT_CONSTRAINTS =
-              "The transaction amount must be real number rounded to two decimal places, "
-            + "prefixed by a three letter currency code";
+            "The transaction amount must be real number rounded to two decimal places, "
+                    + "prefixed by a three letter currency code";
     public static final String TRANSACTION_AMOUNT_VALIDATION_REGEX = "\\w{3} \\d{1,}.\\d{1,2}";
     private static final int MONTHS_IN_A_YEAR = 12;
     private Currency currency;
@@ -81,14 +81,14 @@ public class Amount implements Comparable<Amount> {
      * Calculates interest based on interestScheme and interestRate inputted by the user.
      */
     public static Amount calculateInterest(Amount principalAmount, String interestScheme, String interestRate,
-                                  long durationInMonths) {
+                                           long durationInMonths) {
         Amount convertedAmount = new Amount();
         convertedAmount.interestScheme = new InterestScheme(interestScheme);
         convertedAmount.interestRate = new InterestRate(interestRate);
 
         if (convertedAmount.interestScheme.getValue().equals("simple")) {
             convertedAmount.value = principalAmount.value + Double.parseDouble(String.format("%.2f",
-                            principalAmount.value * convertedAmount.interestRate.getValue() * durationInMonths));
+                    principalAmount.value * convertedAmount.interestRate.getValue() * durationInMonths));
         } else {
             double originalValue = principalAmount.value;
             double calculatedValue =
@@ -110,6 +110,9 @@ public class Amount implements Comparable<Amount> {
             return null;
         }
         Currency currencyCode = amount.currency;
+        if (currencyCode.toString().equals("SGD")) {
+            return amount;
+        }
         String currencyConverterFilePath = String.format(
                 "http://free.currencyconverterapi.com/api/v5/convert?q=%s_SGD&compact=y", currencyCode);
         ObjectMapper mapper = new ObjectMapper();
@@ -126,6 +129,19 @@ public class Amount implements Comparable<Amount> {
             return null;
         }
     }
+
+    /**
+     * Returns the difference in value between two Amounts in Singaporean currency
+     * @param amount1 The first amount to compare
+     * @param amount2 The second amount to compare
+     * @return The difference between the two Amounts as a double
+     */
+    public static double compareAmount (Amount amount1, Amount amount2) {
+        Amount amountSgd1 = amount1.convertCurrency(amount1);
+        Amount amountSgd2 = amount2.convertCurrency(amount2);
+        return amountSgd1.value - amountSgd2.value;
+    }
+
     @Override
     public String toString() {
         return currency + " " + value;

@@ -40,26 +40,36 @@ public class Deadline implements Comparable<Deadline> {
     }
 
     /**
-     * Returns true if {@code test} is a valid transaction amount.
+     * Returns true if {@code test} is a valid transaction deadline.
      *
      * @param test the command line argument to be parsed
      */
     public static boolean isValidDeadline(String test) {
-        return test.matches(TRANSACTION_DEADLINE_VALIDATION_REGEX) && checkDate(test);
+        return test.matches(TRANSACTION_DEADLINE_VALIDATION_REGEX) && checkDate(test, false);
+    }
+
+    /**
+     * Returns true if {@code test} is a valid transaction deadline in the future.
+     *
+     * @param test the command line argument to be parsed
+     */
+    public static boolean isValidFutureDeadline(String test) {
+        return test.matches(TRANSACTION_DEADLINE_VALIDATION_REGEX) && checkDate(test, true);
     }
 
     /**
      * Checks whether the string {@test} that follow date format is actually a valid date
      * according to the Gregorian Calendar.
      * @param test the command line argument to be parsed
+     * @param checkFuture indicates whether to check if the date is in the future
      */
-    private static boolean checkDate(String test) {
+    private static boolean checkDate(String test, boolean checkFuture) {
         int dayOfMonth = Integer.parseInt(test.split("/")[0]);
         int month = Integer.parseInt(test.split("/")[1]);
         int year = Integer.parseInt(test.split("/")[2]);
         try {
             LocalDate date = LocalDate.of(year, month, dayOfMonth);
-            return !date.isBefore(LocalDate.now());
+            return checkFuture ? !date.isBefore(LocalDate.now()) : true;
         } catch (DateTimeException ex) {
             LogsCenter.getLogger(Deadline.class).warning(ex.getMessage());
             return false;

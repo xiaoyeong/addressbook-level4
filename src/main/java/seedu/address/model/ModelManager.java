@@ -67,7 +67,7 @@ public class ModelManager extends ComponentManager implements Model {
     public void deleteTransaction(Transaction target) {
         versionedFinancialDatabase.removeTransaction(target);
         if (CalendarManager.getInstance() != null) {
-            CalendarManager.getInstance().syncCalendar(this);
+            CalendarManager.getInstance().syncCalendarAsync(this);
         }
         indicateFinancialDatabaseChanged();
     }
@@ -77,7 +77,7 @@ public class ModelManager extends ComponentManager implements Model {
         versionedFinancialDatabase.addTransaction(person);
         updateFilteredTransactionList(PREDICATE_SHOW_ALL_TRANSACTIONS);
         if (CalendarManager.getInstance() != null) {
-            CalendarManager.getInstance().syncCalendar(this);
+            CalendarManager.getInstance().syncCalendarAsync(this);
         }
         indicateFinancialDatabaseChanged();
     }
@@ -88,7 +88,7 @@ public class ModelManager extends ComponentManager implements Model {
 
         versionedFinancialDatabase.updateTransaction(target, editedTransaction);
         if (CalendarManager.getInstance() != null) {
-            CalendarManager.getInstance().syncCalendar(this);
+            CalendarManager.getInstance().syncCalendarAsync(this);
         }
         indicateFinancialDatabaseChanged();
     }

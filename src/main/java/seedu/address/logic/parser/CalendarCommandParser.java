@@ -23,6 +23,7 @@ public class CalendarCommandParser implements Parser<CalendarCommand> {
         case "show":
         case "login":
         case "logout":
+        case "sync" :
             break;
         default:
             throw new ParseException(
