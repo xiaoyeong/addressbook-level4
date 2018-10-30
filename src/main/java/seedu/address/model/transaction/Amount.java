@@ -110,7 +110,7 @@ public class Amount implements Comparable<Amount> {
             return null;
         }
         Currency currencyCode = amount.currency;
-        if (currencyCode.equals("SGD")) {
+        if (currencyCode.toString().equals("SGD")) {
             return amount;
         }
         String currencyConverterFilePath = String.format(
