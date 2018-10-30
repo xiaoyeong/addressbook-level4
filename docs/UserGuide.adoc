@@ -86,10 +86,10 @@ Format: filter [t/TAG]...
 Invokes the user guide for handy reference when typing commands.
 Format: `help`
 
-=== Hiding transactions with a private contact : `hide`
+=== Filtering transactions by various criteria: `filter`
 
-Makes transactions exchanged with people tagged as private invisible. Can be toggled.
-Format: hide n/NAME
+Filters transactions matching specified criteria.
+Format: filter [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [tt/TYPE] [ta/AMOUNT] [td/DEADLINE] [tamin/MIN_AMOUNT] [tamax/MAX_AMOUNT] [tdmin/EARLIEST_DATE] [tdmax/LATEST_DATE]
 
 === Listing all recorded expenses : `history`
 
@@ -174,7 +174,11 @@ Help : help
 Hide : hide n/NAME +
 e.g. hide n/Shawn
 
-History : history
+Filter: filter [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [tt/TYPE] [ta/AMOUNT] [td/DEADLINE] [tamin/MIN_AMOUNT] [tamax/MAX_AMOUNT] [tdmin/EARLIEST_DATE] [tdmax/LATEST_DATE]
+E.g. filter n/Alex e/example.com tt/debt tamin/SGD 10.00 tdmax/31/12/2018
+
+Delete : delete INDEX
+e.g. delete 3
 
 Interest: interest INTEREST_RATE INTEREST_SCHEME +
 e.g. interest simple 1.1%
