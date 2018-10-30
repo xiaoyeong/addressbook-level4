@@ -2,6 +2,8 @@ package seedu.address.model.transaction;
 
 import java.util.List;
 import java.util.function.Predicate;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * Tests that a {@code Transaction} contains a {@code Person} matches any of the letters given.
@@ -15,8 +17,8 @@ public class NameContainsLettersPredicate implements Predicate<Transaction> {
 
     @Override
     public boolean test(Transaction transaction) {
-        return letters.stream().anyMatch(input -> check(input, transaction.getPerson().getName().fullName));
-        //StringUtil.containsWordIgnoreCase(transaction.getName().fullName, input));
+        return letters.stream().anyMatch(input -> makeRegex(input.toLowerCase(),
+                transaction.getPerson().getName().fullName.trim().toLowerCase()));
     }
 
     @Override
@@ -27,39 +29,18 @@ public class NameContainsLettersPredicate implements Predicate<Transaction> {
     }
 
     /**
+     * makeRegex converts String input to a regular expression (Regex).
      *
-     * @param input
-     * @param name
-     * @return
+     * @param input is the substring the user keys in
+     * @param name is the name to check if it contains the substring input.
+     * @return true or false depending if the name contains the substring input.
      */
-    public boolean check(String input, String name) {
-        char[] inputSplit = input.toCharArray();
-        char[] nameSplit = name.toCharArray();
 
-        return recursiveComparison(inputSplit, nameSplit, 0, 0);
-
+    public boolean makeRegex(String input, String name) {
+        String regex1 = "(.*)" + input + "(.*)";
+        Pattern pattern1 = Pattern.compile(regex1);
+        Matcher matcher1 = pattern1.matcher(name);
+        boolean inMiddle = matcher1.matches();
+        return inMiddle;
     }
-
-    /**
-     *
-     * @param input
-     * @param name
-     * @param i
-     * @param j
-     * @return
-     */
-    public boolean recursiveComparison(char[] input, char[] name, int i, int j) {
-        while (i < input.length && j < name.length) {
-            if (input[i] == (name[j])) {
-                if (i == (input.length - 1)) {
-                    return true;
-                } else {
-                    return recursiveComparison(input, name, (i + 1), j);
-                }
-            }
-            j++;
-        }
-        return false;
-    }
-
 }
