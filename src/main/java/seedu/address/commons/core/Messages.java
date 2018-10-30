@@ -15,4 +15,7 @@ public class Messages {
     public static final String MESSAGE_TRANSACTIONS_LISTED_OVERVIEW = "%1$d transactions listed!";
     public static final String MESSAGE_INVALID_DATE =
             "The transaction deadline must be a valid date in the future in the DD/MM/YYYY format";
+    public static final String MESSAGE_INVALID_PREFIX_VALUE = "Prefix %1$s should not have any values";
+    public static final String MESSAGE_KEYWORDS_NONEMPTY = "None of the specified keywords should be empty";
+    public static final String MESSAGE_INVALID_PREFIX_COMBINATION = "Prefix %1$s and %2$s cannot be used together";
 }

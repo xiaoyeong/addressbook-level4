@@ -36,9 +36,9 @@ import seedu.address.TestApp;
 import seedu.address.commons.core.EventsCenter;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.ClearCommand;
-import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.SelectCommand;
+import seedu.address.logic.commands.WildcardSearchCommand;
 import seedu.address.model.FinancialDatabase;
 import seedu.address.model.Model;
 import seedu.address.testutil.TypicalTransactions;
@@ -152,7 +152,7 @@ public abstract class FinancialDatabaseSystemTest {
      * Displays all persons with any parts of their names matching {@code keyword} (case-insensitive).
      */
     protected void showTransactionsWithName(String keyword) {
-        executeCommand(FindCommand.COMMAND_WORD + " " + keyword);
+        executeCommand(WildcardSearchCommand.COMMAND_WORD + " " + keyword);
         assertTrue(getModel().getFilteredTransactionList().size()
                 < getModel().getFinancialDatabase().getTransactionList().size());
     }
@@ -179,7 +179,7 @@ public abstract class FinancialDatabaseSystemTest {
      * and the transaction list panel displays the persons in the model correctly.
      */
     protected void assertApplicationDisplaysExpected(String expectedCommandInput, String expectedResultMessage,
-            Model expectedModel) {
+                                                     Model expectedModel) {
         assertEquals(expectedCommandInput, getCommandBox().getInput());
         assertEquals(expectedResultMessage, getResultDisplay().getText());
         assertEquals(new FinancialDatabase(expectedModel.getFinancialDatabase()),

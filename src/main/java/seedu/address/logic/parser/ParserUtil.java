@@ -13,7 +13,6 @@ import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Phone;
-import seedu.address.model.person.UniqueId;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.transaction.Amount;
 import seedu.address.model.transaction.Deadline;
@@ -138,8 +137,23 @@ public class ParserUtil {
     public static Deadline parseDeadline(String deadline) throws ParseException {
         requireNonNull(deadline);
         String trimmedDeadline = deadline.trim();
+        if (deadline.isEmpty() || !Deadline.isValidFutureDeadline(trimmedDeadline)) {
+            throw new ParseException(Deadline.MESSAGE_TRANSACTION_DEADLINE_CONSTRAINTS);
+        }
+        return new Deadline(trimmedDeadline);
+    }
+
+    /**
+     * Parses a string {@code email} into an {@code Email}.
+     * Leading and trailing whitespaces will be trimmed.
+     * Does the require deadline to be in the future
+     * @throws ParseException if the given {@code email} is invalid.
+     */
+    public static Deadline parseDeadlineIgnoreFuture(String deadline) throws ParseException {
+        requireNonNull(deadline);
+        String trimmedDeadline = deadline.trim();
         if (deadline.isEmpty() || !Deadline.isValidDeadline(trimmedDeadline)) {
-            throw new ParseException(UniqueId.MESSAGE_TRANSACTION_PERSONUID_CONSTRAINTS);
+            throw new ParseException(Deadline.MESSAGE_TRANSACTION_DEADLINE_CONSTRAINTS);
         }
         return new Deadline(trimmedDeadline);
     }

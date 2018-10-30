@@ -8,13 +8,13 @@ import seedu.address.logic.parser.exceptions.ParseException;
 
 
 /**
- * Parses input arguments and creates a new FindCommand object
+ * Parses input arguments and creates a new CalendarCommand object
  */
 public class CalendarCommandParser implements Parser<CalendarCommand> {
 
     /**
-     * Parses the given {@code String} of arguments in the context of the FindCommand
-     * and returns an FindCommand object for execution.
+     * Parses the given {@code String} argument in the context of the CalendarCommand
+     * and returns a CalendarCommand object.
      * @throws ParseException if the user input does not conform the expected format
      */
     public CalendarCommand parse(String args) throws ParseException {
@@ -23,6 +23,7 @@ public class CalendarCommandParser implements Parser<CalendarCommand> {
         case "show":
         case "login":
         case "logout":
+        case "sync" :
             break;
         default:
             throw new ParseException(
