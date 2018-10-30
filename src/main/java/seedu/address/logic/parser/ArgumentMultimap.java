@@ -52,6 +52,13 @@ public class ArgumentMultimap {
     }
 
     /**
+     * Returns the number of times {@code prefix} has been specified
+     */
+    public int prefixSize(Prefix prefix) {
+        return argMultimap.get(prefix) == null ? 0 : argMultimap.get(prefix).size();
+    }
+
+    /**
      * Returns the preamble (text before the first valid prefix). Trims any leading/trailing spaces.
      */
     public String getPreamble() {

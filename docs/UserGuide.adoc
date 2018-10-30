@@ -94,10 +94,10 @@ Format: edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]…​
 Sort transactions by principal sum, deadline of payment or type of transactor (debtor/lender). +
 Format: sort [t/TAG]...
 
-=== Filtering transactions by name of person: `filter` (to be implemented)
+=== Filtering transactions by various criteria: `filter`
 
-Filter transactions by names of the contacts.
-Format: filter FIRST_NAME [MORE_NAMES]
+Filters transactions matching specified criteria.
+Format: filter [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [tt/TYPE] [ta/AMOUNT] [td/DEADLINE] [tamin/MIN_AMOUNT] [tamax/MAX_AMOUNT] [tdmin/EARLIEST_DATE] [tdmax/LATEST_DATE]
 
 === Filtering transactions by closest deadline: `nt`
 
@@ -203,6 +203,9 @@ e.g. find James Jake
 
 Search : search SUBSTRING
 e.g. search Be
+
+Filter: filter [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [tt/TYPE] [ta/AMOUNT] [td/DEADLINE] [tamin/MIN_AMOUNT] [tamax/MAX_AMOUNT] [tdmin/EARLIEST_DATE] [tdmax/LATEST_DATE]
+E.g. filter n/Alex e/example.com tt/debt tamin/SGD 10.00 tdmax/31/12/2018
 
 Delete : delete INDEX
 e.g. delete 3
