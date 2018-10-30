@@ -38,7 +38,6 @@ public class AnalyticsCommand extends Command {
         this.deadline = deadline;
     }
 
-
     @Override
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         double totalSum;
@@ -65,6 +64,23 @@ public class AnalyticsCommand extends Command {
             }
         }
         return new CommandResult(String.format(MESSAGE_SUCCESS, totalSum));
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        // short circuit if same object
+        if (other == this) {
+            return true;
+        }
+
+        // instanceof handles nulls
+        if (!(other instanceof AnalyticsCommand)) {
+            return false;
+        }
+
+        // state check
+        AnalyticsCommand analyticsCommand = (AnalyticsCommand) other;
+        return deadline.equals(analyticsCommand.deadline);
     }
 }
 
