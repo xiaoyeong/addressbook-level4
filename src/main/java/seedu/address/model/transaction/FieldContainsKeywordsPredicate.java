@@ -35,6 +35,7 @@ public class FieldContainsKeywordsPredicate implements Predicate<seedu.address.m
         case Address:
             return keywords.stream()
                     .anyMatch(keyword -> StringUtil.containsWordIgnoreCase(person.getAddress().value, keyword));
+
         default:
             return false;
         }

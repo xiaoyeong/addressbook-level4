@@ -42,6 +42,15 @@ Refer to Section 3, “Features” for details of each command.
 Adds a transaction to the database.
 Format: add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS d/DEBT dl/DEADLINE [t/TAG]…​
 
+=== Analyse the your financial status : `analytics`
+
+Analyse the your financial status and generate your financial status to view.
+It will either generate your financial status base on all the list,
+or generate to a certain date, base on the date you input.
+Format: analytics​
+or
+Format: analytics​ DATE
+
 === Clearing all entries : `clear`
 
 Clears all entries from the Debt Tracker.
@@ -99,6 +108,11 @@ Format: history
 Adds an interest amount to all transactions based on the interest scheme and interest rate you input.
 Format: interest INTEREST_SCHEME INTEREST_RATE
 
+=== Lists all transactions which deadline is closest: `nexttransaction`
+
+Finds and lists all transactions in the database which deadline is closest to current date.
+Format: nexttransaction
+
 === Redoing the previously undone command : `redo`
 
 Reverses the most recent undo command.
@@ -147,6 +161,9 @@ Add: add tt/TRANSACTION_TYPE ta/TRANSACTION_AMOUNT td/TRANSACTION_DEADLINE +
          n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]…​ +
 e.g. add tt/Loan ta/SGD 50.00 td/24/11/2018 n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend
 
+Analytics​: analytics​ or analytics​ Date
+e.g. analytics​ or analytics​ 12/12/2018
+
 Clear : clear
 
 Convert: convert
@@ -174,6 +191,8 @@ E.g. filter t/debtor
 
 Find : find KEYWORD [MORE_KEYWORDS] +
 e.g. find James Jake
+
+Next Transaction : nexttransaction
 
 Redo : redo
 
