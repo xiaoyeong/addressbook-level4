@@ -181,10 +181,10 @@ e.g. add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665
 
 
 Uploadp : uploadp INDEX up/FILE_PATH [For uploading a picture] + 
-
+          OR: uploadp INDEX up/delete [For deleting a picture] + 
+          
 e.g. uploadp 3 up/Users/Photo.png +
-OR: uploadp INDEX up/delete [For deleting a picture] + 
-e.g. uploadp 1 up/delete
+     uploadp 1 up/delete
 
 Calendar : calendar show +
 OR: calendar login +
@@ -202,7 +202,7 @@ e.g. edit 2 n/James Lee e/jameslee@example.com
 
 Sort : sort SORT_PARAMETER +
 
-E.g. sort type +
+e.g. sort type +
 OR sort amount +
 OR sort deadline +
 
@@ -222,7 +222,7 @@ e.g. search Be
 
 Filter: filter [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [tt/TYPE] [ta/AMOUNT] [td/DEADLINE] [tamin/MIN_AMOUNT] + [tamax/MAX_AMOUNT] [tdmin/EARLIEST_DATE] [tdmax/LATEST_DATE] +
 
-E.g. filter n/Alex e/example.com tt/debt tamin/SGD 10.00 tdmax/31/12/2018
+e.g. filter n/Alex e/example.com tt/debt tamin/SGD 10.00 tdmax/31/12/2018
 
 Delete : delete INDEX +
 
