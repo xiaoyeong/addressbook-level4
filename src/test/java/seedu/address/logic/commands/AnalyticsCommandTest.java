@@ -1,6 +1,6 @@
 package seedu.address.logic.commands;
 
-import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
+import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccessWithNoModelChange;
 import static seedu.address.testutil.TypicalTransactions.getUniqueFinancialDatabase;
 
 import org.junit.Test;
@@ -26,7 +26,7 @@ public class AnalyticsCommandTest {
     public void execute_emptyFinancialListWithNoDate() {
         String expectedMessage = "Financial status : SGD 0.00";
         AnalyticsCommand analyticsCommand = new AnalyticsCommand();
-        assertCommandSuccess(analyticsCommand, model, history, expectedMessage, expectedModel);
+        assertCommandSuccessWithNoModelChange(analyticsCommand, model, history, expectedMessage, expectedModel);
     }
 
     @Test
@@ -35,14 +35,15 @@ public class AnalyticsCommandTest {
         Deadline checkDate = new Deadline(date);
         String expectedMessage = "Financial status : SGD 0.00";
         AnalyticsCommand analyticsCommand = new AnalyticsCommand(checkDate);
-        assertCommandSuccess(analyticsCommand, model, history, expectedMessage, expectedModel);
+        assertCommandSuccessWithNoModelChange(analyticsCommand, model, history, expectedMessage, expectedModel);
     }
 
     @Test
     public void execute_non_emptyFinancialListWithNoDate() {
         String expectedMessage = "Financial status : SGD 188.10";
         AnalyticsCommand analyticsCommand = new AnalyticsCommand();
-        assertCommandSuccess(analyticsCommand, modelWithData, history, expectedMessage, expectedModelWithData);
+        assertCommandSuccessWithNoModelChange(analyticsCommand, modelWithData, history, expectedMessage,
+                expectedModelWithData);
     }
 
     @Test
@@ -51,16 +52,18 @@ public class AnalyticsCommandTest {
         Deadline checkDate = new Deadline(date);
         String expectedMessage = "Financial status : SGD 0.00";
         AnalyticsCommand analyticsCommand = new AnalyticsCommand(checkDate);
-        assertCommandSuccess(analyticsCommand, modelWithData, history, expectedMessage, expectedModelWithData);
+        assertCommandSuccessWithNoModelChange(analyticsCommand, modelWithData, history, expectedMessage,
+                expectedModelWithData);
     }
 
     @Test
     public void execute_nonEmptyFinancialListWithDateTest2_whenDatePassedThenTestWillFail() {
         String date = "12/11/2018";
         Deadline checkDate = new Deadline(date);
-        String expectedMessage = "Financial status : SGD 85.00";
+        String expectedMessage = "Financial status : SGD 0.00";
         AnalyticsCommand analyticsCommand = new AnalyticsCommand(checkDate);
-        assertCommandSuccess(analyticsCommand, modelWithData, history, expectedMessage, expectedModelWithData);
+        assertCommandSuccessWithNoModelChange(analyticsCommand, modelWithData, history, expectedMessage,
+                expectedModelWithData);
     }
 
     @Test
@@ -69,7 +72,8 @@ public class AnalyticsCommandTest {
         Deadline checkDate = new Deadline(date);
         String expectedMessage = "Financial status : SGD 230.60";
         AnalyticsCommand analyticsCommand = new AnalyticsCommand(checkDate);
-        assertCommandSuccess(analyticsCommand, modelWithData, history, expectedMessage, expectedModelWithData);
+        assertCommandSuccessWithNoModelChange(analyticsCommand, modelWithData, history, expectedMessage,
+                expectedModelWithData);
     }
 
     @Test
@@ -78,6 +82,7 @@ public class AnalyticsCommandTest {
         Deadline checkDate = new Deadline(date);
         String expectedMessage = "Financial status : SGD 188.10";
         AnalyticsCommand analyticsCommand = new AnalyticsCommand(checkDate);
-        assertCommandSuccess(analyticsCommand, modelWithData, history, expectedMessage, expectedModelWithData);
+        assertCommandSuccessWithNoModelChange(analyticsCommand, modelWithData, history, expectedMessage,
+                expectedModelWithData);
     }
 }

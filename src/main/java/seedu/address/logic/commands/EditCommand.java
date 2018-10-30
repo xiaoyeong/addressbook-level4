@@ -35,7 +35,7 @@ import seedu.address.model.transaction.Transaction;
 import seedu.address.model.transaction.Type;
 
 /**
- * Edits the details of an existing transaction in the address book.
+ * Edits the details of an existing transaction in the financial database.
  */
 public class EditCommand extends Command {
 
@@ -80,7 +80,7 @@ public class EditCommand extends Command {
     @Override
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
-        List<seedu.address.model.transaction.Transaction> lastShownList = model.getFilteredTransactionList();
+        List<Transaction> lastShownList = model.getFilteredTransactionList();
 
         if (index.getZeroBased() >= lastShownList.size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_TRANSACTION_DISPLAYED_INDEX);
@@ -106,7 +106,7 @@ public class EditCommand extends Command {
      */
     private static Transaction createEditedTransaction(Transaction transactionToEdit,
                                                        EditTransactionDescriptor editTransactionDescriptor) {
-        assert transactionToEdit != null;
+        requireNonNull(transactionToEdit);
 
         Type updatedType = editTransactionDescriptor.getType().orElse(transactionToEdit.getType());
         Amount updatedAmount = editTransactionDescriptor.getAmount().orElse(transactionToEdit.getAmount());
@@ -116,12 +116,10 @@ public class EditCommand extends Command {
         Phone updatedPhone = editTransactionDescriptor.getPhone().orElse(transactionToEdit.getPerson().getPhone());
         Email updatedEmail = editTransactionDescriptor.getEmail().orElse(transactionToEdit.getPerson().getEmail());
         Address updatedAddress = editTransactionDescriptor.getAddress()
-                                                          .orElse(transactionToEdit.getPerson().getAddress());
+                .orElse(transactionToEdit.getPerson().getAddress());
         Set<Tag> updatedTags = editTransactionDescriptor.getTags().orElse(transactionToEdit.getPerson().getTags());
         Person updatedPerson = new Person(updatedName, updatedPhone, updatedEmail, updatedAddress, updatedTags);
-
-        return new seedu.address.model.transaction.Transaction(updatedType, updatedAmount, updatedDeadline,
-                updatedPerson);
+        return new Transaction(updatedType, updatedAmount, updatedDeadline, updatedPerson);
     }
 
     @Override
@@ -155,7 +153,6 @@ public class EditCommand extends Command {
         private Email email;
         private Address address;
         private Set<Tag> tags;
-
 
         public EditTransactionDescriptor() {}
 
@@ -279,5 +276,7 @@ public class EditCommand extends Command {
                     && getPhone().equals(e.getPhone())
                     && getTags().equals(e.getTags());
         }
+
     }
 }
+

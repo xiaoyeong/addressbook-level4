@@ -26,9 +26,9 @@ public class AddCommand extends Command {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a transaction to the financial database.\n"
             + "Parameters: "
-            + PREFIX_TRANSACTION_TYPE + "TRANSACTION TYPE "
-            + PREFIX_TRANSACTION_AMOUNT + "TRANSACTION AMOUNT "
-            + PREFIX_TRANSACTION_DEADLINE + "TRANSACTION DEADLINE "
+            + PREFIX_TRANSACTION_TYPE + "TRANSACTION_TYPE "
+            + PREFIX_TRANSACTION_AMOUNT + "TRANSACTION_AMOUNT "
+            + PREFIX_TRANSACTION_DEADLINE + "TRANSACTION_DEADLINE "
             + PREFIX_NAME + "NAME "
             + PREFIX_PHONE + "PHONE "
             + PREFIX_EMAIL + "EMAIL "

@@ -13,15 +13,13 @@ import seedu.address.model.person.Photo;
  * {@code Transaction} class encapsulates a transaction added to the financial database
  */
 public class Transaction {
-
-
     private final Type type;
-    private final Amount amount;
     private final Person person;
     private final Deadline deadline;
+    private Amount amount;
     private Photo photo;
-
-    private Interest interest;
+    private InterestScheme interestScheme;
+    private InterestRate interestRate;
     private final Logger logger = LogsCenter.getLogger(getClass());
 
 
@@ -40,11 +38,6 @@ public class Transaction {
         this.deadline = deadline;
         this.photo = photo;
     }
-    //create a copy instance
-    public Transaction(Transaction thisTransaction) {
-        this(thisTransaction.getType(), thisTransaction.getAmount(), thisTransaction.getDeadline(),
-                thisTransaction.getPerson(), thisTransaction.getPhoto());
-    }
 
     public Transaction(Type type, Amount amount, Deadline deadline, Person person) {
         this.type = type;
@@ -54,6 +47,9 @@ public class Transaction {
         this.photo = new Photo();
     }
 
+    public static Transaction copy(Transaction other) {
+        return new Transaction(other.type, other.amount, other.deadline, other.person, other.photo);
+    }
 
     public Type getType() {
         return type;
@@ -63,16 +59,16 @@ public class Transaction {
         return amount;
     }
 
+    public void setAmount(Amount amount) {
+        this.amount = amount;
+    }
+
     public Deadline getDeadline() {
         return deadline;
     }
 
     public Person getPerson() {
         return person;
-    }
-
-    public Interest getInterest() {
-        return interest;
     }
 
     public Photo getPhoto() {
@@ -92,7 +88,6 @@ public class Transaction {
             this.photo = previousPhoto;
             throw new IllegalValueException("Cannot set new photo");
         }
-
         logger.info("passsetphoto");
 
     }
@@ -107,10 +102,7 @@ public class Transaction {
         StringBuilder buffer = new StringBuilder(targetStringLength);
         for (int i = 0; i < targetStringLength; i++) {
             char randomLimitedInt;
-
             int randomNumber = random.nextInt(52);
-
-
             if (randomNumber <= 25) {
                 randomLimitedInt = (char) ('A' + randomNumber);
             } else {
@@ -150,10 +142,6 @@ public class Transaction {
                .append(amount)
                .append(" Deadline: ")
                .append(deadline);
-        if (interest != null) {
-            builder.append(" Interest: ")
-                   .append(interest);
-        }
         return builder.toString();
     }
 }

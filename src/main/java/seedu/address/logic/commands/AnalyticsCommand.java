@@ -41,8 +41,8 @@ public class AnalyticsCommand extends Command {
 
     @Override
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
-        double amount;
-        amount = 0.0;
+        double totalSum;
+        totalSum = 0.0;
         requireNonNull(model);
         List<Transaction> transactionList = model.getFilteredTransactionList();
 
@@ -57,14 +57,14 @@ public class AnalyticsCommand extends Command {
                 Amount currentAmount = Amount.convertCurrency(t.getAmount());
                 if (currentAmount != null) {
                     if (t.getType().toString().compareTo("debt") == 0) {
-                        amount -= Double.parseDouble(currentAmount.getValue().split(" ")[1]);
+                        totalSum -= currentAmount.getValue();
                     } else if ((t.getType().toString().compareTo("loan") == 0)) {
-                        amount += Double.parseDouble(currentAmount.getValue().split(" ")[1]);
+                        totalSum += currentAmount.getValue();
                     }
                 }
             }
         }
-        return new CommandResult(String.format(MESSAGE_SUCCESS, amount));
+        return new CommandResult(String.format(MESSAGE_SUCCESS, totalSum));
     }
 }
 
