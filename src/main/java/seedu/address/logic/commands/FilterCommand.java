@@ -49,8 +49,9 @@ public class FilterCommand extends Command {
             + PREFIX_TRANSACTION_DEADLINE_LATEST + "LATEST_TRANSACTION_DEADLINE\n"
             + "Examples: \n"
             + COMMAND_WORD + " n/alex e/example.com p/87438807 a/Geylang tt/debt\n"
-            + COMMAND_WORD + " n/alex;bernice;charlotte tt/loan tdmax/11/11/2019\n"
-            + COMMAND_WORD + " n/charlotte tamin/SGD 10.00 tamax/SGD 400.00\n"
+            + COMMAND_WORD + " n/alex;bernice;charlotte\n"
+            + COMMAND_WORD + " tamin/SGD 10.00 tamax/SGD 400.00\n"
+            + COMMAND_WORD + " tdmin/10/10/2018 tdmax/10/10/2019\n"
             + COMMAND_WORD + " n/charlotte e/alex or/\n";
 
     private final List<Predicate<Transaction>> predicates;
