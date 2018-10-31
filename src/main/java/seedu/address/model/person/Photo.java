@@ -65,25 +65,14 @@ public class Photo {
 
         logger.info("makephoto");
         logger.info(filePath);
-        if (filePath == "delete") {
+        if (filePath.equals("delete")) {
             filePath = "images/default_person.png";
         } else {
-            //get image from source
-            //String immm = System.getProperty("user.home") +
-            // "/Documents/cs2103/debt-tracker/docs/images/weiqing-nic.png";
-            //System.out.println(immm);
             filePath = "/" + filePath;
         }
-        //System.out.println(filePath);
         File getImage = new File(filePath);
-        //File getImage = new File(immm);
-
-
-
-        //create file object
         String fileName = FOLDER + "/" + newPhoto + ".png";
         File pictureFinal = new File(fileName);
-
         //if cannot get file object create an empty object
         if (!pictureFinal.exists()) {
             try {
@@ -97,9 +86,8 @@ public class Photo {
                 e.printStackTrace();
             }
         }
-
         try {
-            if (filePath == "delete") {
+            if (filePath.equals("delete")) {
                 this.photoPath = "images/default_person.png";
             } else {
                 Files.copy(getImage.toPath(), pictureFinal.toPath(), REPLACE_EXISTING);
@@ -131,7 +119,6 @@ public class Photo {
     /**
      * Check the Operating System that the user's local machine is running
      */
-
     private static String getOperatingPath() {
         String oSystem = System.getProperty("os.name").toLowerCase();
 
