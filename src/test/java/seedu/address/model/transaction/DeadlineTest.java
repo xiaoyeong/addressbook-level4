@@ -35,7 +35,7 @@ public class DeadlineTest {
         assertFalse(Deadline.isValidDeadline("152/12/2019")); //incorrect day
         assertFalse(Deadline.isValidDeadline("12/13/2018")); //incorrect month
         assertFalse(Deadline.isValidDeadline("31/11/201")); //incorrect year
-        assertFalse(Deadline.isValidDeadline("24/09/2018")); //deadline has already passed
+        assertFalse(Deadline.isValidFutureDeadline("24/09/2018")); //deadline has already passed
 
         //valid deadlines
         assertTrue(Deadline.isValidDeadline("25/12/2018"));
@@ -82,30 +82,6 @@ public class DeadlineTest {
     }
 
     @Test
-    public void getMonthsDifference_sameDeadlines_returnZero() {
-        String date = generateOneDate();
-        Deadline firstDeadline = new Deadline(date);
-        Deadline secondDeadline = new Deadline(date);
-        assertEquals(firstDeadline.getMonthsDifference(secondDeadline), 0);
-    }
-
-    @Test
-    public void getYearsDifference_sameDeadlines_returnZero() {
-        String date = generateOneDate();
-        Deadline firstDeadline = new Deadline(date);
-        Deadline secondDeadline = new Deadline(date);
-        assertEquals(firstDeadline.getYearsDifference(secondDeadline), 0);
-    }
-
-    @Test
-    public void getDaysDifference_sameDeadlines_returnZero() {
-        String date = generateOneDate();
-        Deadline firstDeadline = new Deadline(date);
-        Deadline secondDeadline = new Deadline(date);
-        assertEquals(firstDeadline.getDaysDifference(secondDeadline), 0);
-    }
-
-    @Test
     public void compareTo_sameDeadlines_returnZero() {
         String date = generateOneDate();
         Deadline firstDeadline = new Deadline(date);
@@ -114,19 +90,19 @@ public class DeadlineTest {
     }
 
     @Test
-    public void compareTo_sameDeadlines_returnPositiveOne() {
+    public void compareTo_differentDeadlines_returnPositiveOne() {
         String[] dates = generateTwoDates();
         Deadline firstDeadline = new Deadline(dates[0]);
         Deadline secondDeadline = new Deadline(dates[1]);
-        System.err.println(firstDeadline.compareTo(secondDeadline));
-        assertEquals(firstDeadline.compareTo(secondDeadline), 1);
+        assertEquals(secondDeadline.compareTo(firstDeadline), 1);
     }
 
     @Test
-    public void compareTo_sameDeadlines_returnNegativeOne() {
-        String[] dates = generateTwoDates();
-        Deadline firstDeadline = new Deadline(dates[1]);
-        Deadline secondDeadline = new Deadline(dates[0]);
+    public void compareTo_differentDeadlines_returnNegativeOne() {
+        String firstDate = "17/11/2018";
+        String secondDate = "15/12/2018";
+        Deadline firstDeadline = new Deadline(firstDate);
+        Deadline secondDeadline = new Deadline(secondDate);
         assertEquals(firstDeadline.compareTo(secondDeadline), -1);
     }
 }

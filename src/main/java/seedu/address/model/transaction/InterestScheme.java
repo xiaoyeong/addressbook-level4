@@ -59,11 +59,11 @@ public class InterestScheme {
 
     @Override
     public boolean equals(Object other) {
-        if (!(other instanceof Interest)) {
+        if (!(other instanceof InterestScheme)) {
             return false;
         }
-        InterestRate interestRate = (InterestRate) other;
-        return other == this || (interestRate.value == interestRate.value);
+        InterestScheme interestScheme = (InterestScheme) other;
+        return other == this || (value == interestScheme.value);
     }
 
     @Override

@@ -25,16 +25,28 @@ public class FieldContainsKeywordsPredicate implements Predicate<seedu.address.m
         switch (type) {
         case Name:
             return keywords.stream()
-                    .anyMatch(keyword -> StringUtil.containsWordIgnoreCase(person.getName().fullName, keyword));
+                    .anyMatch(keyword -> StringUtil.containsSubstringIgnoreCase(person.getName().fullName, keyword));
         case Email:
             return keywords.stream()
-                    .anyMatch(keyword -> StringUtil.containsWordIgnoreCase(person.getEmail().value, keyword));
+                    .anyMatch(keyword -> StringUtil.containsSubstringIgnoreCase(person.getEmail().value, keyword));
         case Phone:
             return keywords.stream()
-                    .anyMatch(keyword -> StringUtil.containsWordIgnoreCase(person.getPhone().value, keyword));
+                    .anyMatch(keyword -> StringUtil.containsSubstringIgnoreCase(person.getPhone().value, keyword));
         case Address:
             return keywords.stream()
-                    .anyMatch(keyword -> StringUtil.containsWordIgnoreCase(person.getAddress().value, keyword));
+                    .anyMatch(keyword -> StringUtil.containsSubstringIgnoreCase(person.getAddress().value, keyword));
+        case Deadline:
+            return keywords.stream()
+                    .anyMatch(keyword -> StringUtil.containsSubstringIgnoreCase(transaction.getDeadline().value,
+                            keyword));
+        case Amount:
+            return keywords.stream()
+                    .anyMatch(keyword -> StringUtil.containsSubstringIgnoreCase(transaction.getAmount().toString(),
+                            keyword));
+        case Type:
+            return keywords.stream()
+                    .anyMatch(keyword -> StringUtil.containsSubstringIgnoreCase(transaction.getType().value,
+                            keyword));
         default:
             return false;
         }

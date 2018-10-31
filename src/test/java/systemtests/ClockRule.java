@@ -55,3 +55,4 @@ public class ClockRule implements TestRule {
         StatusBarFooter.setClock(injectedClock);
     }
 }
+

@@ -6,6 +6,7 @@ import java.util.List;
 
 import seedu.address.logic.CommandHistory;
 import seedu.address.model.Model;
+import seedu.address.model.transaction.Amount;
 import seedu.address.model.transaction.Transaction;
 
 /**
@@ -18,7 +19,7 @@ public class InterestCommand extends Command {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Calculates interest on all transactions "
             + "based on the interest scheme and value that the user inputs.\n"
-            + "Parameters: SCHEME INTEREST_RATE...\n"
+            + "Parameters: INTEREST_SCHEME INTEREST_RATE...\n"
             + "Example: " + COMMAND_WORD + " simple 1.1%";
     public static final String MESSAGE_SUCCESS = "Interest calculated for all %d transactions!";
     private final String scheme;
@@ -34,14 +35,15 @@ public class InterestCommand extends Command {
     public CommandResult execute(Model model, CommandHistory history) {
         requireNonNull(model);
         List<Transaction> lastShownList = model.getFilteredTransactionList();
-        int i;
-        for (i = 0; i < lastShownList.size(); i++) {
-            Transaction target = lastShownList.get(i);
-            Transaction editedTransaction = Transaction.copy(target);
-            editedTransaction.calculateInterest(scheme, rate);
-            model.updateTransaction(target, editedTransaction);
+        for (Transaction transactionToEdit : lastShownList) {
+            Amount principalAmount = transactionToEdit.getAmount();
+            long monthsDifference = transactionToEdit.getDeadline().getMonthsDifference();
+            Amount convertedAmount = Amount.calculateInterest(principalAmount, scheme, rate, monthsDifference);
+            Transaction editedTransaction = Transaction.copy(transactionToEdit);
+            editedTransaction.setAmount(convertedAmount);
+            model.updateTransaction(transactionToEdit, editedTransaction);
         }
-        return new CommandResult(String.format(MESSAGE_SUCCESS, i));
+        return new CommandResult(String.format(MESSAGE_SUCCESS, lastShownList.size()));
     }
 
     @Override

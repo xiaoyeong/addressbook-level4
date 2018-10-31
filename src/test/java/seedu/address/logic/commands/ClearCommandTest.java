@@ -1,6 +1,6 @@
 package seedu.address.logic.commands;
 
-import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
+import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccessWithNoModelChange;
 import static seedu.address.testutil.TypicalTransactions.getTypicalFinancialDatabase;
 
 import org.junit.Test;
@@ -21,7 +21,8 @@ public class ClearCommandTest {
         Model expectedModel = new ModelManager();
         expectedModel.commitFinancialDatabase();
 
-        assertCommandSuccess(new ClearCommand(), model, commandHistory, ClearCommand.MESSAGE_SUCCESS, expectedModel);
+        assertCommandSuccessWithNoModelChange(new ClearCommand(), model, commandHistory, ClearCommand.MESSAGE_SUCCESS,
+                expectedModel);
     }
 
     @Test
@@ -31,7 +32,8 @@ public class ClearCommandTest {
         expectedModel.resetData(new FinancialDatabase());
         expectedModel.commitFinancialDatabase();
 
-        assertCommandSuccess(new ClearCommand(), model, commandHistory, ClearCommand.MESSAGE_SUCCESS, expectedModel);
+        assertCommandSuccessWithNoModelChange(new ClearCommand(), model, commandHistory, ClearCommand.MESSAGE_SUCCESS,
+                expectedModel);
     }
 
 }

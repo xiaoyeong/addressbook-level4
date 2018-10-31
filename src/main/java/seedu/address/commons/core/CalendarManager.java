@@ -17,6 +17,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
 
+import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.logging.Logger;
@@ -48,6 +49,7 @@ import javafx.application.Platform;
 
 import javafx.collections.ObservableList;
 import seedu.address.commons.events.ui.NewResultAvailableEvent;
+import seedu.address.commons.events.ui.RefreshCalendarEvent;
 import seedu.address.model.Model;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
@@ -155,13 +157,17 @@ public class CalendarManager extends ComponentManager {
                 .build();
     }
 
+    public void setReminder(int timePeriod, Transaction transactionToSetReminder) throws IOException {
+        List<Event> calendarEvents = getCalendarEvents();
+    }
+
     /**
      * Starts the calendar login process on a new thread and returns true if the user has not already logged in,
      * returns false otherwise.
      */
-    public boolean calendarLogin() {
+    public boolean calendarLogin(Model model) {
         if (service == null) {
-            Thread t = new Thread(new LoginRunnable());
+            Thread t = new Thread(new LoginRunnable(model));
             t.start();
             return true;
         } else {
@@ -225,87 +231,138 @@ public class CalendarManager extends ComponentManager {
         });
     }
 
-
     public String getCalendarId() {
         return this.calendarId;
     }
 
+    /**
+     * Represents the number of additions and deletions resulting from a calendar sync event
+     */
+    public class SyncResult {
+        final int additions;
+        final int deletions;
 
+        SyncResult(int additions, int deletions) {
+            this.additions = additions;
+            this.deletions = deletions;
+        }
+
+        @Override
+        public String toString() {
+            return this.additions + " additions, " + this.deletions + " deletions.";
+        }
+    }
 
     /**
      * Synchronizes the transactions between the calendar and debt tracker application
+     * @param model The in-memory model of the debt tracker data
+     * @return a SyncResult object representing the number of additions and deletions made to the calendar
      */
-    public void syncCalendar(Model model) {
-        if (service != null) {
-            executor.execute(() -> {
-                try {
-                    List<Event> eventList = getCalendarEvents();
-                    List<String> invalidEvents = new LinkedList<>();
-                    Set<CalendarTransaction> calendarTransactions = new HashSet<>();
-                    for (Event event : eventList) {
-                        String name = event.getSummary();
-                        String description = event.getDescription();
-                        EventDateTime start = event.getStart();
-                        EventDateTime end = event.getEnd();
-                        boolean validEvent = false;
-                        if (description != null) {
-                            String[] details = description.split("\\r?\\n");
-                            Set<Tag> tags = new HashSet<>();
-                            if (start.equals(end) && (details.length == 5 || details.length == 6)
-                                    && Name.isValidName(name)
-                                    && Phone.isValidPhone(details[0]) && Address.isValidAddress(details[1])
-                                    && Email.isValidEmail(details[2]) && Type.isValidType(details[3])
-                                    && Amount.isValidAmount(details[4])) {
-                                if (details.length == 6) {
-                                    String[] tagStrings = details[5].split(";");
-                                    if (Arrays.stream(tagStrings).allMatch(s -> Tag.isValidTagName(s))) {
-                                        validEvent = true;
-                                        for (String tagString: tagStrings) {
-                                            tags.add(new Tag(tagString));
-                                        }
-                                    }
-                                } else {
-                                    validEvent = true;
+    private SyncResult syncCalendarHelper(Model model) {
+        try {
+            List<Event> eventList = getCalendarEvents();
+            List<String> invalidEvents = new LinkedList<>();
+            Set<CalendarTransaction> calendarTransactions = new HashSet<>();
+            for (Event event : eventList) {
+                String name = event.getSummary();
+                String description = event.getDescription();
+                EventDateTime start = event.getStart();
+                EventDateTime end = event.getEnd();
+                boolean validEvent = false;
+                if (description != null) {
+                    String[] details = description.split("\\r?\\n");
+                    Set<Tag> tags = new HashSet<>();
+                    if (start.equals(end) && (details.length == 5 || details.length == 6)
+                            && Name.isValidName(name)
+                            && Phone.isValidPhone(details[0]) && Address.isValidAddress(details[1])
+                            && Email.isValidEmail(details[2]) && Type.isValidType(details[3])
+                            && Amount.isValidAmount(details[4])) {
+                        if (details.length == 6) {
+                            String[] tagStrings = details[5].split(";");
+                            if (Arrays.stream(tagStrings).allMatch(s -> Tag.isValidTagName(s))) {
+                                validEvent = true;
+                                for (String tagString: tagStrings) {
+                                    tags.add(new Tag(tagString));
                                 }
                             }
-                            if (validEvent) {
-                                try {
-                                    DateFormat sourceFormat = new SimpleDateFormat("yyyy-MM-dd");
-                                    SimpleDateFormat targetFormat = new SimpleDateFormat("dd/MM/yyyy");
-                                    String date = targetFormat.format(sourceFormat.parse(end.getDate().toString()));
-                                    calendarTransactions.add(
-                                            new CalendarTransaction(new Transaction(new Type(details[3]),
+                        } else {
+                            validEvent = true;
+                        }
+                    }
+                    if (validEvent) {
+                        try {
+                            DateFormat sourceFormat = new SimpleDateFormat("yyyy-MM-dd");
+                            SimpleDateFormat targetFormat = new SimpleDateFormat("dd/MM/yyyy");
+                            String date = targetFormat.format(sourceFormat.parse(end.getDate().toString()));
+                            calendarTransactions.add(
+                                    new CalendarTransaction(new Transaction(new Type(details[3]),
                                             new Amount(details[4]), new Deadline(date), new Person(new Name(name),
                                             new Phone(details[0]), new Email(details[2]), new Address(details[1]),
                                             tags)), event.getId()));
-                                } catch (ParseException ex) {
-                                    validEvent = false;
-                                }
-                            }
-                            if (!validEvent) {
-                                invalidEvents.add(event.getId());
-                            }
+                        } catch (ParseException ex) {
+                            validEvent = false;
                         }
                     }
-
-                    ObservableList<Transaction> transactions = model.getFinancialDatabase().getTransactionList();
-                    Set<CalendarTransaction> appTransactions = new HashSet<>();
-                    for (Transaction t : transactions) {
-                        appTransactions.add(new CalendarTransaction(t));
+                    if (!validEvent) {
+                        invalidEvents.add(event.getId());
                     }
-
-                    Set<CalendarTransaction> toRemove = new HashSet<>(calendarTransactions);
-                    toRemove.removeAll(appTransactions);
-
-                    Set<CalendarTransaction> toAdd = new HashSet<>(appTransactions);
-                    toAdd.removeAll(calendarTransactions);
-
-                    executeSyncBatchRequest(toAdd, toRemove, invalidEvents);
-
-                } catch (IOException ex) {
-                    logger.info("unable to sync calendar");
                 }
-            });
+            }
+
+            ObservableList<Transaction> transactions = model.getFinancialDatabase().getTransactionList();
+            Set<CalendarTransaction> appTransactions = new HashSet<>();
+            for (Transaction t : transactions) {
+                appTransactions.add(new CalendarTransaction(t));
+            }
+
+            Set<CalendarTransaction> toRemove = new HashSet<>(calendarTransactions);
+            toRemove.removeAll(appTransactions);
+
+            Set<CalendarTransaction> toAdd = new HashSet<>(appTransactions);
+            toAdd.removeAll(calendarTransactions);
+
+            executeSyncBatchRequest(toAdd, toRemove, invalidEvents);
+
+            return new SyncResult(toAdd.size(), toRemove.size() + invalidEvents.size());
+
+        } catch (IOException ex) {
+            logger.info("unable to sync calendar");
+            return null;
+        }
+    }
+
+
+    /**
+     * Synchronizes the transactions between the calendar and debt tracker application.
+     * Runs on a common single-thread executor to prevent concurrent synchronizations
+     * @param model The in-memory model of the debt tracker data
+     * @return a SyncResult object representing the number of additions and deletions made to the calendar
+     */
+    public SyncResult syncCalendar(Model model) {
+        try {
+            if (service != null) {
+                SyncResult result = executor.submit(() -> syncCalendarHelper(model)).get();
+                return result;
+            } else {
+                logger.info("calendar not logged in");
+                return null;
+            }
+        } catch (InterruptedException | ExecutionException ex) {
+            return null;
+        }
+    }
+
+
+    /**
+     * Synchronizes the transactions between the calendar and debt tracker application.
+     * Runs on a separate thread to avoid blocking UI, in a common single-thread executor
+     * to prevent concurrent synchronizations
+     */
+    public void syncCalendarAsync(Model model) {
+        if (service != null) {
+            executor.submit(() ->
+                    syncCalendarHelper(model)
+            );
         } else {
             logger.info("calendar not logged in");
         }
@@ -398,6 +455,7 @@ public class CalendarManager extends ComponentManager {
         }
         if (b.size() > 0) {
             b.execute();
+            raise(new RefreshCalendarEvent(calendarId));
         }
     }
 
@@ -439,6 +497,10 @@ public class CalendarManager extends ComponentManager {
      * The login process that is to be executed in a new thread.
      */
     private class LoginRunnable implements Runnable {
+        private Model model;
+        LoginRunnable(Model model) {
+            this.model = model;
+        }
         @Override
         public void run() {
             try {
@@ -454,6 +516,7 @@ public class CalendarManager extends ComponentManager {
                 } else {
                     CalendarManager.getInstance().calendarId = calendarId;
                 }
+                syncCalendarAsync(model);
                 raise(new NewResultAvailableEvent("Logged in successfully!"));
             } catch (IOException | GeneralSecurityException | NullPointerException ex) {
                 logger.info("Error getting user credentials");

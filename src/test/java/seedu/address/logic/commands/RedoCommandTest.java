@@ -1,7 +1,7 @@
 package seedu.address.logic.commands;
 
-import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
-import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
+import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailureWithNoModelChange;
+import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccessWithNoModelChange;
 import static seedu.address.logic.commands.CommandTestUtil.deleteFirstTransaction;
 import static seedu.address.testutil.TypicalTransactions.getTypicalFinancialDatabase;
 
@@ -37,13 +37,16 @@ public class RedoCommandTest {
     public void execute() {
         // multiple redoable states in model
         expectedModel.redoFinancialDatabase();
-        assertCommandSuccess(new RedoCommand(), model, commandHistory, RedoCommand.MESSAGE_SUCCESS, expectedModel);
+        assertCommandSuccessWithNoModelChange(new RedoCommand(), model, commandHistory,
+                RedoCommand.MESSAGE_SUCCESS, expectedModel);
 
         // single redoable state in model
         expectedModel.redoFinancialDatabase();
-        assertCommandSuccess(new RedoCommand(), model, commandHistory, RedoCommand.MESSAGE_SUCCESS, expectedModel);
+        assertCommandSuccessWithNoModelChange(new RedoCommand(), model, commandHistory,
+                RedoCommand.MESSAGE_SUCCESS, expectedModel);
 
         // no redoable state in model
-        assertCommandFailure(new RedoCommand(), model, commandHistory, RedoCommand.MESSAGE_FAILURE);
+        assertCommandFailureWithNoModelChange(new RedoCommand(), model, commandHistory,
+                RedoCommand.MESSAGE_FAILURE);
     }
 }

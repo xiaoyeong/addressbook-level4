@@ -40,26 +40,36 @@ public class Deadline implements Comparable<Deadline> {
     }
 
     /**
-     * Returns true if {@code test} is a valid transaction amount.
+     * Returns true if {@code test} is a valid transaction deadline.
      *
      * @param test the command line argument to be parsed
      */
     public static boolean isValidDeadline(String test) {
-        return test.matches(TRANSACTION_DEADLINE_VALIDATION_REGEX) && checkDate(test);
+        return test.matches(TRANSACTION_DEADLINE_VALIDATION_REGEX) && checkDate(test, false);
+    }
+
+    /**
+     * Returns true if {@code test} is a valid transaction deadline in the future.
+     *
+     * @param test the command line argument to be parsed
+     */
+    public static boolean isValidFutureDeadline(String test) {
+        return test.matches(TRANSACTION_DEADLINE_VALIDATION_REGEX) && checkDate(test, true);
     }
 
     /**
      * Checks whether the string {@test} that follow date format is actually a valid date
      * according to the Gregorian Calendar.
      * @param test the command line argument to be parsed
+     * @param checkFuture indicates whether to check if the date is in the future
      */
-    private static boolean checkDate(String test) {
+    private static boolean checkDate(String test, boolean checkFuture) {
         int dayOfMonth = Integer.parseInt(test.split("/")[0]);
         int month = Integer.parseInt(test.split("/")[1]);
         int year = Integer.parseInt(test.split("/")[2]);
         try {
             LocalDate date = LocalDate.of(year, month, dayOfMonth);
-            return !date.isBefore(LocalDate.now());
+            return checkFuture ? !date.isBefore(LocalDate.now()) : true;
         } catch (DateTimeException ex) {
             LogsCenter.getLogger(Deadline.class).warning(ex.getMessage());
             return false;
@@ -116,15 +126,19 @@ public class Deadline implements Comparable<Deadline> {
         return result;
     }
 
-    public long getMonthsDifference(Deadline other) {
+    public long getMonthsDifference() {
+        return Deadline.CURRENT_DATE.getMonthsDifference(this);
+    }
+
+    private long getMonthsDifference(Deadline other) {
         return getDifference(other, "months");
     }
 
-    public long getDaysDifference(Deadline other) {
+    private long getDaysDifference(Deadline other) {
         return getDifference(other, "days");
     }
 
-    public long getYearsDifference(Deadline other) {
+    private long getYearsDifference(Deadline other) {
         return getDifference(other, "years");
     }
 
@@ -133,15 +147,12 @@ public class Deadline implements Comparable<Deadline> {
      * @param other the other deadline to compare.
      */
     public int compareTo(@NotNull Deadline other) {
-        if (getYearsDifference(other) > 0
-                || (getYearsDifference(other) == 0 && getMonthsDifference(other) > 0)
-                || (getYearsDifference(other) == 0 && getMonthsDifference(other) == 0
-                && getDaysDifference(other) > 0)) {
-            return 1;
+        if (getYearsDifference(other) > 0 || getMonthsDifference(other) > 0 || getDaysDifference(other) > 0) {
+            return -1;
         } else if (getYearsDifference(other) == 0 && getMonthsDifference(other) == 0 && getDaysDifference(other) == 0) {
             return 0;
         } else {
-            return -1;
+            return 1;
         }
     }
 }

@@ -1,7 +1,5 @@
 package seedu.address.model.transaction;
 
-import static java.util.Objects.requireNonNull;
-
 import java.util.Objects;
 import java.util.Random;
 import java.util.logging.Logger;
@@ -16,11 +14,10 @@ import seedu.address.model.person.Photo;
  */
 public class Transaction {
     private final Type type;
-    private final Amount amount;
     private final Person person;
     private final Deadline deadline;
+    private Amount amount;
     private Photo photo;
-    private Interest interest;
     private InterestScheme interestScheme;
     private InterestRate interestRate;
     private final Logger logger = LogsCenter.getLogger(getClass());
@@ -42,7 +39,6 @@ public class Transaction {
         this.photo = photo;
     }
 
-
     public Transaction(Type type, Amount amount, Deadline deadline, Person person) {
         this.type = type;
         this.amount = amount;
@@ -63,16 +59,16 @@ public class Transaction {
         return amount;
     }
 
+    public void setAmount(Amount amount) {
+        this.amount = amount;
+    }
+
     public Deadline getDeadline() {
         return deadline;
     }
 
     public Person getPerson() {
         return person;
-    }
-
-    public Interest getInterest() {
-        return interest;
     }
 
     public Photo getPhoto() {
@@ -88,7 +84,6 @@ public class Transaction {
             this.photo = previousPhoto;
             throw new IllegalValueException("Cannot set new photo");
         }
-
         logger.info("passsetphoto");
 
     }
@@ -103,10 +98,7 @@ public class Transaction {
         StringBuilder buffer = new StringBuilder(targetStringLength);
         for (int i = 0; i < targetStringLength; i++) {
             char randomLimitedInt;
-
             int randomNumber = random.nextInt(52);
-
-
             if (randomNumber <= 25) {
                 randomLimitedInt = (char) ('A' + randomNumber);
             } else {
@@ -115,18 +107,6 @@ public class Transaction {
             buffer.append(randomLimitedInt);
         }
         return buffer.toString();
-    }
-
-    /**
-     * Calculates interest based on scheme and rate inputted by the user.
-     */
-    public void calculateInterest(String interestScheme, String interestRate) {
-        requireNonNull(interestScheme);
-        requireNonNull(interestRate);
-        long monthsDifference = Deadline.CURRENT_DATE.getMonthsDifference(deadline);
-        this.interestScheme = new InterestScheme(interestScheme);
-        this.interestRate = new InterestRate(interestRate);
-        interest = new Interest(amount, this.interestScheme, this.interestRate, monthsDifference);
     }
 
     @Override
@@ -158,10 +138,6 @@ public class Transaction {
                .append(amount)
                .append(" Deadline: ")
                .append(deadline);
-        if (interest != null) {
-            builder.append(" Interest: ")
-                   .append(interest);
-        }
         return builder.toString();
     }
 }
