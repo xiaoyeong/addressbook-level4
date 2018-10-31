@@ -39,9 +39,7 @@ import seedu.address.ui.UiManager;
  * The main entry point to the application.
  */
 public class MainApp extends Application {
-
-    public static final Version VERSION = new Version(0, 6, 0, true);
-
+    public static final Version VERSION = new Version(1, 3, 0, true);
     private static final Logger logger = LogsCenter.getLogger(MainApp.class);
 
     protected Ui ui;
@@ -88,14 +86,14 @@ public class MainApp extends Application {
         try {
             financialDatabaseOptional = storage.readFinancialDatabase();
             if (!financialDatabaseOptional.isPresent()) {
-                logger.info("Data file not found. Will be starting with a sample AddressBook");
+                logger.info("Data file not found. Will be starting with a sample FinancialDatabase");
             }
             initialData = financialDatabaseOptional.orElseGet(SampleDataUtil::getSampleFinancialDatabase);
         } catch (DataConversionException e) {
-            logger.warning("Data file not in the correct format. Will be starting with an empty AddressBook");
+            logger.warning("Data file not in the correct format. Will be starting with an empty FinancialDatabase");
             initialData = new FinancialDatabase();
         } catch (IOException e) {
-            logger.warning("Problem while reading from the file. Will be starting with an empty AddressBook");
+            logger.warning("Problem while reading from the file. Will be starting with an empty FinancialDatabase");
             initialData = new FinancialDatabase();
         }
 
@@ -180,13 +178,13 @@ public class MainApp extends Application {
 
     @Override
     public void start(Stage primaryStage) {
-        logger.info("Starting AddressBook " + MainApp.VERSION);
+        logger.info("Starting DebtTracker " + MainApp.VERSION);
         ui.start(primaryStage);
     }
 
     @Override
     public void stop() {
-        logger.info("============================ [ Stopping Address Book ] =============================");
+        logger.info("============================ [ Stopping Debt Tracker ] =============================");
         ui.stop();
         try {
             storage.saveUserPrefs(userPrefs);

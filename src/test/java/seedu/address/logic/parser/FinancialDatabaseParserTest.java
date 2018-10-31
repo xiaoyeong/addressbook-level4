@@ -6,28 +6,26 @@ import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT
 import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_TRANSACTION;
 
-import java.util.Arrays;
-import java.util.List;
-import java.util.stream.Collectors;
-
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
 import seedu.address.logic.commands.AddCommand;
+import seedu.address.logic.commands.AnalyticsCommand;
 import seedu.address.logic.commands.ClearCommand;
+import seedu.address.logic.commands.ConvertCommand;
 import seedu.address.logic.commands.DeleteCommand;
 import seedu.address.logic.commands.EditCommand;
 import seedu.address.logic.commands.ExitCommand;
-import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.HistoryCommand;
 import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.SelectCommand;
+import seedu.address.logic.commands.SortCommand;
 import seedu.address.logic.commands.UndoCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.person.NameContainsKeywordsPredicate;
+import seedu.address.model.transaction.Deadline;
 import seedu.address.model.transaction.Transaction;
 import seedu.address.testutil.EditTransactionDescriptorBuilder;
 import seedu.address.testutil.TransactionBuilder;
@@ -48,9 +46,22 @@ public class FinancialDatabaseParserTest {
     }
 
     @Test
+    public void parseCommand_analytics() throws Exception {
+        AnalyticsCommand command = (AnalyticsCommand)
+                parser.parseCommand(AnalyticsCommand.COMMAND_WORD + " " + Deadline.CURRENT_DATE);
+        assertEquals(new AnalyticsCommand(Deadline.CURRENT_DATE), command);
+    }
+
+    @Test
     public void parseCommand_clear() throws Exception {
         assertTrue(parser.parseCommand(ClearCommand.COMMAND_WORD) instanceof ClearCommand);
         assertTrue(parser.parseCommand(ClearCommand.COMMAND_WORD + " 3") instanceof ClearCommand);
+    }
+
+    @Test
+    public void parseCommand_convert() throws Exception {
+        assertTrue(parser.parseCommand(ConvertCommand.COMMAND_WORD) instanceof ConvertCommand);
+        assertTrue(parser.parseCommand(ConvertCommand.COMMAND_WORD + " 3") instanceof ConvertCommand);
     }
 
     @Test
@@ -77,14 +88,6 @@ public class FinancialDatabaseParserTest {
     }
 
     @Test
-    public void parseCommand_find() throws Exception {
-        List<String> keywords = Arrays.asList("foo", "bar", "baz");
-        FindCommand command = (FindCommand) parser.parseCommand(
-                FindCommand.COMMAND_WORD + " " + keywords.stream().collect(Collectors.joining(" ")));
-        assertEquals(new FindCommand(new NameContainsKeywordsPredicate(keywords)), command);
-    }
-
-    @Test
     public void parseCommand_help() throws Exception {
         assertTrue(parser.parseCommand(HelpCommand.COMMAND_WORD) instanceof HelpCommand);
         assertTrue(parser.parseCommand(HelpCommand.COMMAND_WORD + " 3") instanceof HelpCommand);
@@ -101,6 +104,24 @@ public class FinancialDatabaseParserTest {
         } catch (ParseException pe) {
             assertEquals(MESSAGE_UNKNOWN_COMMAND, pe.getMessage());
         }
+    }
+
+    @Test
+    public void parseCommand_interest() throws Exception {
+        assertTrue(parser.parseCommand(ConvertCommand.COMMAND_WORD) instanceof ConvertCommand);
+        assertTrue(parser.parseCommand(ConvertCommand.COMMAND_WORD + " 3") instanceof ConvertCommand);
+    }
+
+    @Test
+    public void parseCommand_sort() throws Exception {
+        assertTrue(parser.parseCommand(SortCommand.COMMAND_WORD) instanceof SortCommand);
+        assertTrue(parser.parseCommand(SortCommand.COMMAND_WORD + " " + SortCommand.AMOUNT_SORT_PARAMETER)
+                instanceof SortCommand);
+        assertTrue(parser.parseCommand(SortCommand.COMMAND_WORD + " " + SortCommand.TYPE_SORT_PARAMETER)
+                instanceof SortCommand);
+        assertTrue(parser.parseCommand(SortCommand.COMMAND_WORD + " " + SortCommand.DEADLINE_SORT_PARAMETER)
+                instanceof SortCommand);
+        assertTrue(parser.parseCommand(SortCommand.COMMAND_WORD) instanceof SortCommand);
     }
 
     @Test

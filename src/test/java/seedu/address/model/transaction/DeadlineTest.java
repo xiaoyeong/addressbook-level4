@@ -35,7 +35,7 @@ public class DeadlineTest {
         assertFalse(Deadline.isValidDeadline("152/12/2019")); //incorrect day
         assertFalse(Deadline.isValidDeadline("12/13/2018")); //incorrect month
         assertFalse(Deadline.isValidDeadline("31/11/201")); //incorrect year
-        assertFalse(Deadline.isValidDeadline("24/09/2018")); //deadline has already passed
+        assertFalse(Deadline.isValidFutureDeadline("24/09/2018")); //deadline has already passed
 
         //valid deadlines
         assertTrue(Deadline.isValidDeadline("25/12/2018"));

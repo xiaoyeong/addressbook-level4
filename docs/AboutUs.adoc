@@ -16,8 +16,8 @@ image::julianc269.png[width="150", align="left"]
 Role: Managing the Team +
 Responsibilities: +
 1) Set up a calendar to track payment deadline +
-2) Handle Data Storage +
-3) Add user login to the system
+2) Add a feature to filter based on different transaction parameters +
+3) Handle Data Storage
 
 '''
 
@@ -29,7 +29,7 @@ Role: Writing and Maintaining Tests +
 Responsibilities: +
 1) Enable privatisation of Contacts +
 2) Generate analytics for Financial Spending +
-3) Allow sorting of transactions
+3) Add a feature for the getting the transaction(s) with the nearest deadline.
 
 '''
 
@@ -40,8 +40,9 @@ image::aaditkamat.png[width="150", align="left"]
 Role: Ensuring Software Integration +
 Responsibilities: +
 1) Add interest rate calculation feature +
-2) Setup a reminder system in the app +
-3) Provide currency conversion facility
+2) Provide currency conversion facility +
+3) Setup a reminder +
+
 
 '''
 
@@ -51,9 +52,9 @@ image::bellaaarh.png[width="150", align="left"]
 
 Role: Managing Code Quality +
 Responsibilities: +
-1) Create data filters +
-2) Maintain labels and tags for users +
-3) Categorise contacts
+1) Manage the ToDo list +
+2) Add a WildCardSearch feature +
+3) Make changes to the UI
 
 '''
 
@@ -63,7 +64,7 @@ image::weiqing-nic.png[width="150", align="left"]
 
 Role: Scheduling Tasks +
 Responsibilities: +
-1) Add and remove transactions +
+1) Add and delete photos for contacts in each transaction +
 2) Maintain labels and tags for users +
 3) Categorise contacts
 '''

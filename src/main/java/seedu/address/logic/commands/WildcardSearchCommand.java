@@ -8,7 +8,8 @@ import seedu.address.model.Model;
 import seedu.address.model.transaction.NameContainsLettersPredicate;
 
 /**
- *
+ * Finds and lists any contacts whose names contain the substring the user has input.
+ * Keyword matching is case insensitive.
  */
 public class WildcardSearchCommand extends Command {
 
