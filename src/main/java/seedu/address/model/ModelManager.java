@@ -43,7 +43,7 @@ public class ModelManager extends ComponentManager implements Model {
 
     @Override
     public void resetData(ReadOnlyFinancialDatabase newData) {
-        versionedFinancialDatabase.resetData(newData);
+        versionedFinancialDatabase.resetData(newData, versionedFinancialDatabase.getCurrentList());
         indicateFinancialDatabaseChanged();
     }
 
@@ -60,12 +60,12 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public boolean hasTransaction(Transaction person) {
         requireNonNull(person);
-        return versionedFinancialDatabase.hasTransaction(person);
+        return versionedFinancialDatabase.hasTransaction(person, versionedFinancialDatabase.getCurrentList());
     }
 
     @Override
     public void deleteTransaction(Transaction target) {
-        versionedFinancialDatabase.removeTransaction(target);
+        versionedFinancialDatabase.removeTransaction(target, versionedFinancialDatabase.getCurrentList());
         if (CalendarManager.getInstance() != null) {
             CalendarManager.getInstance().syncCalendarAsync(this);
         }
@@ -74,7 +74,7 @@ public class ModelManager extends ComponentManager implements Model {
 
     @Override
     public void addTransaction(Transaction person) {
-        versionedFinancialDatabase.addTransaction(person);
+        versionedFinancialDatabase.addTransaction(person, versionedFinancialDatabase.getCurrentList());
         updateFilteredTransactionList(PREDICATE_SHOW_ALL_TRANSACTIONS);
         if (CalendarManager.getInstance() != null) {
             CalendarManager.getInstance().syncCalendarAsync(this);

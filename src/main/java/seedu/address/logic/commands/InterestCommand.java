@@ -43,6 +43,7 @@ public class InterestCommand extends Command {
             editedTransaction.setAmount(convertedAmount);
             model.updateTransaction(transactionToEdit, editedTransaction);
         }
+        model.commitFinancialDatabase();
         return new CommandResult(String.format(MESSAGE_SUCCESS, lastShownList.size()));
     }
 
