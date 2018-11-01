@@ -17,7 +17,7 @@ import seedu.address.commons.exceptions.IllegalValueException;
  */
 public class Photo {
     private static final String DEFAULT_MESSAGE_PHOTO = "Filepath be less than 10MB and FilePath must be valid ";
-    private static final String DEFAULT_PHOTO = "images/default_person.png";
+    private static final String DEFAULT_PHOTO = "docs/images/default_person.png";
     private static final String FOLDER = getOperatingPath();
     private static final String PHOTO_INITIAL_REGEX_ = "[^\\s].*";
     private static final int TENMB = 1048576;
