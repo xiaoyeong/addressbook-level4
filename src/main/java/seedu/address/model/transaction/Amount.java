@@ -23,7 +23,7 @@ public class Amount implements Comparable<Amount> {
     public static final String MESSAGE_TRANSACTION_AMOUNT_CONSTRAINTS =
             "The transaction amount must be real number rounded to two decimal places, "
                     + "prefixed by a three letter currency code";
-    public static final String TRANSACTION_AMOUNT_VALIDATION_REGEX = "\\w{3} \\d{1,}.\\d{1,2}";
+    public static final String TRANSACTION_AMOUNT_VALIDATION_REGEX = "\\w{3} \\d+.\\d{2}";
     private static final int MONTHS_IN_A_YEAR = 12;
     private Currency currency;
     private Double value;
@@ -94,8 +94,8 @@ public class Amount implements Comparable<Amount> {
             double calculatedValue =
                     originalValue * Math.pow(1.0 + convertedAmount.interestRate.getValue() / MONTHS_IN_A_YEAR,
                             durationInMonths);
-            convertedAmount.value = principalAmount.value + Double.parseDouble(String.format("%.2f",
-                    calculatedValue - originalValue));
+            convertedAmount.value = Double.parseDouble(String.format("%.2f",
+                    principalAmount.value + calculatedValue - originalValue));
         }
         return convertedAmount;
     }
