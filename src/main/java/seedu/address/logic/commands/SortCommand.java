@@ -8,7 +8,6 @@ import java.util.List;
 
 import javafx.collections.ObservableList;
 import seedu.address.logic.CommandHistory;
-import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.person.Person;
 import seedu.address.model.transaction.Amount;
@@ -17,12 +16,16 @@ import seedu.address.model.transaction.Transaction;
 import seedu.address.model.transaction.Type;
 
 /**
- * Sorts transactions in the financial database based on a parameter.
+ * Sorts transactions in the financial database based on {@code Type}, {@code Amount}, {@code Deadline} or the
+ * default sort parameter {@code Phone}.
  */
 public class SortCommand extends Command {
     public static final String COMMAND_WORD = "sort";
     public static final String MESSAGE_SUCCESS = "%d transactions sorted by %s attribute!";
-    public static final Object DEFAULT_SORT_PARAMETER = "person";
+    public static final String DEFAULT_SORT_PARAMETER = "person";
+    public static final String TYPE_SORT_PARAMETER = "type";
+    public static final String AMOUNT_SORT_PARAMETER = "amount";
+    public static final String DEADLINE_SORT_PARAMETER = "deadline";
     private final String sortParameter;
 
     public SortCommand(String arguments) {
@@ -31,7 +34,7 @@ public class SortCommand extends Command {
     }
 
     @Override
-    public CommandResult execute(Model model, CommandHistory history) throws CommandException {
+    public CommandResult execute(Model model, CommandHistory history) {
         requireNonNull(model);
         ObservableList<Transaction> originalTransactionList = model.getFilteredTransactionList();
         int size = originalTransactionList.size();
@@ -39,7 +42,7 @@ public class SortCommand extends Command {
         String trimmedSortParameterLowerCase = sortParameter.toLowerCase().trim();
         String commandResult;
         switch(trimmedSortParameterLowerCase) {
-        case "amount":
+        case AMOUNT_SORT_PARAMETER:
             transactionComparator = (firstTransaction, secondTransaction) -> {
                 Amount firstAmount = firstTransaction.getAmount();
                 Amount secondAmount = secondTransaction.getAmount();
@@ -47,7 +50,7 @@ public class SortCommand extends Command {
             };
             commandResult = String.format(MESSAGE_SUCCESS, size, trimmedSortParameterLowerCase);
             break;
-        case "deadline":
+        case DEADLINE_SORT_PARAMETER:
             transactionComparator = (firstTransaction, secondTransaction) -> {
                 Deadline firstDeadline = firstTransaction.getDeadline();
                 Deadline secondDeadline = secondTransaction.getDeadline();
@@ -55,7 +58,7 @@ public class SortCommand extends Command {
             };
             commandResult = String.format(MESSAGE_SUCCESS, size, trimmedSortParameterLowerCase);
             break;
-        case "type":
+        case TYPE_SORT_PARAMETER:
             transactionComparator = (firstTransaction, secondTransaction) -> {
                 Type firstType = firstTransaction.getType();
                 Type secondType = secondTransaction.getType();
@@ -79,5 +82,22 @@ public class SortCommand extends Command {
         }
         model.commitFinancialDatabase();
         return new CommandResult(commandResult);
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        // short circuit if same object
+        if (other == this) {
+            return true;
+        }
+
+        // instanceof handles nulls
+        if (!(other instanceof AnalyticsCommand)) {
+            return false;
+        }
+
+        // state check
+        SortCommand analyticsCommand = (SortCommand) other;
+        return sortParameter.equals(analyticsCommand.sortParameter);
     }
 }

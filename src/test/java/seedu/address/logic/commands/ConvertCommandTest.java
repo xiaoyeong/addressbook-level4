@@ -13,7 +13,7 @@ public class ConvertCommandTest {
     private CommandHistory history = new CommandHistory();
     private Model model = new ModelManager();
     @Test
-    public void execute_multipleAmounts_multipleCurrenciesConverted() {
+    public void execute_multipleCurrenciesConverted() {
         String expectedMessage = ConvertCommand.MESSAGE_SUCCESS;
         ConvertCommand convertCommand = new ConvertCommand();
         assertCommandSuccessWithModelChange(convertCommand, model, history, expectedMessage);
