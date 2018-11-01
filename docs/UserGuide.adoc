@@ -125,7 +125,7 @@ Conditions: +
 
 * This command can only be used with one of the following keywords: 1) show  2) login 3)logout. +
 * The keywords are case-sensitive.
-* This feature requires linking the deadlines to your Google account. +
+* This feature requires linking the deadlines to your Google account. Hence a test google account will be provided. +
 
 Formats: +
 
@@ -138,6 +138,8 @@ Formats: +
 
 Converts amounts in multiple different foreign currencies to their respective amounts in +
 the base currency, Singapore Dollars. +
+
+NOTE: Makes use of an external foreign currency API: https://free.currencyconverterapi.com/[Free Currency Converter API]
 
 Format: convert
 
