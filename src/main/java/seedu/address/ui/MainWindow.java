@@ -40,8 +40,14 @@ public class MainWindow extends UiPart<Stage> {
     private UserPrefs prefs;
     private HelpWindow helpWindow;
 
+    //Independent Ui parts for past transactions list
+    private PastTransactionBrowserPanel pastTransactionBrowserPanel;
+
     @FXML
     private StackPane browserPlaceholder;
+
+    @FXML
+    private StackPane pastTransactionBrowserPlaceholder;
 
     @FXML
     private StackPane commandBoxPlaceholder;
@@ -122,6 +128,9 @@ public class MainWindow extends UiPart<Stage> {
         browserPanel = new BrowserPanel();
         browserPlaceholder.getChildren().add(browserPanel.getRoot());
 
+        //pastTransactionBrowserPanel = new PastTransactionBrowserPanel();
+        //pastTransactionBrowserPlaceholder.getChildren().add(pastTransactionBrowserPanel.getRoot());
+
         transactionListPanel = new TransactionListPanel(logic.getFilteredTransactionList());
         personListPanelPlaceholder.getChildren().add(transactionListPanel.getRoot());
 
@@ -193,6 +202,7 @@ public class MainWindow extends UiPart<Stage> {
 
     void releaseResources() {
         browserPanel.freeResources();
+        //pastTransactionBrowserPanel.freeResources();
     }
 
     @Subscribe

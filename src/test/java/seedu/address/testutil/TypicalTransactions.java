@@ -66,7 +66,7 @@ public class TypicalTransactions {
     public static FinancialDatabase getTypicalFinancialDatabase() {
         FinancialDatabase database = new FinancialDatabase();
         for (Transaction transaction : getTypicalTransactions()) {
-            database.addTransaction(transaction);
+            database.addTransaction(transaction, database.getCurrentList());
         }
         return database;
     }
@@ -82,7 +82,7 @@ public class TypicalTransactions {
     public static FinancialDatabase getUniqueFinancialDatabase() {
         FinancialDatabase database = new FinancialDatabase();
         for (Transaction transaction : getUniqueTransactions()) {
-            database.addTransaction(transaction);
+            database.addTransaction(transaction, database.getCurrentList());
         }
         return database;
     }

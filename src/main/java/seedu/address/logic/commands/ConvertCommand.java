@@ -33,6 +33,7 @@ public class ConvertCommand extends Command {
             editedTransaction.setAmount(convertedAmount);
             model.updateTransaction(transactionToEdit, editedTransaction);
         }
+        model.commitFinancialDatabase();
         return new CommandResult(MESSAGE_SUCCESS);
     }
 }
