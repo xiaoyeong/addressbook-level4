@@ -88,14 +88,14 @@ public class XmlFinancialDatabaseStorageTest {
         assertEquals(original, new FinancialDatabase(readBack));
 
         //Modify data, overwrite exiting file, and read back
-        original.addTransaction(HOON_TRANSACTION);
-        original.removeTransaction(ALICE_TRANSACTION);
+        original.addTransaction(HOON_TRANSACTION, original.getCurrentList());
+        original.removeTransaction(ALICE_TRANSACTION, original.getCurrentList());
         xmlAddressBookStorage.saveFinancialDatabase(original, filePath);
         readBack = xmlAddressBookStorage.readFinancialDatabase(filePath).get();
         assertEquals(original, new FinancialDatabase(readBack));
 
         //Save and read without specifying file path
-        original.addTransaction(IDA_TRANSACTION);
+        original.addTransaction(IDA_TRANSACTION, original.getCurrentList());
         xmlAddressBookStorage.saveFinancialDatabase(original); //file path not specified
         readBack = xmlAddressBookStorage.readFinancialDatabase().get(); //file path not specified
         assertEquals(original, new FinancialDatabase(readBack));

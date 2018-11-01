@@ -63,6 +63,7 @@ public class AnalyticsCommand extends Command {
                 }
             }
         }
+        model.commitFinancialDatabase();
         return new CommandResult(String.format(MESSAGE_SUCCESS, totalSum));
     }
 
