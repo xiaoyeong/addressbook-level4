@@ -80,6 +80,7 @@ public class SortCommand extends Command {
         for (Transaction newTransaction : sortedTransactionList) {
             model.addTransaction(newTransaction);
         }
+        model.commitFinancialDatabase();
         return new CommandResult(commandResult);
     }
 
