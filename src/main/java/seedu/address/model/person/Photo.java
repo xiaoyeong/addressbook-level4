@@ -19,13 +19,9 @@ import seedu.address.commons.exceptions.IllegalValueException;
 public class Photo {
     public static final String FOLDER_CONTAINING_THE_PHOTO_HAS_NOT_BEEN_CREATED_SUCCESSFULLY = "Folder containing the photo has not been created successfully";
     private static final String DEFAULT_MESSAGE_PHOTO = "Filepath be less than 10MB and FilePath must be valid ";
-<<<<<<< HEAD
     private static final String DEFAULT_PHOTO = "images/default_person.png";
     public static String FOLDER = getOperatingPath();
-=======
-    private static final String DEFAULT_PHOTO = "docs/images/default_person.png";
-    private static final String FOLDER = getOperatingPath();
->>>>>>> f97079c5741dce1937a218c56398ada4b3bef400
+
     private static final String PHOTO_INITIAL_REGEX_ = "[^\\s].*";
     private static final int TENMB = 1048576;
 
