@@ -4,6 +4,7 @@ import static java.nio.file.StandardCopyOption.REPLACE_EXISTING;
 import static java.util.Objects.requireNonNull;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.util.logging.Logger;
@@ -16,13 +17,14 @@ import seedu.address.commons.exceptions.IllegalValueException;
  * Represent a photo object associated with each unique person involved in a transaction with the user.
  */
 public class Photo {
+    public static final String FOLDER_CONTAINING_THE_PHOTO_HAS_NOT_BEEN_CREATED_SUCCESSFULLY = "Folder containing the photo has not been created successfully";
     private static final String DEFAULT_MESSAGE_PHOTO = "Filepath be less than 10MB and FilePath must be valid ";
     private static final String DEFAULT_PHOTO = "images/default_person.png";
-    private static final String FOLDER = getOperatingPath();
+    public static String FOLDER = getOperatingPath();
     private static final String PHOTO_INITIAL_REGEX_ = "[^\\s].*";
     private static final int TENMB = 1048576;
 
-    private final Logger logger = LogsCenter.getLogger(getClass());
+    public static final Logger LOGGER = LogsCenter.getLogger(Photo.class);
 
     private String photoPath;
 
@@ -40,8 +42,8 @@ public class Photo {
     }
 
     public Photo(String filePath, String newPhoto) throws IllegalValueException {
-        logger.info("before photo");
-        logger.info(filePath);
+        LOGGER.info("before photo");
+        LOGGER.info(filePath);
         requireNonNull(filePath);
 
         if (checkPath(filePath)) {
@@ -49,8 +51,11 @@ public class Photo {
         }
         //link to the path
         this.photoPath = FOLDER + "/" + newPhoto + ".png";
-        logger.info(FOLDER);
-        makePhoto(filePath, newPhoto);
+        try {
+            makePhoto(filePath, newPhoto);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
     }
 
     public static boolean isValidPhoto(String path) {
@@ -59,59 +64,52 @@ public class Photo {
     /**
      * Makes a {@code newPhoto} at the given {@code filePath} if it doesn't already exist.
      */
-    private void makePhoto(String filePath, String newPhoto) {
-
-        makePhotoFolder();
-
-        logger.info("makephoto");
-        logger.info(filePath);
-        if (filePath.equals("delete")) {
-            filePath = "images/default_person.png";
-        } else {
-            filePath = "/" + filePath;
-        }
-        File getImage = new File(filePath);
-        String fileName = FOLDER + "/" + newPhoto + ".png";
-        File pictureFinal = new File(fileName);
-        //if cannot get file object create an empty object
-        if (!pictureFinal.exists()) {
-            try {
-                boolean doesNamedFileExist = pictureFinal.createNewFile();
-                if (doesNamedFileExist) {
-                    logger.info(fileName + " has been newly created");
-                } else {
-                    logger.info(fileName + " already exists");
-                }
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-        try {
+    public void makePhoto(String filePath, String newPhoto) throws FileNotFoundException {
+            makePhotoFolder();
+            LOGGER.info("makephoto");
+            LOGGER.info(filePath);
             if (filePath.equals("delete")) {
-                this.photoPath = "images/default_person.png";
+                filePath = "images/default_person.png";
             } else {
-                Files.copy(getImage.toPath(), pictureFinal.toPath(), REPLACE_EXISTING);
-                this.photoPath = pictureFinal.toPath().toString();
+                filePath = "/" + filePath;
             }
+            File getImage = new File(filePath);
+            String fileName = FOLDER + "/" + newPhoto + ".png";
+            File pictureFinal = new File(fileName);
+            //if cannot get file object create an empty object
+            if (!pictureFinal.exists()) {
+                try {
+                    boolean doesNamedFileExist = pictureFinal.createNewFile();
+                    if (doesNamedFileExist) {
+                        LOGGER.info(fileName + " has been newly created");
+                    } else {
+                        LOGGER.info(fileName + " already exists");
+                    }
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+
+        try {
+            Files.copy(getImage.toPath(), pictureFinal.toPath(), REPLACE_EXISTING);
+            this.photoPath = pictureFinal.toPath().toString();
         } catch (IOException e) {
-            this.photoPath = "images/default_person.png";
-
             e.printStackTrace();
+            this.photoPath = "images/default_person.png";
         }
-
     }
 
     /**
      * Creates a folder holding the photo for a person
      */
-    private void makePhotoFolder() {
+    public void makePhotoFolder() throws FileNotFoundException {
         File locationFolder = new File(FOLDER);
         if (!locationFolder.exists()) {
             boolean isDirectoryCreated = locationFolder.mkdir();
             if (isDirectoryCreated) {
-                logger.info("Folder containing the photo has been successfully created");
+                LOGGER.info("Folder containing the photo has been successfully created");
             } else {
-                logger.info("Folder containing the photo has not been created successfully");
+                throw new FileNotFoundException(FOLDER_CONTAINING_THE_PHOTO_HAS_NOT_BEEN_CREATED_SUCCESSFULLY);
             }
         }
     }
@@ -119,7 +117,7 @@ public class Photo {
     /**
      * Check the Operating System that the user's local machine is running
      */
-    private static String getOperatingPath() {
+    public static String getOperatingPath() {
         String oSystem = System.getProperty("os.name").toLowerCase();
 
         //mac
