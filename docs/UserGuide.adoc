@@ -42,7 +42,7 @@ Format: `help`
 
 === Adding a transaction : `add`
 
-Adds a transaction to the database. +
+Adds a transaction to the current transaction list in the database. +
 
 Format: add tt/TRANSACTION_TYPE ta/TRANSACTION_AMOUNT td/TRANSACTION_DEADLINE +
 n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]…
@@ -111,11 +111,14 @@ OR sort deadline +
 === Filtering transactions by various criteria: `filter`
 
 Filters transactions matching specified criteria. +
+NOTE: Filtering by amount works correctly only after currency conversion,
+otherwise it filters only by the numerical values (not taking currency into consideration).
 
 Format: filter [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [tt/TYPE] [ta/AMOUNT] [td/DEADLINE] +
 [tamin/MIN_AMOUNT] [tamax/MAX_AMOUNT] [tdmin/EARLIEST_DATE] [tdmax/LATEST_DATE]
 
-e.g. filter t/debtor
+e.g. filter t/debtor +
+OR filter t/debtor tamin/SGD 50.00 tamax/SGD 100.00 tdmin/05/06/2018 tdmax/31/12/2018
 
 === Filtering transactions by closest deadline: `nt`
 
@@ -134,7 +137,7 @@ e.g. search Be
 
 === Deleting a transaction : `delete`
 
-Deletes the specified transaction from the address book. +
+Deletes the specified transaction from the current transaction list only. +
 
 Format: delete INDEX
 
