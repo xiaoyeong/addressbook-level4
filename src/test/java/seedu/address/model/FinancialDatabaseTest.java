@@ -67,13 +67,13 @@ public class FinancialDatabaseTest {
 
     @Test
     public void hasTransaction_transactionNotInFinancialDatabase_returnsFalse() {
-        assertFalse(financialDatabase.hasTransaction(ALICE_TRANSACTION), financialDatabase.getCurrentList());
+        assertFalse(financialDatabase.hasTransaction(ALICE_TRANSACTION, financialDatabase.getCurrentList()));
     }
 
     @Test
     public void hasTransaction_transactionInFinancialDatabase_returnsTrue() {
         financialDatabase.addTransaction(ALICE_TRANSACTION, financialDatabase.getCurrentList());
-        assertTrue(financialDatabase.hasTransaction(ALICE_TRANSACTION), financialDatabase.getCurrentList());
+        assertTrue(financialDatabase.hasTransaction(ALICE_TRANSACTION, financialDatabase.getCurrentList()));
     }
 
     @Test
@@ -81,7 +81,7 @@ public class FinancialDatabaseTest {
         financialDatabase.addTransaction(ALICE_TRANSACTION, financialDatabase.getCurrentList());
         Transaction editedAlice = new TransactionBuilder(ALICE_TRANSACTION)
                 .build();
-        assertTrue(financialDatabase.hasTransaction(editedAlice), financialDatabase.getCurrentList());
+        assertTrue(financialDatabase.hasTransaction(editedAlice, financialDatabase.getCurrentList()));
     }
 
     @Test

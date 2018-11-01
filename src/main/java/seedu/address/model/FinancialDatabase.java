@@ -131,6 +131,10 @@ public class FinancialDatabase implements ReadOnlyFinancialDatabase {
         return transactions.asUnmodifiableObservableList();
     }
 
+    public ObservableList<Transaction> getPastTransactionList() {
+        return pastTransactions.asUnmodifiableObservableList();
+    }
+
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
