@@ -52,10 +52,10 @@ public class XmlSerializableFinancialDatabase {
 
         for (XmlAdaptedTransaction t : transactions) {
             Transaction transaction = t.toModelType();
-            if (financialDatabase.hasTransaction(transaction)) {
+            if (financialDatabase.hasTransaction(transaction, financialDatabase.getCurrentList())) {
                 throw new IllegalValueException(MESSAGE_DUPLICATE_PERSON);
             }
-            financialDatabase.addTransaction(transaction);
+            financialDatabase.addTransaction(transaction, financialDatabase.getCurrentList());
         }
         return financialDatabase;
     }

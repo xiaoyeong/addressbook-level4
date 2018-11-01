@@ -43,7 +43,7 @@ public class NextTransactionCommand extends Command {
             model.updateFilteredTransactionList(predicate);
         }
 
-
+        model.commitFinancialDatabase();
         return new CommandResult(
                 String.format(Messages.MESSAGE_TRANSACTIONS_LISTED_OVERVIEW,
                         model.getFilteredTransactionList().size()));

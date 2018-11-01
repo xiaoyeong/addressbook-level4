@@ -25,7 +25,7 @@ public class FinancialDatabaseBuilder {
      * @param transaction
      */
     public FinancialDatabaseBuilder withTransaction(Transaction transaction) {
-        financialDatabase.addTransaction(transaction);
+        financialDatabase.addTransaction(transaction, financialDatabase.getCurrentList());
         return this;
     }
 
