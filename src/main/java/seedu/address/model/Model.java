@@ -58,7 +58,7 @@ public interface Model {
     /**
      * Does the same thing as getFilteredTransactionList() but for pastTransactions.
      */
-     ObservableList<Transaction> getFilteredPastTransactionList();
+    ObservableList<Transaction> getFilteredPastTransactionList();
 
     /**
      * Updates the filtered transaction list according to the given {@code predicate}.

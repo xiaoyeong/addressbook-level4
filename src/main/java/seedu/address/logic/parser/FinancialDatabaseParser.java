@@ -6,7 +6,29 @@ import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import seedu.address.logic.commands.*;
+import seedu.address.logic.commands.AddCommand;
+import seedu.address.logic.commands.AnalyticsCommand;
+import seedu.address.logic.commands.CalendarCommand;
+import seedu.address.logic.commands.ClearCommand;
+import seedu.address.logic.commands.Command;
+import seedu.address.logic.commands.ConvertCommand;
+import seedu.address.logic.commands.DeleteCommand;
+import seedu.address.logic.commands.EditCommand;
+import seedu.address.logic.commands.ExitCommand;
+import seedu.address.logic.commands.FilterCommand;
+import seedu.address.logic.commands.HelpCommand;
+import seedu.address.logic.commands.HistoryCommand;
+import seedu.address.logic.commands.InterestCommand;
+import seedu.address.logic.commands.ListCommand;
+import seedu.address.logic.commands.NextTransactionCommand;
+import seedu.address.logic.commands.PaidCommand;
+import seedu.address.logic.commands.PastCommand;
+import seedu.address.logic.commands.RedoCommand;
+import seedu.address.logic.commands.SelectCommand;
+import seedu.address.logic.commands.SortCommand;
+import seedu.address.logic.commands.UndoCommand;
+import seedu.address.logic.commands.UploadPhotoCommand;
+import seedu.address.logic.commands.WildcardSearchCommand;
 
 import seedu.address.logic.parser.exceptions.ParseException;
 
@@ -107,9 +129,9 @@ public class FinancialDatabaseParser {
         case SelectCommand.COMMAND_ALIAS:
             return new SelectCommandParser().parse(arguments);
 
-        case ToDoListAddCommand.COMMAND_WORD:
-        case ToDoListAddCommand.COMMAND_ALIAS:
-            return new ToDoListAddCommandParser().parse(arguments);
+        //case ToDoListAddCommand.COMMAND_WORD:
+        //case ToDoListAddCommand.COMMAND_ALIAS:
+        //    return new ToDoListAddCommandParser().parse(arguments);
 
         case WildcardSearchCommand.COMMAND_WORD:
         case WildcardSearchCommand.COMMAND_ALIAS:

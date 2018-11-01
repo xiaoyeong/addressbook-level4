@@ -28,7 +28,9 @@ public class PaidCommand extends Command {
 
     private final Index targetIndex;
 
-    public PaidCommand(Index targetIndex) { this.targetIndex = targetIndex; }
+    public PaidCommand(Index targetIndex) {
+        this.targetIndex = targetIndex;
+    }
 
     @Override
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
