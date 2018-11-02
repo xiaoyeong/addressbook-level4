@@ -5,12 +5,9 @@ https://travis-ci.org/CS2103-AY1819S1-W12-2/main[image:https://travis-ci.org/CS2
 https://coveralls.io/github/CS2103-AY1819S1-W12-2/main?branch=master[image:https://coveralls.io/repos/github/CS2103-AY1819S1-W12-2/main/badge.svg?branch=master[Coverage Status]]
 https://ci.appveyor.com/project/aaditkamat/main[image:https://ci.appveyor.com/api/projects/status/3obv2djr0fklonc6?svg=true[Build status]]
 
-ifdef::env-github[]
-image::docs/images/Ui.png[width="600"]
-endif::[]
 
 ifndef::env-github[]
-image::images/Ui.png[width="600"]
+image::docs/images/Ui.png[width="600"]
 endif::[]
 
 * This is a desktop Debt Tracker application. It has a GUI but most of the user interactions happen using a CLI (Command Line Interface).
