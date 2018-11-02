@@ -87,7 +87,8 @@ public class Amount implements Comparable<Amount> {
         double originalValue = principalAmount.getValue();
         double calculatedValue;
         if (convertedAmount.interestScheme.getValue().equals("simple")) {
-            calculatedValue = originalValue + originalValue * convertedAmount.interestRate.getValue() * durationInMonths;
+            calculatedValue = originalValue
+                    + originalValue * convertedAmount.interestRate.getValue() * durationInMonths;
             convertedAmount.value = String.format("%.2f", calculatedValue);
         } else {
             calculatedValue = originalValue * Math.pow(1.0 + convertedAmount.interestRate.getValue() / MONTHS_IN_A_YEAR,
@@ -97,13 +98,12 @@ public class Amount implements Comparable<Amount> {
         return convertedAmount;
     }
 
-    @SuppressWarnings("unchecked")
-
     /**
      * Handles the conversion of foreign currency to Singaporean currency.
      *
      * @param amount the amount in a given currency which is to be converted to Singaporean currency
      */
+    @SuppressWarnings("unchecked")
     public static Amount convertCurrency(Amount amount) throws IOException {
         if (!Amount.isValidAmount(amount.toString())) {
             return null;
