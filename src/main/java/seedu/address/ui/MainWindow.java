@@ -40,8 +40,9 @@ public class MainWindow extends UiPart<Stage> {
     private UserPrefs prefs;
     private HelpWindow helpWindow;
 
-    //Independent Ui parts for past transactions list
-    private PastTransactionBrowserPanel pastTransactionBrowserPanel;
+    //past transactions UI
+    private PastTransactionListPanel pastTransactionListPanel;
+
 
     @FXML
     private StackPane browserPlaceholder;
@@ -57,6 +58,9 @@ public class MainWindow extends UiPart<Stage> {
 
     @FXML
     private StackPane personListPanelPlaceholder;
+
+    @FXML
+    private StackPane pastTransactionListPanelPlaceholder;
 
     @FXML
     private StackPane resultDisplayPlaceholder;
@@ -128,8 +132,8 @@ public class MainWindow extends UiPart<Stage> {
         browserPanel = new BrowserPanel();
         browserPlaceholder.getChildren().add(browserPanel.getRoot());
 
-        //pastTransactionBrowserPanel = new PastTransactionBrowserPanel();
-        //pastTransactionBrowserPlaceholder.getChildren().add(pastTransactionBrowserPanel.getRoot());
+        pastTransactionListPanel = new PastTransactionListPanel(logic.getFilteredPastTransactionList());
+        pastTransactionListPanelPlaceholder.getChildren().add(pastTransactionListPanel.getRoot());
 
         transactionListPanel = new TransactionListPanel(logic.getFilteredTransactionList());
         personListPanelPlaceholder.getChildren().add(transactionListPanel.getRoot());
