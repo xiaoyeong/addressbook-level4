@@ -42,6 +42,7 @@ public class MainWindow extends UiPart<Stage> {
 
     //past transactions UI
     private PastTransactionListPanel pastTransactionListPanel;
+    private PastTransactionBrowserPanel pastTransactionBrowserPanel;
 
 
     @FXML
@@ -131,6 +132,9 @@ public class MainWindow extends UiPart<Stage> {
     void fillInnerParts() {
         browserPanel = new BrowserPanel();
         browserPlaceholder.getChildren().add(browserPanel.getRoot());
+
+        pastTransactionBrowserPanel = new PastTransactionBrowserPanel();
+        pastTransactionBrowserPlaceholder.getChildren().add(pastTransactionBrowserPanel.getRoot());
 
         pastTransactionListPanel = new PastTransactionListPanel(logic.getFilteredPastTransactionList());
         pastTransactionListPanelPlaceholder.getChildren().add(pastTransactionListPanel.getRoot());
