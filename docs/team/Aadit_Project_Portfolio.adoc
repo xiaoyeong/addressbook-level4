@@ -38,22 +38,22 @@ who may want to maintain a database of their personal transactions.
 [https://github.com/CS2103-AY1819S1-W12-2/main/pull/46[Pull Request #46]] +
 
 ** Documentation:
-*** Added the User Stories within the Developer Guide + 
+*** Added the User Stories within the Developer Guide +
 [https://github.com/CS2103-AY1819S1-W12-2/main/pull/3[Pull Request #3]] +
-*** Updated the relevant sections of the User Guide to reflect the current state of the application + 
+*** Updated the relevant sections of the User Guide to reflect the current state of the application +
 [https://github.com/CS2103-AY1819S1-W12-2/main/pull/3[Pull Request #3]] +
 
 ** Community:
-*** PRs reviewed: 
+*** PRs reviewed:
 **** [https://github.com/CS2103-AY1819S1-W12-2/main/pull/34/[Pull Request #34]] +
 **** [https://github.com/CS2103-AY1819S1-W12-2/main/pull/61/[Pull Request #61]] +
 **** [https://github.com/CS2103-AY1819S1-W12-2/main/pull/68/[Pull Request #68]] +
 **** [https://github.com/CS2103-AY1819S1-W12-2/main/pull/88/[Pull Request #88]] +
 
-*** Issues created: 
-**** [https://github.com/CS2103-AY1819S1-W12-2/main/issues/94[Issue #94]] + 
-**** [https://github.com/CS2103-AY1819S1-W12-2/main/issues/93[Issue #93]] + 
-**** [https://github.com/CS2103-AY1819S1-W12-2/main/issues/90[Issue #90]] + 
+*** Issues created:
+**** [https://github.com/CS2103-AY1819S1-W12-2/main/issues/94[Issue #94]] +
+**** [https://github.com/CS2103-AY1819S1-W12-2/main/issues/93[Issue #93]] +
+**** [https://github.com/CS2103-AY1819S1-W12-2/main/issues/90[Issue #90]] +
 **** [https://github.com/CS2103-AY1819S1-W12-2/main/issues/74[Issue #74]] +
 
 ** Tools:
