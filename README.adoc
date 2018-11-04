@@ -1,16 +1,13 @@
 = Debt Tracker
-ifdef::env-github,env-browser[:relfileprefix: docs/]
 
 https://travis-ci.org/CS2103-AY1819S1-W12-2/main[image:https://travis-ci.org/CS2103-AY1819S1-W12-2/main.svg?branch=master[Build Status]]
 https://coveralls.io/github/CS2103-AY1819S1-W12-2/main?branch=master[image:https://coveralls.io/repos/github/CS2103-AY1819S1-W12-2/main/badge.svg?branch=master[Coverage Status]]
 https://ci.appveyor.com/project/aaditkamat/main[image:https://ci.appveyor.com/api/projects/status/3obv2djr0fklonc6?svg=true[Build status]]
+image:https://api.codacy.com/project/badge/Grade/a1823439202645cba8d7dad08a75e02c[link="https://app.codacy.com/app/aaditkamat/main?utm_source=github.com&utm_medium=referral&utm_content=CS2103-AY1819S1-W12-2/main&utm_campaign=Badge_Grade_Dashboard"]
 
-ifdef::env-github[]
-image::docs/images/Ui.png[width="600"]
-endif::[]
 
 ifndef::env-github[]
-image::images/Ui.png[width="600"]
+image::docs/images/Ui.png[width="600"]
 endif::[]
 
 * This is a desktop Debt Tracker application. It has a GUI but most of the user interactions happen using a CLI (Command Line Interface).
