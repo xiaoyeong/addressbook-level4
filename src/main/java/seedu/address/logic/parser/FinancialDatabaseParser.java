@@ -103,7 +103,6 @@ public class FinancialDatabaseParser {
             return new HistoryCommand();
 
         case InterestCommand.COMMAND_WORD:
-        case InterestCommand.COMMAND_ALIAS:
             return new InterestCommandParser().parse(arguments);
 
         case ListCommand.COMMAND_WORD:
