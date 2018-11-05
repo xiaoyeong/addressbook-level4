@@ -35,15 +35,15 @@ public class AddCommandIntegrationTest {
         expectedModel.addTransaction(validTransaction);
         expectedModel.commitFinancialDatabase();
 
-        assertCommandSuccessWithNoModelChange(new AddCommand(validTransaction), model, commandHistory,
-                String.format(AddCommand.MESSAGE_SUCCESS, validTransaction), expectedModel);
+        assertCommandSuccessWithNoModelChange(new AddCommand(validTransaction), model, expectedModel, commandHistory,
+                String.format(AddCommand.MESSAGE_SUCCESS, validTransaction));
     }
 
     @Test
     public void execute_duplicatePerson_throwsCommandException() {
         Transaction transactionInList = model.getFinancialDatabase().getTransactionList().get(0);
-        assertCommandFailureWithNoModelChange(new AddCommand(transactionInList), model, commandHistory,
-                AddCommand.MESSAGE_DUPLICATE_TRANSACTION);
+        assertCommandFailureWithNoModelChange(new AddCommand(transactionInList), model, , commandHistory,
+                AddCommand.MESSAGE_DUPLICATE_TRANSACTION, );
     }
 
 }

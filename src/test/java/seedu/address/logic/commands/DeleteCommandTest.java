@@ -40,7 +40,7 @@ public class DeleteCommandTest {
         expectedModel.deleteTransaction(personToDelete);
         expectedModel.commitFinancialDatabase();
 
-        assertCommandSuccessWithNoModelChange(deleteCommand, model, commandHistory, expectedMessage, expectedModel);
+        assertCommandSuccessWithNoModelChange(deleteCommand, model, expectedModel, commandHistory, expectedMessage);
     }
 
     @Test
@@ -48,8 +48,8 @@ public class DeleteCommandTest {
         Index outOfBoundIndex = Index.fromOneBased(model.getFilteredTransactionList().size() + 1);
         DeleteCommand deleteCommand = new DeleteCommand(outOfBoundIndex);
 
-        assertCommandFailureWithNoModelChange(deleteCommand, model, commandHistory,
-                Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+        assertCommandFailureWithNoModelChange(deleteCommand, model, , commandHistory,
+                Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX, );
     }
 
     @Test
@@ -66,7 +66,7 @@ public class DeleteCommandTest {
         expectedModel.commitFinancialDatabase();
         showNoPerson(expectedModel);
 
-        assertCommandSuccessWithNoModelChange(deleteCommand, model, commandHistory, expectedMessage, expectedModel);
+        assertCommandSuccessWithNoModelChange(deleteCommand, model, expectedModel, commandHistory, expectedMessage);
     }
 
     @Test
@@ -79,8 +79,8 @@ public class DeleteCommandTest {
 
         DeleteCommand deleteCommand = new DeleteCommand(outOfBoundIndex);
 
-        assertCommandFailureWithNoModelChange(deleteCommand, model, commandHistory,
-                Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+        assertCommandFailureWithNoModelChange(deleteCommand, model, , commandHistory,
+                Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX, );
     }
 
     @Test
@@ -96,13 +96,13 @@ public class DeleteCommandTest {
 
         // undo -> reverts addressbook back to previous state and filtered transaction list to show all persons
         expectedModel.undoFinancialDatabase();
-        assertCommandSuccessWithNoModelChange(new UndoCommand(), model, commandHistory,
-                UndoCommand.MESSAGE_SUCCESS, expectedModel);
+        assertCommandSuccessWithNoModelChange(new UndoCommand(), model, expectedModel, commandHistory,
+                UndoCommand.MESSAGE_SUCCESS);
 
         // redo -> same first transaction deleted again
         expectedModel.redoFinancialDatabase();
-        assertCommandSuccessWithNoModelChange(new RedoCommand(), model, commandHistory,
-                RedoCommand.MESSAGE_SUCCESS, expectedModel);
+        assertCommandSuccessWithNoModelChange(new RedoCommand(), model, expectedModel, commandHistory,
+                RedoCommand.MESSAGE_SUCCESS);
     }
 
     @Test
@@ -111,12 +111,12 @@ public class DeleteCommandTest {
         DeleteCommand deleteCommand = new DeleteCommand(outOfBoundIndex);
 
         // execution failed -> address book state not added into model
-        assertCommandFailureWithNoModelChange(deleteCommand, model, commandHistory,
-                Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+        assertCommandFailureWithNoModelChange(deleteCommand, model, , commandHistory,
+                Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX, );
 
         // single address book state in model -> undoCommand and redoCommand fail
-        assertCommandFailureWithNoModelChange(new UndoCommand(), model, commandHistory, UndoCommand.MESSAGE_FAILURE);
-        assertCommandFailureWithNoModelChange(new RedoCommand(), model, commandHistory, RedoCommand.MESSAGE_FAILURE);
+        assertCommandFailureWithNoModelChange(new UndoCommand(), model, , commandHistory, UndoCommand.MESSAGE_FAILURE, );
+        assertCommandFailureWithNoModelChange(new RedoCommand(), model, , commandHistory, RedoCommand.MESSAGE_FAILURE, );
     }
 
     /**
@@ -142,14 +142,14 @@ public class DeleteCommandTest {
 
         // undo -> reverts addressbook back to previous state and filtered transaction list to show all persons
         expectedModel.undoFinancialDatabase();
-        assertCommandSuccessWithNoModelChange(new UndoCommand(), model, commandHistory,
-                UndoCommand.MESSAGE_SUCCESS, expectedModel);
+        assertCommandSuccessWithNoModelChange(new UndoCommand(), model, expectedModel, commandHistory,
+                UndoCommand.MESSAGE_SUCCESS);
 
         assertNotEquals(personToDelete, model.getFilteredTransactionList().get(INDEX_FIRST_TRANSACTION.getZeroBased()));
         // redo -> deletes same second transaction in unfiltered transaction list
         expectedModel.redoFinancialDatabase();
-        assertCommandSuccessWithNoModelChange(new RedoCommand(), model, commandHistory,
-                RedoCommand.MESSAGE_SUCCESS, expectedModel);
+        assertCommandSuccessWithNoModelChange(new RedoCommand(), model, expectedModel, commandHistory,
+                RedoCommand.MESSAGE_SUCCESS);
     }
 
     @Test

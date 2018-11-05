@@ -15,13 +15,13 @@ public class HistoryCommandTest {
 
     @Test
     public void execute() {
-        assertCommandSuccessWithNoModelChange(new HistoryCommand(), model, history,
-                HistoryCommand.MESSAGE_NO_HISTORY, expectedModel);
+        assertCommandSuccessWithNoModelChange(new HistoryCommand(), model, expectedModel, history,
+                HistoryCommand.MESSAGE_NO_HISTORY);
 
         String command1 = "clear";
         history.add(command1);
-        assertCommandSuccessWithNoModelChange(new HistoryCommand(), model, history,
-                String.format(HistoryCommand.MESSAGE_SUCCESS, command1), expectedModel);
+        assertCommandSuccessWithNoModelChange(new HistoryCommand(), model, expectedModel, history,
+                String.format(HistoryCommand.MESSAGE_SUCCESS, command1));
 
         String command2 = "randomCommand";
         String command3 = "select 1";
@@ -30,7 +30,7 @@ public class HistoryCommandTest {
 
         String expectedMessage = String.format(HistoryCommand.MESSAGE_SUCCESS,
                 String.join("\n", command3, command2, command1));
-        assertCommandSuccessWithNoModelChange(new HistoryCommand(), model, history, expectedMessage, expectedModel);
+        assertCommandSuccessWithNoModelChange(new HistoryCommand(), model, expectedModel, history, expectedMessage);
     }
 
 }

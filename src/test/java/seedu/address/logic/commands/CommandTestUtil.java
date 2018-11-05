@@ -96,9 +96,8 @@ public class CommandTestUtil {
      * - the {@code actualCommandHistory} remains unchanged.
      */
     public static void assertCommandSuccessWithNoModelChange(Command command, Model actualModel,
-                                                             CommandHistory actualCommandHistory,
-                                                             String expectedMessage, Model expectedModel) {
-        CommandHistory expectedCommandHistory = new CommandHistory(actualCommandHistory);
+                                                             Model expectedModel, CommandHistory actualCommandHistory,
+                                                             String expectedMessage) {
         assertCommandSuccessWithModelChange(command, actualModel, actualCommandHistory, expectedMessage);
         assertEquals(expectedModel, actualModel);
     }
@@ -131,11 +130,24 @@ public class CommandTestUtil {
      * - {@code actualCommandHistory} remains unchanged.
      */
     public static void assertCommandFailureWithNoModelChange(Command command, Model actualModel,
+                                                             Model expectedModel, CommandHistory actualCommandHistory,
+                                                             String expectedMessage) {
+        assertCommandFailureWithModelChange(command, actualModel, actualCommandHistory, expectedMessage);
+        assertEquals(actualModel, expectedModel);
+    }
+
+    /**
+     * Executes the given {@code command}, confirms that <br>
+     * - a {@code CommandException} is thrown <br>
+     * - the CommandException message matches {@code expectedMessage} <br>
+     * - {@code actualCommandHistory} remains unchanged.
+     */
+    public static void assertCommandFailureWithModelChange(Command command, Model actualModel,
                                                              CommandHistory actualCommandHistory,
                                                              String expectedMessage) {
         // we are unable to defensively copy the model for comparison later, so we can
         // only do so by copying its components.
-        FinancialDatabase expectedAddressBook = new FinancialDatabase(actualModel.getFinancialDatabase());
+        FinancialDatabase expectedFinancialDatabase = new FinancialDatabase(actualModel.getFinancialDatabase());
         List<Transaction> expectedFilteredList = new ArrayList<>(actualModel.getFilteredTransactionList());
 
         CommandHistory expectedCommandHistory = new CommandHistory(actualCommandHistory);
@@ -145,7 +157,7 @@ public class CommandTestUtil {
             throw new AssertionError("The expected CommandException was not thrown.");
         } catch (CommandException e) {
             assertEquals(expectedMessage, e.getMessage());
-            assertEquals(expectedAddressBook, actualModel.getFinancialDatabase());
+            assertEquals(expectedFinancialDatabase, actualModel.getFinancialDatabase());
             assertEquals(expectedFilteredList, actualModel.getFilteredTransactionList());
             assertEquals(expectedCommandHistory, actualCommandHistory);
         }

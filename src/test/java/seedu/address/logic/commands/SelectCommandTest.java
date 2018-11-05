@@ -100,7 +100,7 @@ public class SelectCommandTest {
         SelectCommand selectCommand = new SelectCommand(index);
         String expectedMessage = String.format(SelectCommand.MESSAGE_SELECT_TRANSACTION_SUCCESS, index.getOneBased());
 
-        assertCommandSuccessWithNoModelChange(selectCommand, model, commandHistory, expectedMessage, expectedModel);
+        assertCommandSuccessWithNoModelChange(selectCommand, model, expectedModel, commandHistory, expectedMessage);
 
         JumpToListRequestEvent lastEvent = (JumpToListRequestEvent) eventsCollectorRule.eventsCollector.getMostRecent();
         assertEquals(index, Index.fromZeroBased(lastEvent.targetIndex));
@@ -112,7 +112,7 @@ public class SelectCommandTest {
      */
     private void assertExecutionFailure(Index index, String expectedMessage) {
         SelectCommand selectCommand = new SelectCommand(index);
-        assertCommandFailureWithNoModelChange(selectCommand, model, commandHistory, expectedMessage);
+        assertCommandFailureWithNoModelChange(selectCommand, model, , commandHistory, expectedMessage, );
         assertTrue(eventsCollectorRule.eventsCollector.isEmpty());
     }
 }
