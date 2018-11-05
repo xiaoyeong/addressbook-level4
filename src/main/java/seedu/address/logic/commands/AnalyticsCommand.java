@@ -53,7 +53,7 @@ public class AnalyticsCommand extends Command {
         for (int i = 0; i < transactionList.size(); i++) {
             Transaction t = transactionList.get(i);
             if (deadline == null || deadline.compareTo(t.getDeadline()) == 1) {
-                Amount currentAmount = Amount.convertCurrency(t.getAmount());
+                Amount currentAmount = t.getAmount();
                 if (currentAmount != null) {
                     if (t.getType().toString().compareTo("debt") == 0) {
                         totalSum -= currentAmount.getValue();
@@ -63,6 +63,7 @@ public class AnalyticsCommand extends Command {
                 }
             }
         }
+        model.commitFinancialDatabase();
         return new CommandResult(String.format(MESSAGE_SUCCESS, totalSum));
     }
 

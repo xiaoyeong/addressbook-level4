@@ -39,6 +39,12 @@ public interface Model {
     void addTransaction(Transaction transaction);
 
     /**
+     * Add transaction to the past Transactions list.
+     * @param person
+     */
+    void addPastTransaction(Transaction person);
+
+    /**
      * Replaces the given transaction {@code target} with {@code editedTransaction}.
      * {@code target} must exist in the database.
      * The {@code editedTransaction} must not be identical to another existing transaction in the
@@ -50,10 +56,21 @@ public interface Model {
     ObservableList<Transaction> getFilteredTransactionList();
 
     /**
+     * Does the same thing as getFilteredTransactionList() but for pastTransactions.
+     */
+    ObservableList<Transaction> getFilteredPastTransactionList();
+
+    /**
      * Updates the filtered transaction list according to the given {@code predicate}.
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredTransactionList(Predicate<Transaction> predicate);
+
+    /**
+     * Does the same thing for updateFilteredTransactionList but for pastTransactions.
+     * @param predicate
+     */
+    void updateFilteredPastTransactionList (Predicate<Transaction> predicate);
 
     /**
      * Returns true if the model has previous database states to restore.

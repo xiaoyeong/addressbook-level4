@@ -1,6 +1,6 @@
 package seedu.address.logic.commands;
 
-import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccessWithNoModelChange;
+import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccessWithModelChange;
 
 import org.junit.Test;
 
@@ -12,11 +12,10 @@ import seedu.address.model.ModelManager;
 public class ConvertCommandTest {
     private CommandHistory history = new CommandHistory();
     private Model model = new ModelManager();
-    private Model expectedModel = new ModelManager();
     @Test
     public void execute_multipleCurrenciesConverted() {
         String expectedMessage = ConvertCommand.MESSAGE_SUCCESS;
         ConvertCommand convertCommand = new ConvertCommand();
-        assertCommandSuccessWithNoModelChange(convertCommand, model, history, expectedMessage, expectedModel);
+        assertCommandSuccessWithModelChange(convertCommand, model, history, expectedMessage);
     }
 }

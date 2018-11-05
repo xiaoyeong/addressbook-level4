@@ -107,6 +107,11 @@ public class AddCommandTest {
         }
 
         @Override
+        public void addPastTransaction(Transaction transaction) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public boolean hasTransaction(Transaction transaction) {
             throw new AssertionError("This method should not be called.");
         }
@@ -121,7 +126,16 @@ public class AddCommandTest {
             throw new AssertionError("This method should not be called.");
         }
 
+        @Override
+        public void updateFilteredPastTransactionList(Predicate<Transaction> predicate) {
+            throw new AssertionError("This method should not be called.");
+        }
+
         public ObservableList<Transaction> getFilteredTransactionList() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        public ObservableList<Transaction> getFilteredPastTransactionList() {
             throw new AssertionError("This method should not be called.");
         }
 

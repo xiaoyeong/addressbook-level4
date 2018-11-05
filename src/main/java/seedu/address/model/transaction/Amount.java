@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
 import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.URL;
@@ -23,17 +24,18 @@ public class Amount implements Comparable<Amount> {
     public static final String MESSAGE_TRANSACTION_AMOUNT_CONSTRAINTS =
             "The transaction amount must be real number rounded to two decimal places, "
                     + "prefixed by a three letter currency code";
-    public static final String TRANSACTION_AMOUNT_VALIDATION_REGEX = "\\w{3} \\d{1,}.\\d{1,2}";
+    public static final String TRANSACTION_AMOUNT_VALIDATION_REGEX = "\\w{3} \\d+.\\d{2}";
     private static final int MONTHS_IN_A_YEAR = 12;
     private Currency currency;
-    private Double value;
+    private String value;
     private InterestScheme interestScheme;
     private InterestRate interestRate;
 
     public Amount() {
         currency = Currency.getInstance("SGD");
-        value = 0.0;
+        value = "0.00";
     }
+
     /**
      * Constructs an {@code TransactionAmount}.
      *
@@ -43,16 +45,13 @@ public class Amount implements Comparable<Amount> {
         requireNonNull(amount);
         checkArgument(isValidAmount(amount), MESSAGE_TRANSACTION_AMOUNT_CONSTRAINTS);
         currency = Currency.getInstance(amount.split("\\s+")[0]);
-        value = Double.parseDouble(amount.split("\\s+")[1]);
+        value = amount.split("\\s+")[1];
     }
 
-    public double getValue() {
-        return value;
+    public Double getValue() {
+        return Double.parseDouble(value);
     }
 
-    public Currency getCurrency() {
-        return currency;
-    }
 
     /**
      * Returns true if the given string represents a valid transaction amount.
@@ -85,17 +84,16 @@ public class Amount implements Comparable<Amount> {
         Amount convertedAmount = new Amount();
         convertedAmount.interestScheme = new InterestScheme(interestScheme);
         convertedAmount.interestRate = new InterestRate(interestRate);
-
+        double originalValue = principalAmount.getValue();
+        double calculatedValue;
         if (convertedAmount.interestScheme.getValue().equals("simple")) {
-            convertedAmount.value = principalAmount.value + Double.parseDouble(String.format("%.2f",
-                    principalAmount.value * convertedAmount.interestRate.getValue() * durationInMonths));
+            calculatedValue = originalValue
+                    + originalValue * convertedAmount.interestRate.getValue() * durationInMonths;
+            convertedAmount.value = String.format("%.2f", calculatedValue);
         } else {
-            double originalValue = principalAmount.value;
-            double calculatedValue =
-                    originalValue * Math.pow(1.0 + convertedAmount.interestRate.getValue() / MONTHS_IN_A_YEAR,
+            calculatedValue = originalValue * Math.pow(1.0 + convertedAmount.interestRate.getValue() / MONTHS_IN_A_YEAR,
                             durationInMonths);
-            convertedAmount.value = principalAmount.value + Double.parseDouble(String.format("%.2f",
-                    calculatedValue - originalValue));
+            convertedAmount.value = String.format("%.2f", calculatedValue);
         }
         return convertedAmount;
     }
@@ -105,7 +103,8 @@ public class Amount implements Comparable<Amount> {
      *
      * @param amount the amount in a given currency which is to be converted to Singaporean currency
      */
-    public static Amount convertCurrency(Amount amount) {
+    @SuppressWarnings("unchecked")
+    public static Amount convertCurrency(Amount amount) throws IOException {
         if (!Amount.isValidAmount(amount.toString())) {
             return null;
         }
@@ -116,30 +115,13 @@ public class Amount implements Comparable<Amount> {
         String currencyConverterFilePath = String.format(
                 "http://free.currencyconverterapi.com/api/v5/convert?q=%s_SGD&compact=y", currencyCode);
         ObjectMapper mapper = new ObjectMapper();
-        try {
-            InputStream is = new URL(currencyConverterFilePath).openStream();
-            BufferedReader rd = new BufferedReader(new InputStreamReader(is, Charset.forName("UTF-8")));
-            String jsonText = rd.readLine();
-            Map<String, Map<String, Number>> map = mapper.readValue(jsonText, Map.class);
-            double result = 1.00 * map.get(String.format("%s_SGD", currencyCode)).get("val").doubleValue();
-            result *= amount.value;
-            return new Amount(String.format("SGD %.2f", result));
-        } catch (Exception ex) {
-            ex.printStackTrace();
-            return null;
-        }
-    }
-
-    /**
-     * Returns the difference in value between two Amounts in Singaporean currency
-     * @param amount1 The first amount to compare
-     * @param amount2 The second amount to compare
-     * @return The difference between the two Amounts as a double
-     */
-    public static double compareAmount (Amount amount1, Amount amount2) {
-        Amount amountSgd1 = amount1.convertCurrency(amount1);
-        Amount amountSgd2 = amount2.convertCurrency(amount2);
-        return amountSgd1.value - amountSgd2.value;
+        InputStream is = new URL(currencyConverterFilePath).openStream();
+        BufferedReader rd = new BufferedReader(new InputStreamReader(is, Charset.forName("UTF-8")));
+        String jsonText = rd.readLine();
+        Map<String, Map<String, Number>> map = mapper.readValue(jsonText, Map.class);
+        double result = 1.00 * map.get(String.format("%s_SGD", currencyCode)).get("val").doubleValue();
+        result *= amount.getValue();
+        return new Amount(String.format("SGD %.2f", result));
     }
 
     @Override
@@ -163,6 +145,6 @@ public class Amount implements Comparable<Amount> {
 
     @Override
     public int compareTo(Amount otherAmount) {
-        return value.compareTo(otherAmount.value);
+        return getValue().compareTo(otherAmount.getValue());
     }
 }

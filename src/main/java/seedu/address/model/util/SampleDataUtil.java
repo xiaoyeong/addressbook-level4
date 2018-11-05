@@ -53,7 +53,7 @@ public class SampleDataUtil {
     public static ReadOnlyFinancialDatabase getSampleFinancialDatabase() {
         FinancialDatabase sampleFd = new FinancialDatabase();
         for (seedu.address.model.transaction.Transaction sampleTransaction : getSampleTransactions()) {
-            sampleFd.addTransaction(sampleTransaction);
+            sampleFd.addTransaction(sampleTransaction, sampleFd.getCurrentList());
         }
         return sampleFd;
     }
