@@ -1,0 +1,104 @@
+:imagesDir: ../images
+= Lou Shaw Yeong - Project Portfolio
+
+== PROJECT: DebtTracker
+
+== Overview
+
+Debt Tracker is a CLI-based desktop application that helps users manage their finances. It keeps track of the financial
+transactions the user undertakes. The primary target audience of this application is Small and Medium Entreprises (SMEs) in Singapore since
+they typically face budget constraints and have to maintain a good credit score. However, this application can also be used by individuals
+who may want to maintain a database of their personal transactions.
+
+== Summary of contributions
+
+* *Major enhancement*: added the ability to view the user financial status
+** What it does: allows the user to track the financial balance based on the date user input.
+** Justification: This feature allow the user to have a better track of their loans and debts to allow better planning for the future.
+** Highlights: The command is simple and flexible allowing different types of input methods so user will have a convenient time using it.
+** Code contributed: [https://github.com/CS2103-AY1819S1-W12-2/main/pull/57[Pull Request#57]] +
+
+* *Minor enhancement*:
+** Added a nexttransaction command so users will able to easily finds and lists all transactions in the database which deadline is closest to current date.
+[https://github.com/CS2103-AY1819S1-W12-2/main/pull/79[Pull Request#79]] +
+** Added a “compareTo” method in the class “Deadline” so that developer can easily compare two dates.
+[https://github.com/CS2103-AY1819S1-W12-2/main/pull/57[Pull Request#57]] +
+
+* *Other contributions*:
+
+** Testing:
+*** Help write test code
+[https://github.com/CS2103-AY1819S1-W12-2/main/pull/68[Pull Request#68]] [https://github.com/CS2103-AY1819S1-W12-2/main/pull/79[Pull Request#79]] +
+*** Ensure the test cases are relevant and accurate
+[https://github.com/CS2103-AY1819S1-W12-2/main/commit/726e9b1bf4b8f2138b63e63ca6788ff805dc824e?short_path=d80058c#diff-d80058c033b9f127ec727c18cc84ce4d[Pull Request#43]] +
+
+
+** Documentation:
+*** Helped write the User Guide
+[https://github.com/CS2103-AY1819S1-W12-2/main/pull/79[Pull Request#79]] +
+*** Helped draw the diagram for Development Guide
+[https://github.com/CS2103-AY1819S1-W12-2/main/pull/68[Pull Request#68]] +
+*** Helped to check for errors for User Guide and development guide
+
+
+** Team:
+*** Team communication
+*** Brainstorming ideas
+*** Product demonstration
+
+
+
+== Contributions to the User Guide
+
+
+|===
+|Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users.
+|===
+
+* *Analysing a loan’s possible amount: analytics*
+Analyses the amount you have left after taking into consideration your loans, and the amount that you can loan out. A positive amounts indicate a healthy financial balance with a negative amounts indicate a unhealthy financial balance.
+
+** Format: “analytics” or “analytics dd/mm/yyy”.
+** Examples:
+*** analytics
+*** analytics 10/25/2020
+
+[https://github.com/CS2103-AY1819S1-W12-2/main/pull/79[Pull Request#79]] +
+
+
+* *Lists all transactions which deadline is closest: `nexttransaction`*
+Finds and lists all transactions in the database which deadline is closest to current date.
+
+** Format: “nexttransaction”.
+** Example:
+*** nexttransaction
+
+[https://github.com/CS2103-AY1819S1-W12-2/main/pull/79[Pull Request#79]] +
+
+
+== Contributions to the Developer Guide
+
+|===
+|Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project.
+|===
+
+*Model Class diagram*
+
+The following model class diagram was drawn by me to shows how the debt tracker holds the data of the App in-memory.
+
+.Structure of the Model Component
+image::ModelClassDiagram.png[width="800"]
+
+The use of the diagram will allow the other developer to quickly understand the working of the application.
+[https://github.com/CS2103-AY1819S1-W12-2/main/pull/68[Pull Request#68]] +
+
+
+*Logic Class diagram*
+
+The following logic class diagram was edited by me to shows how the debt tracker activate varies command input by the user.
+
+.Class Diagram of the Logic Component
+image::LogicClassDiagram.png[width="800"]
+
+The use of the diagram will allow the other developer to quickly understand the working of the application.
+[https://github.com/CS2103-AY1819S1-W12-2/main/pull/68[Pull Request#68]] +
