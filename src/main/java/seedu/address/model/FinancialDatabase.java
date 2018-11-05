@@ -4,7 +4,6 @@ import static java.util.Objects.requireNonNull;
 
 import java.util.Objects;
 
-import javafx.beans.binding.ObjectExpression;
 import javafx.collections.ObservableList;
 import seedu.address.model.transaction.Transaction;
 import seedu.address.model.transaction.UniqueTransactionList;
@@ -54,7 +53,8 @@ public class FinancialDatabase implements ReadOnlyFinancialDatabase {
     }
 
     /**
-     * Resets the existing data of a specific UniqueTransactionList in this {@code Financial Database} with {@code toCopy}.
+     * Resets the existing data of a specific UniqueTransactionList in this {@code Financial Database}
+     * with {@code toCopy}.
      * @param toCopy and list.
      */
     public void resetData(ObservableList<Transaction> toCopy, UniqueTransactionList list) {

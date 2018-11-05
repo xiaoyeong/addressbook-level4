@@ -135,7 +135,8 @@ public class MainWindow extends UiPart<Stage> {
         pastTransactionBrowserPlaceholder.getChildren().add(pastTransactionBrowserPanel.getRoot());
 
         //past transactions UI
-        PastTransactionListPanel pastTransactionListPanel = new PastTransactionListPanel(logic.getFilteredPastTransactionList());
+        PastTransactionListPanel pastTransactionListPanel = new PastTransactionListPanel(logic
+                                                                .getFilteredPastTransactionList());
         pastTransactionListPanelPlaceholder.getChildren().add(pastTransactionListPanel.getRoot());
 
         transactionListPanel = new TransactionListPanel(logic.getFilteredTransactionList());
