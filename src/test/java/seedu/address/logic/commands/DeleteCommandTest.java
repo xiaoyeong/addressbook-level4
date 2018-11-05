@@ -83,8 +83,6 @@ public class DeleteCommandTest {
 
         DeleteCommand deleteCommand = new DeleteCommand(outOfBoundIndex);
 
-        Model expectedModel = new ModelManager(model.getFinancialDatabase(), new UserPrefs());
-
         assertCommandFailureWithModelChange(deleteCommand, model, commandHistory,
                 Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
     }

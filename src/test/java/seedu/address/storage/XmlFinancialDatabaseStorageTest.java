@@ -65,20 +65,21 @@ public class XmlFinancialDatabaseStorageTest {
     }
 
     @Test
-    public void readAddressBook_invalidTransactionFinancialDatabase_throwDataConversionException() throws Exception {
+    public void readFinancialDatabase_invalidTransactionFinancialDatabase_throwDataConversionException()
+            throws Exception {
         thrown.expect(DataConversionException.class);
         readFinancialDatabase("invalidTransactionFinancialDatabase.xml");
     }
 
     @Test
-    public void readAddressBook_invalidAndValidTransactionFinancialDatabase_throwDataConversionException()
+    public void readFinancialDatabase_invalidAndValidTransactionFinancialDatabase_throwDataConversionException()
             throws Exception {
         thrown.expect(DataConversionException.class);
         readFinancialDatabase("invalidAndValidTransactionFinancialDatabase.xml");
     }
 
     @Test
-    public void readAndSaveAddressBook_allInOrder_success() throws Exception {
+    public void readAndSaveFinancialDatabase_allInOrder_success() throws Exception {
         Path filePath = testFolder.getRoot().toPath().resolve("TempAddressBook.xml");
         FinancialDatabase original = getTypicalFinancialDatabase();
         XmlFinancialDatabaseStorage xmlAddressBookStorage = new XmlFinancialDatabaseStorage(filePath);

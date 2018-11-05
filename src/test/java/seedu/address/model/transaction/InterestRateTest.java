@@ -10,12 +10,12 @@ import seedu.address.testutil.Assert;
 
 public class InterestRateTest {
     @Test
-    public void constructor_null_throwsNullPointerException() {
+    public void constructorTest() {
         Assert.assertThrows(NullPointerException.class, () -> new InterestRate(null));
     }
 
     @Test
-    public void getValue_validInterestRateProvided_getRateAsFraction() {
+    public void getValueTest() {
         InterestRate interestRate = new InterestRate("2.56%");
         double rate = interestRate.getValue();
         assertEquals(0.0256, rate, 0.002);
@@ -44,7 +44,7 @@ public class InterestRateTest {
     }
 
     @Test
-    public void toString_validInterestRateProvided_getSameOutputAsInput() {
+    public void toStringTest() {
         String rate = "2.53%";
         InterestRate interestRate = new InterestRate(rate);
         assertEquals(interestRate.toString(), rate);

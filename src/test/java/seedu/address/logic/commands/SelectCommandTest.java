@@ -112,7 +112,6 @@ public class SelectCommandTest {
      */
     private void assertExecutionFailure(Index index, String expectedMessage) {
         SelectCommand selectCommand = new SelectCommand(index);
-        Model expectedModel = new ModelManager(model.getFinancialDatabase(), new UserPrefs());
         assertCommandFailureWithModelChange(selectCommand, model, commandHistory, expectedMessage);
         assertTrue(eventsCollectorRule.eventsCollector.isEmpty());
     }
