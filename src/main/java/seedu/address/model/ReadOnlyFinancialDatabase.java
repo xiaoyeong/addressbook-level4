@@ -14,4 +14,10 @@ public interface ReadOnlyFinancialDatabase {
      */
     ObservableList<Transaction> getTransactionList();
 
+    /**
+     * Returns an unmodifiable view of the past Transactions list.
+     * This list will not contain any duplicate transactions.
+     */
+    ObservableList<Transaction> getPastTransactionList();
+
 }

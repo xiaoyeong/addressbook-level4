@@ -40,8 +40,6 @@ public class MainWindow extends UiPart<Stage> {
     private UserPrefs prefs;
     private HelpWindow helpWindow;
 
-    //past transactions UI
-    private PastTransactionListPanel pastTransactionListPanel;
     private PastTransactionBrowserPanel pastTransactionBrowserPanel;
 
 
@@ -136,7 +134,8 @@ public class MainWindow extends UiPart<Stage> {
         pastTransactionBrowserPanel = new PastTransactionBrowserPanel();
         pastTransactionBrowserPlaceholder.getChildren().add(pastTransactionBrowserPanel.getRoot());
 
-        pastTransactionListPanel = new PastTransactionListPanel(logic.getFilteredPastTransactionList());
+        //past transactions UI
+        PastTransactionListPanel pastTransactionListPanel = new PastTransactionListPanel(logic.getFilteredPastTransactionList());
         pastTransactionListPanelPlaceholder.getChildren().add(pastTransactionListPanel.getRoot());
 
         transactionListPanel = new TransactionListPanel(logic.getFilteredTransactionList());
@@ -204,13 +203,9 @@ public class MainWindow extends UiPart<Stage> {
         raise(new ExitAppRequestEvent());
     }
 
-    public TransactionListPanel getTransactionListPanel() {
-        return transactionListPanel;
-    }
-
     void releaseResources() {
         browserPanel.freeResources();
-        //pastTransactionBrowserPanel.freeResources();
+        pastTransactionBrowserPanel.freeResources();
     }
 
     @Subscribe

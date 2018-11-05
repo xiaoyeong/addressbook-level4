@@ -45,7 +45,8 @@ public class ModelManager extends ComponentManager implements Model {
 
     @Override
     public void resetData(ReadOnlyFinancialDatabase newData) {
-        versionedFinancialDatabase.resetData(newData, versionedFinancialDatabase.getCurrentList());
+        versionedFinancialDatabase.resetData(newData.getTransactionList(), versionedFinancialDatabase.getCurrentList());
+        versionedFinancialDatabase.resetData(newData.getPastTransactionList(), versionedFinancialDatabase.getPastList());
         indicateFinancialDatabaseChanged();
     }
 

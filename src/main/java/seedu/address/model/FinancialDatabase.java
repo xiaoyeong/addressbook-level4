@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 
 import java.util.Objects;
 
+import javafx.beans.binding.ObjectExpression;
 import javafx.collections.ObservableList;
 import seedu.address.model.transaction.Transaction;
 import seedu.address.model.transaction.UniqueTransactionList;
@@ -37,7 +38,8 @@ public class FinancialDatabase implements ReadOnlyFinancialDatabase {
      */
     public FinancialDatabase(ReadOnlyFinancialDatabase toBeCopied) {
         this();
-        resetData(toBeCopied, transactions);
+        resetData(toBeCopied.getTransactionList(), transactions);
+        resetData(toBeCopied.getPastTransactionList(), pastTransactions);
     }
 
     //// list overwrite operations
@@ -52,13 +54,12 @@ public class FinancialDatabase implements ReadOnlyFinancialDatabase {
     }
 
     /**
-     * Resets the existing data of this {@code Financial Database} with {@code newData}.
-     * @param newData
+     * Resets the existing data of a specific UniqueTransactionList in this {@code Financial Database} with {@code toCopy}.
+     * @param toCopy and list.
      */
-    public void resetData(ReadOnlyFinancialDatabase newData, UniqueTransactionList list) {
-        requireNonNull(newData);
+    public void resetData(ObservableList<Transaction> toCopy, UniqueTransactionList list) {
 
-        setTransactions(newData.getTransactionList(), list);
+        setTransactions(toCopy, list);
     }
 
     //// transaction-level operations
@@ -131,6 +132,7 @@ public class FinancialDatabase implements ReadOnlyFinancialDatabase {
         return transactions.asUnmodifiableObservableList();
     }
 
+    @Override
     public ObservableList<Transaction> getPastTransactionList() {
         return pastTransactions.asUnmodifiableObservableList();
     }

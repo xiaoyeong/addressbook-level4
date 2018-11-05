@@ -38,12 +38,14 @@ public class FinancialDatabaseTest {
     public void resetData_null_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
         financialDatabase.resetData(null, financialDatabase.getCurrentList());
+        financialDatabase.resetData(null, financialDatabase.getPastList());
     }
 
     @Test
     public void resetData_withValidReadOnlyFinancialDatabase_replacesData() {
         FinancialDatabase newData = getTypicalFinancialDatabase();
-        financialDatabase.resetData(newData, financialDatabase.getCurrentList());
+        financialDatabase.resetData(newData.getTransactionList(), financialDatabase.getCurrentList());
+        financialDatabase.resetData(newData.getPastTransactionList(), financialDatabase.getPastList());
         assertEquals(newData, financialDatabase);
     }
 
@@ -56,7 +58,8 @@ public class FinancialDatabaseTest {
         FinancialDatabaseStub newData = new FinancialDatabaseStub(newTransactions);
 
         thrown.expect(DuplicateTransactionException.class);
-        financialDatabase.resetData(newData, financialDatabase.getCurrentList());
+        financialDatabase.resetData(newData.getTransactionList(), financialDatabase.getCurrentList());
+        financialDatabase.resetData(newData.getPastTransactionList(), financialDatabase.getPastList());
     }
 
     @Test
@@ -95,6 +98,7 @@ public class FinancialDatabaseTest {
      */
     private static class FinancialDatabaseStub implements ReadOnlyFinancialDatabase {
         private final ObservableList<Transaction> persons = FXCollections.observableArrayList();
+        private final ObservableList<Transaction> pastTransactions = FXCollections.observableArrayList();
 
         FinancialDatabaseStub(Collection<Transaction> persons) {
             this.persons.setAll(persons);
@@ -103,6 +107,11 @@ public class FinancialDatabaseTest {
         @Override
         public ObservableList<Transaction> getTransactionList() {
             return persons;
+        }
+
+        @Override
+        public ObservableList<Transaction> getPastTransactionList() {
+            return pastTransactions;
         }
 
     }
