@@ -13,13 +13,13 @@ public class InterestRate {
     public static final String MESSAGE_INTEREST_RATE_CONSTRAINTS =
             "Interest rate should be expressed as a percentage \n"
             + "with the value rounded to two decimal places.";
-    public static final String TRANSACTION_INTEREST_RATE_VALIDATION_REGEX = "\\d{1,2}.\\d{1,2}\\%";
+    public static final String TRANSACTION_INTEREST_RATE_VALIDATION_REGEX = "\\d{1}.\\d{2}%";
     public final double value;
 
     public InterestRate(String interestRate) {
         requireNonNull(interestRate);
         checkArgument(isValidInterestRate(interestRate), MESSAGE_INTEREST_RATE_CONSTRAINTS);
-        this.value = Double.parseDouble(interestRate.replace("%", ""));
+        this.value = parseRate(interestRate);
     }
 
     public double getValue() {
@@ -32,7 +32,16 @@ public class InterestRate {
      * @param test the command line argument to be parsed
      */
     public static boolean isValidInterestRate(String test) {
-        return test.toLowerCase().matches(TRANSACTION_INTEREST_RATE_VALIDATION_REGEX);
+        return test.matches(TRANSACTION_INTEREST_RATE_VALIDATION_REGEX) && isBelowCap(test);
+    }
+
+    private static double parseRate(String interestRate) {
+        return Double.parseDouble(interestRate.replace("%", ""));
+    }
+
+    private static boolean isBelowCap(String test) {
+        double rate = parseRate(test);
+        return rate <= 4;
     }
 
     @Override
