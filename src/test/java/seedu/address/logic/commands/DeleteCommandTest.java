@@ -3,6 +3,7 @@ package seedu.address.logic.commands;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertTrue;
+import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailureWithModelChange;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailureWithNoModelChange;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccessWithNoModelChange;
 import static seedu.address.logic.commands.CommandTestUtil.showTransactionAtIndex;
@@ -31,13 +32,14 @@ public class DeleteCommandTest {
 
     @Test
     public void execute_validIndexUnfilteredList_success() {
-        Transaction personToDelete = model.getFilteredTransactionList().get(INDEX_FIRST_TRANSACTION.getZeroBased());
+        Transaction transactionToDelete = model.getFilteredTransactionList()
+                .get(INDEX_FIRST_TRANSACTION.getZeroBased());
         DeleteCommand deleteCommand = new DeleteCommand(INDEX_FIRST_TRANSACTION);
 
-        String expectedMessage = String.format(DeleteCommand.MESSAGE_DELETE_TRANSACTION_SUCCESS, personToDelete);
+        String expectedMessage = String.format(DeleteCommand.MESSAGE_DELETE_TRANSACTION_SUCCESS, transactionToDelete);
 
         ModelManager expectedModel = new ModelManager(model.getFinancialDatabase(), new UserPrefs());
-        expectedModel.deleteTransaction(personToDelete);
+        expectedModel.deleteTransaction(transactionToDelete);
         expectedModel.commitFinancialDatabase();
 
         assertCommandSuccessWithNoModelChange(deleteCommand, model, expectedModel, commandHistory, expectedMessage);
@@ -48,8 +50,10 @@ public class DeleteCommandTest {
         Index outOfBoundIndex = Index.fromOneBased(model.getFilteredTransactionList().size() + 1);
         DeleteCommand deleteCommand = new DeleteCommand(outOfBoundIndex);
 
-        assertCommandFailureWithNoModelChange(deleteCommand, model, , commandHistory,
-                Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX, );
+        ModelManager expectedModel = new ModelManager(model.getFinancialDatabase(), new UserPrefs());
+
+        assertCommandFailureWithNoModelChange(deleteCommand, model, expectedModel, commandHistory,
+                Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
     }
 
     @Test
@@ -79,8 +83,10 @@ public class DeleteCommandTest {
 
         DeleteCommand deleteCommand = new DeleteCommand(outOfBoundIndex);
 
-        assertCommandFailureWithNoModelChange(deleteCommand, model, , commandHistory,
-                Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX, );
+        Model expectedModel = new ModelManager(model.getFinancialDatabase(), new UserPrefs());
+
+        assertCommandFailureWithModelChange(deleteCommand, model, commandHistory,
+                Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
     }
 
     @Test
@@ -110,13 +116,17 @@ public class DeleteCommandTest {
         Index outOfBoundIndex = Index.fromOneBased(model.getFilteredTransactionList().size() + 1);
         DeleteCommand deleteCommand = new DeleteCommand(outOfBoundIndex);
 
-        // execution failed -> address book state not added into model
-        assertCommandFailureWithNoModelChange(deleteCommand, model, , commandHistory,
-                Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX, );
+        Model expectedModel = new ModelManager(model.getFinancialDatabase(), new UserPrefs());
 
-        // single address book state in model -> undoCommand and redoCommand fail
-        assertCommandFailureWithNoModelChange(new UndoCommand(), model, , commandHistory, UndoCommand.MESSAGE_FAILURE, );
-        assertCommandFailureWithNoModelChange(new RedoCommand(), model, , commandHistory, RedoCommand.MESSAGE_FAILURE, );
+        // execution failed -> financial database state not added into model
+        assertCommandFailureWithNoModelChange(deleteCommand, model, expectedModel, commandHistory,
+                Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+
+        // single financial database state in model -> undoCommand and redoCommand fail
+        assertCommandFailureWithNoModelChange(new UndoCommand(), model, expectedModel, commandHistory,
+                UndoCommand.MESSAGE_FAILURE);
+        assertCommandFailureWithNoModelChange(new RedoCommand(), model, expectedModel, commandHistory,
+                RedoCommand.MESSAGE_FAILURE);
     }
 
     /**

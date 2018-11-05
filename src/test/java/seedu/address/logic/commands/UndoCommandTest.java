@@ -42,7 +42,7 @@ public class UndoCommandTest {
                 UndoCommand.MESSAGE_SUCCESS);
 
         // no undoable states in model
-        assertCommandFailureWithNoModelChange(new UndoCommand(), model, , commandHistory,
-                UndoCommand.MESSAGE_FAILURE, );
+        assertCommandFailureWithNoModelChange(new UndoCommand(), model, expectedModel, commandHistory,
+                UndoCommand.MESSAGE_FAILURE);
     }
 }

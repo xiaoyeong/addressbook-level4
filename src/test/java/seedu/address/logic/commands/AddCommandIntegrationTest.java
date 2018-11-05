@@ -42,8 +42,9 @@ public class AddCommandIntegrationTest {
     @Test
     public void execute_duplicatePerson_throwsCommandException() {
         Transaction transactionInList = model.getFinancialDatabase().getTransactionList().get(0);
-        assertCommandFailureWithNoModelChange(new AddCommand(transactionInList), model, , commandHistory,
-                AddCommand.MESSAGE_DUPLICATE_TRANSACTION, );
+        Model expectedModel = new ModelManager(model.getFinancialDatabase(), new UserPrefs());
+        assertCommandFailureWithNoModelChange(new AddCommand(transactionInList), model, expectedModel, commandHistory,
+                AddCommand.MESSAGE_DUPLICATE_TRANSACTION);
     }
 
 }

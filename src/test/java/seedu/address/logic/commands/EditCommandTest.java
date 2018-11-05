@@ -11,6 +11,7 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TYPE_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailureWithModelChange;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailureWithNoModelChange;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccessWithNoModelChange;
 import static seedu.address.logic.commands.CommandTestUtil.showTransactionAtIndex;
@@ -117,9 +118,10 @@ public class EditCommandTest {
         Transaction firstPerson = model.getFilteredTransactionList().get(INDEX_FIRST_TRANSACTION.getZeroBased());
         EditTransactionDescriptor descriptor = new EditTransactionDescriptorBuilder(firstPerson).build();
         EditCommand editCommand = new EditCommand(INDEX_SECOND_TRANSACTION, descriptor);
+        Model expectedModel = new ModelManager(model.getFinancialDatabase(), new UserPrefs());
 
-        assertCommandFailureWithNoModelChange(editCommand, model, , commandHistory,
-                EditCommand.MESSAGE_DUPLICATE_TRANSACTION, );
+        assertCommandFailureWithNoModelChange(editCommand, model, expectedModel, commandHistory,
+                EditCommand.MESSAGE_DUPLICATE_TRANSACTION);
     }
 
     @Test
@@ -131,9 +133,8 @@ public class EditCommandTest {
                 .get(INDEX_SECOND_TRANSACTION.getZeroBased());
         EditCommand editCommand = new EditCommand(INDEX_FIRST_TRANSACTION,
                 new EditTransactionDescriptorBuilder(personInList).build());
-
-        assertCommandFailureWithNoModelChange(editCommand, model, , commandHistory,
-                EditCommand.MESSAGE_DUPLICATE_TRANSACTION, );
+        assertCommandFailureWithModelChange(editCommand, model, commandHistory,
+                EditCommand.MESSAGE_DUPLICATE_TRANSACTION);
     }
 
     @Test
@@ -141,9 +142,10 @@ public class EditCommandTest {
         Index outOfBoundIndex = Index.fromOneBased(model.getFilteredTransactionList().size() + 1);
         EditTransactionDescriptor descriptor = new EditTransactionDescriptorBuilder().withName(VALID_NAME_BOB).build();
         EditCommand editCommand = new EditCommand(outOfBoundIndex, descriptor);
+        Model expectedModel = new ModelManager(model.getFinancialDatabase(), new UserPrefs());
 
-        assertCommandFailureWithNoModelChange(editCommand, model, , commandHistory,
-                Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX, );
+        assertCommandFailureWithNoModelChange(editCommand, model, expectedModel, commandHistory,
+                Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
     }
 
     /**
@@ -160,8 +162,8 @@ public class EditCommandTest {
         EditCommand editCommand = new EditCommand(outOfBoundIndex,
                 new EditTransactionDescriptorBuilder().withName(VALID_NAME_BOB).build());
 
-        assertCommandFailureWithNoModelChange(editCommand, model, , commandHistory,
-                Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX, );
+        assertCommandFailureWithModelChange(editCommand, model, commandHistory,
+                Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
     }
 
     @Test
@@ -193,14 +195,17 @@ public class EditCommandTest {
         Index outOfBoundIndex = Index.fromOneBased(model.getFilteredTransactionList().size() + 1);
         EditTransactionDescriptor descriptor = new EditTransactionDescriptorBuilder().withName(VALID_NAME_BOB).build();
         EditCommand editCommand = new EditCommand(outOfBoundIndex, descriptor);
+        Model expectedModel = new ModelManager(model.getFinancialDatabase(), new UserPrefs());
 
         // execution failed -> address book state not added into model
-        assertCommandFailureWithNoModelChange(editCommand, model, , commandHistory,
-                Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX, );
+        assertCommandFailureWithNoModelChange(editCommand, model, expectedModel, commandHistory,
+                Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
 
         // single address book state in model -> undoCommand and redoCommand fail
-        assertCommandFailureWithNoModelChange(new UndoCommand(), model, , commandHistory, UndoCommand.MESSAGE_FAILURE, );
-        assertCommandFailureWithNoModelChange(new RedoCommand(), model, , commandHistory, RedoCommand.MESSAGE_FAILURE, );
+        assertCommandFailureWithNoModelChange(new UndoCommand(), model, expectedModel, commandHistory,
+                UndoCommand.MESSAGE_FAILURE);
+        assertCommandFailureWithNoModelChange(new RedoCommand(), model, expectedModel, commandHistory,
+                RedoCommand.MESSAGE_FAILURE);
     }
 
     /**

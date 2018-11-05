@@ -3,7 +3,7 @@ package seedu.address.logic.commands;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailureWithNoModelChange;
+import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailureWithModelChange;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccessWithNoModelChange;
 import static seedu.address.logic.commands.CommandTestUtil.showTransactionAtIndex;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_TRANSACTION;
@@ -112,7 +112,8 @@ public class SelectCommandTest {
      */
     private void assertExecutionFailure(Index index, String expectedMessage) {
         SelectCommand selectCommand = new SelectCommand(index);
-        assertCommandFailureWithNoModelChange(selectCommand, model, , commandHistory, expectedMessage, );
+        Model expectedModel = new ModelManager(model.getFinancialDatabase(), new UserPrefs());
+        assertCommandFailureWithModelChange(selectCommand, model, commandHistory, expectedMessage);
         assertTrue(eventsCollectorRule.eventsCollector.isEmpty());
     }
 }

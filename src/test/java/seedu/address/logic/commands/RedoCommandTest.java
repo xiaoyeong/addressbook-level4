@@ -46,7 +46,7 @@ public class RedoCommandTest {
                 RedoCommand.MESSAGE_SUCCESS);
 
         // no redoable state in model
-        assertCommandFailureWithNoModelChange(new RedoCommand(), model, , commandHistory,
-                RedoCommand.MESSAGE_FAILURE, );
+        assertCommandFailureWithNoModelChange(new RedoCommand(), model, expectedModel, commandHistory,
+                RedoCommand.MESSAGE_FAILURE);
     }
 }
