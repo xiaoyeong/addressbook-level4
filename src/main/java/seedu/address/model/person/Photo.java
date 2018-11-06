@@ -16,8 +16,8 @@ import seedu.address.commons.exceptions.IllegalValueException;
  * Represent a photo object associated with each unique person involved in a transaction with the user.
  */
 public class Photo {
+    public static final String DEFAULT_PHOTO_PATH = "images/default_person.png";
     private static final String DEFAULT_MESSAGE_PHOTO = "Filepath be less than 10MB and FilePath must be valid ";
-    private static final String DEFAULT_PHOTO = "images/default_person.png";
     private static final String FOLDER = getOperatingPath();
     private static final String PHOTO_INITIAL_REGEX_ = "[^\\s].*";
     private static final int TENMB = 1048576;
@@ -27,14 +27,14 @@ public class Photo {
     private String photoPath;
 
     public Photo() {
-        this.photoPath = DEFAULT_PHOTO;
+        this.photoPath = DEFAULT_PHOTO_PATH;
     }
     public Photo(String path) {
         requireNonNull(path);
         if (checkPath(path)) {
             this.photoPath = path;
         } else {
-            this.photoPath = DEFAULT_PHOTO;
+            this.photoPath = DEFAULT_PHOTO_PATH;
         }
 
     }
@@ -161,7 +161,7 @@ public class Photo {
      * Checks whether the path of the given picture meets certain criteria.
      */
     private static boolean checkPath(String path) {
-        if (path.equals(DEFAULT_PHOTO)) {
+        if (path.equals(DEFAULT_PHOTO_PATH)) {
             return true;
         }
         if (path.matches(PHOTO_INITIAL_REGEX_)) {

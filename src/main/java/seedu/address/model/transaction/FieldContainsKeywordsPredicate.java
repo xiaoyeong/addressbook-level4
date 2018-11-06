@@ -10,7 +10,7 @@ import seedu.address.model.person.Person;
 /**
  * Tests that a {@code Person}'s {@code Name} matches any of the keywords given.
  */
-public class FieldContainsKeywordsPredicate implements Predicate<seedu.address.model.transaction.Transaction> {
+public class FieldContainsKeywordsPredicate implements Predicate<Transaction> {
     private final List<String> keywords;
     private final FieldType type;
 
@@ -20,12 +20,12 @@ public class FieldContainsKeywordsPredicate implements Predicate<seedu.address.m
     }
 
     @Override
-    public boolean test(seedu.address.model.transaction.Transaction transaction) {
+    public boolean test(Transaction transaction) {
         Person person = transaction.getPerson();
         switch (type) {
         case Name:
             return keywords.stream()
-                    .anyMatch(keyword -> StringUtil.containsSubstringIgnoreCase(person.getName().fullName, keyword));
+                    .anyMatch(keyword -> StringUtil.containsSubstringIgnoreCase(person.getName().toString(), keyword));
         case Email:
             return keywords.stream()
                     .anyMatch(keyword -> StringUtil.containsSubstringIgnoreCase(person.getEmail().value, keyword));

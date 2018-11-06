@@ -24,6 +24,7 @@ public class PaidCommand extends Command {
             + "Example: " + COMMAND_WORD + " 1";
 
     public static final String MESSAGE_PAID_TRANSACTION_SUCCESS = "Transaction paid!";
+    public static final int DEFAULT_INDEX = 1;
 
     private final Index targetIndex;
 

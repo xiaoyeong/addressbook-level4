@@ -1,9 +1,11 @@
-package seedu.address.model.transaction;
+package seedu.address.model.person;
 
 import java.util.List;
 import java.util.function.Predicate;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import seedu.address.model.transaction.Transaction;
 
 /**
  * Tests that a {@code Transaction} contains a {@code Person} matches any of the letters given.
@@ -18,7 +20,7 @@ public class NameContainsLettersPredicate implements Predicate<Transaction> {
     @Override
     public boolean test(Transaction transaction) {
         return letters.stream().anyMatch(input -> makeRegex(input.toLowerCase(),
-                transaction.getPerson().getName().fullName.trim().toLowerCase()));
+                transaction.getPerson().getName().toString().trim().toLowerCase()));
     }
 
     @Override

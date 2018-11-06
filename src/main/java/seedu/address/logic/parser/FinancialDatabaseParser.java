@@ -115,7 +115,7 @@ public class FinancialDatabaseParser {
             return new WildcardSearchCommandParser().parse(arguments);
 
         case UploadPhotoCommand.COMMAND_WORD:
-            return new UpdatePhotoCommandParser().parse(arguments);
+            return new UploadPhotoCommandParser().parse(arguments);
 
         case PaidCommand.COMMAND_WORD:
             return new PaidCommandParser().parse(arguments);

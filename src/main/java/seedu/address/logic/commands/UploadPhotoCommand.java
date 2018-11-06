@@ -20,6 +20,7 @@ import seedu.address.model.transaction.Transaction;
  */
 public class UploadPhotoCommand extends Command {
     public static final String MESSAGE_SUCCESS = "New photo added: %1$s";
+    public static final int DEFAULT_INDEX = 1;
     public static final String COMMAND_WORD = "uploadphoto";
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": upload image to that transaction contact";
@@ -75,6 +76,4 @@ public class UploadPhotoCommand extends Command {
                 && this.photoIndex.equals(((UploadPhotoCommand) other).photoIndex)
                 && this.filePath.equals(((UploadPhotoCommand) other).filePath));
     }
-
-
 }

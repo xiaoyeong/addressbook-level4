@@ -4,6 +4,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
+import java.time.DateTimeException;
 import java.util.Random;
 
 import org.junit.Test;
@@ -25,21 +26,28 @@ public class DeadlineTest {
     }
     @Test
     public void isCorrectDeadline() {
-        // null deadline
-        Assert.assertThrows(NullPointerException.class, () -> Deadline.isValidDeadline(null));
+        /* null deadline */
+        Assert.assertThrows(NullPointerException.class, () -> Deadline.matchesDateFormat(null));
 
-        //invalid deadlines
-        assertFalse(Deadline.isValidDeadline("")); //empty string
-        assertFalse(Deadline.isValidDeadline(" ")); //spaces only
-        assertFalse(Deadline.isValidDeadline("30/02/2019")); //The incorrect day of the month
-        assertFalse(Deadline.isValidDeadline("152/12/2019")); //incorrect day
-        assertFalse(Deadline.isValidDeadline("12/13/2018")); //incorrect month
-        assertFalse(Deadline.isValidDeadline("31/11/201")); //incorrect year
-        assertFalse(Deadline.isValidFutureDeadline("24/09/2018")); //deadline has already passed
+        /* invalid deadlines */
+        //empty string
+        assertFalse(Deadline.matchesDateFormat(""));
+        //spaces only
+        assertFalse(Deadline.matchesDateFormat(" "));
+        //incorrect day of the month
+        Assert.assertThrows(DateTimeException.class, () -> Deadline.checkDateInFuture("30/02/2019"));
+        //incorrect day
+        Assert.assertThrows(DateTimeException.class, () -> Deadline.checkDateInFuture("152/12/2019"));
+        //incorrect month
+        Assert.assertThrows(DateTimeException.class, () -> Deadline.checkDateInFuture("12/13/2018"));
+        //incorrect year
+        Assert.assertThrows(DateTimeException.class, () -> Deadline.checkDateInFuture("31/11/201"));
+        //deadline has already passed
+        Assert.assertThrows(DateTimeException.class, () -> Deadline.checkDateInFuture("24/09/2018"));
 
-        //valid deadlines
-        assertTrue(Deadline.isValidDeadline("25/12/2018"));
-        assertTrue(Deadline.isValidDeadline("28/04/2019"));
+        /* valid deadlines */
+        assertTrue(Deadline.matchesDateFormat("25/12/2018"));
+        assertTrue(Deadline.matchesDateFormat("28/04/2019"));
     }
 
     //TODO: improve this randomized testing
@@ -53,11 +61,15 @@ public class DeadlineTest {
         int dayOfMonth = rng.nextInt(31) + 1; //day range is from 1 - 31
         int month = rng.nextInt(12) + 1; //month range is from 1 - 12
         int year = rng.nextInt(21) + 2018; //testing for uptil 20 years from baseline year 2018
-        String date = String.format("%d/%d/%d", dayOfMonth, month, year);
-        if (!Deadline.isValidDeadline(date)) {
+        String date = String.format(dateFormat, dayOfMonth, month, year);
+        if (!Deadline.matchesDateFormat(date)) {
             return generateOneDate();
         }
-
+        try {
+            Deadline.checkDateInFuture(date);
+        } catch (DateTimeException ex) {
+            return generateOneDate();
+        }
         return date;
     }
 
@@ -75,7 +87,13 @@ public class DeadlineTest {
         int secondYear = rng.nextInt(11) + 2028; //year range is from 2028 - 2038
         String firstDate = String.format(dateFormat, firstDayOfMonth, firstMonth, firstYear);
         String secondDate = String.format(dateFormat, secondDayOfMonth, secondMonth, secondYear);
-        if (!Deadline.isValidDeadline(firstDate) || !Deadline.isValidDeadline(secondDate)) {
+        if (!Deadline.matchesDateFormat(firstDate) || !Deadline.matchesDateFormat(secondDate)) {
+            return generateTwoDates();
+        }
+        try {
+            Deadline.checkDateInFuture(firstDate);
+            Deadline.checkDateInFuture(secondDate);
+        } catch (DateTimeException ex) {
             return generateTwoDates();
         }
         return new String[]{firstDate, secondDate};
@@ -90,19 +108,18 @@ public class DeadlineTest {
     }
 
     @Test
-    public void compareTo_differentDeadlines_returnPositiveOne() {
+    public void compareTo_differentDeadlines_returnNegativeOne() {
         String[] dates = generateTwoDates();
         Deadline firstDeadline = new Deadline(dates[0]);
         Deadline secondDeadline = new Deadline(dates[1]);
-        assertEquals(secondDeadline.compareTo(firstDeadline), 1);
+        assertEquals(firstDeadline.compareTo(secondDeadline), -1);
     }
 
     @Test
-    public void compareTo_differentDeadlines_returnNegativeOne() {
-        String firstDate = "17/11/2018";
-        String secondDate = "15/12/2018";
-        Deadline firstDeadline = new Deadline(firstDate);
-        Deadline secondDeadline = new Deadline(secondDate);
-        assertEquals(firstDeadline.compareTo(secondDeadline), -1);
+    public void compareTo_differentDeadlines_returnPositiveOne() {
+        String[] dates = generateTwoDates();
+        Deadline firstDeadline = new Deadline(dates[1]);
+        Deadline secondDeadline = new Deadline(dates[0]);
+        assertEquals(firstDeadline.compareTo(secondDeadline), 1);
     }
 }
