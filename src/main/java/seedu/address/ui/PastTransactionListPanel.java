@@ -62,7 +62,7 @@ public class PastTransactionListPanel extends UiPart<Region> {
     @Subscribe
     private void handleJumpToListRequestEvent(JumpToListRequestEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
-        if (event.type.equals("past")) {
+        if ("past".equals(event.type)) {
             scrollToPast(event.targetIndex);
         }
     }

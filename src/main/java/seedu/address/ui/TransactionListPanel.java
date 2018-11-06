@@ -61,7 +61,7 @@ public class TransactionListPanel extends UiPart<Region> {
     @Subscribe
     private void handleJumpToListRequestEvent(JumpToListRequestEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
-        if (event.type.equals("")) {
+        if ("".equals(event.type)) {
             scrollTo(event.targetIndex);
         }
     }

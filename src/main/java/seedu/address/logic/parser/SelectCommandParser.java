@@ -22,7 +22,7 @@ public class SelectCommandParser implements Parser<SelectCommand> {
         try {
             StringTokenizer input = new StringTokenizer(args);
             String first = input.nextToken();
-            if (first.equals("past")) {
+            if ("past".equals(first)) {
                 Index index = ParserUtil.parseIndex(input.nextToken());
                 return new SelectCommand(first, index);
             } else {

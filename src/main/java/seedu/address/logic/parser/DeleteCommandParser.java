@@ -22,7 +22,7 @@ public class DeleteCommandParser implements Parser<DeleteCommand> {
         try {
             StringTokenizer input = new StringTokenizer(args);
             String first = input.nextToken();
-            if (first.equals("past")) {
+            if ("past".equals(first)) {
                 Index index = ParserUtil.parseIndex(input.nextToken());
                 return new DeleteCommand(first, index);
             } else {

@@ -49,7 +49,7 @@ public class SelectCommand extends Command {
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
         List<Transaction> filteredPersonList;
-        if (whichList.equals("past")) {
+        if ("past".equals(whichList)) {
             filteredPersonList = model.getFilteredPastTransactionList();
 
             if (targetIndex.getZeroBased() >= filteredPersonList.size()) {
@@ -67,7 +67,7 @@ public class SelectCommand extends Command {
             EventsCenter.getInstance().post(new JumpToListRequestEvent(targetIndex));
         }
 
-        model.commitFinancialDatabase();
+        //model.commitFinancialDatabase();
         return new CommandResult(String.format(MESSAGE_SELECT_TRANSACTION_SUCCESS, targetIndex.getOneBased()));
 
     }

@@ -23,7 +23,7 @@ public class WildcardSearchCommandParser implements Parser<WildcardSearchCommand
     public WildcardSearchCommand parse(String args) throws ParseException {
         StringTokenizer input = new StringTokenizer(args);
         String first = input.nextToken();
-        if (first.equals("past")) {
+        if ("past".equals(first)) {
             String toParse = input.nextToken().trim();
             if (toParse.isEmpty()) {
                 throw new ParseException(

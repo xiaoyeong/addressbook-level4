@@ -39,7 +39,7 @@ public class WildcardSearchCommand extends Command {
     public CommandResult execute(Model model, CommandHistory history) {
         requireNonNull(model);
 
-        if (whichList.equals("past")) {
+        if ("past".equals(whichList)) {
             model.updateFilteredPastTransactionList(predicate);
             model.commitFinancialDatabase();
             return new CommandResult(
