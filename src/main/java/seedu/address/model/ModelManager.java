@@ -56,9 +56,10 @@ public class ModelManager extends ComponentManager implements Model {
         return versionedFinancialDatabase;
     }
 
-    /** Raises an event to indicate the model has changed */
+    /** Raises an event to indicate the model has changed, and synchronizes the calendar with the model*/
     private void indicateFinancialDatabaseChanged() {
         raise(new FinancialDatabaseChangedEvent(versionedFinancialDatabase));
+        CalendarManager.getInstance().syncCalendarAsync(this);
     }
 
     @Override
@@ -70,9 +71,6 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public void deleteTransaction(Transaction target) {
         versionedFinancialDatabase.removeTransaction(target, versionedFinancialDatabase.getCurrentList());
-        if (CalendarManager.getInstance() != null) {
-            CalendarManager.getInstance().syncCalendarAsync(this);
-        }
         indicateFinancialDatabaseChanged();
     }
 
@@ -80,9 +78,6 @@ public class ModelManager extends ComponentManager implements Model {
     public void addTransaction(Transaction person) {
         versionedFinancialDatabase.addTransaction(person, versionedFinancialDatabase.getCurrentList());
         updateFilteredTransactionList(PREDICATE_SHOW_ALL_TRANSACTIONS);
-        if (CalendarManager.getInstance() != null) {
-            CalendarManager.getInstance().syncCalendarAsync(this);
-        }
         indicateFinancialDatabaseChanged();
     }
 
@@ -102,9 +97,6 @@ public class ModelManager extends ComponentManager implements Model {
         requireAllNonNull(target, editedTransaction);
 
         versionedFinancialDatabase.updateTransaction(target, editedTransaction);
-        if (CalendarManager.getInstance() != null) {
-            CalendarManager.getInstance().syncCalendarAsync(this);
-        }
         indicateFinancialDatabaseChanged();
     }
 
