@@ -41,8 +41,7 @@ public class VersionedFinancialDatabase extends FinancialDatabase {
             throw new NoUndoableStateException();
         }
         currentStatePointer--;
-        resetData(addressBookStateList.get(currentStatePointer).getTransactionList(), transactions);
-        resetData(addressBookStateList.get(currentStatePointer).getPastTransactionList(), pastTransactions);
+        resetData(addressBookStateList.get(currentStatePointer));
     }
 
     /**
@@ -53,8 +52,7 @@ public class VersionedFinancialDatabase extends FinancialDatabase {
             throw new NoRedoableStateException();
         }
         currentStatePointer++;
-        resetData(addressBookStateList.get(currentStatePointer).getTransactionList(), transactions);
-        resetData(addressBookStateList.get(currentStatePointer).getPastTransactionList(), pastTransactions);
+        resetData(addressBookStateList.get(currentStatePointer));
     }
 
     /**
