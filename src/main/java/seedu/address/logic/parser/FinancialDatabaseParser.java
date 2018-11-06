@@ -58,86 +58,66 @@ public class FinancialDatabaseParser {
         final String arguments = matcher.group("arguments");
         switch (commandWord) {
         case AddCommand.COMMAND_WORD:
-        case AddCommand.COMMAND_ALIAS:
             return new AddCommandParser().parse(arguments);
 
         case AnalyticsCommand.COMMAND_WORD:
-        case AnalyticsCommand.COMMAND_ALIAS:
             return new AnalyticsCommandParser().parse(arguments);
 
         case CalendarCommand.COMMAND_WORD:
-        case CalendarCommand.COMMAND_ALIAS:
             return new CalendarCommandParser().parse(arguments);
 
         case ClearCommand.COMMAND_WORD:
-        case ClearCommand.COMMAND_ALIAS:
             return new ClearCommand();
 
         case ConvertCommand.COMMAND_WORD:
-        case ConvertCommand.COMMAND_ALIAS:
             return new ConvertCommand();
 
         case DeleteCommand.COMMAND_WORD:
-        case DeleteCommand.COMMAND_ALIAS:
             return new DeleteCommandParser().parse(arguments);
 
         case EditCommand.COMMAND_WORD:
-        case EditCommand.COMMAND_ALIAS:
             return new EditCommandParser().parse(arguments);
 
         case ExitCommand.COMMAND_WORD:
-        case ExitCommand.COMMAND_ALIAS:
             return new ExitCommand();
 
         case FilterCommand.COMMAND_WORD:
-        case FilterCommand.COMMAND_ALIAS:
             return new FilterCommandParser().parse(arguments);
 
         case HelpCommand.COMMAND_WORD:
-        case HelpCommand.COMMAND_ALIAS:
             return new HelpCommand();
 
         case HistoryCommand.COMMAND_WORD:
-        case HistoryCommand.COMMAND_ALIAS:
             return new HistoryCommand();
 
         case InterestCommand.COMMAND_WORD:
-        case InterestCommand.COMMAND_ALIAS:
             return new InterestCommandParser().parse(arguments);
 
         case ListCommand.COMMAND_WORD:
-        case ListCommand.COMMAND_ALIAS:
             return new ListCommand();
 
         case NextTransactionCommand.COMMAND_WORD:
-        case NextTransactionCommand.COMMAND_ALIAS:
             return new NextTransactionCommand();
 
         case UndoCommand.COMMAND_WORD:
-        case UndoCommand.COMMAND_ALIAS:
             return new UndoCommand();
 
         case RedoCommand.COMMAND_WORD:
-        case RedoCommand.COMMAND_ALIAS:
             return new RedoCommand();
 
         case SortCommand.COMMAND_WORD:
             return new SortCommand(arguments);
 
         case SelectCommand.COMMAND_WORD:
-        case SelectCommand.COMMAND_ALIAS:
             return new SelectCommandParser().parse(arguments);
 
         case WildcardSearchCommand.COMMAND_WORD:
-        case WildcardSearchCommand.COMMAND_ALIAS:
             return new WildcardSearchCommandParser().parse(arguments);
 
         case UploadPhotoCommand.COMMAND_WORD:
-        case UploadPhotoCommand.COMMAND_ALIAS:
-            return new UpdatePhotoCommandParser().parse(arguments);
+            return new UploadPhotoCommandParser().parse(arguments);
 
         case PaidCommand.COMMAND_WORD:
-        case PaidCommand.COMMAND_ALIAS:
             return new PaidCommandParser().parse(arguments);
 
         case SwitchCommand.COMMAND_WORD:

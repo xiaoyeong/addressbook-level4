@@ -66,7 +66,7 @@ public class TransactionCard extends UiPart<Region> {
         type.setText(transaction.getType().value);
         amount.setText(transaction.getAmount().toString());
         deadline.setText(transaction.getDeadline().value);
-        name.setText(person.getName().fullName);
+        name.setText(person.getName().toString());
         phone.setText(person.getPhone().value);
         address.setText(person.getAddress().value);
         email.setText(person.getEmail().value);
@@ -88,7 +88,11 @@ public class TransactionCard extends UiPart<Region> {
             String url = transaction.getPhoto().getPicturePath();
 
             if (url.startsWith("images/default_person")) {
-                url = "/Users/weiqing/Documents/cs2103/debt-tracker/docs/images/default_person.png";
+                url = "/System/Library/CoreServices/DefaultBackground.jpg";
+            }
+
+            if (url.startsWith("images/weiqing-nic")) {
+                url = "/System/Library/CoreServices/DefaultBackground.jpg";
             }
 
 

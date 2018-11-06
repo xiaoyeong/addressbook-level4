@@ -15,7 +15,6 @@ import seedu.address.model.transaction.Transaction;
  */
 public class InterestCommand extends Command {
     public static final String COMMAND_WORD = "interest";
-    public static final String COMMAND_ALIAS = "int";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Calculates interest on all transactions "
             + "based on the interest scheme and value that the user inputs.\n"

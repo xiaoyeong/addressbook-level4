@@ -37,16 +37,16 @@ public class RedoCommandTest {
     public void execute() {
         // multiple redoable states in model
         expectedModel.redoFinancialDatabase();
-        assertCommandSuccessWithNoModelChange(new RedoCommand(), model, commandHistory,
-                RedoCommand.MESSAGE_SUCCESS, expectedModel);
+        assertCommandSuccessWithNoModelChange(new RedoCommand(), model, expectedModel, commandHistory,
+                RedoCommand.MESSAGE_SUCCESS);
 
         // single redoable state in model
         expectedModel.redoFinancialDatabase();
-        assertCommandSuccessWithNoModelChange(new RedoCommand(), model, commandHistory,
-                RedoCommand.MESSAGE_SUCCESS, expectedModel);
+        assertCommandSuccessWithNoModelChange(new RedoCommand(), model, expectedModel, commandHistory,
+                RedoCommand.MESSAGE_SUCCESS);
 
         // no redoable state in model
-        assertCommandFailureWithNoModelChange(new RedoCommand(), model, commandHistory,
+        assertCommandFailureWithNoModelChange(new RedoCommand(), model, expectedModel, commandHistory,
                 RedoCommand.MESSAGE_FAILURE);
     }
 }

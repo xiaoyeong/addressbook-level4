@@ -49,6 +49,7 @@ public class PastTransactionListPanel extends UiPart<Region> {
 
     /**
      * Scrolls to the {@code PersonCard} at the {@code index} and selects it.
+<<<<<<< HEAD
      */
     private void scrollToPast(int index) {
         Platform.runLater(() -> {

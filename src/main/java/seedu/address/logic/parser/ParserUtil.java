@@ -2,6 +2,7 @@ package seedu.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
 
+import java.time.DateTimeException;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
@@ -135,12 +136,13 @@ public class ParserUtil {
      * @throws ParseException if the given {@code email} is invalid.
      */
     public static Deadline parseDeadline(String deadline) throws ParseException {
-        requireNonNull(deadline);
-        String trimmedDeadline = deadline.trim();
-        if (deadline.isEmpty() || !Deadline.isValidFutureDeadline(trimmedDeadline)) {
-            throw new ParseException(Deadline.MESSAGE_TRANSACTION_DEADLINE_CONSTRAINTS);
+        Deadline formattedDeadline = parseDeadlineIgnoreFuture(deadline);
+        try {
+            Deadline.checkDateInFuture(formattedDeadline.getValue());
+            return formattedDeadline;
+        } catch (DateTimeException ex) {
+            throw new ParseException(ex.getMessage());
         }
-        return new Deadline(trimmedDeadline);
     }
 
     /**
@@ -152,8 +154,8 @@ public class ParserUtil {
     public static Deadline parseDeadlineIgnoreFuture(String deadline) throws ParseException {
         requireNonNull(deadline);
         String trimmedDeadline = deadline.trim();
-        if (deadline.isEmpty() || !Deadline.isValidDeadline(trimmedDeadline)) {
-            throw new ParseException(Deadline.MESSAGE_TRANSACTION_DEADLINE_CONSTRAINTS);
+        if (deadline.isEmpty() || !Deadline.matchesDateFormat(trimmedDeadline)) {
+            throw new ParseException(Deadline.MESSAGE_TRANSACTION_DEADLINE_INCORRECT_FORMAT);
         }
         return new Deadline(trimmedDeadline);
     }

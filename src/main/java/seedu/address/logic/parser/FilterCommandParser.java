@@ -60,7 +60,7 @@ public class FilterCommandParser implements Parser<FilterCommand> {
         if (!anyPrefixesPresent(argMultimap, PREFIX_NAME, PREFIX_ADDRESS, PREFIX_PHONE, PREFIX_EMAIL,
                 PREFIX_TRANSACTION_AMOUNT, PREFIX_TRANSACTION_DEADLINE, PREFIX_TRANSACTION_TYPE,
                 PREFIX_TRANSACTION_AMOUNT_MAX, PREFIX_TRANSACTION_AMOUNT_MIN, PREFIX_TRANSACTION_DEADLINE_EARLIEST,
-                PREFIX_TRANSACTION_DEADLINE_LATEST)
+                PREFIX_TRANSACTION_DEADLINE_LATEST, PREFIX_TAG)
                 || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, FilterCommand.MESSAGE_USAGE));
         }
@@ -68,16 +68,12 @@ public class FilterCommandParser implements Parser<FilterCommand> {
         if (anyPrefixesWithMultipleInstances(argMultimap, PREFIX_NAME, PREFIX_ADDRESS, PREFIX_PHONE, PREFIX_EMAIL,
                 PREFIX_TRANSACTION_AMOUNT, PREFIX_TRANSACTION_DEADLINE, PREFIX_TRANSACTION_TYPE, PREFIX_OR, PREFIX_AND,
                 PREFIX_TRANSACTION_AMOUNT_MAX, PREFIX_TRANSACTION_AMOUNT_MIN,
-                PREFIX_TRANSACTION_DEADLINE_EARLIEST, PREFIX_TRANSACTION_DEADLINE_LATEST)) {
+                PREFIX_TRANSACTION_DEADLINE_EARLIEST, PREFIX_TRANSACTION_DEADLINE_LATEST, PREFIX_TAG)) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, FilterCommand.MESSAGE_USAGE));
         }
 
         List<Predicate<Transaction>> predicates = new ArrayList<>();
-        /*
-        if (argMultimap.getValue(PREFIX_NAME).isPresent()) {
-            String[] nameKeywords = argMultimap.getValue(PREFIX_NAME).get().split("\\s+");
-            predicates.add(new FieldContainsKeywordsPredicate(FieldType.Name, Arrays.asList(nameKeywords)));
-        }*/
+
         addPredicates(argMultimap, predicates);
 
         return new FilterCommand(predicates, getOperatorType(argMultimap));
@@ -109,6 +105,7 @@ public class FilterCommandParser implements Parser<FilterCommand> {
         typeMap.put(PREFIX_TRANSACTION_AMOUNT, FieldType.Amount);
         typeMap.put(PREFIX_TRANSACTION_DEADLINE, FieldType.Deadline);
         typeMap.put(PREFIX_TRANSACTION_TYPE, FieldType.Type);
+        typeMap.put(PREFIX_TAG, FieldType.Tag);
         return typeMap;
     }
 

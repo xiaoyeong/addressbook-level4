@@ -22,7 +22,6 @@ import seedu.address.model.transaction.Transaction;
 public class SelectCommand extends Command {
 
     public static final String COMMAND_WORD = "select";
-    public static final String COMMAND_ALIAS = "s";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Selects the transaction identified by the index number used in either the current or past "

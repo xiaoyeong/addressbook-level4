@@ -18,7 +18,6 @@ import seedu.address.model.transaction.Transaction;
 public class NextTransactionCommand extends Command {
 
     public static final String COMMAND_WORD = "nexttransaction";
-    public static final String COMMAND_ALIAS = "nt";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Find and lists all transactions in the"
             + " database which deadline is closest to current date.\n"
