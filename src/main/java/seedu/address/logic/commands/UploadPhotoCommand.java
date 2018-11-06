@@ -64,6 +64,7 @@ public class UploadPhotoCommand extends Command {
 
         model.updateTransaction(currentTransaction, editTransaction);
         model.updateFilteredTransactionList(PREDICATE_SHOW_ALL_TRANSACTIONS);
+        model.commitFinancialDatabase();
 
 
         return new CommandResult(String.format(MESSAGE_SUCCESS, oneBasedTransactionIndex));

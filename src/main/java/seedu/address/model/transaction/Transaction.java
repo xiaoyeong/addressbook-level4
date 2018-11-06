@@ -47,6 +47,10 @@ public class Transaction {
         this.photo = new Photo();
     }
 
+    public Transaction(Transaction obj) {
+        this(obj.getType(), obj.getAmount(), obj.getDeadline(), obj.getPerson(), obj.getPhoto());
+    }
+
     public static Transaction copy(Transaction other) {
         return new Transaction(other.type, other.amount, other.deadline, other.person, other.photo);
     }

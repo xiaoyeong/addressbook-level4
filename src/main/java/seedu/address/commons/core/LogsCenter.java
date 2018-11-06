@@ -29,7 +29,7 @@ public class LogsCenter {
     /**
      * Initializes with a custom log level (specified in the {@code config} object)
      * Loggers obtained *AFTER* this initialization will have their logging level changed<br>
-     * Logging levels for existing loggers will only be updated if the logger with the same name
+     * Logging levels for existing loggers will only be updated if the LOGGER with the same name
      * is requested again from the LogsCenter.
      */
     public static void init(Config config) {
@@ -38,7 +38,7 @@ public class LogsCenter {
     }
 
     /**
-     * Creates a logger with the given name.
+     * Creates a LOGGER with the given name.
      */
     public static Logger getLogger(String name) {
         Logger logger = Logger.getLogger(name);
@@ -62,7 +62,7 @@ public class LogsCenter {
     }
 
     /**
-     * Adds the {@code consoleHandler} to the {@code logger}. <br>
+     * Adds the {@code consoleHandler} to the {@code LOGGER}. <br>
      * Creates the {@code consoleHandler} if it is null.
      */
     private static void addConsoleHandler(Logger logger) {
@@ -73,7 +73,7 @@ public class LogsCenter {
     }
 
     /**
-     * Remove all the handlers from {@code logger}.
+     * Remove all the handlers from {@code LOGGER}.
      */
     private static void removeHandlers(Logger logger) {
         Arrays.stream(logger.getHandlers())
@@ -81,7 +81,7 @@ public class LogsCenter {
     }
 
     /**
-     * Adds the {@code fileHandler} to the {@code logger}. <br>
+     * Adds the {@code fileHandler} to the {@code LOGGER}. <br>
      * Creates {@code fileHandler} if it is null.
      */
     private static void addFileHandler(Logger logger) {
@@ -91,7 +91,7 @@ public class LogsCenter {
             }
             logger.addHandler(fileHandler);
         } catch (IOException e) {
-            logger.warning("Error adding file handler for logger.");
+            logger.warning("Error adding file handler for LOGGER.");
         }
     }
 
