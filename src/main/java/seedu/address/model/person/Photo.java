@@ -68,11 +68,12 @@ public class Photo {
         makePhotoFolder();
         LOGGER.info("makephoto");
         LOGGER.info(filePath);
-        if (filePath.equals("delete")) {
+        if (filePath.equals("delete") || filePath == null) {
             filePath = "images/default_person.png";
         } else {
             filePath = "/" + filePath;
         }
+
         File getImage = new File(filePath);
         String fileName = GETFOLDER + "/" + newPhoto + ".png";
         File pictureFinal = new File(fileName);
