@@ -2,8 +2,6 @@ package seedu.address.ui;
 
 import java.util.logging.Logger;
 
-import javafx.application.Platform;
-
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.ListCell;
@@ -47,13 +45,14 @@ public class PastTransactionListPanel extends UiPart<Region> {
 
     /**
      * Scrolls to the {@code PersonCard} at the {@code index} and selects it.
-     */
+
     private void scrollTo(int index) {
         Platform.runLater(() -> {
             pastTransactionListView.scrollTo(index);
             pastTransactionListView.getSelectionModel().clearAndSelect(index);
         });
     }
+     */
 
     /**
      * Custom {@code ListCell} that displays the graphics of a {@code Person} using a {@code PersonCard}.
