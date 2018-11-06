@@ -171,7 +171,7 @@ public class CommandTestUtil {
         assertTrue(targetIndex.getZeroBased() < model.getFilteredTransactionList().size());
 
         Transaction transaction = model.getFilteredTransactionList().get(targetIndex.getZeroBased());
-        final String[] splitName = transaction.getPerson().getName().fullName.split("\\s+");
+        final String[] splitName = transaction.getPerson().getName().toString().split("\\s+");
         model.updateFilteredTransactionList(new NameContainsKeywordsPredicate(Arrays.asList(splitName[0])));
 
         assertEquals(1, model.getFilteredTransactionList().size());

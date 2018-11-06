@@ -6,7 +6,7 @@ import java.util.Arrays;
 
 import seedu.address.logic.commands.WildcardSearchCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.transaction.NameContainsLettersPredicate;
+import seedu.address.model.person.NameContainsLettersPredicate;
 
 /**
  * Parses input arguments and creates a new WildCardSearchCommand object

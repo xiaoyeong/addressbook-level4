@@ -5,7 +5,7 @@ import static java.util.Objects.requireNonNull;
 import seedu.address.commons.core.Messages;
 import seedu.address.logic.CommandHistory;
 import seedu.address.model.Model;
-import seedu.address.model.transaction.NameContainsLettersPredicate;
+import seedu.address.model.person.NameContainsLettersPredicate;
 
 /**
  * Finds and lists any contacts whose names contain the substring the user has input.
@@ -14,7 +14,6 @@ import seedu.address.model.transaction.NameContainsLettersPredicate;
 public class WildcardSearchCommand extends Command {
 
     public static final String COMMAND_WORD = "search";
-    public static final String COMMAND_ALIAS = "wcs";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Performs a wildcard search on the address book's "
             + "contacts based on user's input. "
@@ -35,5 +34,15 @@ public class WildcardSearchCommand extends Command {
         return new CommandResult(
                 String.format(Messages.MESSAGE_TRANSACTIONS_LISTED_OVERVIEW,
                         model.getFilteredTransactionList().size()));
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        if (!(other instanceof WildcardSearchCommand)) {
+            return false;
+        }
+        WildcardSearchCommand command = (WildcardSearchCommand) other;
+        return command == this
+                || predicate.equals(command.predicate);
     }
 }

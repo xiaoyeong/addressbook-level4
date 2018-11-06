@@ -14,15 +14,18 @@ import seedu.address.model.Model;
 public class CalendarCommand extends Command {
 
     public static final String COMMAND_WORD = "calendar";
-    public static final String COMMAND_ALIAS = "cal";
+    public static final String SHOW_ACTION = "show";
+    public static final String LOGIN_ACTION = "login";
+    public static final String LOGOUT_ACTION = "logout";
+    public static final String SYNC_ACTION = "sync";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Displays a calendar showing the user's transactions "
             + "and their deadlines \n"
             + "Examples: \n"
-            + COMMAND_WORD + " show\n"
-            + COMMAND_WORD + " login\n"
-            + COMMAND_WORD + " logout\n"
-            + COMMAND_WORD + " sync\n";
+            + COMMAND_WORD + " " + SHOW_ACTION + "\n"
+            + COMMAND_WORD + " " + LOGIN_ACTION + " \n"
+            + COMMAND_WORD + " " + LOGOUT_ACTION + "\n"
+            + COMMAND_WORD + " " + SYNC_ACTION + "\n";
 
     public static final String MESSAGE_SYNC_SUCCESS = "Calendar Synced. %1$s";
     public static final String MESSAGE_SYNC_FAILURE = "Failed to sync calendar. Please check your internet connection.";
@@ -40,13 +43,13 @@ public class CalendarCommand extends Command {
         requireNonNull(model);
         CalendarManager calendarManager = CalendarManager.getInstance();
         switch (action) {
-        case "login":
+        case LOGIN_ACTION:
             if (calendarManager.calendarLogin(model)) {
                 return new CommandResult("");
             } else {
                 return new CommandResult("Already logged in.");
             }
-        case "logout":
+        case LOGOUT_ACTION:
             if (!calendarManager.isAuthenticated()) {
                 return new CommandResult("Not logged in.");
             } else {
@@ -56,7 +59,7 @@ public class CalendarCommand extends Command {
                     return new CommandResult("Failed to logout");
                 }
             }
-        case "show" :
+        case SHOW_ACTION:
             if (calendarManager.isAuthenticated()) {
                 if (!calendarManager.initializeCalendar()) {
                     return new CommandResult(MESSAGE_ACCESS_FAILURE);
@@ -69,7 +72,7 @@ public class CalendarCommand extends Command {
                 return new CommandResult("Not logged in. "
                         + "Please login now or enter the following command to login:\ncalendar login");
             }
-        case "sync" :
+        case SYNC_ACTION:
             if (calendarManager.isAuthenticated()) {
                 if (!calendarManager.initializeCalendar()) {
                     return new CommandResult(MESSAGE_ACCESS_FAILURE);

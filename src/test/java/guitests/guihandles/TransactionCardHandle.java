@@ -102,7 +102,7 @@ public class TransactionCardHandle extends NodeHandle<Node> {
         return getType().equals(transaction.getType().value)
                 && getAmount().equals(transaction.getAmount().toString())
                 && getDeadline().equals(transaction.getDeadline().value)
-                && getName().equals(person.getName().fullName)
+                && getName().equals(person.getName().toString())
                 && getAddress().equals(person.getAddress().value)
                 && getPhone().equals(person.getPhone().value)
                 && getEmail().equals(person.getEmail().value)

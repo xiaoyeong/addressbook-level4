@@ -73,11 +73,7 @@ public class FilterCommandParser implements Parser<FilterCommand> {
         }
 
         List<Predicate<Transaction>> predicates = new ArrayList<>();
-        /*
-        if (argMultimap.getValue(PREFIX_NAME).isPresent()) {
-            String[] nameKeywords = argMultimap.getValue(PREFIX_NAME).get().split("\\s+");
-            predicates.add(new FieldContainsKeywordsPredicate(FieldType.Name, Arrays.asList(nameKeywords)));
-        }*/
+
         addPredicates(argMultimap, predicates);
 
         return new FilterCommand(predicates, getOperatorType(argMultimap));

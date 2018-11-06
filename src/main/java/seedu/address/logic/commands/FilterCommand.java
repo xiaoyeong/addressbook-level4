@@ -29,7 +29,6 @@ import seedu.address.model.transaction.Transaction;
 public class FilterCommand extends Command {
 
     public static final String COMMAND_WORD = "filter";
-    public static final String COMMAND_ALIAS = "fi";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Filters all transactions whose specified field(s) "
             + "contain any of the specified keywords (case-insensitive) and displays them as a list.\n"

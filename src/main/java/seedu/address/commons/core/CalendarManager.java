@@ -399,7 +399,7 @@ public class CalendarManager extends ComponentManager {
         BatchRequest b = service.batch();
         for (CalendarTransaction add : toAdd) {
             Event e = new Event();
-            e.setSummary(add.transaction.getPerson().getName().fullName);
+            e.setSummary(add.transaction.getPerson().getName().toString());
             String description = add.transaction.getPerson().getPhone().value + "\n"
                     + add.transaction.getPerson().getAddress().value + "\n"
                     + add.transaction.getPerson().getEmail().value + "\n"
