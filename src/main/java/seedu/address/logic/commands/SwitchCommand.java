@@ -4,7 +4,6 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_TRANSACTIONS;
 
 import seedu.address.commons.core.EventsCenter;
-import seedu.address.commons.events.ui.JumpToListRequestEvent;
 import seedu.address.commons.events.ui.SwitchTabsEvent;
 import seedu.address.logic.CommandHistory;
 import seedu.address.model.Model;
@@ -40,11 +39,9 @@ public class SwitchCommand extends Command {
         switch(whichTab) {
             case "past":
                 EventsCenter.getInstance().post(new SwitchTabsEvent(1));
-                model.commitFinancialDatabase();
                 return new CommandResult(MESSAGE_PAID_SUCCESS);
             case "curr":
                 EventsCenter.getInstance().post(new SwitchTabsEvent(0));
-                model.commitFinancialDatabase();
                 return new CommandResult(MESSAGE_CURRENT_SUCCESS);
             default:
                 return new CommandResult("");

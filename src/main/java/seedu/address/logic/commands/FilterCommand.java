@@ -68,6 +68,7 @@ public class FilterCommand extends Command {
         MultiFieldPredicate predicate = new MultiFieldPredicate(predicates, operatorType);
         model.updateFilteredTransactionList(predicate);
         model.updateFilteredPastTransactionList(predicate);
+        model.commitFinancialDatabase();
         return new CommandResult(
                 String.format(Messages.MESSAGE_ALL_TRANSACTIONS_LISTED_OVERVIEW,
                         model.getFilteredTransactionList().size(), model.getFilteredPastTransactionList().size()));

@@ -67,6 +67,7 @@ public class SelectCommand extends Command {
             EventsCenter.getInstance().post(new JumpToListRequestEvent(targetIndex));
         }
 
+        model.commitFinancialDatabase();
         return new CommandResult(String.format(MESSAGE_SELECT_TRANSACTION_SUCCESS, targetIndex.getOneBased()));
 
     }
