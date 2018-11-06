@@ -23,16 +23,16 @@ public class InterestCommandParserTest {
     public void parse_validArgs_returnsInterestCommand() {
         // no leading and trailing whitespaces
         InterestCommand expectedInterestCommand =
-                new InterestCommand("compound", "3.4%");
-        assertParseSuccess(parser, "compound 3.4%", expectedInterestCommand);
+                new InterestCommand("compound", "3.40%");
+        assertParseSuccess(parser, "compound 3.40%", expectedInterestCommand);
 
         // multiple whitespaces between keywords
-        assertParseSuccess(parser, " \n compound \n \t 3.4%  \t", expectedInterestCommand);
+        assertParseSuccess(parser, " \n compound \n \t 3.40%  \t", expectedInterestCommand);
     }
 
     @Test
     public void parse_invalidScheme_throwsParseException() {
-        assertParseFailure(parser, "sample 4.6%", InterestScheme.MESSAGE_INTEREST_SCHEME_CONSTRAINTS);
+        assertParseFailure(parser, "sample 4.0%", InterestScheme.MESSAGE_INTEREST_SCHEME_CONSTRAINTS);
     }
 
     @Test

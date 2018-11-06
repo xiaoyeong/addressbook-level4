@@ -1,0 +1,91 @@
+= Aadit Kamat - Project Portfolio
+
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+== PROJECT: DebtTracker
+
+== Overview
+
+Debt Tracker is a CLI-based desktop application that helps users manage their finances. It keeps track of the financial
+transactions the user undertakes. The primary target audience of this application is Small and Medium Entreprises (SMEs) in Singapore since
+they typically face budget constraints and have to maintain a good credit score. However, this application can also be used by individuals
+who may want to maintain a database of their personal transactions.
+
+== Summary of contributions
+
+* *Major enhancement*: added *a currency conversion utility* within the application
+** What it does: allows the user to convert amounts in different currencies to their respective amounts in the base currency, Singapore Dollars
+** Justification: This feature provides users the flexibility to transact with people from different countries and saves them the hassle of using a 3rd party software to convert the amounts for each transaction.
+** Highlights: The implementation makes use of a free external foreign exchange API, provided by https://free.currencyconverterapi.com[Free Currency Converter API] that updates every hour according to the latest currency trends.
+               Since the API is JSON-based, the more time consuming portion of adding the command was using the right library to parse the information
+               in an appropriate format.
+** Code contributed: [https://github.com/CS2103-AY1819S1-W12-2/main/pull/51/files[Functional Code Block #1]] [https://github.com/CS2103-AY1819S1-W12-2/main/pull/36/files[Functional Code Block #2]] [https://github.com/CS2103-AY1819S1-W12-2/main/blob/master/src/test/java/seedu/address/logic/commands/ConvertCommandTest.java[Test code]]
+
+* *Minor enhancement*: added *an interest calculation feature*
+** What it does: allows the user to obtain the final amount that needs to be payed after calculating the interest on the principal sum of each
+                 transaction on a monthly basis, using either the simple or the compound interest scheme.
+** Justification: Providing an in-built feature to calculate interests is essential since loans are usually charged the market interest rate and the user
+                  needs to be aware of the final sum of the money owed or lent before the deadline.
+** Code contributed: [https://github.com/CS2103-AY1819S1-W12-2/main/pull/72/files[Functional Code]] [https://github.com/CS2103-AY1819S1-W12-2/main/blob/master/src/test/java/seedu/address/logic/commands/SortCommandTest.java[Test code]]
+
+
+* *Other contributions*:
+
+** Project management:
+*** Managed releases `v1.1` - `v1.3` (3 releases) on GitHub
+*** Managed merging of PRs into the master branch as an administrator
+
+** Testing:
+*** Modified tests to handle change from Person model to Transaction model within the application +
+[https://github.com/CS2103-AY1819S1-W12-2/main/pull/46[Pull Request #46]] +
+
+** Documentation:
+*** Added the User Stories within the Developer Guide +
+[https://github.com/CS2103-AY1819S1-W12-2/main/pull/3[Pull Request #3]] +
+*** Updated the relevant sections of the User Guide to reflect the current state of the application +
+[https://github.com/CS2103-AY1819S1-W12-2/main/pull/3[Pull Request #3]] +
+
+** Community:
+*** PRs reviewed:
+**** [https://github.com/CS2103-AY1819S1-W12-2/main/pull/34/[Pull Request #34]] +
+**** [https://github.com/CS2103-AY1819S1-W12-2/main/pull/61/[Pull Request #61]] +
+**** [https://github.com/CS2103-AY1819S1-W12-2/main/pull/68/[Pull Request #68]] +
+**** [https://github.com/CS2103-AY1819S1-W12-2/main/pull/88/[Pull Request #88]] +
+
+*** Issues created:
+**** [https://github.com/CS2103-AY1819S1-W12-2/main/issues/94[Issue #94]] +
+**** [https://github.com/CS2103-AY1819S1-W12-2/main/issues/93[Issue #93]] +
+**** [https://github.com/CS2103-AY1819S1-W12-2/main/issues/90[Issue #90]] +
+**** [https://github.com/CS2103-AY1819S1-W12-2/main/issues/74[Issue #74]] +
+
+** Tools:
+*** Integrated Travis and AppVeyor into the project
+*** Added Coveralls to check the test coverage for the application
+
+== Contributions to the User Guide
+
+
+|===
+|Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users.
+|===
+[https://github.com/CS2103-AY1819S1-W12-2/main/commit/726e9b1bf4b8f2138b63e63ca6788ff805dc824e?short_path=d80058c#diff-d80058c033b9f127ec727c18cc84ce4d[Pull Request#43]] +
+
+[https://github.com/CS2103-AY1819S1-W12-2/main/commit/06243a33fee9c981b1367dfdeb1df0c95bdb0672?short_path=d80058c#diff-d80058c033b9f127ec727c18cc84ce4d[Pull Request #75]] +
+
+[https://github.com/CS2103-AY1819S1-W12-2/main/commit/63fdda59f6104aec9cac6ff4b762add500a2fd35?short_path=d80058c#diff-d80058c033b9f127ec727c18cc84ce4d[Pull Request #95]] +
+
+
+
+== Contributions to the Developer Guide
+
+|===
+|Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project.
+|===
+
+[https://github.com/CS2103-AY1819S1-W12-2/main/commit/5d42ebc0d2396551b96b92f769114ac8482faca3#diff-d23c8091515dc18149f4f2e759e1e288[Pull Request #3]] +
+
+[https://github.com/CS2103-AY1819S1-W12-2/main/commit/96470f5e35192a5450fac8d7a805c05736d1a7d4?short_path=d23c809#diff-d23c8091515dc18149f4f2e759e1e288[Pull Request #9]] +
+
+[https://github.com/CS2103-AY1819S1-W12-2/main/commit/726e9b1bf4b8f2138b63e63ca6788ff805dc824e#diff-d23c8091515dc18149f4f2e759e1e288[Pull Request #43]] +

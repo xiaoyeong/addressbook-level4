@@ -114,8 +114,6 @@ public class FilterCommandParser implements Parser<FilterCommand> {
 
     /**
      *
-     * @param argumentMultimap
-     * @param predicateList
      */
     private void addPredicates(ArgumentMultimap argumentMultimap, List<Predicate<Transaction>> predicateList)
             throws ParseException {
@@ -146,14 +144,12 @@ public class FilterCommandParser implements Parser<FilterCommand> {
 
         if (argumentMultimap.getValue(PREFIX_TRANSACTION_AMOUNT_MAX).isPresent()) {
             Amount amount = ParserUtil.parseAmount(argumentMultimap.getValue(PREFIX_TRANSACTION_AMOUNT_MAX).get());
-            Amount amountSgd = Amount.convertCurrency(amount);
-            predicateList.add(new AmountBoundsPredicate(amountSgd, AmountBoundsPredicate.BoundType.MAX));
+            predicateList.add(new AmountBoundsPredicate(amount, AmountBoundsPredicate.BoundType.MAX));
         }
 
         if (argumentMultimap.getValue(PREFIX_TRANSACTION_AMOUNT_MIN).isPresent()) {
             Amount amount = ParserUtil.parseAmount(argumentMultimap.getValue(PREFIX_TRANSACTION_AMOUNT_MIN).get());
-            Amount amountSgd = Amount.convertCurrency(amount);
-            predicateList.add(new AmountBoundsPredicate(amountSgd, AmountBoundsPredicate.BoundType.MIN));
+            predicateList.add(new AmountBoundsPredicate(amount, AmountBoundsPredicate.BoundType.MIN));
         }
 
     }

@@ -21,10 +21,10 @@ public class AmountTest {
 
     @Test
     public void isCorrectAmount() {
-        // null deadline
+        // null amount
         Assert.assertThrows(NullPointerException.class, () -> Amount.isValidAmount(null));
 
-        //invalid deadlines
+        //invalid amounts
         assertFalse(Amount.isValidAmount("")); //empty string
         assertFalse(Amount.isValidAmount(" ")); //spaces only
         assertFalse(Amount.isValidAmount("$ 35.20")); //Currency symbol not allowed
@@ -33,7 +33,7 @@ public class AmountTest {
         assertFalse(Amount.isValidAmount("EURA 156.75")); //has 4 letter currency code
         assertFalse(Amount.isValidAmount("MYR 165.580")); //the amount is not rounded to two decimal digits
 
-        //valid deadlines
+        //valid amounts
         assertTrue(Amount.isValidAmount("SGD 227.50"));
         assertTrue(Amount.isValidAmount("USD 25987465246.50")); //large payment sum
     }

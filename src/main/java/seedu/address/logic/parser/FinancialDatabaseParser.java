@@ -41,7 +41,6 @@ public class FinancialDatabaseParser {
      * Used for initial separation of command word and args.
      */
     private static final Pattern BASIC_COMMAND_FORMAT = Pattern.compile("(?<commandWord>\\S+)(?<arguments>.*)");
-
     /**
      * Parses user input into command for execution.
      *
@@ -103,7 +102,6 @@ public class FinancialDatabaseParser {
             return new HistoryCommand();
 
         case InterestCommand.COMMAND_WORD:
-        case InterestCommand.COMMAND_ALIAS:
             return new InterestCommandParser().parse(arguments);
 
         case ListCommand.COMMAND_WORD:
@@ -128,10 +126,6 @@ public class FinancialDatabaseParser {
         case SelectCommand.COMMAND_WORD:
         case SelectCommand.COMMAND_ALIAS:
             return new SelectCommandParser().parse(arguments);
-
-        //case ToDoListAddCommand.COMMAND_WORD:
-        //case ToDoListAddCommand.COMMAND_ALIAS:
-        //    return new ToDoListAddCommandParser().parse(arguments);
 
         case WildcardSearchCommand.COMMAND_WORD:
         case WildcardSearchCommand.COMMAND_ALIAS:
