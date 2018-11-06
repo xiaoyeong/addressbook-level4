@@ -289,7 +289,10 @@ public class VersionedFinancialDatabaseTest {
 
         VersionedFinancialDatabase versionedFinancialDatabase = new VersionedFinancialDatabase(addressBookStates[0]);
         for (int i = 1; i < addressBookStates.length; i++) {
-            versionedFinancialDatabase.resetData(addressBookStates[i]);
+            versionedFinancialDatabase.resetData(addressBookStates[i].getTransactionList(),
+                                                 versionedFinancialDatabase.getCurrentList());
+            versionedFinancialDatabase.resetData(addressBookStates[i].getPastTransactionList(),
+                                                 versionedFinancialDatabase.getPastList());
             versionedFinancialDatabase.commit();
         }
 

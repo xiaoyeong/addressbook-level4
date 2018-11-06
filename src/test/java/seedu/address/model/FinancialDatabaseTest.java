@@ -37,13 +37,15 @@ public class FinancialDatabaseTest {
     @Test
     public void resetData_null_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
-        financialDatabase.resetData(null);
+        financialDatabase.resetData(null, financialDatabase.getCurrentList());
+        financialDatabase.resetData(null, financialDatabase.getPastList());
     }
 
     @Test
     public void resetData_withValidReadOnlyFinancialDatabase_replacesData() {
         FinancialDatabase newData = getTypicalFinancialDatabase();
-        financialDatabase.resetData(newData);
+        financialDatabase.resetData(newData.getTransactionList(), financialDatabase.getCurrentList());
+        financialDatabase.resetData(newData.getPastTransactionList(), financialDatabase.getPastList());
         assertEquals(newData, financialDatabase);
     }
 
@@ -56,32 +58,33 @@ public class FinancialDatabaseTest {
         FinancialDatabaseStub newData = new FinancialDatabaseStub(newTransactions);
 
         thrown.expect(DuplicateTransactionException.class);
-        financialDatabase.resetData(newData);
+        financialDatabase.resetData(newData.getTransactionList(), financialDatabase.getCurrentList());
+        financialDatabase.resetData(newData.getPastTransactionList(), financialDatabase.getPastList());
     }
 
     @Test
     public void hasTransaction_nullPerson_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
-        financialDatabase.hasTransaction(null);
+        financialDatabase.hasTransaction(null, financialDatabase.getCurrentList());
     }
 
     @Test
     public void hasTransaction_transactionNotInFinancialDatabase_returnsFalse() {
-        assertFalse(financialDatabase.hasTransaction(ALICE_TRANSACTION));
+        assertFalse(financialDatabase.hasTransaction(ALICE_TRANSACTION, financialDatabase.getCurrentList()));
     }
 
     @Test
     public void hasTransaction_transactionInFinancialDatabase_returnsTrue() {
-        financialDatabase.addTransaction(ALICE_TRANSACTION);
-        assertTrue(financialDatabase.hasTransaction(ALICE_TRANSACTION));
+        financialDatabase.addTransaction(ALICE_TRANSACTION, financialDatabase.getCurrentList());
+        assertTrue(financialDatabase.hasTransaction(ALICE_TRANSACTION, financialDatabase.getCurrentList()));
     }
 
     @Test
     public void hasTransaction_identicalTransactionInFinancialDatabase_returnsTrue() {
-        financialDatabase.addTransaction(ALICE_TRANSACTION);
+        financialDatabase.addTransaction(ALICE_TRANSACTION, financialDatabase.getCurrentList());
         Transaction editedAlice = new TransactionBuilder(ALICE_TRANSACTION)
                 .build();
-        assertTrue(financialDatabase.hasTransaction(editedAlice));
+        assertTrue(financialDatabase.hasTransaction(editedAlice, financialDatabase.getCurrentList()));
     }
 
     @Test
@@ -95,6 +98,7 @@ public class FinancialDatabaseTest {
      */
     private static class FinancialDatabaseStub implements ReadOnlyFinancialDatabase {
         private final ObservableList<Transaction> persons = FXCollections.observableArrayList();
+        private final ObservableList<Transaction> pastTransactions = FXCollections.observableArrayList();
 
         FinancialDatabaseStub(Collection<Transaction> persons) {
             this.persons.setAll(persons);
@@ -103,6 +107,11 @@ public class FinancialDatabaseTest {
         @Override
         public ObservableList<Transaction> getTransactionList() {
             return persons;
+        }
+
+        @Override
+        public ObservableList<Transaction> getPastTransactionList() {
+            return pastTransactions;
         }
 
     }

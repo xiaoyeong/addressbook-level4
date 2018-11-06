@@ -1,6 +1,6 @@
 package seedu.address.logic.commands;
 
-import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccessWithNoModelChange;
+import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccessWithModelChange;
 import static seedu.address.testutil.TypicalTransactions.getTypicalFinancialDatabase;
 
 import org.junit.Rule;
@@ -65,7 +65,7 @@ public class InterestCommandTest {
     public void execute_schemeWrongCase_success() {
         int sizeOfTransactionList = model.getFilteredTransactionList().size();
         String expectedMessage = String.format(InterestCommand.MESSAGE_SUCCESS, sizeOfTransactionList);
-        InterestCommand interestCommand = new InterestCommand("cOmPoUnD", "2.3%");
-        assertCommandSuccessWithNoModelChange(interestCommand, model, commandHistory, expectedMessage, expectedModel);
+        InterestCommand interestCommand = new InterestCommand("cOmPoUnD", "2.30%");
+        assertCommandSuccessWithModelChange(interestCommand, model, commandHistory, expectedMessage);
     }
 }

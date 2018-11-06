@@ -32,12 +32,12 @@ public class XmlFinancialDatabaseStorageTest {
     public TemporaryFolder testFolder = new TemporaryFolder();
 
     @Test
-    public void readAddressBook_nullFilePath_throwsNullPointerException() throws Exception {
+    public void readFinancialDatabase_nullFilePath_throwsNullPointerException() throws Exception {
         thrown.expect(NullPointerException.class);
-        readAddressBook(null);
+        readFinancialDatabase(null);
     }
 
-    private java.util.Optional<ReadOnlyFinancialDatabase> readAddressBook(String filePath) throws Exception {
+    private java.util.Optional<ReadOnlyFinancialDatabase> readFinancialDatabase(String filePath) throws Exception {
         return new XmlFinancialDatabaseStorage(Paths.get(filePath))
                 .readFinancialDatabase(addToTestDataPathIfNotNull(filePath));
     }
@@ -50,14 +50,14 @@ public class XmlFinancialDatabaseStorageTest {
 
     @Test
     public void read_missingFile_emptyResult() throws Exception {
-        assertFalse(readAddressBook("NonExistentFile.xml").isPresent());
+        assertFalse(readFinancialDatabase("NonExistentFile.xml").isPresent());
     }
 
     @Test
     public void read_notXmlFormat_exceptionThrown() throws Exception {
 
         thrown.expect(DataConversionException.class);
-        readAddressBook("NotXmlFormatAddressBook.xml");
+        readFinancialDatabase("NotXmlFormatFinancialDatabase.xml");
 
         /* IMPORTANT: Any code below an exception-throwing line (like the one above) will be ignored.
          * That means you should not have more than one exception test in one method
@@ -65,19 +65,21 @@ public class XmlFinancialDatabaseStorageTest {
     }
 
     @Test
-    public void readAddressBook_invalidPersonAddressBook_throwDataConversionException() throws Exception {
+    public void readFinancialDatabase_invalidTransactionFinancialDatabase_throwDataConversionException()
+            throws Exception {
         thrown.expect(DataConversionException.class);
-        readAddressBook("invalidPersonAddressBook.xml");
+        readFinancialDatabase("invalidTransactionFinancialDatabase.xml");
     }
 
     @Test
-    public void readAddressBook_invalidAndValidPersonAddressBook_throwDataConversionException() throws Exception {
+    public void readFinancialDatabase_invalidAndValidTransactionFinancialDatabase_throwDataConversionException()
+            throws Exception {
         thrown.expect(DataConversionException.class);
-        readAddressBook("invalidAndValidPersonAddressBook.xml");
+        readFinancialDatabase("invalidAndValidTransactionFinancialDatabase.xml");
     }
 
     @Test
-    public void readAndSaveAddressBook_allInOrder_success() throws Exception {
+    public void readAndSaveFinancialDatabase_allInOrder_success() throws Exception {
         Path filePath = testFolder.getRoot().toPath().resolve("TempAddressBook.xml");
         FinancialDatabase original = getTypicalFinancialDatabase();
         XmlFinancialDatabaseStorage xmlAddressBookStorage = new XmlFinancialDatabaseStorage(filePath);
@@ -88,14 +90,14 @@ public class XmlFinancialDatabaseStorageTest {
         assertEquals(original, new FinancialDatabase(readBack));
 
         //Modify data, overwrite exiting file, and read back
-        original.addTransaction(HOON_TRANSACTION);
-        original.removeTransaction(ALICE_TRANSACTION);
+        original.addTransaction(HOON_TRANSACTION, original.getCurrentList());
+        original.removeTransaction(ALICE_TRANSACTION, original.getCurrentList());
         xmlAddressBookStorage.saveFinancialDatabase(original, filePath);
         readBack = xmlAddressBookStorage.readFinancialDatabase(filePath).get();
         assertEquals(original, new FinancialDatabase(readBack));
 
         //Save and read without specifying file path
-        original.addTransaction(IDA_TRANSACTION);
+        original.addTransaction(IDA_TRANSACTION, original.getCurrentList());
         xmlAddressBookStorage.saveFinancialDatabase(original); //file path not specified
         readBack = xmlAddressBookStorage.readFinancialDatabase().get(); //file path not specified
         assertEquals(original, new FinancialDatabase(readBack));

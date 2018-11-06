@@ -67,6 +67,7 @@ public class FilterCommand extends Command {
     public CommandResult execute(Model model, CommandHistory history) {
         requireNonNull(model);
         model.updateFilteredTransactionList(new MultiFieldPredicate(predicates, operatorType));
+        model.commitFinancialDatabase();
         return new CommandResult(
                 String.format(Messages.MESSAGE_TRANSACTIONS_LISTED_OVERVIEW,
                         model.getFilteredTransactionList().size()));

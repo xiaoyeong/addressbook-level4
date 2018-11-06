@@ -22,9 +22,9 @@ public class AmountBoundsPredicate implements Predicate<Transaction> {
     public boolean test(Transaction transaction) {
         switch (type) {
         case MIN:
-            return Amount.compareAmount(amount, transaction.getAmount()) <= 0;
+            return amount.compareTo(transaction.getAmount()) <= 0;
         case MAX:
-            return Amount.compareAmount(amount, transaction.getAmount()) >= 0;
+            return amount.compareTo(transaction.getAmount()) >= 0;
         default:
             return false;
         }

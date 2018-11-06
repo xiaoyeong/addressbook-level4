@@ -75,10 +75,6 @@ public class Transaction {
         return photo;
     }
 
-    public void deletePhoto() {
-        this.photo = new Photo();
-    }
-
     public void setPhoto(String photoPath) throws IllegalValueException {
         Photo previousPhoto = this.photo;
         try {

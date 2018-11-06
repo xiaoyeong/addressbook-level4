@@ -12,150 +12,299 @@ ifdef::env-github[]
 :tip-caption: :bulb:
 :note-caption: :information_source:
 endif::[]
-:repoURL: https://github.com/se-edu/addressbook-level4
+:repoURL: https://cs2103-ay1819s1-w12-2.github.io/main/
 
-By: `W12-2`      Since: `September 2018`       Licence: `MIT`
+By: `CS2103-AY1819S1-W12-2`      Since: `September 2018`       Licence: `MIT`
 
 == Introduction
 
 Debt Tracker (DT) is for those *who prefer to use a desktop app for tracking the user’s loans.*
 DT has a mixed usage of *Command Line Interface (CLI) and a Graphical User Interface (GUI).*
-For more basic commands, one may use CLI, but DT has also simplified potentially longer commands through the use of GUI.
 DT can keep a record of your loans and debts as fast as other apps, if not faster!
 
 == Quick Start
 
-1. Ensure you have Java version 9 or later installed in your Computer.
-2. Download the latest debttracker.jar.
-3. Copy the file to the folder you want to use as the home folder for your Debt Tracker.
-4. Double-click the file to start the app. The GUI should appear in a few seconds.
-5. Type the command in the command box and press Enter to execute it. e.g. typing help and pressing Enter
+1. Ensure you have Java version 9 or later installed in your Computer. +
+2. Download the latest link:{repoURL}/releases[debttracker.jar]. +
+3. Copy the file to the folder you want to use as the home folder for the application. +
+4. Double-click the file to start the app. The GUI should appear in a few seconds. +
+5. Type the command in the command box and press Enter to execute it. e.g. typing help and pressing Enter +
    will open the help window.
-
-Refer to Section 3, “Features” for details of each command.
-
 
 [[Features]]
 == Features
 
+NOTE: Commands that make use of the transaction amounts such as filter, analytics and interest can be used
+      properly only after the convert command is executed first +
+
+NOTE: The command words are case-sensitive. +
+
+
 === Viewing help : `help`
 
 Invokes the user guide for handy reference when typing commands. +
+
 Format: `help`
 
 === Adding a transaction : `add`
 
-Adds a transaction to the database. +
-Format: add tt/TRANSACTION_TYPE ta/TRANSACTION_AMOUNT td/TRANSACTION_DEADLINE +
-n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]…​
+Adds a transaction to the current transaction list in the database. +
 
-=== Uploading/Deleting a photo under a person : `uploadp`
+Conditions: +
 
-May upload a photo to a person’s contact based on the index you input, or delete the photo from the index you input.
-For both methods the first input after the command word should be the index of the contact whose photo you wish to
-upload or delete.
-For uploading a photo, the second input after the command word should be "up/" followed by the file path to the image
-file.
-For deleting a photo, the second input after the command word should be "up/" followed by the word "delete".
+* The transaction's attributes are case sensitive.
 
-Formats:
-To upload a photo: uploadp ind/[INDEX] up/[FILE_PATH]
-To delete a photo: uploadp ind/[INDEX] up/delete
+* The transaction type can only be a loan or a debt +
+
+  E.g. tt/loan OR tt/debt
+
+* The transaction amount must be prefixed with a three-letter currency code (such as SGD) +
+  and then with a value that is a real number rounded to two decimal places (even with a +
+  trailing zero)
+
+  E.g. ta/SGD 45.20 is valid
+       ta/SGD 45.3 is not valid (Only one digit after the decimal point)
+       ta/IN 56.75 is not valid (The currency code must consist of 3 letters as per ISO 3166 standard)
+
+* The transaction deadline must be a valid date according to the Gregorian Calendar +
+  following the DD/MM/YYYY format and should be a date in the future. +
+
+  E.g. If the date of use of the application is 2nd November 2018:
+       td/25/12/2018 is valid
+       td/30/10/2018 is not valid (It's a date that is in the past)
+       td/29/02/2018 is not valid (It's not a valid date according to the Gregorian Calendar)
+
+* A person's name should only contain alphanumeric characters and spaces, and should not be blank. +
+
+* A person's phone number should consist of only digits, with a minimum of 3 digits +
+
+* A person's email address should be of the format local-part@domain and adhere to the following constraints:
+    ** The local-part should only contain alphanumeric characters and these special characters, excluding the parentheses.
+    ** This is followed by a '@' and then a domain name. "
+    ** The domain name must:
+       *** be at least 2 characters long\n"
+       *** start and end with alphanumeric characters\n"
+       *** consist of alphanumeric characters, a period or a hyphen for the characters in between, if any.
+
+* A person's address can take any values but must not be blank.
+
+* The tags associated with a person must be alphanumeric
+
+* If the tokens such as tt/ or ta/ are repeated several times and contain valid values, then the last value is
+  considered.
+
+* Duplicate transactions consist of same type, amount, deadline and person.
+  ** A duplicate person is a person with the same name and same email or phone number as another person in the
+     database.
+
+Format:  +
+
+add tt/TYPE ta/AMOUNT td/DEADLINE n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]… +
+
+E.g. add tt/loan ta/SGD 50.00 td/18/12/2018 n/James Ho p/22224444 e/jamesho@example.com +
+a/123, Clementi Rd, 1234665 t/friends
+
+
+=== Uploading/Deleting a photo under a person : `uploadp` (TO BE IMPLEMENTED)
+
+Uploads a photo to a person’s contact or deletes a photo from a person's contact based on the index inputted. +
+
+Formats: +
+
+To upload a photo: uploadp [INDEX] up/[FILE_PATH] +
+To delete a photo: uploadp [INDEX] up/delete
+
+e.g. uploadp 3 up/Users/Photo.png +
+     uploadp 1 up/delete
 
 === View calendar with debt deadlines : `calendar`
 
-Displays a Google calendar showing the user's transactions and their deadlines.
-This command can only be used with any one of the following keywords: show; login; logout.
-This feature requires linking the deadlines to your Google account.
+Displays a Google calendar showing the user's transactions and their deadlines. +
 
-Formats:
-To show calendar in the app: calendar show
-To login to your Google account: calendar login
-To logout of your Google account: calendar logout
+Conditions: +
+
+* This command can only be used with one of the following keywords: 1) show  2) login 3)logout. +
+* The keywords are case-sensitive.
+* This feature requires linking the deadlines to your Google account. Hence a test google account will be provided. +
+
+Formats: +
+
+* To show calendar in the app: calendar show +
+* To login to your Google account: calendar login +
+* To logout of your Google account: calendar logout +
+* To manually synchronise the user's transactions with the calendar: calendar sync
 
 === Converting multiple currencies: `convert`
 
 Converts amounts in multiple different foreign currencies to their respective amounts in +
-the base currency, Singapore Dollars.
-Format: convert FIRST_AMOUNT [MORE_AMOUNTS]
+the base currency, Singapore Dollars. +
+
+NOTE: Makes use of an external foreign currency API: https://free.currencyconverterapi.com/[Free Currency Converter API]
+
+Format: convert
 
 === Calculating interest on transactions: `interest`
 
-Calculates interest on transaction filtered by name(s) based on the interest rate provided.
-Format: interest SCHEME INTEREST_RATE FIRST_NAME [MORE_NAMES]
+Calculates interest on each transaction on a monthly basis, based on the interest rate and scheme provided. +
+
+Conditions: +
+
+* Interest scheme must be either simple or compound. These keywords are case-insensitive. +
+
+* An interest rate must be entered in percentage with the value being a real number. +
+
+* The interest rate is capped at 4%. +
+
+Format: interest INTEREST_SCHEME INTEREST_RATE +
+
+e.g. interest simple 1.1%
 
 === Updating a transaction : `edit`
 
-Edit an existing transaction’s details.
-Format: edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]…​
+Edits an existing transaction’s details. +
 
-=== Sorting transactions : `sort` (to be implemented)
+Conditions: +
 
-Sort transactions by principal sum, deadline of payment or type of transactor (debtor/lender). +
-Format: sort [t/TAG]...
+* An index must be provided identifying a transaction and that index must be an integer ranging from 1 to the size
+  of the transaction list displayed
+
+* Attributes such as name, phone and email are optional
+
+* The attributes are case sensitive
+
+* The attributes should follow the format specified in the add command.
+
+Format:
+
+edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]… +
+
+E.g. edit 2 n/James Lee e/jameslee@example.com
+
+=== Sorting transactions : `sort`
+
+Sorts transactions based on an input or default parameter.
+
+Conditions: +
+
+* Valid sort parameters are:
+  ** amount
+  ** type
+  ** deadline
+
+* The sort parameters are case-insensitive.
+
+* If a parameter other than the listed ones is provided or the parameter is not provided at all,
+  then the application assumes that you want to sort by the default parameter, the person name
+  and the tie is broken using the phone number or email address.
+
+
+Format: +
+
+sort SORT_PARAMETER +
+
+E.g. sort type OR +
+     sort amount OR +
+     sort deadline +
 
 === Filtering transactions by various criteria: `filter`
 
-Filters transactions matching specified criteria.
-Format: filter [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [tt/TYPE] [ta/AMOUNT] [td/DEADLINE] [tamin/MIN_AMOUNT] [tamax/MAX_AMOUNT] [tdmin/EARLIEST_DATE] [tdmax/LATEST_DATE]
+Filters transactions matching specified criteria. +
+
+Conditions: +
+
+* It is optional to provide the criteria. +
+
+* The respective parameters should follow the format specified in the add command. +
+
+Format:  +
+
+filter [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [tt/TYPE] [ta/AMOUNT] [td/DEADLINE] [tamin/MIN_AMOUNT] [tamax/MAX_AMOUNT] [tdmin/EARLIEST_DATE] [tdmax/LATEST_DATE]
+
+e.g. filter t/debtor OR +
+     filter t/debtor tamin/SGD 50.00 tamax/SGD 100.00 tdmin/05/06/2018 tdmax/31/12/2018
 
 === Filtering transactions by closest deadline: `nt`
 
-Filtering and listing out the transaction(s) which deadlines are closest to the current date.
-"nt" stands for NextTransaction.
+Filtering and listing out the transaction(s) which deadlines are closest to the current date. +
+"nt" stands for NextTransaction. +
+
 Format: nt
-
-=== Locating transactions by person's name : `find`
-
-Finds transactions under a person whose name contains any of the given keywords.
-Format: find NAME [MORE_NAMES]
 
 === Locating transactions by substring : `search`
 
-Finds transactions under a person whose first name or last name contains the substring input by user.
+Matches the inputted substring with the names of persons involved in transactions. +
+
+Conditions: +
+
+* The substring must be within the first or last name of a person involved, otherwise an empty list will be returned. +
+
 Format: search SUBSTRING
+
+e.g. search Be
 
 === Deleting a transaction : `delete`
 
-Deletes the specified transaction from the address book.
+Deletes the specified transaction from the current transaction list only. +
+
 Format: delete INDEX
+
+e.g. delete 3
 
 === Selecting a transaction : `select`
 
-Selects the transaction identified by the index number used in the displayed transaction list.
+Selects the transaction identified by the index number used in the displayed transaction list. +
+
 Format: select INDEX
 
-=== Listing all recorded expenses : `history`
+e.g. select 2
 
-Lists all the commands that you have entered in reverse chronological order.
+=== Listing all the previously entered commands : `history`
 
-Lists all the expenses that you have recorded in the app, in reverse chronological order.
+Lists all the commands that you have entered in reverse chronological order. +
+
 Format: history
 
 === Analyzing a possible loan amount : `analytics`
 
-Analyses the amount you have left after taking into consideration your loans, and the amount that you can loan out.
+Analyses the amount you have left after taking into consideration your loans, and the amount that you can loan out. +
+
 Format: analytics
+
+=== Marking a transaction as Paid : `paid` (TO BE IMPLEMENTED)
+
+Deletes a transaction (that has been paid off) from the current transactions list, and adds it to the past transactions list. +
+
+Format: paid
+
+=== Viewing past transactions : `past` (TO BE IMPLEMENTED)
+
+Provides a list of transactions, previously recorded in the current transactions list, marked as paid by the Paid command. +
+
+Format: past
 
 === Undoing previous command : `undo`
 
 Restores the address book to the state before the previous undoable command was executed. +
+
 Format: undo
 
 === Redoing the previously undone command : `redo`
 
-Reverses the most recent undo command.
+Reverses the most recent undo command. +
+
 Format: redo
 
 === Clearing all entries : `clear`
 
-Clears all entries from the Debt Tracker.
+Clears all entries from Debt Tracker. +
+
 Format: clear
 
 === Exiting the program : `exit`
 
-Exits the program.
-Format: clear
+Exits the program. +
+
+Format: exit
 
 === Saving the data
 
@@ -163,59 +312,70 @@ Debt Tracker data is saved in the hard disk automatically after any command that
 
 == FAQ
 
-Q: How do I transfer my data to another Computer?
-A: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous Address Book folder.
+Q: How do I transfer my data to another Computer? +
+A: Install the app in the other computer and overwrite the empty data file it creates with the file +
+   that contains the data of your previous Address Book folder.
 
 == Command Summary
 
-Add : add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS d/DEBT dl/DEADLINE [t/TAG]…​
-e.g. add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665  d/+500.00 dl/20 09 2019 t/friend t/colleague
+Add : add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS d/DEBT dl/DEADLINE [t/TAG]… +
 
-//need to check
-Uploadp : uploadp ind/INDEX up/FILE_PATH
-e.g. uploadp ind/3 up/Users/Photo.png
-OR: uploadp ind/INDEX up/delete
-e.g. uploadp ind/1 up/delete
+e.g. add tt/loan ta/SGD 50.00 td/18/12/2018 n/James Ho p/22224444 e/jamesho@example.com +
+     a/123, Clementi Rd, 1234665 t/friends
 
-Calendar : calendar show
-OR: calendar login
-OR: calendar logout
 
-Convert : convert FIRST_AMOUNT [MORE_AMOUNTS]
-e.g. convert USD 20.00 AUD 35.40 MYR 152.60
+Uploadp : uploadp INDEX up/FILE_PATH [For uploading a picture] +
+          OR: uploadp INDEX up/delete [For deleting a picture] +
 
-Interest : int/INTEREST_RATE
-e.g. int/1.10
+e.g. uploadp 3 up/Users/Photo.png +
+     uploadp 1 up/delete
 
-Update : update INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] d/DEBT dl/DEADLINE [t/TAG]…​
+Calendar : calendar show +
+OR: calendar login +
+OR: calendar logout +
+
+Convert : convert
+
+Interest : interest INTEREST_SCHEME INTEREST_RATE +
+
+e.g. interest simple 1.1%
+
+Update : edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] d/DEBT dl/DEADLINE [t/TAG]… +
+
 e.g. edit 2 n/James Lee e/jameslee@example.com
 
-Sort : sort [t/TAG]...
-E.g. sort t/creditor
+Sort : sort SORT_PARAMETER +
 
-Filter : filter[t/TAG]...
-e.g. filter t/debtor
+e.g. sort type +
+OR sort amount +
+OR sort deadline +
+
+Filter : filter[t/TAG]… +
+
+e.g. filter t/debtor +
+OR filter n/Alex e/example.com tt/debt tamin/SGD 10.00 tdmax/31/12/2018
 
 Nt (NextTransaction) : nt
 
-Find : find KEYWORD [MORE_KEYWORDS]
-e.g. find James Jake
+Search : search SUBSTRING +
 
-Search : search SUBSTRING
 e.g. search Be
 
-Filter: filter [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [tt/TYPE] [ta/AMOUNT] [td/DEADLINE] [tamin/MIN_AMOUNT] [tamax/MAX_AMOUNT] [tdmin/EARLIEST_DATE] [tdmax/LATEST_DATE]
-E.g. filter n/Alex e/example.com tt/debt tamin/SGD 10.00 tdmax/31/12/2018
+Delete : delete INDEX +
 
-Delete : delete INDEX
 e.g. delete 3
 
-Select : select INDEX
+Select : select INDEX +
+
 e.g.select 2
 
 History : history
 
 Analytics : analytics
+
+Paid : paid
+
+Past : past
 
 Undo : undo
 

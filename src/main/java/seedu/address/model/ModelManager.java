@@ -23,6 +23,7 @@ public class ModelManager extends ComponentManager implements Model {
 
     private final VersionedFinancialDatabase versionedFinancialDatabase;
     private final FilteredList<Transaction> filteredTransactions;
+    private final FilteredList<Transaction> filteredPastTransactions;
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
@@ -35,6 +36,7 @@ public class ModelManager extends ComponentManager implements Model {
 
         versionedFinancialDatabase = new VersionedFinancialDatabase(addressBook);
         filteredTransactions = new FilteredList<>(versionedFinancialDatabase.getTransactionList());
+        filteredPastTransactions = new FilteredList<>(versionedFinancialDatabase.getPastTransactionList());
     }
 
     public ModelManager() {
@@ -43,7 +45,9 @@ public class ModelManager extends ComponentManager implements Model {
 
     @Override
     public void resetData(ReadOnlyFinancialDatabase newData) {
-        versionedFinancialDatabase.resetData(newData);
+        versionedFinancialDatabase.resetData(newData.getTransactionList(), versionedFinancialDatabase.getCurrentList());
+        versionedFinancialDatabase.resetData(newData.getPastTransactionList(),
+                                             versionedFinancialDatabase.getPastList());
         indicateFinancialDatabaseChanged();
     }
 
@@ -60,12 +64,12 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public boolean hasTransaction(Transaction person) {
         requireNonNull(person);
-        return versionedFinancialDatabase.hasTransaction(person);
+        return versionedFinancialDatabase.hasTransaction(person, versionedFinancialDatabase.getCurrentList());
     }
 
     @Override
     public void deleteTransaction(Transaction target) {
-        versionedFinancialDatabase.removeTransaction(target);
+        versionedFinancialDatabase.removeTransaction(target, versionedFinancialDatabase.getCurrentList());
         if (CalendarManager.getInstance() != null) {
             CalendarManager.getInstance().syncCalendarAsync(this);
         }
@@ -74,11 +78,22 @@ public class ModelManager extends ComponentManager implements Model {
 
     @Override
     public void addTransaction(Transaction person) {
-        versionedFinancialDatabase.addTransaction(person);
+        versionedFinancialDatabase.addTransaction(person, versionedFinancialDatabase.getCurrentList());
         updateFilteredTransactionList(PREDICATE_SHOW_ALL_TRANSACTIONS);
         if (CalendarManager.getInstance() != null) {
             CalendarManager.getInstance().syncCalendarAsync(this);
         }
+        indicateFinancialDatabaseChanged();
+    }
+
+    /**
+     * Add transaction to the past Transactions list.
+     * @param person
+     */
+    @Override
+    public void addPastTransaction(Transaction person) {
+        versionedFinancialDatabase.addTransaction(person, versionedFinancialDatabase.getPastList());
+        updateFilteredPastTransactionList(PREDICATE_SHOW_ALL_TRANSACTIONS);
         indicateFinancialDatabaseChanged();
     }
 
@@ -104,10 +119,28 @@ public class ModelManager extends ComponentManager implements Model {
         return FXCollections.unmodifiableObservableList(filteredTransactions);
     }
 
+    /**
+     * Does the same thing as getFilteredTransactionList() but for pastTransactions.
+     */
+    @Override
+    public ObservableList<Transaction> getFilteredPastTransactionList() {
+        return FXCollections.unmodifiableObservableList((filteredPastTransactions));
+    }
+
     @Override
     public void updateFilteredTransactionList(Predicate<Transaction> predicate) {
         requireNonNull(predicate);
         filteredTransactions.setPredicate(predicate);
+    }
+
+    /**
+     * Does the same thing for updateFilteredTransactionList but for pastTransactions.
+     * @param predicate
+     */
+    @Override
+    public void updateFilteredPastTransactionList (Predicate<Transaction> predicate) {
+        requireNonNull(predicate);
+        filteredPastTransactions.setPredicate(predicate);
     }
 
     //=========== Undo/Redo =================================================================================

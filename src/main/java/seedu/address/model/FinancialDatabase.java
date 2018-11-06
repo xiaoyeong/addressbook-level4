@@ -14,7 +14,8 @@ import seedu.address.model.transaction.UniqueTransactionList;
  */
 public class FinancialDatabase implements ReadOnlyFinancialDatabase {
 
-    private final UniqueTransactionList transactions;
+    protected final UniqueTransactionList transactions;
+    protected final UniqueTransactionList pastTransactions;
 
     /*
      * The 'unusual' code block below is an non-static initialization block, sometimes used to avoid duplication
@@ -25,6 +26,7 @@ public class FinancialDatabase implements ReadOnlyFinancialDatabase {
      */
     {
         transactions = new UniqueTransactionList();
+        pastTransactions = new UniqueTransactionList();
     }
 
     public FinancialDatabase() {}
@@ -35,7 +37,8 @@ public class FinancialDatabase implements ReadOnlyFinancialDatabase {
      */
     public FinancialDatabase(ReadOnlyFinancialDatabase toBeCopied) {
         this();
-        resetData(toBeCopied);
+        resetData(toBeCopied.getTransactionList(), transactions);
+        resetData(toBeCopied.getPastTransactionList(), pastTransactions);
     }
 
     //// list overwrite operations
@@ -45,18 +48,18 @@ public class FinancialDatabase implements ReadOnlyFinancialDatabase {
      * Replaces the transactions of the Transaction list with {@code transactions}.
      * {@code transactions} must not contain duplicate transactions.
      */
-    public void setTransactions(ObservableList<Transaction> transactions) {
-        this.transactions.setTransactions(transactions);
+    public void setTransactions(ObservableList<Transaction> transactions, UniqueTransactionList list) {
+        list.setTransactions(transactions);
     }
 
     /**
-     * Resets the existing data of this {@code Financial Database} with {@code newData}.
-     * @param newData
+     * Resets the existing data of a specific UniqueTransactionList in this {@code Financial Database}
+     * with {@code toCopy}.
+     * @param toCopy and list.
      */
-    public void resetData(ReadOnlyFinancialDatabase newData) {
-        requireNonNull(newData);
+    public void resetData(ObservableList<Transaction> toCopy, UniqueTransactionList list) {
 
-        setTransactions(newData.getTransactionList());
+        setTransactions(toCopy, list);
     }
 
     //// transaction-level operations
@@ -67,17 +70,17 @@ public class FinancialDatabase implements ReadOnlyFinancialDatabase {
     /**
      * Returns true if a duplicate transaction is trying to be added to the database.
      */
-    public boolean hasTransaction(Transaction transaction) {
+    public boolean hasTransaction(Transaction transaction, UniqueTransactionList list) {
         requireNonNull(transaction);
-        return transactions.contains(transaction);
+        return list.contains(transaction);
     }
 
     /**
      * Adds a Transaction to the address book.
      * The Transaction must not already exist in the address book.
      */
-    public void addTransaction(Transaction transaction) {
-        transactions.add(transaction);
+    public void addTransaction(Transaction transaction, UniqueTransactionList list) {
+        list.add(transaction);
     }
 
     /**
@@ -96,8 +99,24 @@ public class FinancialDatabase implements ReadOnlyFinancialDatabase {
      * Removes {@code key} from this {@code FinancialDatabase}.
      * {@code key} must exist in the financial database.
      */
-    public void removeTransaction(Transaction key) {
-        transactions.remove(key);
+    public void removeTransaction(Transaction key, UniqueTransactionList list) {
+        list.remove(key);
+    }
+
+    /**
+     * Retrieves current transactions list
+     * @return
+     */
+    public UniqueTransactionList getCurrentList() {
+        return this.transactions;
+    }
+
+    /**
+     * Retrieves past transactions list
+     * @return
+     */
+    public UniqueTransactionList getPastList() {
+        return this.pastTransactions;
     }
 
     //// util methods
@@ -114,6 +133,11 @@ public class FinancialDatabase implements ReadOnlyFinancialDatabase {
     }
 
     @Override
+    public ObservableList<Transaction> getPastTransactionList() {
+        return pastTransactions.asUnmodifiableObservableList();
+    }
+
+    @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof FinancialDatabase // instanceof handles nulls
@@ -124,4 +148,5 @@ public class FinancialDatabase implements ReadOnlyFinancialDatabase {
     public int hashCode() {
         return Objects.hash(transactions);
     }
+
 }

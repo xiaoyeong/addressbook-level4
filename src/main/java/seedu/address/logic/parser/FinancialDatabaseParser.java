@@ -16,16 +16,16 @@ import seedu.address.logic.commands.DeleteCommand;
 import seedu.address.logic.commands.EditCommand;
 import seedu.address.logic.commands.ExitCommand;
 import seedu.address.logic.commands.FilterCommand;
-import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.HistoryCommand;
 import seedu.address.logic.commands.InterestCommand;
 import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.NextTransactionCommand;
+import seedu.address.logic.commands.PaidCommand;
+import seedu.address.logic.commands.PastCommand;
 import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.SelectCommand;
 import seedu.address.logic.commands.SortCommand;
-import seedu.address.logic.commands.ToDoListAddCommand;
 import seedu.address.logic.commands.UndoCommand;
 import seedu.address.logic.commands.UploadPhotoCommand;
 import seedu.address.logic.commands.WildcardSearchCommand;
@@ -41,7 +41,6 @@ public class FinancialDatabaseParser {
      * Used for initial separation of command word and args.
      */
     private static final Pattern BASIC_COMMAND_FORMAT = Pattern.compile("(?<commandWord>\\S+)(?<arguments>.*)");
-
     /**
      * Parses user input into command for execution.
      *
@@ -94,10 +93,6 @@ public class FinancialDatabaseParser {
         case FilterCommand.COMMAND_ALIAS:
             return new FilterCommandParser().parse(arguments);
 
-        case FindCommand.COMMAND_WORD:
-        case FindCommand.COMMAND_ALIAS:
-            return new FindCommandParser().parse(arguments);
-
         case HelpCommand.COMMAND_WORD:
         case HelpCommand.COMMAND_ALIAS:
             return new HelpCommand();
@@ -107,7 +102,6 @@ public class FinancialDatabaseParser {
             return new HistoryCommand();
 
         case InterestCommand.COMMAND_WORD:
-        case InterestCommand.COMMAND_ALIAS:
             return new InterestCommandParser().parse(arguments);
 
         case ListCommand.COMMAND_WORD:
@@ -133,10 +127,6 @@ public class FinancialDatabaseParser {
         case SelectCommand.COMMAND_ALIAS:
             return new SelectCommandParser().parse(arguments);
 
-        case ToDoListAddCommand.COMMAND_WORD:
-        case ToDoListAddCommand.COMMAND_ALIAS:
-            return new ToDoListAddCommandParser().parse(arguments);
-
         case WildcardSearchCommand.COMMAND_WORD:
         case WildcardSearchCommand.COMMAND_ALIAS:
             return new WildcardSearchCommandParser().parse(arguments);
@@ -144,6 +134,14 @@ public class FinancialDatabaseParser {
         case UploadPhotoCommand.COMMAND_WORD:
         case UploadPhotoCommand.COMMAND_ALIAS:
             return new UpdatePhotoCommandParser().parse(arguments);
+
+        case PaidCommand.COMMAND_WORD:
+        case PaidCommand.COMMAND_ALIAS:
+            return new PaidCommandParser().parse(arguments);
+
+        case PastCommand.COMMAND_WORD:
+        case PastCommand.COMMAND_ALIAS:
+            return new PastCommand();
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);

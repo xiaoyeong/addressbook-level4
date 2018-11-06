@@ -40,8 +40,14 @@ public class MainWindow extends UiPart<Stage> {
     private UserPrefs prefs;
     private HelpWindow helpWindow;
 
+    private PastTransactionBrowserPanel pastTransactionBrowserPanel;
+
+
     @FXML
     private StackPane browserPlaceholder;
+
+    @FXML
+    private StackPane pastTransactionBrowserPlaceholder;
 
     @FXML
     private StackPane commandBoxPlaceholder;
@@ -51,6 +57,9 @@ public class MainWindow extends UiPart<Stage> {
 
     @FXML
     private StackPane personListPanelPlaceholder;
+
+    @FXML
+    private StackPane pastTransactionListPanelPlaceholder;
 
     @FXML
     private StackPane resultDisplayPlaceholder;
@@ -122,6 +131,14 @@ public class MainWindow extends UiPart<Stage> {
         browserPanel = new BrowserPanel();
         browserPlaceholder.getChildren().add(browserPanel.getRoot());
 
+        pastTransactionBrowserPanel = new PastTransactionBrowserPanel();
+        pastTransactionBrowserPlaceholder.getChildren().add(pastTransactionBrowserPanel.getRoot());
+
+        //past transactions UI
+        PastTransactionListPanel pastTransactionListPanel = new PastTransactionListPanel(logic
+                                                                .getFilteredPastTransactionList());
+        pastTransactionListPanelPlaceholder.getChildren().add(pastTransactionListPanel.getRoot());
+
         transactionListPanel = new TransactionListPanel(logic.getFilteredTransactionList());
         personListPanelPlaceholder.getChildren().add(transactionListPanel.getRoot());
 
@@ -187,12 +204,9 @@ public class MainWindow extends UiPart<Stage> {
         raise(new ExitAppRequestEvent());
     }
 
-    public TransactionListPanel getTransactionListPanel() {
-        return transactionListPanel;
-    }
-
     void releaseResources() {
         browserPanel.freeResources();
+        pastTransactionBrowserPanel.freeResources();
     }
 
     @Subscribe

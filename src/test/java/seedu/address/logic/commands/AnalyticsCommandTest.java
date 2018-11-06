@@ -1,6 +1,6 @@
 package seedu.address.logic.commands;
 
-import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccessWithNoModelChange;
+import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccessWithModelChange;
 import static seedu.address.testutil.TypicalTransactions.getUniqueFinancialDatabase;
 
 import org.junit.Test;
@@ -17,16 +17,14 @@ import seedu.address.model.transaction.Deadline;
 public class AnalyticsCommandTest {
     private CommandHistory history = new CommandHistory();
     private Model model = new ModelManager();
-    private Model expectedModel = new ModelManager();
     private Model modelWithData = new ModelManager(getUniqueFinancialDatabase(), new UserPrefs());
-    private Model expectedModelWithData = new ModelManager(getUniqueFinancialDatabase(), new UserPrefs());
 
 
     @Test
     public void execute_emptyFinancialListWithNoDate() {
         String expectedMessage = "Financial status : SGD 0.00";
         AnalyticsCommand analyticsCommand = new AnalyticsCommand();
-        assertCommandSuccessWithNoModelChange(analyticsCommand, model, history, expectedMessage, expectedModel);
+        assertCommandSuccessWithModelChange(analyticsCommand, model, history, expectedMessage);
     }
 
     @Test
@@ -35,15 +33,14 @@ public class AnalyticsCommandTest {
         Deadline checkDate = new Deadline(date);
         String expectedMessage = "Financial status : SGD 0.00";
         AnalyticsCommand analyticsCommand = new AnalyticsCommand(checkDate);
-        assertCommandSuccessWithNoModelChange(analyticsCommand, model, history, expectedMessage, expectedModel);
+        assertCommandSuccessWithModelChange(analyticsCommand, model, history, expectedMessage);
     }
 
     @Test
     public void execute_non_emptyFinancialListWithNoDate() {
         String expectedMessage = "Financial status : SGD 188.10";
         AnalyticsCommand analyticsCommand = new AnalyticsCommand();
-        assertCommandSuccessWithNoModelChange(analyticsCommand, modelWithData, history, expectedMessage,
-                expectedModelWithData);
+        assertCommandSuccessWithModelChange(analyticsCommand, modelWithData, history, expectedMessage);
     }
 
     @Test
@@ -52,8 +49,7 @@ public class AnalyticsCommandTest {
         Deadline checkDate = new Deadline(date);
         String expectedMessage = "Financial status : SGD 0.00";
         AnalyticsCommand analyticsCommand = new AnalyticsCommand(checkDate);
-        assertCommandSuccessWithNoModelChange(analyticsCommand, modelWithData, history, expectedMessage,
-                expectedModelWithData);
+        assertCommandSuccessWithModelChange(analyticsCommand, modelWithData, history, expectedMessage);
     }
 
     @Test
@@ -62,8 +58,7 @@ public class AnalyticsCommandTest {
         Deadline checkDate = new Deadline(date);
         String expectedMessage = "Financial status : SGD 0.00";
         AnalyticsCommand analyticsCommand = new AnalyticsCommand(checkDate);
-        assertCommandSuccessWithNoModelChange(analyticsCommand, modelWithData, history, expectedMessage,
-                expectedModelWithData);
+        assertCommandSuccessWithModelChange(analyticsCommand, modelWithData, history, expectedMessage);
     }
 
     @Test
@@ -72,8 +67,7 @@ public class AnalyticsCommandTest {
         Deadline checkDate = new Deadline(date);
         String expectedMessage = "Financial status : SGD 230.60";
         AnalyticsCommand analyticsCommand = new AnalyticsCommand(checkDate);
-        assertCommandSuccessWithNoModelChange(analyticsCommand, modelWithData, history, expectedMessage,
-                expectedModelWithData);
+        assertCommandSuccessWithModelChange(analyticsCommand, modelWithData, history, expectedMessage);
     }
 
     @Test
@@ -82,7 +76,6 @@ public class AnalyticsCommandTest {
         Deadline checkDate = new Deadline(date);
         String expectedMessage = "Financial status : SGD 188.10";
         AnalyticsCommand analyticsCommand = new AnalyticsCommand(checkDate);
-        assertCommandSuccessWithNoModelChange(analyticsCommand, modelWithData, history, expectedMessage,
-                expectedModelWithData);
+        assertCommandSuccessWithModelChange(analyticsCommand, modelWithData, history, expectedMessage);
     }
 }

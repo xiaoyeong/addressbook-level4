@@ -14,29 +14,32 @@ import seedu.address.commons.util.XmlUtil;
 import seedu.address.model.FinancialDatabase;
 import seedu.address.testutil.TypicalTransactions;
 
-public class XmlSerializableAddressBookTest {
+public class XmlSerializableDebtTrackerTest {
 
     private static final Path TEST_DATA_FOLDER = Paths.get("src", "test", "data",
             "XmlSerializableFinancialDatabaseTest");
-    private static final Path TYPICAL_PERSONS_FILE = TEST_DATA_FOLDER.resolve("typicalPersonsAddressBook.xml");
-    private static final Path INVALID_PERSON_FILE = TEST_DATA_FOLDER.resolve("invalidPersonAddressBook.xml");
-    private static final Path DUPLICATE_PERSON_FILE = TEST_DATA_FOLDER.resolve("duplicatePersonAddressBook.xml");
+    private static final Path TYPICAL_TRANSACTIONS_FILE =
+            TEST_DATA_FOLDER.resolve("typicalTransactionsFinancialDatabase.xml");
+    private static final Path INVALID_TRANSACTION_FILE =
+            TEST_DATA_FOLDER.resolve("invalidTransactionFinancialDatabase.xml");
+    private static final Path DUPLICATE_TRANSACTION_FILE =
+            TEST_DATA_FOLDER.resolve("duplicateTransactionFinancialDatabase.xml");
 
     @Rule
     public ExpectedException thrown = ExpectedException.none();
 
     @Test
     public void toModelType_typicalPersonsFile_success() throws Exception {
-        XmlSerializableFinancialDatabase dataFromFile = XmlUtil.getDataFromFile(TYPICAL_PERSONS_FILE,
+        XmlSerializableFinancialDatabase dataFromFile = XmlUtil.getDataFromFile(TYPICAL_TRANSACTIONS_FILE,
                 XmlSerializableFinancialDatabase.class);
         FinancialDatabase addressBookFromFile = dataFromFile.toModelType();
-        FinancialDatabase typicalPersonsAddressBook = TypicalTransactions.getTypicalFinancialDatabase();
-        assertEquals(addressBookFromFile, typicalPersonsAddressBook);
+        FinancialDatabase typicalPersonsFinancialDatabase = TypicalTransactions.getTypicalFinancialDatabase();
+        assertEquals(addressBookFromFile, typicalPersonsFinancialDatabase);
     }
 
     @Test
     public void toModelType_invalidPersonFile_throwsIllegalValueException() throws Exception {
-        XmlSerializableFinancialDatabase dataFromFile = XmlUtil.getDataFromFile(INVALID_PERSON_FILE,
+        XmlSerializableFinancialDatabase dataFromFile = XmlUtil.getDataFromFile(INVALID_TRANSACTION_FILE,
                 XmlSerializableFinancialDatabase.class);
         thrown.expect(IllegalValueException.class);
         dataFromFile.toModelType();
@@ -44,7 +47,7 @@ public class XmlSerializableAddressBookTest {
 
     @Test
     public void toModelType_duplicatePersons_throwsIllegalValueException() throws Exception {
-        XmlSerializableFinancialDatabase dataFromFile = XmlUtil.getDataFromFile(DUPLICATE_PERSON_FILE,
+        XmlSerializableFinancialDatabase dataFromFile = XmlUtil.getDataFromFile(DUPLICATE_TRANSACTION_FILE,
                 XmlSerializableFinancialDatabase.class);
         thrown.expect(IllegalValueException.class);
         thrown.expectMessage(XmlSerializableFinancialDatabase.MESSAGE_DUPLICATE_PERSON);

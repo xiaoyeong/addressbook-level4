@@ -21,6 +21,8 @@ public class XmlSerializableFinancialDatabase {
     public static final String MESSAGE_DUPLICATE_PERSON = "Persons list contains duplicate transaction(s).";
     @XmlElement
     private List<XmlAdaptedTransaction> transactions;
+    @XmlElement
+    private List<XmlAdaptedTransaction> pastTransactions;
 
     /**
      * Creates an empty XmlSerializableAddressBook.
@@ -28,6 +30,7 @@ public class XmlSerializableFinancialDatabase {
      */
     public XmlSerializableFinancialDatabase() {
         transactions = new ArrayList<>();
+        pastTransactions = new ArrayList<>();
     }
 
     /**
@@ -39,6 +42,10 @@ public class XmlSerializableFinancialDatabase {
                                .stream()
                                .map(XmlAdaptedTransaction::new)
                                .collect(Collectors.toList()));
+        pastTransactions.addAll(src.getPastTransactionList()
+                                   .stream()
+                                   .map(XmlAdaptedTransaction::new)
+                                   .collect(Collectors.toList()));
     }
 
     /**
@@ -52,10 +59,18 @@ public class XmlSerializableFinancialDatabase {
 
         for (XmlAdaptedTransaction t : transactions) {
             Transaction transaction = t.toModelType();
-            if (financialDatabase.hasTransaction(transaction)) {
+            if (financialDatabase.hasTransaction(transaction, financialDatabase.getCurrentList())) {
                 throw new IllegalValueException(MESSAGE_DUPLICATE_PERSON);
             }
-            financialDatabase.addTransaction(transaction);
+            financialDatabase.addTransaction(transaction, financialDatabase.getCurrentList());
+        }
+
+        for (XmlAdaptedTransaction t : pastTransactions) {
+            Transaction pastTransaction = t.toModelType();
+            if (financialDatabase.hasTransaction(pastTransaction, financialDatabase.getPastList())) {
+                throw new IllegalValueException(MESSAGE_DUPLICATE_PERSON);
+            }
+            financialDatabase.addTransaction(pastTransaction, financialDatabase.getPastList());
         }
         return financialDatabase;
     }
