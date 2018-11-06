@@ -21,7 +21,8 @@ public class CalendarCommand extends Command {
             + "Examples: \n"
             + COMMAND_WORD + " show\n"
             + COMMAND_WORD + " login\n"
-            + COMMAND_WORD + " logout\n";
+            + COMMAND_WORD + " logout\n"
+            + COMMAND_WORD + " sync\n";
 
     public static final String MESSAGE_SYNC_SUCCESS = "Calendar Synced. %1$s";
     public static final String MESSAGE_SYNC_FAILURE = "Failed to sync calendar. Please check your internet connection.";
@@ -33,7 +34,7 @@ public class CalendarCommand extends Command {
     public CalendarCommand(String action) {
         this.action = action;
     }
-
+    
     @Override
     public CommandResult execute(Model model, CommandHistory history) {
         requireNonNull(model);
@@ -86,5 +87,12 @@ public class CalendarCommand extends Command {
         default:
             return new CommandResult("");
         }
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof CalendarCommand // instanceof handles nulls
+                && action.equals(((CalendarCommand) other).action));
     }
 }
