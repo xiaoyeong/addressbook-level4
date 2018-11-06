@@ -1,10 +1,11 @@
 package seedu.address.logic.commands;
 
-import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccessWithNoModelChange;
+import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccessWithModelChange;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_TRANSACTION;
 import static seedu.address.testutil.TypicalTransactions.getTypicalFinancialDatabase;
 
 import org.junit.Test;
+
 import seedu.address.logic.CommandHistory;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
@@ -17,15 +18,15 @@ public class PaidCommandTest {
     private CommandHistory commandHistory = new CommandHistory();
     @Test
     public void execute_validIndexUnfilteredList_success() {
-        Transaction personToDelete = model.getFilteredTransactionList().get(INDEX_FIRST_TRANSACTION.getZeroBased());
-        DeleteCommand deleteCommand = new DeleteCommand(INDEX_FIRST_TRANSACTION);
+        Transaction personWhoPaid = model.getFilteredTransactionList().get(INDEX_FIRST_TRANSACTION.getZeroBased());
+        PaidCommand paidCommand = new PaidCommand(INDEX_FIRST_TRANSACTION);
 
-        String expectedMessage = String.format(DeleteCommand.MESSAGE_DELETE_TRANSACTION_SUCCESS, personToDelete);
+        String expectedMessage = String.format(PaidCommand.MESSAGE_PAID_TRANSACTION_SUCCESS, personWhoPaid);
 
         ModelManager expectedModel = new ModelManager(model.getFinancialDatabase(), new UserPrefs());
-        expectedModel.deleteTransaction(personToDelete);
+        expectedModel.addPastTransaction(personWhoPaid);
         expectedModel.commitFinancialDatabase();
 
-        assertCommandSuccessWithNoModelChange(deleteCommand, model, commandHistory, expectedMessage, expectedModel);
+        assertCommandSuccessWithModelChange(paidCommand, model, commandHistory, expectedMessage);
     }
 }

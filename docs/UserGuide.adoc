@@ -295,11 +295,14 @@ Format: paid INDEX
 
 e.g. paid 4
 
-=== Viewing past transactions : `past` (TO BE IMPLEMENTED)
+=== Switching between viewing past and current transactions : `switch`
 
-Provides a list of transactions, previously recorded in the current transactions list, marked as paid by the Paid command. +
+Depending on input, it will switch to either the Current Transactions tab or the Paid Transactions tab.
 
-Format: past
+Format: switch LIST_TYPE
+
+e.g. switch curr +
+OR switch past
 
 === Undoing previous command : `undo`
 
@@ -405,7 +408,10 @@ Paid : paid INDEX +
 
 e.g. paid 4
 
-Past : past
+Switch : switch LIST_TYPE
+
+e.g. switch curr +
+OR switch past
 
 Undo : undo
 

@@ -22,7 +22,7 @@ public class DeleteCommand extends Command {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Deletes the transaction identified by the index number used in either the current "
-            + "or past transaction list.\n"
+            + "or past transaction list. This transaction is not added anywhere.\n"
             + "Parameters: INDEX (must be a positive integer)\n"
             + "Example: " + COMMAND_WORD + " 1\n"
             + "OR: " + COMMAND_WORD + " past " + "1";
