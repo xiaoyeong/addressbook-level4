@@ -52,9 +52,8 @@ public class FinancialDatabase implements ReadOnlyFinancialDatabase {
     }
 
     /**
-     * Resets the existing data of a specific UniqueTransactionList in this {@code Financial Database}
-     * with {@code toCopy}.
-     * @param toCopy and list.
+     * Resets the existing data of this {@code Financial Database} with {@code newData}.
+     * @param newData
      */
     public void resetData(ReadOnlyFinancialDatabase newData) {
 
