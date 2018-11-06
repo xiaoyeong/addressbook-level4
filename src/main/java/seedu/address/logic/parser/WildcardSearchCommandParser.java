@@ -3,6 +3,7 @@ package seedu.address.logic.parser;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
 import java.util.Arrays;
+import java.util.StringTokenizer;
 
 import seedu.address.logic.commands.WildcardSearchCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
@@ -20,14 +21,28 @@ public class WildcardSearchCommandParser implements Parser<WildcardSearchCommand
      */
 
     public WildcardSearchCommand parse(String args) throws ParseException {
-        String trimmedArgs = args.trim();
-        if (trimmedArgs.isEmpty()) {
-            throw new ParseException(
-                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, WildcardSearchCommand.MESSAGE_USAGE));
+        StringTokenizer input = new StringTokenizer(args);
+        String first = input.nextToken();
+        if (first.equals("past")) {
+            String toParse = input.nextToken().trim();
+            if (toParse.isEmpty()) {
+                throw new ParseException(
+                        String.format(MESSAGE_INVALID_COMMAND_FORMAT, WildcardSearchCommand.MESSAGE_USAGE));
+            }
+            String[] nameKeywords = toParse.split("\\s+");
+
+            return new WildcardSearchCommand(first, new NameContainsLettersPredicate(Arrays.asList(nameKeywords)));
+
+        } else {
+            String trimmedArgs = args.trim();
+            if (trimmedArgs.isEmpty()) {
+                throw new ParseException(
+                        String.format(MESSAGE_INVALID_COMMAND_FORMAT, WildcardSearchCommand.MESSAGE_USAGE));
+            }
+
+            String[] nameKeywords = trimmedArgs.split("\\s+");
+
+            return new WildcardSearchCommand(new NameContainsLettersPredicate(Arrays.asList(nameKeywords)));
         }
-
-        String[] nameKeywords = trimmedArgs.split("\\s+");
-
-        return new WildcardSearchCommand(new NameContainsLettersPredicate(Arrays.asList(nameKeywords)));
     }
 }

@@ -75,6 +75,12 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
+    public void deletePastTransaction(Transaction target) {
+        versionedFinancialDatabase.removeTransaction(target, versionedFinancialDatabase.getPastList());
+        indicateFinancialDatabaseChanged();
+    }
+
+    @Override
     public void addTransaction(Transaction person) {
         versionedFinancialDatabase.addTransaction(person, versionedFinancialDatabase.getCurrentList());
         updateFilteredTransactionList(PREDICATE_SHOW_ALL_TRANSACTIONS);
