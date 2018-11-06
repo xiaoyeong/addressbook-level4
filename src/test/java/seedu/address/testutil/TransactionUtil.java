@@ -26,8 +26,8 @@ public class TransactionUtil {
     /**
      * Returns an add command string for adding the {@code transaction}.
      */
-    public static String getAddCommand(Transaction person) {
-        return AddCommand.COMMAND_WORD + " " + getTransactionDetails(person);
+    public static String getAddCommand(Transaction transaction) {
+        return AddCommand.COMMAND_WORD + " " + getTransactionDetails(transaction);
     }
 
     /**
