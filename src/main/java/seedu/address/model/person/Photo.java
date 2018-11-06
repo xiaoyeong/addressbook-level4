@@ -65,16 +65,19 @@ public class Photo {
      * Makes a {@code newPhoto} at the given {@code filePath} if it doesn't already exist.
      */
     public void makePhoto(String filePath, String newPhoto) throws FileNotFoundException {
+        String finalPath = filePath;
         makePhotoFolder();
         LOGGER.info("makephoto");
         LOGGER.info(filePath);
-        if (filePath.equals("delete") || filePath == null) {
-            filePath = "images/default_person.png";
+        if (filePath == null) {
+            finalPath = "images/default_person.png";
+        } else if (filePath.equals("delete")) {
+            finalPath = "images/default_person.png";
         } else {
-            filePath = "/" + filePath;
+            finalPath = "/" + filePath;
         }
 
-        File getImage = new File(filePath);
+        File getImage = new File(finalPath);
         String fileName = GETFOLDER + "/" + newPhoto + ".png";
         File pictureFinal = new File(fileName);
         //if cannot get file object create an empty object
