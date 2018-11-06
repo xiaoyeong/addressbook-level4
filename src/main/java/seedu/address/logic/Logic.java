@@ -22,6 +22,11 @@ public interface Logic {
     /** Returns an unmodifiable view of the filtered list of transactions */
     ObservableList<seedu.address.model.transaction.Transaction> getFilteredTransactionList();
 
+    /**
+     * Does the same thing as getFilteredTransactionList() but for pastTransactions.
+     */
+    ObservableList<seedu.address.model.transaction.Transaction> getFilteredPastTransactionList();
+
     /** Returns the list of input entered by the user, encapsulated in a {@code ListElementPointer} object */
     ListElementPointer getHistorySnapshot();
 }

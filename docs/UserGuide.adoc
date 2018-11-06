@@ -216,8 +216,7 @@ Conditions: +
 
 Format:  +
 
-filter [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [tt/TYPE] [ta/AMOUNT] [td/DEADLINE] +
-[tamin/MIN_AMOUNT] [tamax/MAX_AMOUNT] [tdmin/EARLIEST_DATE] [tdmax/LATEST_DATE]
+filter [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [tt/TYPE] [ta/AMOUNT] [td/DEADLINE] [tamin/MIN_AMOUNT] [tamax/MAX_AMOUNT] [tdmin/EARLIEST_DATE] [tdmax/LATEST_DATE]
 
 e.g. filter t/debtor OR +
      filter t/debtor tamin/SGD 50.00 tamax/SGD 100.00 tdmin/05/06/2018 tdmax/31/12/2018
