@@ -18,14 +18,14 @@ public class SwitchCommandParser implements Parser<SwitchCommand> {
     public SwitchCommand parse(String args) throws ParseException {
         String condition = args.trim();
         switch(condition) {
-            case "past":
-            case "curr":
-                break;
-            default:
-                throw new ParseException(
-                        String.format(MESSAGE_INVALID_COMMAND_FORMAT, SwitchCommand.MESSAGE_USAGE));
+        case "past":
+        case "curr":
+            break;
+        default:
+            throw new ParseException(
+                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, SwitchCommand.MESSAGE_USAGE));
         }
-                return new SwitchCommand(condition);
+        return new SwitchCommand(condition);
 
     }
 }

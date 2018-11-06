@@ -37,14 +37,14 @@ public class SwitchCommand extends Command {
         requireNonNull(model);
         model.updateFilteredPastTransactionList(PREDICATE_SHOW_ALL_TRANSACTIONS);
         switch(whichTab) {
-            case "past":
-                EventsCenter.getInstance().post(new SwitchTabsEvent(1));
-                return new CommandResult(MESSAGE_PAID_SUCCESS);
-            case "curr":
-                EventsCenter.getInstance().post(new SwitchTabsEvent(0));
-                return new CommandResult(MESSAGE_CURRENT_SUCCESS);
-            default:
-                return new CommandResult("");
+        case "past":
+            EventsCenter.getInstance().post(new SwitchTabsEvent(1));
+            return new CommandResult(MESSAGE_PAID_SUCCESS);
+        case "curr":
+            EventsCenter.getInstance().post(new SwitchTabsEvent(0));
+            return new CommandResult(MESSAGE_CURRENT_SUCCESS);
+        default:
+            return new CommandResult("");
         }
     }
 
