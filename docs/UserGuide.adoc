@@ -145,13 +145,15 @@ Format: convert
 
 === Calculating interest on transactions: `interest`
 
-Calculates interest on transaction based on the interest rate and scheme provided. +
+Calculates interest on each transaction on a monthly basis, based on the interest rate and scheme provided. +
 
 Conditions: +
 
 * Interest scheme must be either simple or compound. These keywords are case-insensitive. +
 
 * An interest rate must be entered in percentage with the value being a real number. +
+
+* The interest rate is capped at 4%. +
 
 Format: interest INTEREST_SCHEME INTEREST_RATE +
 
