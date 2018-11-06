@@ -124,7 +124,7 @@ public class Photo {
 
         //mac
         if (oSystem.contains("mac") || oSystem.contains("nux")) {
-            return System.getProperty("user.home") + "/Documents/cs2103/debt-tracker/PhotoFolder";
+            return System.getProperty("user.home") + "/Documents/PhotoFolder";
         } else {
             return System.getenv("APPDATA") + "/PhotoFolder";
         }
