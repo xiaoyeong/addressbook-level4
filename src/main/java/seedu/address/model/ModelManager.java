@@ -45,9 +45,7 @@ public class ModelManager extends ComponentManager implements Model {
 
     @Override
     public void resetData(ReadOnlyFinancialDatabase newData) {
-        versionedFinancialDatabase.resetData(newData.getTransactionList(), versionedFinancialDatabase.getCurrentList());
-        versionedFinancialDatabase.resetData(newData.getPastTransactionList(),
-                                             versionedFinancialDatabase.getPastList());
+        versionedFinancialDatabase.resetData(newData);
         indicateFinancialDatabaseChanged();
     }
 
@@ -71,6 +69,12 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public void deleteTransaction(Transaction target) {
         versionedFinancialDatabase.removeTransaction(target, versionedFinancialDatabase.getCurrentList());
+        indicateFinancialDatabaseChanged();
+    }
+
+    @Override
+    public void deletePastTransaction(Transaction target) {
+        versionedFinancialDatabase.removeTransaction(target, versionedFinancialDatabase.getPastList());
         indicateFinancialDatabaseChanged();
     }
 

@@ -27,13 +27,19 @@ public interface Model {
     boolean hasTransaction(Transaction transaction);
 
     /**
-     * Deletes the given transaction.
+     * Deletes the given transaction from the current transaction list.
      * The transaction must exist in the database.
      */
     void deleteTransaction(Transaction target);
 
     /**
-     * Adds the given transaction.
+     * Deletes the given transaction from the past transaction list.
+     * The transaction must exist in the database.
+     */
+    void deletePastTransaction(Transaction target);
+
+    /**
+     * Adds the given transaction to the current transaction list.
      * {@code transaction} must not already exist in the database.
      */
     void addTransaction(Transaction transaction);

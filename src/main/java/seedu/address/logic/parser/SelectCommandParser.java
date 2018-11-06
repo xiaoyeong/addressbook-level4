@@ -2,6 +2,8 @@ package seedu.address.logic.parser;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
+import java.util.StringTokenizer;
+
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.SelectCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
@@ -18,8 +20,15 @@ public class SelectCommandParser implements Parser<SelectCommand> {
      */
     public SelectCommand parse(String args) throws ParseException {
         try {
-            Index index = ParserUtil.parseIndex(args);
-            return new SelectCommand(index);
+            StringTokenizer input = new StringTokenizer(args);
+            String first = input.nextToken();
+            if ("past".equals(first)) {
+                Index index = ParserUtil.parseIndex(input.nextToken());
+                return new SelectCommand(first, index);
+            } else {
+                Index index = ParserUtil.parseIndex(args);
+                return new SelectCommand(index);
+            }
         } catch (ParseException pe) {
             throw new ParseException(
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, SelectCommand.MESSAGE_USAGE), pe);

@@ -18,7 +18,7 @@ public class PaidCommand extends Command {
     public static final String COMMAND_WORD = "paid";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Removes a transaction identified by the index number used in the displayed transaction list"
+            + ": Removes a transaction identified by the index number used in the current transaction list"
             + " and shifts it to the past transactions list.\n"
             + "Parameters: INDEX (must be a positive integer)\n"
             + "Example: " + COMMAND_WORD + " 1";

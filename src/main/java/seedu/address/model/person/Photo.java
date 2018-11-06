@@ -21,6 +21,7 @@ public class Photo {
     public static final String DEFAULT_PHOTO_PATH = "images/default_person.png";
     private static final String MESSAGE_PHOTOFOLDER_NOT_SUCCESSFULLY_CREATED = "PhotoFolder created successfully";
     private static final String DEFAULT_MESSAGE_PHOTO = "Filepath be less than 10MB and FilePath must be valid ";
+
     private static final String PHOTO_INITIAL_REGEX = "[^\\s].*";
     private static final int TENMB_SIZE = 1048576;
     private static final String SYSTEM_OPERATING_PATH = getOperatingPath();

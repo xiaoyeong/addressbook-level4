@@ -31,7 +31,6 @@ import seedu.address.logic.commands.InterestCommand;
 import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.NextTransactionCommand;
 import seedu.address.logic.commands.PaidCommand;
-import seedu.address.logic.commands.PastCommand;
 import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.SelectCommand;
 import seedu.address.logic.commands.SortCommand;
@@ -210,12 +209,6 @@ public class FinancialDatabaseParserTest {
         PaidCommand command = (PaidCommand) parser.parseCommand(PaidCommand.COMMAND_WORD + " "
                 + PaidCommand.DEFAULT_INDEX);
         assertEquals(new PaidCommand(Index.fromOneBased(PaidCommand.DEFAULT_INDEX)), command);
-    }
-
-    @Test
-    public void parseCommand_past() throws Exception {
-        assertTrue(parser.parseCommand(PastCommand.COMMAND_WORD) instanceof PastCommand);
-        assertTrue(parser.parseCommand(PastCommand.COMMAND_WORD + " 3") instanceof PastCommand);
     }
 
     @Test

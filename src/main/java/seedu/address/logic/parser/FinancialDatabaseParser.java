@@ -22,10 +22,10 @@ import seedu.address.logic.commands.InterestCommand;
 import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.NextTransactionCommand;
 import seedu.address.logic.commands.PaidCommand;
-import seedu.address.logic.commands.PastCommand;
 import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.SelectCommand;
 import seedu.address.logic.commands.SortCommand;
+import seedu.address.logic.commands.SwitchCommand;
 import seedu.address.logic.commands.UndoCommand;
 import seedu.address.logic.commands.UploadPhotoCommand;
 import seedu.address.logic.commands.WildcardSearchCommand;
@@ -120,8 +120,9 @@ public class FinancialDatabaseParser {
         case PaidCommand.COMMAND_WORD:
             return new PaidCommandParser().parse(arguments);
 
-        case PastCommand.COMMAND_WORD:
-            return new PastCommand();
+        case SwitchCommand.COMMAND_WORD:
+        case SwitchCommand.COMMAND_ALIAS:
+            return new SwitchCommandParser().parse(arguments);
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);

@@ -15,25 +15,43 @@ public class WildcardSearchCommand extends Command {
 
     public static final String COMMAND_WORD = "search";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Performs a wildcard search on the address book's "
-            + "contacts based on user's input. "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Performs a wildcard search on the Debt Tracker's "
+            + "contacts in either the current or past transaction list, based on user's input. "
             + "Parameters: KEYWORD [MORE_KEYWORDS]...\n"
-            + "Example: " + COMMAND_WORD + " oh";
+            + "Example: " + COMMAND_WORD + " oh\n"
+            + "OR: " + COMMAND_WORD + " past " + "oh";
+
+    private final String whichList;
 
     private final NameContainsLettersPredicate predicate;
 
+    public WildcardSearchCommand(String whichList, NameContainsLettersPredicate predicate) {
+        this.whichList = whichList;
+        this.predicate = predicate;
+    }
+
     public WildcardSearchCommand(NameContainsLettersPredicate predicate) {
+        this.whichList = "";
         this.predicate = predicate;
     }
 
     @Override
     public CommandResult execute(Model model, CommandHistory history) {
         requireNonNull(model);
-        model.updateFilteredTransactionList(predicate);
-        model.commitFinancialDatabase();
-        return new CommandResult(
-                String.format(Messages.MESSAGE_TRANSACTIONS_LISTED_OVERVIEW,
-                        model.getFilteredTransactionList().size()));
+
+        if ("past".equals(whichList)) {
+            model.updateFilteredPastTransactionList(predicate);
+            model.commitFinancialDatabase();
+            return new CommandResult(
+                    String.format(Messages.MESSAGE_TRANSACTIONS_LISTED_OVERVIEW,
+                            model.getFilteredPastTransactionList().size()));
+        } else {
+            model.updateFilteredTransactionList(predicate);
+            model.commitFinancialDatabase();
+            return new CommandResult(
+                    String.format(Messages.MESSAGE_TRANSACTIONS_LISTED_OVERVIEW,
+                            model.getFilteredTransactionList().size()));
+        }
     }
 
     @Override
