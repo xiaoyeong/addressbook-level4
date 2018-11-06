@@ -17,15 +17,14 @@ import seedu.address.commons.exceptions.IllegalValueException;
  * Represent a photo object associated with each unique person involved in a transaction with the user.
  */
 public class Photo {
-    public static final String FOLDER_CONTAINING_THE_PHOTO_HAS_NOT_BEEN_CREATED_SUCCESSFULLY = "Folder containing the photo has not been created successfully";
+    public static final Logger LOGGER = LogsCenter.getLogger(Photo.class);
+    public static final String PHOTOFOLDER_NOT_SUCCESSFULLY = "PhotoFolder created successfully";
+    public static final String GETFOLDER = getOperatingPath();
     private static final String DEFAULT_MESSAGE_PHOTO = "Filepath be less than 10MB and FilePath must be valid ";
     private static final String DEFAULT_PHOTO = "images/default_person.png";
-    public static String FOLDER = getOperatingPath();
-
     private static final String PHOTO_INITIAL_REGEX_ = "[^\\s].*";
     private static final int TENMB = 1048576;
 
-    public static final Logger LOGGER = LogsCenter.getLogger(Photo.class);
 
     private String photoPath;
 
@@ -51,7 +50,7 @@ public class Photo {
             throw new IllegalValueException(DEFAULT_MESSAGE_PHOTO);
         }
         //link to the path
-        this.photoPath = FOLDER + "/" + newPhoto + ".png";
+        this.photoPath = GETFOLDER + "/" + newPhoto + ".png";
         try {
             makePhoto(filePath, newPhoto);
         } catch (FileNotFoundException e) {
@@ -66,30 +65,30 @@ public class Photo {
      * Makes a {@code newPhoto} at the given {@code filePath} if it doesn't already exist.
      */
     public void makePhoto(String filePath, String newPhoto) throws FileNotFoundException {
-            makePhotoFolder();
-            LOGGER.info("makephoto");
-            LOGGER.info(filePath);
-            if (filePath.equals("delete")) {
-                filePath = "images/default_person.png";
-            } else {
-                filePath = "/" + filePath;
-            }
-            File getImage = new File(filePath);
-            String fileName = FOLDER + "/" + newPhoto + ".png";
-            File pictureFinal = new File(fileName);
-            //if cannot get file object create an empty object
-            if (!pictureFinal.exists()) {
-                try {
-                    boolean doesNamedFileExist = pictureFinal.createNewFile();
-                    if (doesNamedFileExist) {
-                        LOGGER.info(fileName + " has been newly created");
-                    } else {
-                        LOGGER.info(fileName + " already exists");
-                    }
-                } catch (IOException e) {
-                    e.printStackTrace();
+        makePhotoFolder();
+        LOGGER.info("makephoto");
+        LOGGER.info(filePath);
+        if (filePath.equals("delete")) {
+            filePath = "images/default_person.png";
+        } else {
+            filePath = "/" + filePath;
+        }
+        File getImage = new File(filePath);
+        String fileName = GETFOLDER + "/" + newPhoto + ".png";
+        File pictureFinal = new File(fileName);
+        //if cannot get file object create an empty object
+        if (!pictureFinal.exists()) {
+            try {
+                boolean doesNamedFileExist = pictureFinal.createNewFile();
+                if (doesNamedFileExist) {
+                    LOGGER.info(fileName + " has been newly created");
+                } else {
+                    LOGGER.info(fileName + " already exists");
                 }
+            } catch (IOException e) {
+                e.printStackTrace();
             }
+        }
 
         try {
             Files.copy(getImage.toPath(), pictureFinal.toPath(), REPLACE_EXISTING);
@@ -104,13 +103,13 @@ public class Photo {
      * Creates a folder holding the photo for a person
      */
     public void makePhotoFolder() throws FileNotFoundException {
-        File locationFolder = new File(FOLDER);
+        File locationFolder = new File(GETFOLDER);
         if (!locationFolder.exists()) {
             boolean isDirectoryCreated = locationFolder.mkdir();
             if (isDirectoryCreated) {
                 LOGGER.info("Folder containing the photo has been successfully created");
             } else {
-                throw new FileNotFoundException(FOLDER_CONTAINING_THE_PHOTO_HAS_NOT_BEEN_CREATED_SUCCESSFULLY);
+                throw new FileNotFoundException(PHOTOFOLDER_NOT_SUCCESSFULLY);
             }
         }
     }

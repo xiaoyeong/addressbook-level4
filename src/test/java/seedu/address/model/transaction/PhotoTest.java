@@ -1,12 +1,13 @@
 package seedu.address.model.transaction;
 
-import org.junit.Test;
-import seedu.address.model.person.Photo;
-import org.junit.Assert;
-
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.concurrent.atomic.AtomicReference;
+
+import org.junit.Assert;
+import org.junit.Test;
+
+import seedu.address.model.person.Photo;
 
 public class PhotoTest {
     @Test
