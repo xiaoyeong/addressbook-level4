@@ -24,6 +24,8 @@ public class CalendarCommand extends Command {
             + COMMAND_WORD + " logout\n";
 
     public static final String MESSAGE_SYNC_SUCCESS = "Calendar Synced. %1$s";
+    public static final String MESSAGE_SYNC_FAILURE = "Failed to sync calendar. Please check your internet connection.";
+    public static final String MESSAGE_ACCESS_FAILURE = "Error accessing calendar. Please check your internet connection.";
 
     private final String action;
 
@@ -34,43 +36,54 @@ public class CalendarCommand extends Command {
     @Override
     public CommandResult execute(Model model, CommandHistory history) {
         requireNonNull(model);
+        CalendarManager calendarManager = CalendarManager.getInstance();
         switch (action) {
-        case "login":
-            if (CalendarManager.getInstance().calendarLogin(model)) {
-                return new CommandResult("");
-            } else {
-                return new CommandResult("Already logged in.");
-            }
-        case "logout":
-            if (!CalendarManager.getInstance().isAuthenticated()) {
-                return new CommandResult("Not logged in.");
-            } else {
-                if (CalendarManager.getInstance().calendarLogout()) {
-                    return new CommandResult("Logged out");
+            case "login":
+                if (calendarManager.calendarLogin(model)) {
+                    return new CommandResult("");
                 } else {
-                    return new CommandResult("Failed to logout");
+                    return new CommandResult("Already logged in.");
                 }
-            }
-        case "show" :
-            if (CalendarManager.getInstance().isAuthenticated()) {
-                EventsCenter.getInstance()
-                        .post(new ShowCalendarEvent(CalendarManager.getInstance().getCalendarId()));
-                return new CommandResult("Calendar loaded");
-            } else {
-                CalendarManager.getInstance().calendarLogin(model);
-                return new CommandResult("Not logged in. "
-                        + "Please login now or enter the following command to login:\ncalendar login");
-            }
-        case "sync" :
-            if (CalendarManager.getInstance().isAuthenticated()) {
-                CalendarManager.SyncResult result = CalendarManager.getInstance().syncCalendar(model);
-                return new CommandResult(String.format(MESSAGE_SYNC_SUCCESS, result));
-            } else {
-                return new CommandResult("Not logged in. "
-                        + "Please enter the following command to login:\ncalendar login");
-            }
-        default:
-            return new CommandResult("");
+            case "logout":
+                if (!calendarManager.isAuthenticated()) {
+                    return new CommandResult("Not logged in.");
+                } else {
+                    if (CalendarManager.getInstance().calendarLogout()) {
+                        return new CommandResult("Logged out");
+                    } else {
+                        return new CommandResult("Failed to logout");
+                    }
+                }
+            case "show" :
+                if (calendarManager.isAuthenticated()) {
+                    if(!calendarManager.initializeCalendar()){
+                        return new CommandResult(MESSAGE_ACCESS_FAILURE);
+                    }
+                    EventsCenter.getInstance()
+                            .post(new ShowCalendarEvent(CalendarManager.getInstance().getCalendarId()));
+                    return new CommandResult("");
+                } else {
+                    calendarManager.calendarLogin(model);
+                    return new CommandResult("Not logged in. "
+                            + "Please login now or enter the following command to login:\ncalendar login");
+                }
+            case "sync" :
+                if (calendarManager.isAuthenticated()) {
+                    if(!calendarManager.initializeCalendar()){
+                        return new CommandResult(MESSAGE_ACCESS_FAILURE);
+                    }
+                    CalendarManager.SyncResult result = calendarManager.syncCalendar(model);
+                    if(result == null){
+                        return new CommandResult(String.format(MESSAGE_SYNC_FAILURE));
+                    } else {
+                        return new CommandResult(String.format(MESSAGE_SYNC_SUCCESS, result));
+                    }
+                } else {
+                    return new CommandResult("Not logged in. "
+                            + "Please enter the following command to login:\ncalendar login");
+                }
+            default:
+                return new CommandResult("");
         }
     }
 }
