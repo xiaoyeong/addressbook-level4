@@ -40,7 +40,6 @@ import seedu.address.model.transaction.Type;
 public class EditCommand extends Command {
 
     public static final String COMMAND_WORD = "edit";
-    public static final String COMMAND_ALIAS = "ed";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the details of the transaction identified "
             + "by the index number used in the displayed transaction list. "

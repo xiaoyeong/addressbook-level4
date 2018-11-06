@@ -14,7 +14,6 @@ import seedu.address.model.transaction.NameContainsLettersPredicate;
 public class WildcardSearchCommand extends Command {
 
     public static final String COMMAND_WORD = "search";
-    public static final String COMMAND_ALIAS = "wcs";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Performs a wildcard search on the address book's "
             + "contacts based on user's input. "

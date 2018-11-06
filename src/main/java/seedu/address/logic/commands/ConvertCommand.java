@@ -17,7 +17,6 @@ import seedu.address.model.transaction.Transaction;
  */
 public class ConvertCommand extends Command {
     public static final String COMMAND_WORD = "convert";
-    public static final String COMMAND_ALIAS = "con";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Converts given amounts from their respective foreign currencies to Singapore Dollars\n"

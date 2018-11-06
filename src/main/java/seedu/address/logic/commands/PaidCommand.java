@@ -16,7 +16,6 @@ import seedu.address.model.transaction.Transaction;
  */
 public class PaidCommand extends Command {
     public static final String COMMAND_WORD = "paid";
-    public static final String COMMAND_ALIAS = "pd";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Removes a transaction identified by the index number used in the displayed transaction list"

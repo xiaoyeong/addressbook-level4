@@ -12,7 +12,6 @@ import seedu.address.model.Model;
  */
 public class PastCommand extends Command {
     public static final String COMMAND_WORD = "past";
-    public static final String COMMAND_ALIAS = "pt";
 
     public static final String MESSAGE_SUCCESS = "Listed all paid transactions.";
 
