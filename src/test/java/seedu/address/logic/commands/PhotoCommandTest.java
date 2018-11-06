@@ -22,7 +22,7 @@ public class PhotoCommandTest {
     private Model model = new ModelManager(getTypicalFinancialDatabase(), new UserPrefs());
 
     @Test
-    public void DeletePhotoTest() throws IllegalValueException {
+    public void deletePhotoTest() throws IllegalValueException {
         Transaction transactionToAdd = model.getFilteredTransactionList().get(INDEX_FIRST_TRANSACTION.getZeroBased());
         Transaction testTransaction = new Transaction(transactionToAdd);
         testTransaction.setPhoto("delete");
