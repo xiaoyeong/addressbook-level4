@@ -92,7 +92,7 @@ public class CalendarManager extends ComponentManager {
                         .build();
                 initializeCalendar();
             }
-        } catch (IOException | GeneralSecurityException ex){
+        } catch (IOException | GeneralSecurityException ex) {
             logger.info("Error initializing calendar manager");
         }
         executor = Executors.newSingleThreadExecutor();
@@ -109,11 +109,11 @@ public class CalendarManager extends ComponentManager {
      * Initializes the calendar by retrieving and setting the calendar ID
      * @return Returns true if successful, or if calendar is already initialized. Returns false otherwise.
      */
-    public boolean initializeCalendar(){
-        if(calendarId != null){
+    public boolean initializeCalendar() {
+        if (calendarId != null) {
             return true;
         }
-        if(service == null){
+        if (service == null) {
             logger.info("Error initializing calendar: user not logged in");
             return false;
         }
@@ -127,7 +127,7 @@ public class CalendarManager extends ComponentManager {
             }
             logger.info("Calendar initialized");
             return true;
-        } catch (IOException ex){
+        } catch (IOException ex) {
             logger.info("Error initializing calendar: connection error");
             return false;
         }

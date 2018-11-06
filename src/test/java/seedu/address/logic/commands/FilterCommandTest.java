@@ -3,7 +3,7 @@ package seedu.address.logic.commands;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-import static seedu.address.commons.core.Messages.MESSAGE_TRANSACTIONS_LISTED_OVERVIEW;
+import static seedu.address.commons.core.Messages.MESSAGE_ALL_TRANSACTIONS_LISTED_OVERVIEW;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccessWithModelChange;
 import static seedu.address.testutil.TypicalTransactions.CARL_TRANSACTION;
 import static seedu.address.testutil.TypicalTransactions.ELLE_TRANSACTION;
@@ -81,22 +81,24 @@ public class FilterCommandTest {
 
     @Test
     public void execute_noPersonFound() {
-        String expectedMessage = String.format(MESSAGE_TRANSACTIONS_LISTED_OVERVIEW, 0);
+        String expectedMessage = String.format(MESSAGE_ALL_TRANSACTIONS_LISTED_OVERVIEW, 0, 0);
         FieldContainsKeywordsPredicate predicate = preparePredicate("no one");
         FilterCommand command = new FilterCommand(Collections.singletonList(predicate),
                 MultiFieldPredicate.OperatorType.AND);
         expectedModel.updateFilteredTransactionList(predicate);
+        expectedModel.updateFilteredPastTransactionList(predicate);
         assertCommandSuccessWithModelChange(command, model, commandHistory, expectedMessage);
         assertEquals(Collections.emptyList(), model.getFilteredTransactionList());
     }
 
     @Test
     public void execute_multipleKeywords_multiplePersonsFound() {
-        String expectedMessage = String.format(MESSAGE_TRANSACTIONS_LISTED_OVERVIEW, 3);
+        String expectedMessage = String.format(MESSAGE_ALL_TRANSACTIONS_LISTED_OVERVIEW, 3, 0);
         FieldContainsKeywordsPredicate predicate = preparePredicate("Kurz;Elle;Kunz");
         FilterCommand command = new FilterCommand(Collections.singletonList(predicate),
                 MultiFieldPredicate.OperatorType.AND);
         expectedModel.updateFilteredTransactionList(predicate);
+        expectedModel.updateFilteredPastTransactionList(predicate);
         assertCommandSuccessWithModelChange(command, model, commandHistory, expectedMessage);
         assertEquals(Arrays.asList(CARL_TRANSACTION, ELLE_TRANSACTION, FIONA_TRANSACTION),
                 model.getFilteredTransactionList());
