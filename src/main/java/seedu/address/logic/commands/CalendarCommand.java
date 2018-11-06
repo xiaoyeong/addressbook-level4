@@ -34,7 +34,7 @@ public class CalendarCommand extends Command {
     public CalendarCommand(String action) {
         this.action = action;
     }
-    
+
     @Override
     public CommandResult execute(Model model, CommandHistory history) {
         requireNonNull(model);

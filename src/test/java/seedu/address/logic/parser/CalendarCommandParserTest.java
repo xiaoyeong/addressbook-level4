@@ -24,8 +24,8 @@ public class CalendarCommandParserTest {
     @Test
     public void parse_validArgs_returnsCalendarCommand() {
         // no leading and trailing whitespaces
-        List<String> validArgs = Arrays.asList("show","login","logout","sync");
-        for(String arg : validArgs) {
+        List<String> validArgs = Arrays.asList("show", "login", "logout", "sync");
+        for (String arg : validArgs) {
             CalendarCommand expectedCalendarCommand =
                     new CalendarCommand(arg);
             assertParseSuccess(parser, " " + arg, expectedCalendarCommand);
