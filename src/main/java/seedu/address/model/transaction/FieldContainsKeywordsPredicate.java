@@ -47,6 +47,10 @@ public class FieldContainsKeywordsPredicate implements Predicate<seedu.address.m
             return keywords.stream()
                     .anyMatch(keyword -> StringUtil.containsSubstringIgnoreCase(transaction.getType().value,
                             keyword));
+        case Tag:
+            return keywords.stream()
+                    .anyMatch(keyword -> transaction.getPerson().getTags().stream()
+                            .anyMatch(tag -> StringUtil.containsSubstringIgnoreCase(tag.tagName, keyword)));
         default:
             return false;
         }

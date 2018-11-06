@@ -22,6 +22,7 @@ public class ListCommand extends Command {
     public CommandResult execute(Model model, CommandHistory history) {
         requireNonNull(model);
         model.updateFilteredTransactionList(PREDICATE_SHOW_ALL_TRANSACTIONS);
+        model.updateFilteredPastTransactionList(PREDICATE_SHOW_ALL_TRANSACTIONS);
         return new CommandResult(MESSAGE_SUCCESS);
     }
 }
