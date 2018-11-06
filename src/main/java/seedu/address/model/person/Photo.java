@@ -69,9 +69,7 @@ public class Photo {
         makePhotoFolder();
         LOGGER.info("makephoto");
         LOGGER.info(filePath);
-        if (filePath == null) {
-            finalPath = "images/default_person.png";
-        } else if (filePath.equals("delete")) {
+        if ("delete".equals(filePath)) {
             finalPath = "images/default_person.png";
         } else {
             finalPath = "/" + filePath;
