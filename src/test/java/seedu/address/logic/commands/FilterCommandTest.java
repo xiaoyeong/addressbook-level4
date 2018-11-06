@@ -5,6 +5,7 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static seedu.address.commons.core.Messages.MESSAGE_ALL_TRANSACTIONS_LISTED_OVERVIEW;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccessWithModelChange;
+import static seedu.address.testutil.TypicalTransactions.ALICE_TRANSACTION;
 import static seedu.address.testutil.TypicalTransactions.CARL_TRANSACTION;
 import static seedu.address.testutil.TypicalTransactions.ELLE_TRANSACTION;
 import static seedu.address.testutil.TypicalTransactions.FIONA_TRANSACTION;
@@ -104,10 +105,40 @@ public class FilterCommandTest {
                 model.getFilteredTransactionList());
     }
 
+    @Test
+    public void execute_multiplePrefixes_singleTransactionFound() {
+        String expectedMessage = String.format(MESSAGE_ALL_TRANSACTIONS_LISTED_OVERVIEW, 1, 0);
+        FieldContainsKeywordsPredicate namePredicate = preparePredicate("pauline");
+        FieldContainsKeywordsPredicate addressPredicate =
+                new FieldContainsKeywordsPredicate(FieldType.Address, Collections.singletonList("jurong"));
+        FieldContainsKeywordsPredicate emailPredicate =
+                new FieldContainsKeywordsPredicate(FieldType.Email, Collections.singletonList("example.com"));
+        FieldContainsKeywordsPredicate phonePredicate =
+                new FieldContainsKeywordsPredicate(FieldType.Phone, Collections.singletonList("94351253"));
+        FieldContainsKeywordsPredicate tagPredicate =
+                new FieldContainsKeywordsPredicate(FieldType.Tag, Collections.singletonList("friends"));
+        FieldContainsKeywordsPredicate amountPredicate =
+                new FieldContainsKeywordsPredicate(FieldType.Amount, Collections.singletonList("42.50"));
+        FieldContainsKeywordsPredicate typePredicate =
+                new FieldContainsKeywordsPredicate(FieldType.Type, Collections.singletonList("loan"));
+        List<Predicate<Transaction>> predicates = Arrays.asList(namePredicate, addressPredicate, emailPredicate,
+                phonePredicate, tagPredicate, amountPredicate, typePredicate);
+
+        MultiFieldPredicate multiPredicate = new MultiFieldPredicate(predicates, MultiFieldPredicate.OperatorType.AND);
+        FilterCommand command = new FilterCommand(predicates,
+                MultiFieldPredicate.OperatorType.AND);
+        expectedModel.updateFilteredTransactionList(multiPredicate);
+        expectedModel.updateFilteredPastTransactionList(multiPredicate);
+        assertCommandSuccessWithModelChange(command, model, commandHistory, expectedMessage);
+        assertEquals(Collections.singletonList(ALICE_TRANSACTION),
+                model.getFilteredTransactionList());
+    }
+
     /**
      * Parses {@code userInput} into a {@code FieldContainsKeywordsPredicate}.
      */
     private FieldContainsKeywordsPredicate preparePredicate(String userInput) {
         return new FieldContainsKeywordsPredicate(FieldType.Name, Arrays.asList(userInput.split(";")));
     }
+
 }
