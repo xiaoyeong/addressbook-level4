@@ -29,7 +29,6 @@ public class Deadline implements Comparable<Deadline> {
     public Deadline(String deadline) {
         requireNonNull(deadline);
         checkArgument(matchesDateFormat(deadline), MESSAGE_TRANSACTION_DEADLINE_INCORRECT_FORMAT);
-        checkDateInFuture(deadline);
         value = deadline;
     }
 

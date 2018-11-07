@@ -15,6 +15,7 @@ import javafx.scene.layout.Region;
 
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.person.Person;
+import seedu.address.model.person.Photo;
 import seedu.address.model.transaction.Transaction;
 
 /**
@@ -88,11 +89,7 @@ public class TransactionCard extends UiPart<Region> {
             String url = transaction.getPhoto().getPicturePath();
 
             if (url.startsWith("images/default_person")) {
-                url = "/System/Library/CoreServices/DefaultBackground.jpg";
-            }
-
-            if (url.startsWith("images/weiqing-nic")) {
-                url = "/System/Library/CoreServices/DefaultBackground.jpg";
+                url = Photo.DEFAULT_PHOTO_PATH;
             }
 
 

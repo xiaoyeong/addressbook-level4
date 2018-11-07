@@ -18,13 +18,13 @@ import seedu.address.commons.exceptions.IllegalValueException;
  */
 public class Photo {
 
-    public static final String DEFAULT_PHOTO_PATH = "images/default_person.png";
+    public static final String DEFAULT_PHOTO_PATH = Photo.class.getResource("/PhotoTest/weiqing.png").getPath();
     private static final String MESSAGE_PHOTOFOLDER_NOT_SUCCESSFULLY_CREATED = "PhotoFolder created successfully";
     private static final String DEFAULT_MESSAGE_PHOTO = "Filepath be less than 10MB and FilePath must be valid ";
 
     private static final String PHOTO_INITIAL_REGEX = "[^\\s].*";
     private static final int TENMB_SIZE = 1048576;
-    private static final String SYSTEM_OPERATING_PATH = getOperatingPath();
+    private static final String SYSTEM_OPERATING_PATH = "PhotoFolder";
     private static final Logger LOGGER = LogsCenter.getLogger(Photo.class);
 
 
@@ -40,6 +40,7 @@ public class Photo {
             this.photoPath = path;
         } else {
             this.photoPath = DEFAULT_PHOTO_PATH;
+            this.photoPath = getClass().getResource("/PhotoTest/weiqing.png").getPath();
         }
 
     }
@@ -123,14 +124,15 @@ public class Photo {
      * Check the Operating System that the user's local machine is running
      */
     public static String getOperatingPath() {
-        String oSystem = System.getProperty("os.name").toLowerCase();
-
-        //mac
-        if (oSystem.contains("mac") || oSystem.contains("nux")) {
-            return System.getProperty("user.home") + "/Documents/PhotoFolder";
-        } else {
-            return System.getenv("APPDATA") + "/PhotoFolder";
-        }
+//        String oSystem = System.getProperty("os.name").toLowerCase();
+//
+//        //mac
+//        if (oSystem.contains("mac") || oSystem.contains("nux")) {
+//            return System.getProperty("user.home") + "/Documents/PhotoFolder";
+//        } else {
+//            return System.getenv("APPDATA") + "/PhotoFolder";
+//        }
+        return  null;
     }
 
     /**
