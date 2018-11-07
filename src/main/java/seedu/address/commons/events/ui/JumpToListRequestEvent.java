@@ -9,10 +9,20 @@ import seedu.address.commons.events.BaseEvent;
 public class JumpToListRequestEvent extends BaseEvent {
 
     public final int targetIndex;
+    public final String type;
 
     public JumpToListRequestEvent(Index targetIndex) {
+
         this.targetIndex = targetIndex.getZeroBased();
+        this.type = "";
     }
+
+    public JumpToListRequestEvent(String type, Index targetIndex) {
+
+        this.targetIndex = targetIndex.getZeroBased();
+        this.type = type;
+    }
+
 
     @Override
     public String toString() {

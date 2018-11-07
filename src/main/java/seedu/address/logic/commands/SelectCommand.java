@@ -22,32 +22,52 @@ import seedu.address.model.transaction.Transaction;
 public class SelectCommand extends Command {
 
     public static final String COMMAND_WORD = "select";
-    public static final String COMMAND_ALIAS = "s";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Selects the transaction identified by the index number used in the displayed transaction list.\n"
+            + ": Selects the transaction identified by the index number used in either the current or past "
+            + " transaction list.\n"
             + "Parameters: INDEX (must be a positive integer)\n"
-            + "Example: " + COMMAND_WORD + " 1";
+            + "Example: " + COMMAND_WORD + " 1\n"
+            + "OR: " + COMMAND_WORD + " past " + "1";
 
     public static final String MESSAGE_SELECT_TRANSACTION_SUCCESS = "Selected Person: %1$s";
 
+    private final String whichList;
+
     private final Index targetIndex;
 
+    public SelectCommand(String whichList, Index targetIndex) {
+        this.whichList = whichList;
+        this.targetIndex = targetIndex;
+    }
     public SelectCommand(Index targetIndex) {
+        this.whichList = "";
         this.targetIndex = targetIndex;
     }
 
     @Override
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
+        List<Transaction> filteredPersonList;
+        if ("past".equals(whichList)) {
+            filteredPersonList = model.getFilteredPastTransactionList();
 
-        List<Transaction> filteredPersonList = model.getFilteredTransactionList();
+            if (targetIndex.getZeroBased() >= filteredPersonList.size()) {
+                throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+            }
 
-        if (targetIndex.getZeroBased() >= filteredPersonList.size()) {
-            throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+            EventsCenter.getInstance().post(new JumpToListRequestEvent(whichList, targetIndex));
+        } else {
+            filteredPersonList = model.getFilteredTransactionList();
+
+            if (targetIndex.getZeroBased() >= filteredPersonList.size()) {
+                throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+            }
+
+            EventsCenter.getInstance().post(new JumpToListRequestEvent(targetIndex));
         }
 
-        EventsCenter.getInstance().post(new JumpToListRequestEvent(targetIndex));
+        //model.commitFinancialDatabase();
         return new CommandResult(String.format(MESSAGE_SELECT_TRANSACTION_SUCCESS, targetIndex.getOneBased()));
 
     }

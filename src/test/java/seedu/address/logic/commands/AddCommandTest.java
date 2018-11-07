@@ -127,6 +127,11 @@ public class AddCommandTest {
         }
 
         @Override
+        public void deletePastTransaction(Transaction target) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public void updateFilteredPastTransactionList(Predicate<Transaction> predicate) {
             throw new AssertionError("This method should not be called.");
         }

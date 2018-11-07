@@ -37,15 +37,13 @@ public class FinancialDatabaseTest {
     @Test
     public void resetData_null_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
-        financialDatabase.resetData(null, financialDatabase.getCurrentList());
-        financialDatabase.resetData(null, financialDatabase.getPastList());
+        financialDatabase.resetData(null);
     }
 
     @Test
     public void resetData_withValidReadOnlyFinancialDatabase_replacesData() {
         FinancialDatabase newData = getTypicalFinancialDatabase();
-        financialDatabase.resetData(newData.getTransactionList(), financialDatabase.getCurrentList());
-        financialDatabase.resetData(newData.getPastTransactionList(), financialDatabase.getPastList());
+        financialDatabase.resetData(newData);
         assertEquals(newData, financialDatabase);
     }
 
@@ -58,8 +56,7 @@ public class FinancialDatabaseTest {
         FinancialDatabaseStub newData = new FinancialDatabaseStub(newTransactions);
 
         thrown.expect(DuplicateTransactionException.class);
-        financialDatabase.resetData(newData.getTransactionList(), financialDatabase.getCurrentList());
-        financialDatabase.resetData(newData.getPastTransactionList(), financialDatabase.getPastList());
+        financialDatabase.resetData(newData);
     }
 
     @Test

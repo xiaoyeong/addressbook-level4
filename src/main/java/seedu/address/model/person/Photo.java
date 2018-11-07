@@ -17,26 +17,29 @@ import seedu.address.commons.exceptions.IllegalValueException;
  * Represent a photo object associated with each unique person involved in a transaction with the user.
  */
 public class Photo {
-    public static final Logger LOGGER = LogsCenter.getLogger(Photo.class);
-    public static final String PHOTOFOLDER_NOT_SUCCESSFULLY = "PhotoFolder created successfully";
-    public static final String GETFOLDER = getOperatingPath();
+
+    public static final String DEFAULT_PHOTO_PATH = "images/default_person.png";
+    private static final String MESSAGE_PHOTOFOLDER_NOT_SUCCESSFULLY_CREATED = "PhotoFolder created successfully";
     private static final String DEFAULT_MESSAGE_PHOTO = "Filepath be less than 10MB and FilePath must be valid ";
-    private static final String DEFAULT_PHOTO = "images/default_person.png";
-    private static final String PHOTO_INITIAL_REGEX_ = "[^\\s].*";
-    private static final int TENMB = 1048576;
+
+    private static final String PHOTO_INITIAL_REGEX = "[^\\s].*";
+    private static final int TENMB_SIZE = 1048576;
+    private static final String SYSTEM_OPERATING_PATH = getOperatingPath();
+    private static final Logger LOGGER = LogsCenter.getLogger(Photo.class);
 
 
     private String photoPath;
 
     public Photo() {
-        this.photoPath = DEFAULT_PHOTO;
+        this.photoPath = DEFAULT_PHOTO_PATH;
     }
+
     public Photo(String path) {
         requireNonNull(path);
         if (checkPath(path)) {
             this.photoPath = path;
         } else {
-            this.photoPath = DEFAULT_PHOTO;
+            this.photoPath = DEFAULT_PHOTO_PATH;
         }
 
     }
@@ -50,7 +53,7 @@ public class Photo {
             throw new IllegalValueException(DEFAULT_MESSAGE_PHOTO);
         }
         //link to the path
-        this.photoPath = GETFOLDER + "/" + newPhoto + ".png";
+        this.photoPath = SYSTEM_OPERATING_PATH + "/" + newPhoto + ".png";
         try {
             makePhoto(filePath, newPhoto);
         } catch (FileNotFoundException e) {
@@ -76,7 +79,7 @@ public class Photo {
         }
 
         File getImage = new File(finalPath);
-        String fileName = GETFOLDER + "/" + newPhoto + ".png";
+        String fileName = SYSTEM_OPERATING_PATH + "/" + newPhoto + ".png";
         File pictureFinal = new File(fileName);
         //if cannot get file object create an empty object
         if (!pictureFinal.exists()) {
@@ -105,13 +108,13 @@ public class Photo {
      * Creates a folder holding the photo for a person
      */
     public void makePhotoFolder() throws FileNotFoundException {
-        File locationFolder = new File(GETFOLDER);
+        File locationFolder = new File(SYSTEM_OPERATING_PATH);
         if (!locationFolder.exists()) {
             boolean isDirectoryCreated = locationFolder.mkdir();
             if (isDirectoryCreated) {
                 LOGGER.info("Folder containing the photo has been successfully created");
             } else {
-                throw new FileNotFoundException(PHOTOFOLDER_NOT_SUCCESSFULLY);
+                throw new FileNotFoundException(MESSAGE_PHOTOFOLDER_NOT_SUCCESSFULLY_CREATED);
             }
         }
     }
@@ -148,10 +151,10 @@ public class Photo {
      * Checks whether the path of the given picture meets certain criteria.
      */
     private static boolean checkPath(String path) {
-        if (path.equals(DEFAULT_PHOTO)) {
+        if (path.equals(DEFAULT_PHOTO_PATH)) {
             return true;
         }
-        if (path.matches(PHOTO_INITIAL_REGEX_)) {
+        if (path.matches(PHOTO_INITIAL_REGEX)) {
             return checkPicture(path);
         }
 
@@ -171,7 +174,7 @@ public class Photo {
             return false;
         }
 
-        return pictureNew.length() <= TENMB;
+        return pictureNew.length() <= TENMB_SIZE;
     }
 
     @Override
