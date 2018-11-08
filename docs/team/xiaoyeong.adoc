@@ -16,22 +16,15 @@ who may want to maintain a database of their personal transactions.
 ** What it does: allows the user to track the financial balance based on the date user input.
 ** Justification: This feature allow the user to have a better track of their loans and debts to allow better planning for the future.
 ** Highlights: The command is simple and flexible allowing different types of input methods so user will have a convenient time using it.
-** Code contributed: [https://github.com/CS2103-AY1819S1-W12-2/main/pull/57[Pull Request#57]] +
 
 * *Minor enhancement*:
 ** Added a nexttransaction command so users will able to easily finds and lists all transactions in the database which deadline is closest to current date.
-[https://github.com/CS2103-AY1819S1-W12-2/main/pull/79[Pull Request#79]] +
 ** Added a “compareTo” method in the class “Deadline” so that developer can easily compare two dates.
-[https://github.com/CS2103-AY1819S1-W12-2/main/pull/57[Pull Request#57]] +
+
+* Code contributed:[https://github.com/CS2103-AY1819S1-W12-2/main/pull/57[Functional Code Block #1]] [https://github.com/CS2103-AY1819S1-W12-2/main/pull/79[Functional Code Block #2]] [https://nus-cs2103-ay1819s1.github.io/cs2103-dashboard/#=undefined&search=xiaoyeong[Functional Code Block #2]]
+[https://github.com/CS2103-AY1819S1-W12-2/main/pull/68[Test code #1]] [https://github.com/CS2103-AY1819S1-W12-2/main/pull/79[Test code #2]] +
 
 * *Other contributions*:
-
-** Testing:
-*** Help write test code
-[https://github.com/CS2103-AY1819S1-W12-2/main/pull/68[Pull Request#68]] [https://github.com/CS2103-AY1819S1-W12-2/main/pull/79[Pull Request#79]] +
-*** Ensure the test cases are relevant and accurate
-[https://github.com/CS2103-AY1819S1-W12-2/main/commit/726e9b1bf4b8f2138b63e63ca6788ff805dc824e?short_path=d80058c#diff-d80058c033b9f127ec727c18cc84ce4d[Pull Request#43]] +
-
 
 ** Documentation:
 *** Helped write the User Guide

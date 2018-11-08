@@ -445,6 +445,7 @@ The following activity diagram summarizes what happens when a user executes a ne
 
 image::UndoRedoActivityDiagram.png[width="650"]
 
+
 ==== Design Considerations
 
 ===== Aspect: How undo & redo executes
@@ -465,6 +466,40 @@ image::UndoRedoActivityDiagram.png[width="650"]
 ** Pros: We do not need to maintain a separate list, and just reuse what is already in the codebase.
 ** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.
 // end::undoredo[]
+
+==== Use Cases
+===== Use case: Analyses Financial Income
+
+MSS:
+
+1.  User requests analyses financial income according to
+     certain conditions.
+2.  User can choose to enter a valid date or not enter any text and press enter.
+3.  The system will calculate the income up to the data enter or generate the whole financial income base on all the transaction in the database.
+
+Extensions:
+
+	2a. User enters invalid date
+
+	The system raises an error specifying that the given date is invalid.
+
+	Use case ends.
+
+	2b.  User enters no conditions.
+
+	The system generates the total financial income base on all the transaction in the database.
+
+	Use case ends.
+
+	2c. User enters valid date
+
+	The system generates the total financial income up to the given date.
+
+	Use case ends.
+
+
+
+
 
 
 === Logging
