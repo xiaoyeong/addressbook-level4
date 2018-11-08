@@ -687,7 +687,7 @@ These instructions only provide a starting point for testers to work on; testers
 
 .. Download the jar file and copy into an empty folder
 .. Double-click the jar file +
-   Expected: Shows the GUI with a set of sample contacts. The window size may not be optimum.
+   Expected: Shows the GUI with a set of sample transactions. The window size may not be optimum.
 
 . Saving window preferences
 
@@ -695,11 +695,9 @@ These instructions only provide a starting point for testers to work on; testers
 .. Re-launch the app by double-clicking the jar file. +
    Expected: The most recent window size and location is retained.
 
-_{ more test cases ... }_
-
 === Deleting a transaction
 
-. Deleting a transaction while all persons are listed
+. Deleting a transaction while all transactions are listed
 
 .. Prerequisites: List all persons using the `list` command. Multiple persons in the list.
 .. Test case: `delete 1` +
@@ -709,21 +707,15 @@ _{ more test cases ... }_
 .. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) _{give more}_ +
    Expected: Similar to previous.
 
-_{ more test cases ... }_
-
 === Saving data
 
 . Dealing with missing/corrupted data files
-
-.. _{explain how to simulate a missing/corrupted file and the expected behavior}_
-
-_{ more test cases ... }_
 
 === Add Profile Image
 
 .  Prerequisites: The Profile Image should not exceed 10MB.
 
-.. Advantage: It would prevent user from uploading large file as the application may be unstable.
+.. Advantage: It would prevent user from uploading large files as the application may be unstable.
 
 === Add Filter Command
  .  Prerequisites: Command input must adhere strictly to specified format
