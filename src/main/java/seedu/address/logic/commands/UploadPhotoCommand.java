@@ -19,9 +19,9 @@ import seedu.address.model.transaction.Transaction;
  * Uploads a photo for a person involved in a transaction with the user.
  */
 public class UploadPhotoCommand extends Command {
-    public static final String MESSAGE_SUCCESS = "New photo added: %1$s";
+    public static final String MESSAGE_SUCCESS = "Photo Changed: Update User %1$s";
     public static final int DEFAULT_INDEX = 1;
-    public static final String COMMAND_WORD = "uploadphoto";
+    public static final String COMMAND_WORD = "updatephoto";
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": upload image to that transaction contact";
 

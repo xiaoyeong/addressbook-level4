@@ -121,28 +121,6 @@ public class Photo {
     }
 
     /**
-     * Check the Operating System that the user's local machine is running
-     */
-    public static String getOperatingPath() {
-//        String oSystem = System.getProperty("os.name").toLowerCase();
-//
-//        //mac
-//        if (oSystem.contains("mac") || oSystem.contains("nux")) {
-//            return System.getProperty("user.home") + "/Documents/PhotoFolder";
-//        } else {
-//            return System.getenv("APPDATA") + "/PhotoFolder";
-//        }
-        return  null;
-    }
-
-    /**
-     * Get Operating System of User
-     */
-    private static String getOsName() {
-        return System.getProperty("os.name");
-    }
-
-    /**
      * Returns the path of the image file within the directory structure.
      */
     public String getPicturePath() {
