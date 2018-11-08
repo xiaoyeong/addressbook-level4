@@ -6,7 +6,7 @@
 == Overview
 
 Debt Tracker is a CLI-based desktop application that helps users manage their finances. It keeps track of the financial
-transactions the user undertakes. The primary target audience of this application is Small and Medium Entreprises (SMEs) in Singapore since
+transactions the user undertakes. The primary target audience of this application is Small and Medium Enterprises (SMEs) in Singapore since
 they typically face budget constraints and have to maintain a good credit score. However, this application can also be used by individuals
 who may want to maintain a database of their personal transactions.
 
@@ -102,3 +102,7 @@ image::LogicClassDiagram.png[width="800"]
 
 The use of the diagram will allow the other developer to quickly understand the working of the application.
 [https://github.com/CS2103-AY1819S1-W12-2/main/pull/68[Pull Request#68]] +
+
+Others
+
+[https://github.com/CS2103-AY1819S1-W12-2/main/pull/87/files[Pull Request#87]] +
