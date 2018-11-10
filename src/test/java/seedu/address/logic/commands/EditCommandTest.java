@@ -121,7 +121,7 @@ public class EditCommandTest {
         Model expectedModel = new ModelManager(model.getFinancialDatabase(), new UserPrefs());
 
         assertCommandFailureWithNoModelChange(editCommand, model, expectedModel, commandHistory,
-                EditCommand.MESSAGE_DUPLICATE_TRANSACTION);
+                Messages.MESSAGE_DUPLICATE_TRANSACTION);
     }
 
     @Test
@@ -134,7 +134,7 @@ public class EditCommandTest {
         EditCommand editCommand = new EditCommand(INDEX_FIRST_TRANSACTION,
                 new EditTransactionDescriptorBuilder(personInList).build());
         assertCommandFailureWithModelChange(editCommand, model, commandHistory,
-                EditCommand.MESSAGE_DUPLICATE_TRANSACTION);
+                Messages.MESSAGE_DUPLICATE_TRANSACTION);
     }
 
     @Test

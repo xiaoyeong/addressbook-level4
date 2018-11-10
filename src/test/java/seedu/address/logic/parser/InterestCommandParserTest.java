@@ -32,12 +32,17 @@ public class InterestCommandParserTest {
 
     @Test
     public void parse_invalidScheme_throwsParseException() {
-        assertParseFailure(parser, "sample 4.0%", InterestScheme.MESSAGE_INTEREST_SCHEME_CONSTRAINTS);
+        assertParseFailure(parser, "sample 4.00%", InterestScheme.MESSAGE_INTEREST_SCHEME_CONSTRAINTS);
     }
 
     @Test
     public void parse_invalidRate_throwsParseException() {
+        //more than 2 decimal places
         assertParseFailure(parser, "compound 4.635%", InterestRate.MESSAGE_INTEREST_RATE_CONSTRAINTS);
+        //interest rate above 4%
+        assertParseFailure(parser, "compound 4.63%", InterestRate.MESSAGE_INTEREST_RATE_CONSTRAINTS);
+        //less than 2 decimal places
+        assertParseFailure(parser, "compound 4.0%", InterestRate.MESSAGE_INTEREST_RATE_CONSTRAINTS);
     }
 
     @Test
