@@ -21,7 +21,7 @@ who may want to maintain a database of their personal transactions.
 ** Added a nexttransaction command so users will able to easily finds and lists all transactions in the database which deadline is closest to current date.
 ** Added a “compareTo” method in the class “Deadline” so that developer can easily compare two dates.
 
-* Code contributed:[https://github.com/CS2103-AY1819S1-W12-2/main/pull/57[Functional Code Block #1]] [https://github.com/CS2103-AY1819S1-W12-2/main/pull/79[Functional Code Block #2]] [https://nus-cs2103-ay1819s1.github.io/cs2103-dashboard/#=undefined&search=xiaoyeong[Functional Code Block #2]]
+* Code contributed:[https://nus-cs2103-ay1819s1.github.io/cs2103-dashboard/#=undefined&search=xiaoyeong[Functional code]]
 [https://github.com/CS2103-AY1819S1-W12-2/main/pull/68[Test code #1]] [https://github.com/CS2103-AY1819S1-W12-2/main/pull/79[Test code #2]] +
 
 * *Other contributions*:
@@ -38,7 +38,6 @@ who may want to maintain a database of their personal transactions.
 *** Team communication
 *** Brainstorming ideas
 *** Product demonstration
-
 
 
 == Contributions to the User Guide
@@ -74,6 +73,39 @@ Finds and lists all transactions in the database which deadline is closest to cu
 |===
 |Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project.
 |===
+
+4.1.3. Use Cases
+Use case: Analyses Financial Income
+MSS:
+
+User requests analyses financial income according to certain conditions.
+
+User can choose to enter a valid date or not enter any text and press enter.
+
+The system will calculate the income up to the data enter or generate the whole financial income base on all the transaction in the database.
+
+Extensions:
+
+    2a. User enters invalid date
+
+    The system raises an error specifying that the given date is invalid.
+
+    Use case ends.
+
+    2b.  User enters no conditions.
+
+    The system generates the total financial income base on all the transaction in the database.
+
+    Use case ends.
+
+    2c. User enters valid date
+
+    The system generates the total financial income up to the given date.
+
+    Use case ends.
+
+[https://github.com/CS2103-AY1819S1-W12-2/main/pull/131/files[Pull Request#131]] +
+
 
 *Model Class diagram*
 
