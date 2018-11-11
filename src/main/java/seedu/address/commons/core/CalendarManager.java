@@ -211,11 +211,6 @@ public class CalendarManager extends ComponentManager {
         return service != null;
     }
 
-
-    public Calendar getCalendarService() {
-        return service;
-    }
-
     /**
      * Creates and inserts a new calendar in Singapore Time for the debt tracker application
      * in the authorized user's account

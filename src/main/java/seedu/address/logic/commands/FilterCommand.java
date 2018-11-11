@@ -49,7 +49,7 @@ public class FilterCommand extends Command {
             + "Examples: \n"
             + COMMAND_WORD + " n/alex e/example.com p/87438807 a/Geylang tt/debt\n"
             + COMMAND_WORD + " n/alex;bernice;charlotte\n"
-            + COMMAND_WORD + " tamin/SGD 10.00 tamax/SGD 400.00\n"
+            + COMMAND_WORD + " tamin/10.00 tamax/400.00\n"
             + COMMAND_WORD + " tdmin/10/10/2018 tdmax/10/10/2019\n"
             + COMMAND_WORD + " n/charlotte e/alex or/\n";
 
@@ -68,7 +68,6 @@ public class FilterCommand extends Command {
         MultiFieldPredicate predicate = new MultiFieldPredicate(predicates, operatorType);
         model.updateFilteredTransactionList(predicate);
         model.updateFilteredPastTransactionList(predicate);
-        model.commitFinancialDatabase();
         return new CommandResult(
                 String.format(Messages.MESSAGE_ALL_TRANSACTIONS_LISTED_OVERVIEW,
                         model.getFilteredTransactionList().size(), model.getFilteredPastTransactionList().size()));
