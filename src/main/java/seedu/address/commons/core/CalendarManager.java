@@ -48,6 +48,7 @@ import com.google.api.services.calendar.model.Events;
 import javafx.application.Platform;
 
 import javafx.collections.ObservableList;
+import seedu.address.commons.events.ui.ClearBrowserPanelEvent;
 import seedu.address.commons.events.ui.NewResultAvailableEvent;
 import seedu.address.commons.events.ui.RefreshCalendarEvent;
 import seedu.address.model.Model;
@@ -200,6 +201,7 @@ public class CalendarManager extends ComponentManager {
             Files.deleteIfExists(Paths.get("tokens/StoredCredential"));
             this.service = null;
             this.calendarId = null;
+            raise(new ClearBrowserPanelEvent());
             return true;
         } catch (IOException ex) {
             return false;
