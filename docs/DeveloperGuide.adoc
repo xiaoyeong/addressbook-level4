@@ -776,6 +776,7 @@ TestCase: `uploadphoto 3 up/Users/xiaoyeong.png` +
 Expected: Your Profile Picture will be displayed.
 
 . This is the `sequence diagram` for the `updatephoto` command +
+
 image::LogicComponentDiagram2.png[width="800"]
 .. The user executes the `updatephoto INDEX up/FILEPATH` command, with parameters `INDEX` and `FILEPATH`
 .. The `FinancialDatabaseParser` class parses the command and create a new `UploadPhotoCommand` class.

@@ -62,7 +62,9 @@ who may want to maintain a database of their personal transactions.
 *Logic Class diagram*
 
 The use of this diagram will allow the other developers to understand the application easily.
-images::LogicComponentDiagram2.png[width="800"]
+
+image::LogicComponentDiagram2.png[width="800"]
+
 [https://github.com/CS2103-AY1819S1-W12-2/main/pull/68[Pull Request#135]] +
 
 
