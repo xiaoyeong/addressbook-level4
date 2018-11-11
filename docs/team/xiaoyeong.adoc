@@ -92,23 +92,20 @@ The system will calculate the income up to the data enter or generate the whole 
 
 Extensions:
 
-    2a. User enters invalid date
+2a. User enters invalid date
 
-    The system raises an error specifying that the given date is invalid.
+ 	* The system raises an error specifying that the given date is invalid.
+	* Use case ends.
 
-    Use case ends.
+2b. User enters no conditions.
 
-    2b.  User enters no conditions.
+ 	... The system generates the total financial income base on all the transaction in the database.
+	... Use case ends.
 
-    The system generates the total financial income base on all the transaction in the database.
+2c. User enters valid date
 
-    Use case ends.
-
-    2c. User enters valid date
-
-    The system generates the total financial income up to the given date.
-
-    Use case ends.
+ 	... The system generates the total financial income up to the given date.
+	... Use case ends.
 
 [https://github.com/CS2103-AY1819S1-W12-2/main/pull/131/files[Pull Request#131]] +
 
