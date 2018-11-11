@@ -117,6 +117,8 @@ OR switch past
 
 [https://github.com/CS2103-AY1819S1-W12-2/main/pull/121/files?short_path=d80058c#diff-d80058c033b9f127ec727c18cc84ce4d[Pull Request #121]] +
 
+[[Pull Request #140]] +
+
 
 
 == Contributions to the Developer Guide
