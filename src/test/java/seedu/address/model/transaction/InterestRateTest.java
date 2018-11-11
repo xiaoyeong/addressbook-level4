@@ -2,6 +2,7 @@ package seedu.address.model.transaction;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
@@ -22,7 +23,7 @@ public class InterestRateTest {
     }
 
     @Test
-    public void isCorrectInterestRate() {
+    public void isValidInterestRateTest() {
         //null interest rate
         Assert.assertThrows(NullPointerException.class, () -> InterestRate.isValidInterestRate(null));
 
@@ -48,6 +49,17 @@ public class InterestRateTest {
         String rate = "2.53%";
         InterestRate interestRate = new InterestRate(rate);
         assertEquals(interestRate.toString(), rate);
+    }
+
+    @Test
+    public void equalsTest() {
+        String rate = "3.46%";
+        String amount = "JPY 55.60";
+        InterestRate firstInterestRate = new InterestRate(rate);
+        InterestRate secondInterestRate = new InterestRate(rate);
+        Amount amountNotInterestRate = new Amount(amount);
+        assertEquals(firstInterestRate, secondInterestRate);
+        assertNotEquals(firstInterestRate, amountNotInterestRate);
     }
 
 }

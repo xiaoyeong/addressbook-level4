@@ -34,6 +34,8 @@ DT can keep a record of your loans and debts as fast as other apps, if not faste
 [[Features]]
 == Features
 
+NOTE: Commands are solely for current transaction list unless specified otherwise. +
+
 NOTE: Commands that make use of the transaction amounts such as filter, analytics and interest can be used
       properly only after the convert command is executed first +
 
@@ -145,19 +147,23 @@ Format: convert
 
 === Calculating interest on transactions: `interest`
 
-Calculates interest on each transaction on a monthly basis, based on the interest rate and scheme provided. +
+Calculates interest on each transaction on a *monthly basis*, based on the interest rate and scheme provided. +
 
 Conditions: +
 
 * Interest scheme must be either simple or compound. These keywords are case-insensitive. +
 
-* An interest rate must be entered in percentage with the value being a real number. +
+* An interest rate must be entered in percentage with the value rounded to two decimal places. +
 
-* The interest rate is capped at 4%. +
+* The interest rate is capped at 4.00%. +
+
+* Since interest calculation happens on a monthly basis, those transactions less than a month away from the current
+  date will not accrue any interest. +
+
 
 Format: interest INTEREST_SCHEME INTEREST_RATE +
 
-e.g. interest simple 1.1%
+e.g. interest simple 1.10%
 
 === Updating a transaction : `edit`
 
@@ -232,31 +238,47 @@ Format: nt
 
 === Locating transactions by substring : `search`
 
-Matches the inputted substring with the names of persons involved in transactions. +
+Depending on format, matches the inputted substring with the names of persons involved in current transactions, or in
+past transactions. +
 
 Conditions: +
 
 * The substring must be within the first or last name of a person involved, otherwise an empty list will be returned. +
+* If several substrings are keyed in (eg. search al ice), all contacts in which the first or last names
+contain any of the substrings (in the example, either "al" or "ice") will be returned.
 
-Format: search SUBSTRING
+Format: +
+To find within current transactions list: search SUBSTRING [MORE_SUBSTRINGS] ... +
+To find within past transactions list: search past SUBSTRING [MORE_SUBSTRINGS] ...
 
-e.g. search Be
+e.g. search Be +
+OR search Be + Am +
+OR search past Le +
+OR search past Yu + F + Pot
 
 === Deleting a transaction : `delete`
 
-Deletes the specified transaction from the current transaction list only. +
+Depending on format used, either deletes the specified transaction from the current transaction list only,  +
+or deletes the specified transaction from the past transaction list.
 
-Format: delete INDEX
+Format:
+Deleting from current transaction list: delete INDEX +
+Deleting from past transaction list: delete past INDEX
 
-e.g. delete 3
+e.g. delete 3 +
+OR delete past 3
 
 === Selecting a transaction : `select`
 
-Selects the transaction identified by the index number used in the displayed transaction list. +
+Depending on the format, selects the transaction identified by the index number used in the current transaction list
+or the past transaction list. +
 
-Format: select INDEX
+Format:
+Within current transactions list: select INDEX +
+Within past transactions list: select past INDEX
 
-e.g. select 2
+e.g. select 2 +
+OR select past 2
 
 === Listing all the previously entered commands : `history`
 
@@ -266,25 +288,32 @@ Format: history
 
 === Analyzing a possible loan amount : `analytics`
 
-Analyses the amount you have left after taking into consideration your loans, and the amount that you can loan out. +
+Analyses the amount you have left after taking into consideration your loans, and the amount that you can loan out. A positive amounts indicate a healthy financial balance with a negative amounts indicate a unhealthy financial balance. +
 
 Format: analytics
 
-=== Marking a transaction as Paid : `paid` (TO BE IMPLEMENTED)
+=== Marking a transaction as Paid : `paid`
 
-Deletes a transaction (that has been paid off) from the current transactions list, and adds it to the past transactions list. +
+Deletes a transaction (that the user deems to have been paid off) from the current transactions list,
+and adds it to the past transactions list. +
 
-Format: paid
+Format: paid INDEX
 
-=== Viewing past transactions : `past` (TO BE IMPLEMENTED)
+e.g. paid 4
 
-Provides a list of transactions, previously recorded in the current transactions list, marked as paid by the Paid command. +
+=== Switching between viewing past and current transactions : `switch`
 
-Format: past
+Depending on input, it will switch to either the Current Transactions tab or the Paid Transactions tab. +
+This is not an undoable command, but you can use switch to change back to the original tab.
+
+Format: switch LIST_TYPE
+
+e.g. switch curr +
+OR switch past
 
 === Undoing previous command : `undo`
 
-Restores the address book to the state before the previous undoable command was executed. +
+Restores the debt tracker to the state before the previous undoable command was executed. +
 
 Format: undo
 
@@ -296,7 +325,8 @@ Format: redo
 
 === Clearing all entries : `clear`
 
-Clears all entries from Debt Tracker. +
+Clears all entries from Debt Tracker, regardless of whether it is in the current transaction list or the past
+ transaction list. +
 
 Format: clear
 
@@ -357,25 +387,38 @@ OR filter n/Alex e/example.com tt/debt tamin/SGD 10.00 tdmax/31/12/2018
 
 Nt (NextTransaction) : nt
 
-Search : search SUBSTRING +
+Search : To find within current transactions list: search SUBSTRING [MORE_SUBSTRINGS] ... +
+To find within past transactions list: search past SUBSTRING [MORE_SUBSTRINGS] ...
 
-e.g. search Be
+e.g. search Be +
+OR search Be + Am +
+OR search past Le +
+OR search past Yu + F + Pot
 
-Delete : delete INDEX +
+Delete : Within current transactions list: delete INDEX +
+Within past transactions list: delete past INDEX
 
-e.g. delete 3
+e.g. delete 3 +
+OR delete past 3
 
-Select : select INDEX +
+Select : Within current transactions list: select INDEX +
+Within past transaction list: select past INDEX
 
-e.g.select 2
+e.g. select 2 +
+OR select past 2
 
 History : history
 
 Analytics : analytics
 
-Paid : paid
+Paid : paid INDEX +
 
-Past : past
+e.g. paid 4
+
+Switch : switch LIST_TYPE
+
+e.g. switch curr +
+OR switch past
 
 Undo : undo
 

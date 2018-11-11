@@ -1,0 +1,133 @@
+:imagesDir: ../images
+= Lou Shaw Yeong - Project Portfolio
+
+== PROJECT: DebtTracker
+
+== Overview
+
+Debt Tracker is a CLI-based desktop application that helps users manage their finances. It keeps track of the financial
+transactions the user undertakes. The primary target audience of this application is Small and Medium Enterprises (SMEs) in Singapore since
+they typically face budget constraints and have to maintain a good credit score. However, this application can also be used by individuals
+who may want to maintain a database of their personal transactions.
+
+== Summary of contributions
+
+* *Major enhancement*: added the ability to view the user financial status
+** What it does: allows the user to track the financial balance based on the date user input.
+** Justification: This feature allow the user to have a better track of their loans and debts to allow better planning for the future.
+** Highlights: The command is simple and flexible allowing different types of input methods so user will have a convenient time using it.
+
+* *Minor enhancement*:
+** Added a nexttransaction command so users will able to easily finds and lists all transactions in the database which deadline is closest to current date.
+** Added a “compareTo” method in the class “Deadline” so that developer can easily compare two dates.
+
+* Code contributed:[https://nus-cs2103-ay1819s1.github.io/cs2103-dashboard/#=undefined&search=xiaoyeong[Functional code]]
+[https://github.com/CS2103-AY1819S1-W12-2/main/pull/68[Test code #1]] [https://github.com/CS2103-AY1819S1-W12-2/main/pull/79[Test code #2]] +
+
+* *Other contributions*:
+
+** Documentation:
+*** Helped write the User Guide
+[https://github.com/CS2103-AY1819S1-W12-2/main/pull/79[Pull Request#79]] +
+*** Helped draw the diagram for Development Guide
+[https://github.com/CS2103-AY1819S1-W12-2/main/pull/68[Pull Request#68]] +
+*** Helped to check for errors for User Guide and development guide
+
+
+** Team:
+*** Team communication
+*** Brainstorming ideas
+*** Product demonstration
+
+
+== Contributions to the User Guide
+
+
+|===
+|Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users.
+|===
+
+* *Analysing a loan’s possible amount: analytics*
+Analyses the amount you have left after taking into consideration your loans, and the amount that you can loan out. A positive amounts indicate a healthy financial balance with a negative amounts indicate a unhealthy financial balance.
+
+** Format: “analytics” or “analytics dd/mm/yyy”.
+** Examples:
+*** analytics
+*** analytics 10/25/2020
+
+[https://github.com/CS2103-AY1819S1-W12-2/main/pull/79[Pull Request#79]] +
+
+
+* *Lists all transactions which deadline is closest: `nexttransaction`*
+Finds and lists all transactions in the database which deadline is closest to current date.
+
+** Format: “nexttransaction”.
+** Example:
+*** nexttransaction
+
+[https://github.com/CS2103-AY1819S1-W12-2/main/pull/79[Pull Request#79]] +
+
+
+== Contributions to the Developer Guide
+
+|===
+|Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project.
+|===
+
+4.1.3. Use Cases
+Use case: Analyses Financial Income
+MSS:
+
+User requests analyses financial income according to certain conditions.
+
+User can choose to enter a valid date or not enter any text and press enter.
+
+The system will calculate the income up to the data enter or generate the whole financial income base on all the transaction in the database.
+
+Extensions:
+
+    2a. User enters invalid date
+
+    The system raises an error specifying that the given date is invalid.
+
+    Use case ends.
+
+    2b.  User enters no conditions.
+
+    The system generates the total financial income base on all the transaction in the database.
+
+    Use case ends.
+
+    2c. User enters valid date
+
+    The system generates the total financial income up to the given date.
+
+    Use case ends.
+
+[https://github.com/CS2103-AY1819S1-W12-2/main/pull/131/files[Pull Request#131]] +
+
+
+*Model Class diagram*
+
+The following model class diagram was drawn by me to shows how the debt tracker holds the data of the App in-memory.
+
+.Structure of the Model Component
+image::ModelClassDiagram.png[width="800"]
+
+The use of the diagram will allow the other developer to quickly understand the working of the application.
+[https://github.com/CS2103-AY1819S1-W12-2/main/pull/68[Pull Request#68]] +
+
+
+*Logic Class diagram*
+
+The following logic class diagram was edited by me to shows how the debt tracker activate varies command input by the user.
+
+.Class Diagram of the Logic Component
+image::LogicClassDiagram.png[width="800"]
+
+The use of the diagram will allow the other developer to quickly understand the working of the application.
+[https://github.com/CS2103-AY1819S1-W12-2/main/pull/68[Pull Request#68]] +
+
+Others
+
+[https://github.com/CS2103-AY1819S1-W12-2/main/pull/87/files[Pull Request#87]] +

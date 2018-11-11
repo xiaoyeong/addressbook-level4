@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<!-- AddressBook save file which contains the same Person values as in Typicaltransactions#getTypicalAddressBook() -->
+<!-- Financial Database savse file which contains the same Transaction values as in TypicalTransactions#getTypicalFinancialDatabase() -->
 <financialdatabase>
     <transactions>
         <amount>SGD 42.50</amount>
@@ -51,7 +51,7 @@
         <address>michegan ave</address>
     </transactions>
     <transactions>
-	    <amount>CNY 47.25</amount>
+	    <amount>MYR 558.65</amount>
         <type>Debt</type>
         <deadline>12/11/2018</deadline>
         <name>Fiona Kunz</name>
@@ -60,7 +60,7 @@
         <address>little tokyo</address>
     </transactions>
     <transactions>
-	    <amount>CNY 47.15</amount>
+	    <amount>GBP 47.15</amount>
         <type>Debt</type>
         <deadline>12/11/2018</deadline>
         <name>George Best</name>

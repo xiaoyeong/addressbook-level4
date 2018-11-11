@@ -1,5 +1,6 @@
 package seedu.address.logic.commands;
 
+import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailureWithNoModelChange;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccessWithModelChange;
 import static seedu.address.testutil.TypicalTransactions.getTypicalFinancialDatabase;
 
@@ -11,8 +12,6 @@ import seedu.address.logic.CommandHistory;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
-import seedu.address.model.transaction.InterestRate;
-import seedu.address.model.transaction.InterestScheme;
 
 public class InterestCommandTest {
     @Rule
@@ -22,50 +21,21 @@ public class InterestCommandTest {
     private CommandHistory commandHistory = new CommandHistory();
 
     @Test
-    public void execute_noScheme_throwsIllegalArgumentException() {
-        thrown.expect(IllegalArgumentException.class);
-        thrown.expectMessage(InterestScheme.MESSAGE_INTEREST_SCHEME_CONSTRAINTS);
-        InterestCommand interestCommand = new InterestCommand("", "1.5%");
-        interestCommand.execute(model, commandHistory);
+    public void execute_noTransactions_throwsIllegalArgumentException() {
+        Model expectedModel = new ModelManager();
+        String expectedMessage = InterestCommand.MESSAGE_NO_TRANSACTIONS;
+        InterestCommand interestCommand = new InterestCommand("simple", "1.50%");
+        ModelManager actualModel = new ModelManager();
+        assertCommandFailureWithNoModelChange(interestCommand, actualModel, expectedModel, commandHistory,
+                expectedMessage);
     }
 
     @Test
-    public void execute_wrongScheme_throwsIllegalArgumentException() {
-        thrown.expect(IllegalArgumentException.class);
-        thrown.expectMessage(InterestScheme.MESSAGE_INTEREST_SCHEME_CONSTRAINTS);
-        InterestCommand interestCommand = new InterestCommand("compund", "1.5%");
-        interestCommand.execute(model, commandHistory);
-    }
-
-    @Test
-    public void execute_noRate_throwsIllegalArgumentException() {
-        thrown.expect(IllegalArgumentException.class);
-        thrown.expectMessage(InterestRate.MESSAGE_INTEREST_RATE_CONSTRAINTS);
-        InterestCommand interestCommand = new InterestCommand("simple", "");
-        interestCommand.execute(model, commandHistory);
-    }
-
-    @Test
-    public void execute_wrongRate_throwsIllegalArgumentException() {
-        thrown.expect(IllegalArgumentException.class);
-        thrown.expectMessage(InterestRate.MESSAGE_INTEREST_RATE_CONSTRAINTS);
-        InterestCommand interestCommand = new InterestCommand("compound", "1.5");
-        interestCommand.execute(model, commandHistory);
-    }
-
-    @Test
-    public void execute_noSchemeAndRate_throwsIllegalArgumentException() {
-        thrown.expect(IllegalArgumentException.class);
-        thrown.expectMessage(InterestScheme.MESSAGE_INTEREST_SCHEME_CONSTRAINTS);
-        InterestCommand interestCommand = new InterestCommand("", "");
-        interestCommand.execute(model, commandHistory);
-    }
-
-    @Test
-    public void execute_schemeWrongCase_success() {
+    public void execute_typicalTransactions_success() {
+        Model expectedModel = new ModelManager(getTypicalFinancialDatabase(), new UserPrefs());
         int sizeOfTransactionList = model.getFilteredTransactionList().size();
         String expectedMessage = String.format(InterestCommand.MESSAGE_SUCCESS, sizeOfTransactionList);
-        InterestCommand interestCommand = new InterestCommand("cOmPoUnD", "2.30%");
+        InterestCommand interestCommand = new InterestCommand("compound", "2.30%");
         assertCommandSuccessWithModelChange(interestCommand, model, commandHistory, expectedMessage);
     }
 }

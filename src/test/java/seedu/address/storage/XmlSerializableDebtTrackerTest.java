@@ -32,9 +32,9 @@ public class XmlSerializableDebtTrackerTest {
     public void toModelType_typicalPersonsFile_success() throws Exception {
         XmlSerializableFinancialDatabase dataFromFile = XmlUtil.getDataFromFile(TYPICAL_TRANSACTIONS_FILE,
                 XmlSerializableFinancialDatabase.class);
-        FinancialDatabase addressBookFromFile = dataFromFile.toModelType();
+        FinancialDatabase financialDatabaseFromFile = dataFromFile.toModelType();
         FinancialDatabase typicalPersonsFinancialDatabase = TypicalTransactions.getTypicalFinancialDatabase();
-        assertEquals(addressBookFromFile, typicalPersonsFinancialDatabase);
+        assertEquals(financialDatabaseFromFile, typicalPersonsFinancialDatabase);
     }
 
     @Test

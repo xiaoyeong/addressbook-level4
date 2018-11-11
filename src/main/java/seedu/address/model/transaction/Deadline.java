@@ -10,28 +10,25 @@ import java.time.temporal.ChronoUnit;
 
 import com.sun.istack.NotNull;
 
-import seedu.address.commons.core.LogsCenter;
-
 /**
- * Represents the deadline by which payment has to be made
- * Guarantees: immutable; is valid as declared in {@link #isValidDeadline(String)}
+ * Represents the deadline by which payment has to be made.
+ * Guarantees: the deadline is valid present/future date in the Gregorian calendar.
  */
 public class Deadline implements Comparable<Deadline> {
-    public static final String MESSAGE_TRANSACTION_DEADLINE_CONSTRAINTS =
-            "The transaction deadline must be a valid date in the future following the DD/MM/YYYY format";
+    public static final String MESSAGE_TRANSACTION_DEADLINE_INCORRECT_FORMAT =
+            "The transaction deadline must follow the DD/MM/YYYY format";
+    public static final String MESSAGE_TRANSACTION_DEADLINE_HAS_PASSED =
+            "The transaction deadline must be a date in the present or the future";
     public static final String TRANSACTION_DEADLINE_VALIDATION_REGEX = "\\d{1,2}/\\d{1,2}/\\d{4}";
-    public static final Deadline CURRENT_DATE =
-            new Deadline(LocalDate.now().format(DateTimeFormatter.ofPattern("dd/MM/YYYY")));
+    public static final String CURRENT_DATE = LocalDate.now().format(DateTimeFormatter.ofPattern("dd/MM/YYYY"));
     public final String value;
 
     /**
      * Constructs an {@code Deadline}.
-     *
-     * @param deadline A valid transaction deadline.
      */
     public Deadline(String deadline) {
         requireNonNull(deadline);
-        checkArgument(isValidDeadline(deadline), MESSAGE_TRANSACTION_DEADLINE_CONSTRAINTS);
+        checkArgument(matchesDateFormat(deadline), MESSAGE_TRANSACTION_DEADLINE_INCORRECT_FORMAT);
         value = deadline;
     }
 
@@ -40,41 +37,20 @@ public class Deadline implements Comparable<Deadline> {
     }
 
     /**
-     * Returns true if {@code test} is a valid transaction deadline.
-     *
-     * @param test the command line argument to be parsed
-     */
-    public static boolean isValidDeadline(String test) {
-        return test.matches(TRANSACTION_DEADLINE_VALIDATION_REGEX) && checkDate(test, false);
-    }
-
-    /**
      * Returns true if {@code test} is a valid transaction deadline in the future.
-     *
-     * @param test the command line argument to be parsed
      */
-    public static boolean isValidFutureDeadline(String test) {
-        return test.matches(TRANSACTION_DEADLINE_VALIDATION_REGEX) && checkDate(test, true);
+    public static boolean matchesDateFormat(String test) {
+        return test.matches(TRANSACTION_DEADLINE_VALIDATION_REGEX);
     }
 
     /**
-     * Checks whether the string {@test} that follow date format is actually a valid date
-     * according to the Gregorian Calendar.
-     * @param test the command line argument to be parsed
-     * @param checkFuture indicates whether to check if the date is in the future
+     * Checks whether the string {@test} represents a valid date according to the Gregorian Calendar .
      */
-    private static boolean checkDate(String test, boolean checkFuture) {
-        int dayOfMonth = Integer.parseInt(test.split("/")[0]);
-        int month = Integer.parseInt(test.split("/")[1]);
-        int year = Integer.parseInt(test.split("/")[2]);
-        try {
-            LocalDate date = LocalDate.of(year, month, dayOfMonth);
-            return checkFuture ? !date.isBefore(LocalDate.now()) : true;
-        } catch (DateTimeException ex) {
-            LogsCenter.getLogger(Deadline.class).warning(ex.getMessage());
-            return false;
+    public static void checkDateInFuture(String test) {
+        LocalDate givenDate = convertToDate(test);
+        if (givenDate.isBefore(convertToDate(Deadline.CURRENT_DATE))) {
+            throw new DateTimeException(MESSAGE_TRANSACTION_DEADLINE_HAS_PASSED);
         }
-
     }
 
     @Override
@@ -99,16 +75,16 @@ public class Deadline implements Comparable<Deadline> {
     /**
      * Converts a Deadline object to a LocalDateTime object.
      */
-    private LocalDate convertToDate() {
-        int dayOfMonth = Integer.parseInt(value.split("/")[0]);
-        int month = Integer.parseInt(value.split("/")[1]);
-        int year = Integer.parseInt(value.split("/")[2]);
+    private static LocalDate convertToDate(String test) {
+        int dayOfMonth = Integer.parseInt(test.split("/")[0]);
+        int month = Integer.parseInt(test.split("/")[1]);
+        int year = Integer.parseInt(test.split("/")[2]);
         return LocalDate.of(year, month, dayOfMonth);
     }
 
     private long getDifference(Deadline other, String timeUnit) {
-        LocalDate currentDate = this.convertToDate();
-        LocalDate otherDate = other.convertToDate();
+        LocalDate currentDate = convertToDate(value);
+        LocalDate otherDate = convertToDate(other.value);
         long result;
         switch (timeUnit) {
         case "months":
@@ -127,7 +103,8 @@ public class Deadline implements Comparable<Deadline> {
     }
 
     public long getMonthsDifference() {
-        return Deadline.CURRENT_DATE.getMonthsDifference(this);
+        Deadline todayDeadline = new Deadline(Deadline.CURRENT_DATE);
+        return todayDeadline.getMonthsDifference(this);
     }
 
     private long getMonthsDifference(Deadline other) {

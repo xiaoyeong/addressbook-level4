@@ -18,8 +18,6 @@ public class Transaction {
     private final Deadline deadline;
     private Amount amount;
     private Photo photo;
-    private InterestScheme interestScheme;
-    private InterestRate interestRate;
     private final Logger logger = LogsCenter.getLogger(getClass());
 
 
@@ -45,6 +43,10 @@ public class Transaction {
         this.person = person;
         this.deadline = deadline;
         this.photo = new Photo();
+    }
+
+    public Transaction(Transaction obj) {
+        this(obj.getType(), obj.getAmount(), obj.getDeadline(), obj.getPerson(), obj.getPhoto());
     }
 
     public static Transaction copy(Transaction other) {
@@ -93,7 +95,6 @@ public class Transaction {
      */
     public String photoUniqueId() {
         int targetStringLength = 15;
-        String value;
         Random random = new Random();
         StringBuilder buffer = new StringBuilder(targetStringLength);
         for (int i = 0; i < targetStringLength; i++) {

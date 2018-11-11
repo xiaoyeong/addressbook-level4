@@ -177,10 +177,6 @@ public class CalendarManager extends ComponentManager {
                 .build();
     }
 
-    public void setReminder(int timePeriod, Transaction transactionToSetReminder) throws IOException {
-        List<Event> calendarEvents = getCalendarEvents();
-    }
-
     /**
      * Starts the calendar login process on a new thread and returns true if the user has not already logged in,
      * returns false otherwise.
@@ -399,7 +395,7 @@ public class CalendarManager extends ComponentManager {
         BatchRequest b = service.batch();
         for (CalendarTransaction add : toAdd) {
             Event e = new Event();
-            e.setSummary(add.transaction.getPerson().getName().fullName);
+            e.setSummary(add.transaction.getPerson().getName().toString());
             String description = add.transaction.getPerson().getPhone().value + "\n"
                     + add.transaction.getPerson().getAddress().value + "\n"
                     + add.transaction.getPerson().getEmail().value + "\n"
