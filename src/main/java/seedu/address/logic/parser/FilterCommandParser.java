@@ -45,6 +45,12 @@ public class FilterCommandParser implements Parser<FilterCommand> {
 
     private static final String MESSAGE_TRANSACTION_AMOUNT_BOUND_CONSTRAINT = "The value for tamin/ and tamax/ must be"
             + " a real number rounded to two decimal places";
+    private static final String MESSAGE_LATESTDEADLINE_BEFORE_EARLIESTDEADLINE = "Date specified for tdmax/ cannot be"
+            + " before tdmin/ unless the or/ prefix is used.";
+    private static final String MESSAGE_MAXAMOUNT_LESSTHAN_MINAMOUNT = "Amount specified for tamax/ cannot be"
+            + " less than tamin/ unless the or/ prefix is used.";
+
+    private MultiFieldPredicate.OperatorType opType = MultiFieldPredicate.OperatorType.AND;
 
     /**
      * Parses the given {@code String} of arguments in the context of the AddCommand
@@ -79,7 +85,7 @@ public class FilterCommandParser implements Parser<FilterCommand> {
 
         addPredicates(argMultimap, predicates);
 
-        return new FilterCommand(predicates, getOperatorType(argMultimap));
+        return new FilterCommand(predicates, opType);
     }
 
     /**
@@ -118,6 +124,8 @@ public class FilterCommandParser implements Parser<FilterCommand> {
     private void addPredicates(ArgumentMultimap argumentMultimap, List<Predicate<Transaction>> predicateList)
             throws ParseException {
 
+        opType = getOperatorType(argumentMultimap);
+
         Map<Prefix, FieldType> typeMap = getFieldTypeMap();
 
         for (Map.Entry<Prefix, FieldType> entry : typeMap.entrySet()) {
@@ -130,33 +138,49 @@ public class FilterCommandParser implements Parser<FilterCommand> {
             }
         }
 
+        Deadline deadlineEarliest = null;
         if (argumentMultimap.getValue(PREFIX_TRANSACTION_DEADLINE_EARLIEST).isPresent()) {
-            Deadline deadline = ParserUtil.parseDeadlineIgnoreFuture(argumentMultimap
+            deadlineEarliest = ParserUtil.parseDeadlineIgnoreFuture(argumentMultimap
                     .getValue(PREFIX_TRANSACTION_DEADLINE_EARLIEST).get());
-            predicateList.add(new DeadlineBoundsPredicate(deadline, DeadlineBoundsPredicate.BoundType.EARLIEST));
+            predicateList.add(new DeadlineBoundsPredicate(deadlineEarliest,
+                    DeadlineBoundsPredicate.BoundType.EARLIEST));
         }
 
         if (argumentMultimap.getValue(PREFIX_TRANSACTION_DEADLINE_LATEST).isPresent()) {
-            Deadline deadline = ParserUtil.parseDeadlineIgnoreFuture(argumentMultimap
+            Deadline deadlineLatest = ParserUtil.parseDeadlineIgnoreFuture(argumentMultimap
                     .getValue(PREFIX_TRANSACTION_DEADLINE_LATEST).get());
-            predicateList.add(new DeadlineBoundsPredicate(deadline, DeadlineBoundsPredicate.BoundType.LATEST));
+            predicateList.add(new DeadlineBoundsPredicate(deadlineLatest, DeadlineBoundsPredicate.BoundType.LATEST));
+            if (deadlineEarliest != null && opType.equals(MultiFieldPredicate.OperatorType.AND)) {
+                if (deadlineEarliest.compareTo(deadlineLatest) > 0) {
+                    throw new ParseException(MESSAGE_LATESTDEADLINE_BEFORE_EARLIESTDEADLINE);
+                }
+            }
         }
 
+        Amount maxAmount = null;
         if (argumentMultimap.getValue(PREFIX_TRANSACTION_AMOUNT_MAX).isPresent()) {
             try {
-                Amount amount = ParserUtil.parseAmount("SGD " + argumentMultimap.getValue(PREFIX_TRANSACTION_AMOUNT_MAX).get().trim());
-                predicateList.add(new AmountBoundsPredicate(amount, AmountBoundsPredicate.BoundType.MAX));
-            } catch (ParseException ex){
+                maxAmount = ParserUtil.parseAmount("SGD "
+                        + argumentMultimap.getValue(PREFIX_TRANSACTION_AMOUNT_MAX).get().trim());
+                predicateList.add(new AmountBoundsPredicate(maxAmount, AmountBoundsPredicate.BoundType.MAX));
+            } catch (ParseException ex) {
                 throw new ParseException(MESSAGE_TRANSACTION_AMOUNT_BOUND_CONSTRAINT);
             }
         }
 
         if (argumentMultimap.getValue(PREFIX_TRANSACTION_AMOUNT_MIN).isPresent()) {
+            Amount minAmount;
             try {
-                Amount amount = ParserUtil.parseAmount("SGD " + argumentMultimap.getValue(PREFIX_TRANSACTION_AMOUNT_MIN).get().trim());
-                predicateList.add(new AmountBoundsPredicate(amount, AmountBoundsPredicate.BoundType.MIN));
-            } catch (ParseException ex){
+                minAmount = ParserUtil.parseAmount("SGD "
+                        + argumentMultimap.getValue(PREFIX_TRANSACTION_AMOUNT_MIN).get().trim());
+                predicateList.add(new AmountBoundsPredicate(minAmount, AmountBoundsPredicate.BoundType.MIN));
+            } catch (ParseException ex) {
                 throw new ParseException(MESSAGE_TRANSACTION_AMOUNT_BOUND_CONSTRAINT);
+            }
+            if (maxAmount != null && opType.equals(MultiFieldPredicate.OperatorType.AND)) {
+                if (minAmount.compareTo(maxAmount) > 0) {
+                    throw new ParseException(MESSAGE_MAXAMOUNT_LESSTHAN_MINAMOUNT);
+                }
             }
         }
 
