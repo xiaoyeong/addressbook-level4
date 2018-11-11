@@ -353,8 +353,7 @@ Format: history
 
 === Analyzing a possible loan amount : `analytics`
 
-Analyses the amount you have left after taking into consideration your loans, and the amount that you can loan out. A positive amounts indicate a healthy financial balance with a negative amounts indicate a unhealthy financial balance. +
-
+Analyses the amount you have left after taking into consideration your loans, and the amount that you can loan out. A positive value returned indicates a healthy financial balance (defined to be a surplus) whereas a negative amount returned indicates a unhealthy financial balance (defined to be a deficit).
 Format: analytics
 
 === Marking a transaction as Paid : `paid`
