@@ -54,10 +54,9 @@ public class ModelManager extends ComponentManager implements Model {
         return versionedFinancialDatabase;
     }
 
-    /** Raises an event to indicate the model has changed, and synchronizes the calendar with the model*/
+    /** Raises an event to indicate the model has changed*/
     private void indicateFinancialDatabaseChanged() {
         raise(new FinancialDatabaseChangedEvent(versionedFinancialDatabase));
-        CalendarManager.getInstance().syncCalendarAsync(this);
     }
 
     @Override
@@ -155,17 +154,20 @@ public class ModelManager extends ComponentManager implements Model {
     public void undoFinancialDatabase() {
         versionedFinancialDatabase.undo();
         indicateFinancialDatabaseChanged();
+        CalendarManager.getInstance().syncCalendarAsync(this);
     }
 
     @Override
     public void redoFinancialDatabase() {
         versionedFinancialDatabase.redo();
         indicateFinancialDatabaseChanged();
+        CalendarManager.getInstance().syncCalendarAsync(this);
     }
 
     @Override
     public void commitFinancialDatabase() {
         versionedFinancialDatabase.commit();
+        CalendarManager.getInstance().syncCalendarAsync(this);
     }
 
     @Override
