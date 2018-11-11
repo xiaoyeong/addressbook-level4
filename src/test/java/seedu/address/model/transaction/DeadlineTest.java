@@ -2,6 +2,7 @@ package seedu.address.model.transaction;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertTrue;
 
 import java.time.DateTimeException;
@@ -50,8 +51,18 @@ public class DeadlineTest {
         assertTrue(Deadline.matchesDateFormat("28/04/2019"));
     }
 
-    //TODO: improve this randomized testing
+    @Test
+    public void equals() {
+        Deadline sampleDeadline = new Deadline("24/07/2020");
+        assertEquals(sampleDeadline, sampleDeadline);
 
+        Deadline sampleDeadlineDateChanged = new Deadline("04/07/2020");
+        assertNotEquals(sampleDeadline, sampleDeadlineDateChanged);
+
+        assertNotEquals(sampleDeadline, "24/07/2020");
+    }
+
+    //TODO: improve this randomized testing
     /**
      * Generates a random date (date with random valid values for day, month and year)
      */

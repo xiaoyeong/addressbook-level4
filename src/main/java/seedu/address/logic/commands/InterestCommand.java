@@ -5,8 +5,11 @@ import static java.util.Objects.requireNonNull;
 import java.util.List;
 
 import seedu.address.logic.CommandHistory;
+import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.transaction.Amount;
+import seedu.address.model.transaction.InterestRate;
+import seedu.address.model.transaction.InterestScheme;
 import seedu.address.model.transaction.Transaction;
 
 /**
@@ -21,19 +24,23 @@ public class InterestCommand extends Command {
             + "Parameters: INTEREST_SCHEME INTEREST_RATE...\n"
             + "Example: " + COMMAND_WORD + " simple 1.1%";
     public static final String MESSAGE_SUCCESS = "Interest calculated for all %d transactions!";
-    private final String scheme;
-    private final String rate;
+    public static final String MESSAGE_NO_TRANSACTIONS = "No transactions present to calculate the interest!!";
+    private final InterestScheme scheme;
+    private final InterestRate rate;
 
 
     public InterestCommand(String scheme, String rate) {
-        this.scheme = scheme;
-        this.rate = rate;
+        this.scheme = new InterestScheme(scheme);
+        this.rate = new InterestRate(rate);
     }
 
     @Override
-    public CommandResult execute(Model model, CommandHistory history) {
+    public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
         List<Transaction> lastShownList = model.getFilteredTransactionList();
+        if (lastShownList.isEmpty()) {
+            throw new CommandException(MESSAGE_NO_TRANSACTIONS);
+        }
         for (Transaction transactionToEdit : lastShownList) {
             Amount principalAmount = transactionToEdit.getAmount();
             long monthsDifference = transactionToEdit.getDeadline().getMonthsDifference();

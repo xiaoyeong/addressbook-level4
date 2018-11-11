@@ -13,7 +13,7 @@ ifdef::env-github[]
 :warning-caption: :warning:
 :experimental:
 endif::[]
-:repoURL: https://github.com/CS2103-AY1819S1-W12-2/main
+:repoURL: https://github.com/CS2103-AY1819S1-W12-2/main/tree/master
 
 By: `W12-2`      Since: `September 2018`      Licence: `MIT`
 
@@ -47,7 +47,7 @@ Do not disable them. If you have disabled them, go to `File` > `Settings` > `Plu
 . Click `OK` to accept the default settings
 . Open a console and run the command `gradlew processResources` (Mac/Linux: `./gradlew processResources`). It should finish with the `BUILD SUCCESSFUL` message. +
 This will generate all resources required by the application and tests.
-. Open link:{repoURL}/src/main/java/seedu/address/storage/XmlAdaptedPerson.java[`XmlAdaptedPerson.java`] and link:{repoURL}/src/main/java/seedu/address/ui/MainWindow.java[`MainWindow.java`] and check for any code errors
+. Open link:{repoURL}/src/main/java/seedu/address/storage/XmlAdaptedTransaction.java[`XmlAdaptedTransaction.java`] and link:{repoURL}/src/main/java/seedu/address/ui/MainWindow.java[`MainWindow.java`] and check for any code errors
 .. Due to an ongoing https://youtrack.jetbrains.com/issue/IDEA-189060[issue] with some of the newer versions of IntelliJ, code errors may be detected even if the project can be built and run successfully
 .. To resolve this, place your cursor over any of the code section highlighted in red. Press kbd:[ALT + ENTER], and select `Add '--add-modules=...' to module compiler options` for each error
 . Repeat this for the test folder as well (e.g. check link:{repoURL}/src/test/java/seedu/address/commons/util/XmlUtilTest.java[`XmlUtilTest.java`] and link:{repoURL}/src/test/java/seedu/address/ui/HelpWindowTest.java[`HelpWindowTest.java`] for code errors, and if so, resolve it the same way)
@@ -152,11 +152,6 @@ Priorities:  High (should have) +
 
 | High
 | user
-| filter creditors and debtors
-| know who are the debtors and creditors
-
-| High
-| user
 | have a reminder to pay my creditor
 | ensure that my loans are not left outstanding
 
@@ -221,6 +216,18 @@ Priorities:  High (should have) +
 | user
 | calculate the interest rate of the loan
 | know the right amount to collect from the debtors
+
+| Medium
+{set:cellbgcolor:yellow}
+| user
+| view a calendar with details of current transactions
+| have an overview of upcoming transactions
+
+| Medium
+{set:cellbgcolor:yellow}
+| user
+| filter transactions within a certain period
+| focus on transactions in a certain period
 
 | Low
 {set:cellbgcolor:red}
@@ -497,10 +504,23 @@ Extensions:
 
 	Use case ends.
 
+===== Use case: Filter Transactions by criteria
 
+MSS:
 
+* 1.  User requests to view transactions that matches certain criteria
+* 2.  The System displays transactions that matches the criteria specified by the user +
+ Use case ends.
 
+Extensions:
 
+* 1a. User does not specify any criteria
+**  The system raises an error and indicates to the user the correct command format. +
+**  Use case ends.
+
+* 1b. User enters an invalid input for a criteria
+** The system raises an error and indicates to the user the correct input format
+** Use case ends.
 
 === Logging
 
@@ -752,8 +772,34 @@ These instructions only provide a starting point for testers to work on; testers
 
 .. Advantage: It would prevent user from uploading large files as the application may be unstable.
 
-=== Add Filter Command
- .  Prerequisites: Command input must adhere strictly to specified format
- .. Test case: `filter n/john e/hotmail.com` +
-    Expected: Lists all persons named john with a hotmail.com email
+=== Filter Command
+.  Prerequisites: Command input must adhere strictly to specified format
+.. Test case: `filter n/alex e/example.com` +
+Expected: Lists all transactions with name 'alex' with an 'example.com' email
+.. Test case: `filter tdmin/10/11/2018 tdmax/14/12/2018` +
+Expected: Lists all transactions with deadline between 10/11/2018 and 14/12/2018
+.. Test case: `filter n/alex e/example.com and/ or/`
+Expected: Command fails. Error details shown in the status message.
+.. Other incorrect filter commands to try: `filter`, `filter n/;;`, `filter or/`
 
+=== Using the Google Calendar service
+
+. Logging in with a Google account
+.. Enter `calendar login` into the command box.
+.. Browser will launch with an authentication prompt.
+.. Enter your Google account details for authentication. There are three possible options for this:
+... Use an existing Google account
+... Create a new Google account for testing
+... Login with the provided test account (not recommended):
+
+        Username: debttracker2103@gmail.com
+        Password: 2103testaccount
+
+** Use of the provided test account is not recommended as it may produce unexpected results when viewing/syncing the calendar data due to the possibility of concurrent users. Only use if you do not have access to and are unable to create a new Google account.
+
+. Viewing the Calendar
+.. Enter `calendar show` in the command box to view the Google calendar in-app.
+
+. Syncing the Calendar
+.. Calendar data is synced automatically when entering a command that modifies the debt tracker data.
+.. To perform a manual sync in cases where the calendar data is not in sync with the debt tracker app, enter `calendar sync` into the command box.

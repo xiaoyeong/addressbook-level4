@@ -145,7 +145,9 @@ public class FinancialDatabaseParserTest {
         FilterCommand parsedCommand = (FilterCommand) parser.parseCommand(FilterCommand.COMMAND_WORD + " "
                         + CliSyntax.PREFIX_NAME + " " + aliceName + ";" + danielName + " "
                         + CliSyntax.PREFIX_TRANSACTION_DEADLINE_EARLIEST + " " + Deadline.CURRENT_DATE
-                        + " " + CliSyntax.PREFIX_TRANSACTION_AMOUNT_MIN + " " + Amount.DEFAULT_AMOUNT);
+                        + " " + CliSyntax.PREFIX_TRANSACTION_AMOUNT_MIN + " "
+                        + String.format("%.2f", Amount.DEFAULT_AMOUNT.getValue()));
+
         assertEquals(parsedCommand, testCommand);
     }
 

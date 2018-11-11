@@ -119,22 +119,31 @@ To delete a photo: uploadp [INDEX] up/delete
 e.g. uploadp 3 up/Users/Photo.png +
      uploadp 1 up/delete
 
-=== View calendar with debt deadlines : `calendar`
+=== View calendar with current transaction deadlines : `calendar`
 
-Displays a Google calendar showing the user's transactions and their deadlines. +
+Displays a Google calendar showing the user's current transactions and their deadlines. +
 
 Conditions: +
 
-* This command can only be used with one of the following keywords: 1) show  2) login 3)logout. +
+* This command can only be used with one of the following keywords: 1) show  2) login 3) logout 4) sync +
 * The keywords are case-sensitive.
 * This feature requires linking the deadlines to your Google account. Hence a test google account will be provided. +
+
+Test Account: +
+
+* The Google account provided below can be used for testing the calendar feature:
+
+    Username: debttracker2103@gmail.com
+    Password: 2103testaccount
+
+** Note:  Use of a personal or newly created Google account is highly recommended. Usage of the provided test account may produce unexpected results, as multiple users may access the test account at the same time.
 
 Formats: +
 
 * To show calendar in the app: calendar show +
 * To login to your Google account: calendar login +
 * To logout of your Google account: calendar logout +
-* To manually synchronise the user's transactions with the calendar: calendar sync
+* To manually synchronise the user's current transactions with the calendar: calendar sync
 
 === Converting multiple currencies: `convert`
 
@@ -147,19 +156,23 @@ Format: convert
 
 === Calculating interest on transactions: `interest`
 
-Calculates interest on each transaction on a monthly basis, based on the interest rate and scheme provided. +
+Calculates interest on each transaction on a *monthly basis*, based on the interest rate and scheme provided. +
 
 Conditions: +
 
 * Interest scheme must be either simple or compound. These keywords are case-insensitive. +
 
-* An interest rate must be entered in percentage with the value being a real number. +
+* An interest rate must be entered in percentage with the value rounded to two decimal places. +
 
-* The interest rate is capped at 4%. +
+* The interest rate is capped at 4.00%. +
+
+* Since interest calculation happens on a monthly basis, those transactions less than a month away from the current
+  date will not accrue any interest. +
+
 
 Format: interest INTEREST_SCHEME INTEREST_RATE +
 
-e.g. interest simple 1.1%
+e.g. interest simple 1.10%
 
 === Updating a transaction : `edit`
 
@@ -212,18 +225,68 @@ E.g. sort type OR +
 
 Filters transactions matching specified criteria. +
 
+Note: This command does not work with the `undo` and `redo` commands, since it does not modify the debt tracker's data.
+
 Conditions: +
 
-* It is optional to provide the criteria. +
+* At least one criteria has to be specified. +
 
-* The respective parameters should follow the format specified in the add command. +
+* The same parameter cannot be specified twice (e.g. `filter n/alex n/bernice` will be rejected) +
+
+* The following parameters correspond to the same attributes used in the add command: +
+
+    [tt/TYPE] [ta/AMOUNT] [td/DEADLINE] [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]
+
+** The values provided for these parameters are case-insensitive +
+(i.e. `filter n/aLeX` produces the same results as `filter n/alex`)
+
+** These parameters do not require an exact match. A match will be found as long as the respective attribute contains the sequence of characters provided. (e.g. `filter e/example.com` will match a transaction with the email `alexyeoh@example.com`)
+
+** Multiple keywords can be specified for each attribute, separated by a semi-colon (e.g. `filter a/Jurong;Tampines;Geylang`). +
+Transactions matching at least one of the keywords will be returned.
+
+* The following parameters must match a specific format :
+
+    [tamin/MIN_AMOUNT] [tamax/MAX_AMOUNT] [tdmin/EARLIEST_DATE] [tdmax/LATEST_DATE]
+
+** `MIN_AMOUNT` and `MAX_AMOUNT` must be a real number rounded to two decimal places. Unlike `AMOUNT`, the currency code should be omitted (e.g. `filter tamin/10.00 tamax/50.00`). +
+ The transaction amounts will be compared only by their numerical value (e.g. `filter tamin/10.00` will match both `USD 11.00` and `IDR 11.00`). +
+ Use the convert command before filtering if a comparison between different currencies is desired.
+
+** `EARLIEST_DATE` and `LATEST_DATE` must be a valid date according to the Gregorian Calendar, following the DD/MM/YYYY format
+
+* If multiple parameters are specified, by default, only transactions satisfying the criteria for ALL parameters will be returned.
+
+** To return transactions satisfying ANY of the parameter criteria, use the `/or` prefix.
+
+** The `/and` prefix can also be specified for the default behavior of returning transactions satisfying ALL parameter criteria.
+
+** The `or/` and `/and` prefixes cannot be specified at the same time.
+
+** At least one criteria has to be specified other than the parameters `or/` and `and/`.
 
 Format:  +
 
 filter [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [tt/TYPE] [ta/AMOUNT] [td/DEADLINE] [tamin/MIN_AMOUNT] [tamax/MAX_AMOUNT] [tdmin/EARLIEST_DATE] [tdmax/LATEST_DATE]
 
-e.g. filter t/debtor OR +
-     filter t/debtor tamin/SGD 50.00 tamax/SGD 100.00 tdmin/05/06/2018 tdmax/31/12/2018
+Examples: +
+
+* To filter all debts: `filter tt/debt`
+
+* To filter all loans: `filter tt/loan`
+
+* To filter all transactions with addresses containing 'tampines' or 'geylang':
+`filter a/tampines;geylang`
+
+* To filter all transactions with amount between 10.00 and 50.00: +
+`filter tamin/10.00 and tamax/50.00`
+
+* To filter all transactions with deadlines between 10/11/2018 and 14/12/2018 (inclusive): +
+`filter tdmin/10/11/2018 tdmax/14/12/2018`
+
+* To filter transactions that have addresses containing 'tampines' or 'geylang' OR are tagged with the 'family' tag: +
+`filter a/tampines;geylang t/family or/`
+
 
 === Filtering transactions by closest deadline: `nt`
 
@@ -376,9 +439,9 @@ e.g. sort type +
 OR sort amount +
 OR sort deadline +
 
-Filter : filter[t/TAG]… +
+Filter : filter[tt/TRANSACTION_TYPE]… +
 
-e.g. filter t/debtor +
+e.g. filter tt/debt +
 OR filter n/Alex e/example.com tt/debt tamin/SGD 10.00 tdmax/31/12/2018
 
 Nt (NextTransaction) : nt

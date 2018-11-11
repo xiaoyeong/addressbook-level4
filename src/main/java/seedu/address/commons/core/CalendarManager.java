@@ -177,10 +177,6 @@ public class CalendarManager extends ComponentManager {
                 .build();
     }
 
-    public void setReminder(int timePeriod, Transaction transactionToSetReminder) throws IOException {
-        List<Event> calendarEvents = getCalendarEvents();
-    }
-
     /**
      * Starts the calendar login process on a new thread and returns true if the user has not already logged in,
      * returns false otherwise.
@@ -213,11 +209,6 @@ public class CalendarManager extends ComponentManager {
 
     public boolean isAuthenticated() {
         return service != null;
-    }
-
-
-    public Calendar getCalendarService() {
-        return service;
     }
 
     /**

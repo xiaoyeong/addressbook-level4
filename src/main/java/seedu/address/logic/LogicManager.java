@@ -41,7 +41,7 @@ public class LogicManager extends ComponentManager implements Logic {
     }
 
     @Override
-    public ObservableList<seedu.address.model.transaction.Transaction> getFilteredTransactionList() {
+    public ObservableList<Transaction> getFilteredTransactionList() {
         return model.getFilteredTransactionList();
     }
 

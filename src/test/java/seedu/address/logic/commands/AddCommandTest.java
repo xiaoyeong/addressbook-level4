@@ -15,6 +15,7 @@ import org.junit.rules.ExpectedException;
 
 import javafx.collections.ObservableList;
 
+import seedu.address.commons.core.Messages;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.FinancialDatabase;
@@ -22,6 +23,7 @@ import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyFinancialDatabase;
 import seedu.address.model.transaction.Transaction;
 import seedu.address.testutil.TransactionBuilder;
+import seedu.address.testutil.TypicalPersons;
 
 public class AddCommandTest {
 
@@ -57,14 +59,15 @@ public class AddCommandTest {
         ModelStub modelStub = new ModelStubWithPerson(validPerson);
 
         thrown.expect(CommandException.class);
-        thrown.expectMessage(AddCommand.MESSAGE_DUPLICATE_TRANSACTION);
+        thrown.expectMessage(Messages.MESSAGE_DUPLICATE_TRANSACTION);
         addCommand.execute(modelStub, commandHistory);
     }
 
     @Test
     public void equals() {
-        Transaction alice = new TransactionBuilder().withName("Alice").build();
-        Transaction bob = new TransactionBuilder().withName("Bob").build();
+        Transaction alice = new TransactionBuilder().withPerson(TypicalPersons.ALICE).build();
+        Transaction bob = new TransactionBuilder().withPerson(TypicalPersons.BOB).build();
+
         AddCommand addAliceCommand = new AddCommand(alice);
         AddCommand addBobCommand = new AddCommand(bob);
 
