@@ -15,7 +15,7 @@ import seedu.address.logic.parser.exceptions.ParseException;
 /**
  * Parses input arguments and creates a new UpdatePhotoCommand object
  */
-public class UpdatePhotoCommandParser implements Parser<UploadPhotoCommand> {
+public class UploadPhotoCommandParser implements Parser<UploadPhotoCommand> {
     private final Logger logger = LogsCenter.getLogger(getClass());
 
     /**

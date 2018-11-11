@@ -18,7 +18,6 @@ import seedu.address.model.transaction.Transaction;
  */
 public class AnalyticsCommand extends Command {
     public static final String COMMAND_WORD = "analytics";
-    public static final String COMMAND_ALIAS = "an";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Analyse the your financial status and generate \n"
             + "your financial status to view.\n"
@@ -46,7 +45,7 @@ public class AnalyticsCommand extends Command {
         List<Transaction> transactionList = model.getFilteredTransactionList();
 
 
-        if (deadline != null && !Deadline.isValidDeadline(deadline.toString())) {
+        if (deadline != null && !Deadline.matchesDateFormat(deadline.toString())) {
             throw new CommandException(Messages.MESSAGE_INVALID_DATE);
         }
 

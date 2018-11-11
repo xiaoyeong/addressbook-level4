@@ -105,7 +105,7 @@ public class AddCommandSystemTest extends FinancialDatabaseSystemTest {
 
         /* Case: add a duplicate transaction -> rejected */
         command = TransactionUtil.getAddCommand(HOON_TRANSACTION);
-        assertCommandFailure(command, AddCommand.MESSAGE_DUPLICATE_TRANSACTION);
+        assertCommandFailure(command, Messages.MESSAGE_DUPLICATE_TRANSACTION);
 
         /* Case: missing name -> rejected */
         command = AddCommand.COMMAND_WORD + PHONE_DESC_AMY + EMAIL_DESC_AMY + ADDRESS_DESC_AMY + AMOUNT_DESC_AMY

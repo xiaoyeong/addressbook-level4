@@ -78,8 +78,8 @@ public class XmlAdaptedTransaction {
      *
      * @param source future changes to this will not affect the created XmlAdaptedTransaction
      */
-    public XmlAdaptedTransaction(seedu.address.model.transaction.Transaction source) {
-        name = source.getPerson().getName().fullName;
+    public XmlAdaptedTransaction(Transaction source) {
+        name = source.getPerson().getName().toString();
         email = source.getPerson().getEmail().value;
         phone = source.getPerson().getPhone().value;
         address = source.getPerson().getAddress().value;
@@ -98,7 +98,7 @@ public class XmlAdaptedTransaction {
      *
      * @throws IllegalValueException if there were any data constraints violated in the adapted transaction
      */
-    public seedu.address.model.transaction.Transaction toModelType() throws IllegalValueException {
+    public Transaction toModelType() throws IllegalValueException {
         final List<Tag> personTags = new ArrayList<>();
         for (XmlAdaptedTag tag : tagged) {
             personTags.add(tag.toModelType());
@@ -160,8 +160,8 @@ public class XmlAdaptedTransaction {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
                     Deadline.class.getSimpleName()));
         }
-        if (!Deadline.isValidDeadline(deadline)) {
-            throw new IllegalValueException(Deadline.MESSAGE_TRANSACTION_DEADLINE_CONSTRAINTS);
+        if (!Deadline.matchesDateFormat(deadline)) {
+            throw new IllegalValueException(Deadline.MESSAGE_TRANSACTION_DEADLINE_INCORRECT_FORMAT);
         }
         final Deadline modelDeadline = new Deadline(deadline);
 

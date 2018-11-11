@@ -13,7 +13,7 @@ ifdef::env-github[]
 :warning-caption: :warning:
 :experimental:
 endif::[]
-:repoURL: https://github.com/CS2103-AY1819S1-W12-2/main
+:repoURL: https://github.com/CS2103-AY1819S1-W12-2/main/tree/master
 
 By: `W12-2`      Since: `September 2018`      Licence: `MIT`
 
@@ -47,7 +47,7 @@ Do not disable them. If you have disabled them, go to `File` > `Settings` > `Plu
 . Click `OK` to accept the default settings
 . Open a console and run the command `gradlew processResources` (Mac/Linux: `./gradlew processResources`). It should finish with the `BUILD SUCCESSFUL` message. +
 This will generate all resources required by the application and tests.
-. Open link:{repoURL}/src/main/java/seedu/address/storage/XmlAdaptedPerson.java[`XmlAdaptedPerson.java`] and link:{repoURL}/src/main/java/seedu/address/ui/MainWindow.java[`MainWindow.java`] and check for any code errors
+. Open link:{repoURL}/src/main/java/seedu/address/storage/XmlAdaptedTransaction.java[`XmlAdaptedTransaction.java`] and link:{repoURL}/src/main/java/seedu/address/ui/MainWindow.java[`MainWindow.java`] and check for any code errors
 .. Due to an ongoing https://youtrack.jetbrains.com/issue/IDEA-189060[issue] with some of the newer versions of IntelliJ, code errors may be detected even if the project can be built and run successfully
 .. To resolve this, place your cursor over any of the code section highlighted in red. Press kbd:[ALT + ENTER], and select `Add '--add-modules=...' to module compiler options` for each error
 . Repeat this for the test folder as well (e.g. check link:{repoURL}/src/test/java/seedu/address/commons/util/XmlUtilTest.java[`XmlUtilTest.java`] and link:{repoURL}/src/test/java/seedu/address/ui/HelpWindowTest.java[`HelpWindowTest.java`] for code errors, and if so, resolve it the same way)
@@ -152,11 +152,6 @@ Priorities:  High (should have) +
 
 | High
 | user
-| filter creditors and debtors
-| know who are the debtors and creditors
-
-| High
-| user
 | have a reminder to pay my creditor
 | ensure that my loans are not left outstanding
 
@@ -222,6 +217,18 @@ Priorities:  High (should have) +
 | calculate the interest rate of the loan
 | know the right amount to collect from the debtors
 
+| Medium
+{set:cellbgcolor:yellow}
+| user
+| view a calendar with details of current transactions
+| have an overview of upcoming transactions
+
+| Medium
+{set:cellbgcolor:yellow}
+| user
+| filter transactions within a certain period
+| focus on transactions in a certain period
+
 | Low
 {set:cellbgcolor:red}
 | user
@@ -244,6 +251,76 @@ Priorities:  High (should have) +
 | I can decide to award them more loans in the future
 
 |===
+
+
+== Use Cases
+=== Analyses Financial Income
+
+MSS:
+
+1.  User requests analyses financial income according to
+     certain conditions.
+2.  User can choose to enter a valid date or not enter any text and press enter.
+3.  The system will calculate the income up to the data enter or generate the whole financial income base on all the transaction in the database.
+
+Extensions:
+
+2a. User enters invalid date
+
+	... The system raises an error specifying that the given date is invalid.
+	... Use case ends.
+
+2b. User enters no conditions.
+
+	... The system generates the total financial income base on all the transaction in the database.
+	... Use case ends.
+
+2c. User enters valid date
+
+	... The system generates the total financial income up to the given date.
+	... Use case ends.
+
+=== Wildcard Search
+
+MSS:
+
+1. User requests to find a certain contact containing the substring they key in.
+2. The system will filter out a list of contacts whose first names or last names contain the substring.
+
+Extensions:
+
+1a. User does not enter a substring after the command word.
+
+    ... The system raises an error specifying that there must be a substring input.
+    ... Use case ends.
+
+=== Paid
+
+MSS:
+
+1. User requests to shift a transaction under the Current Transactions tab to the Past Transactions tab.
+2. User is prompted to input the list index of the transaction to be shifted.
+3. User keys in the index in the form and submits the form.
+4. Selected transaction is deleted from the transactions list under the Current Transactions tab, and is stored in the
+transactions list under the Past Transactions tab, in the database.
+
+Extensions:
+
+2a. User inputs an invalid index.
+
+    ... The system raises an error specifying that the index entered was invalid.
+    ... Use case ends.
+
+2b. The transactions list under Past Transactions is full and cannot store any more transactions.
+
+    ... The user is informed that the quota of transactions allocated to him/her has exceeded.
+    ... The user is prompted that his oldest transaction will be removed. If user agrees, then the oldest transaction will
+    be removed.
+    ... If the user declines, the user is displayed his/her 5 oldest transactions and asked to clear one of them.
+    ... If the user refuses to clear any of his/her transactions, the user is informed that he/she cannot enter another
+    transaction without clearing any of the previous transactions.
+    ... Use case ends.
+
 
 == Design
 
@@ -497,9 +574,23 @@ Extensions:
 
 	Use case ends.
 
+===== Use case: Filter Transactions by criteria
 
+MSS:
 
+* 1.  User requests to view transactions that matches certain criteria
+* 2.  The System displays transactions that matches the criteria specified by the user +
+ Use case ends.
 
+Extensions:
+
+* 1a. User does not specify any criteria
+**  The system raises an error and indicates to the user the correct command format. +
+**  Use case ends.
+
+* 1b. User enters an invalid input for a criteria
+** The system raises an error and indicates to the user the correct input format
+** Use case ends.
 
 
 === Logging
@@ -600,8 +691,8 @@ Attributes left unset in `.adoc` files will use their *default value*, if any.
 
 |`site-section`
 |Site section that the document belongs to.
-|This will cause the associated item in the navigation bar to be highlighted.
- One of: `UserGuide`, `DeveloperGuide`, ``LearningOutcomes``{asterisk}, `AboutUs`, `ContactUs`
+This will cause the associated item in the navigation bar to be highlighted.
+One of: `UserGuide`, `DeveloperGuide`, ``LearningOutcomes``{asterisk}, `AboutUs`, `ContactUs`
 
 _{asterisk} Official SE-EDU projects only_
 |_not set_
@@ -722,7 +813,7 @@ These instructions only provide a starting point for testers to work on; testers
 
 .. Download the jar file and copy into an empty folder
 .. Double-click the jar file +
-   Expected: Shows the GUI with a set of sample contacts. The window size may not be optimum.
+   Expected: Shows the GUI with a set of sample transactions. The window size may not be optimum.
 
 . Saving window preferences
 
@@ -730,38 +821,80 @@ These instructions only provide a starting point for testers to work on; testers
 .. Re-launch the app by double-clicking the jar file. +
    Expected: The most recent window size and location is retained.
 
-_{ more test cases ... }_
-
 === Deleting a transaction
 
-. Deleting a transaction while all persons are listed
+. Deleting a transaction while all transactions are listed
 
-.. Prerequisites: List all persons using the `list` command. Multiple persons in the list.
+.. Prerequisites: List all transactions using the `list` command. Multiple persons in the list.
 .. Test case: `delete 1` +
-   Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
+   Expected: First transaction is deleted from the list. Details of the deleted transaction shown in the status message. Timestamp in the status bar is updated.
 .. Test case: `delete 0` +
    Expected: No transaction is deleted. Error details shown in the status message. Status bar remains the same.
 .. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) _{give more}_ +
    Expected: Similar to previous.
 
-_{ more test cases ... }_
-
 === Saving data
 
 . Dealing with missing/corrupted data files
-
-.. _{explain how to simulate a missing/corrupted file and the expected behavior}_
-
-_{ more test cases ... }_
 
 === Add Profile Image
 
 .  Prerequisites: The Profile Image should not exceed 10MB.
 
-.. Advantage: It would prevent user from uploading large file as the application may be unstable.
+.. Advantage: It would prevent user from uploading large files as the application may be unstable.
+.. Prerequisities: You have a png image that is less than 10MB at Users folder. +
+TestCase: `uploadphoto 3 up/Users/xiaoyeong.png` +
+Expected: Your Profile Picture will be displayed.
 
-=== Add Filter Command
- .  Prerequisites: Command input must adhere strictly to specified format
- .. Test case: `filter n/john e/hotmail.com` +
-    Expected: Lists all persons named john with a hotmail.com email
+. This is the `sequence diagram` for the `updatephoto` command +
 
+image::LogicComponentDiagram2.png[width="800"]
+.. The user executes the `updatephoto INDEX up/FILEPATH` command, with parameters `INDEX` and `FILEPATH`
+.. The `FinancialDatabaseParser` class parses the command and create a new `UploadPhotoCommand` class.
+.. New `Photo` object is created, which contain the image referenced by `FILEPATH`.
+...If the FILEPATH's is invalid or equals to  'delete', it will display the default picture.
+.. The new `Photo` is attached to the `Transaction` at `INDEX`
+.. The new photo is displayed and updated
+
+
+
+=== Paid Command
+ .  Prerequisites: The index the user keyed in must have a valid transaction at that numbered entry in the transactions
+ list under the Current Transactions tab.
+ .. Test case: `paid 1` +
+    Expected: If the transactions list under the Current Transactions tab is at least 3 entries long, the third
+    transaction from that list is deleted, and added to the transactions list under the Past Transactions tab.
+ .. Incorrect paid commands to try: `paid`, `paid 0`, `paid x` (where x is larger than the list size) _{give more}_ +
+    Expected: Error details (showing an invalid index was keyed in) will be displayed in the results display.
+
+=== Filter Command
+.  Prerequisites: Command input must adhere strictly to specified format
+.. Test case: `filter n/alex e/example.com` +
+Expected: Lists all transactions with name 'alex' with an 'example.com' email
+.. Test case: `filter tdmin/10/11/2018 tdmax/14/12/2018` +
+Expected: Lists all transactions with deadline between 10/11/2018 and 14/12/2018
+.. Test case: `filter n/alex e/example.com and/ or/`
+Expected: Command fails. Error details shown in the status message.
+.. Other incorrect filter commands to try: `filter`, `filter n/;;`, `filter or/`
+
+=== Using the Google Calendar service
+
+. Logging in with a Google account
+.. Enter `calendar login` into the command box.
+.. Browser will launch with an authentication prompt.
+.. Enter your Google account details for authentication. There are three possible options for this:
+... Use an existing Google account
+... Create a new Google account for testing
+... Login with the provided test account (not recommended):
+
+        Username: debttracker2103@gmail.com
+        Password: 2103testaccount
+
+** Use of the provided test account is not recommended as it may produce unexpected results when viewing/syncing the calendar data due to the possibility of concurrent users. Only use if you do not have access to and are unable to create a new Google account.
+
+. Viewing the Calendar
+.. Enter `calendar show` in the command box to view the Google calendar in-app.
+
+. Syncing the Calendar
+.. Calendar data is synced automatically when entering a command that modifies the debt tracker data.
+.. To perform a manual sync in cases where the calendar data is not in sync with the debt tracker app, enter `calendar sync` into the command box.

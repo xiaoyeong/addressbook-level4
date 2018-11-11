@@ -82,14 +82,42 @@ public class CalendarManager extends ComponentManager {
     private String calendarId;
     private ExecutorService executor;
 
-    private CalendarManager() throws IOException, GeneralSecurityException {
+    private CalendarManager() {
+        try {
+            final NetHttpTransport httpTransport = GoogleNetHttpTransport.newTrustedTransport();
+            if (CalendarManager.getSavedCredentials(httpTransport) != null) {
+                this.service = new Calendar.Builder(httpTransport, JSON_FACTORY,
+                        CalendarManager.getSavedCredentials(httpTransport))
+                        .setApplicationName(APPLICATION_NAME)
+                        .build();
+                initializeCalendar();
+            }
+        } catch (IOException | GeneralSecurityException ex) {
+            logger.info("Error initializing calendar manager");
+        }
+        executor = Executors.newSingleThreadExecutor();
+    }
 
-        final NetHttpTransport httpTransport = GoogleNetHttpTransport.newTrustedTransport();
-        if (CalendarManager.getSavedCredentials(httpTransport) != null) {
-            this.service = new Calendar.Builder(httpTransport, JSON_FACTORY,
-                    CalendarManager.getSavedCredentials(httpTransport))
-                    .setApplicationName(APPLICATION_NAME)
-                    .build();
+    public static CalendarManager getInstance() {
+        if (instance == null) {
+            instance = new CalendarManager();
+        }
+        return instance;
+    }
+
+    /**
+     * Initializes the calendar by retrieving and setting the calendar ID
+     * @return Returns true if successful, or if calendar is already initialized. Returns false otherwise.
+     */
+    public boolean initializeCalendar() {
+        if (calendarId != null) {
+            return true;
+        }
+        if (service == null) {
+            logger.info("Error initializing calendar: user not logged in");
+            return false;
+        }
+        try {
             String calendarId = getCalendarIdBySummary(CALENDAR_TITLE);
             if (calendarId == null) {
                 createNewCalendar();
@@ -97,20 +125,12 @@ public class CalendarManager extends ComponentManager {
             } else {
                 this.calendarId = calendarId;
             }
+            logger.info("Calendar initialized");
+            return true;
+        } catch (IOException ex) {
+            logger.info("Error initializing calendar: connection error");
+            return false;
         }
-        executor = Executors.newFixedThreadPool(1);
-    }
-
-    public static CalendarManager getInstance() {
-        if (instance == null) {
-            try {
-                instance = new CalendarManager();
-                logger.info("calendar initialized");
-            } catch (IOException | GeneralSecurityException | NullPointerException ex) {
-                logger.info("Could not initialize calendar");
-            }
-        }
-        return instance;
     }
 
     /**
@@ -157,10 +177,6 @@ public class CalendarManager extends ComponentManager {
                 .build();
     }
 
-    public void setReminder(int timePeriod, Transaction transactionToSetReminder) throws IOException {
-        List<Event> calendarEvents = getCalendarEvents();
-    }
-
     /**
      * Starts the calendar login process on a new thread and returns true if the user has not already logged in,
      * returns false otherwise.
@@ -193,11 +209,6 @@ public class CalendarManager extends ComponentManager {
 
     public boolean isAuthenticated() {
         return service != null;
-    }
-
-
-    public Calendar getCalendarService() {
-        return service;
     }
 
     /**
@@ -379,7 +390,7 @@ public class CalendarManager extends ComponentManager {
         BatchRequest b = service.batch();
         for (CalendarTransaction add : toAdd) {
             Event e = new Event();
-            e.setSummary(add.transaction.getPerson().getName().fullName);
+            e.setSummary(add.transaction.getPerson().getName().toString());
             String description = add.transaction.getPerson().getPhone().value + "\n"
                     + add.transaction.getPerson().getAddress().value + "\n"
                     + add.transaction.getPerson().getEmail().value + "\n"

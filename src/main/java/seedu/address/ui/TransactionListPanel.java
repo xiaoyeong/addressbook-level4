@@ -16,7 +16,7 @@ import seedu.address.commons.events.ui.TransactionPanelSelectionChangedEvent;
 import seedu.address.model.transaction.Transaction;
 
 /**
- * Panel containing the list of persons.
+ * Panel containing the list of current transactions.
  */
 public class TransactionListPanel extends UiPart<Region> {
     private static final String FXML = "TransactionListPanel.fxml";
@@ -61,8 +61,11 @@ public class TransactionListPanel extends UiPart<Region> {
     @Subscribe
     private void handleJumpToListRequestEvent(JumpToListRequestEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
-        scrollTo(event.targetIndex);
+        if ("".equals(event.type)) {
+            scrollTo(event.targetIndex);
+        }
     }
+
 
     /**
      * Custom {@code ListCell} that displays the graphics of a {@code Person} using a {@code PersonCard}.

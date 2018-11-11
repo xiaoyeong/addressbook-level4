@@ -29,10 +29,10 @@ public class TypicalTransactions {
             .withAmount("CNY 47.65")
             .withType("Debt").build();
     public static final Transaction FIONA_TRANSACTION = new TransactionBuilder().withPerson(TypicalPersons.FIONA)
-            .withAmount("CNY 47.25")
+            .withAmount("MYR 558.65")
             .withType("Debt").build();
     public static final Transaction GEORGE_TRANSACTION = new TransactionBuilder().withPerson(TypicalPersons.GEORGE)
-            .withAmount("CNY 47.15")
+            .withAmount("GBP 47.15")
             .withType("Debt").build();
 
     // Manually added

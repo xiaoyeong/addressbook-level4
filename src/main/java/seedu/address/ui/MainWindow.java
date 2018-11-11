@@ -7,6 +7,7 @@ import com.google.common.eventbus.Subscribe;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.MenuItem;
+import javafx.scene.control.TabPane;
 import javafx.scene.control.TextInputControl;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
@@ -17,6 +18,7 @@ import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.ui.ExitAppRequestEvent;
 import seedu.address.commons.events.ui.ShowHelpRequestEvent;
+import seedu.address.commons.events.ui.SwitchTabsEvent;
 import seedu.address.logic.Logic;
 import seedu.address.model.UserPrefs;
 
@@ -40,8 +42,8 @@ public class MainWindow extends UiPart<Stage> {
     private UserPrefs prefs;
     private HelpWindow helpWindow;
 
-    //Independent Ui parts for past transactions list
     private PastTransactionBrowserPanel pastTransactionBrowserPanel;
+
 
     @FXML
     private StackPane browserPlaceholder;
@@ -59,10 +61,16 @@ public class MainWindow extends UiPart<Stage> {
     private StackPane personListPanelPlaceholder;
 
     @FXML
+    private StackPane pastTransactionListPanelPlaceholder;
+
+    @FXML
     private StackPane resultDisplayPlaceholder;
 
     @FXML
     private StackPane statusbarPlaceholder;
+
+    @FXML
+    private TabPane tabPaneReference;
 
     public MainWindow(Stage primaryStage, Config config, UserPrefs prefs, Logic logic) {
         super(FXML, primaryStage);
@@ -128,8 +136,12 @@ public class MainWindow extends UiPart<Stage> {
         browserPanel = new BrowserPanel();
         browserPlaceholder.getChildren().add(browserPanel.getRoot());
 
-        //pastTransactionBrowserPanel = new PastTransactionBrowserPanel();
-        //pastTransactionBrowserPlaceholder.getChildren().add(pastTransactionBrowserPanel.getRoot());
+        pastTransactionBrowserPanel = new PastTransactionBrowserPanel();
+        pastTransactionBrowserPlaceholder.getChildren().add(pastTransactionBrowserPanel.getRoot());
+
+        PastTransactionListPanel pastTransactionListPanel = new PastTransactionListPanel(logic
+                                                                .getFilteredPastTransactionList());
+        pastTransactionListPanelPlaceholder.getChildren().add(pastTransactionListPanel.getRoot());
 
         transactionListPanel = new TransactionListPanel(logic.getFilteredTransactionList());
         personListPanelPlaceholder.getChildren().add(transactionListPanel.getRoot());
@@ -196,18 +208,20 @@ public class MainWindow extends UiPart<Stage> {
         raise(new ExitAppRequestEvent());
     }
 
-    public TransactionListPanel getTransactionListPanel() {
-        return transactionListPanel;
-    }
-
     void releaseResources() {
         browserPanel.freeResources();
-        //pastTransactionBrowserPanel.freeResources();
+        pastTransactionBrowserPanel.freeResources();
     }
 
     @Subscribe
     private void handleShowHelpEvent(ShowHelpRequestEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
         handleHelp();
+    }
+
+    @Subscribe
+    private void handleSwitchTabsEvent(SwitchTabsEvent event) {
+        logger.info(LogsCenter.getEventHandlingLogMessage(event));
+        tabPaneReference.getSelectionModel().select(event.tabIndex);
     }
 }

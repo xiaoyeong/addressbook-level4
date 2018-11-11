@@ -7,6 +7,7 @@ import static seedu.address.testutil.TypicalTransactions.getTypicalFinancialData
 import org.junit.Before;
 import org.junit.Test;
 
+import seedu.address.commons.core.Messages;
 import seedu.address.logic.CommandHistory;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
@@ -35,15 +36,16 @@ public class AddCommandIntegrationTest {
         expectedModel.addTransaction(validTransaction);
         expectedModel.commitFinancialDatabase();
 
-        assertCommandSuccessWithNoModelChange(new AddCommand(validTransaction), model, commandHistory,
-                String.format(AddCommand.MESSAGE_SUCCESS, validTransaction), expectedModel);
+        assertCommandSuccessWithNoModelChange(new AddCommand(validTransaction), model, expectedModel, commandHistory,
+                String.format(AddCommand.MESSAGE_SUCCESS, validTransaction));
     }
 
     @Test
     public void execute_duplicatePerson_throwsCommandException() {
         Transaction transactionInList = model.getFinancialDatabase().getTransactionList().get(0);
-        assertCommandFailureWithNoModelChange(new AddCommand(transactionInList), model, commandHistory,
-                AddCommand.MESSAGE_DUPLICATE_TRANSACTION);
+        Model expectedModel = new ModelManager(model.getFinancialDatabase(), new UserPrefs());
+        assertCommandFailureWithNoModelChange(new AddCommand(transactionInList), model, expectedModel, commandHistory,
+                Messages.MESSAGE_DUPLICATE_TRANSACTION);
     }
 
 }

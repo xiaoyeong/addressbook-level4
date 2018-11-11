@@ -71,7 +71,7 @@ public class ModelManagerTest {
         assertFalse(modelManager.equals(new ModelManager(differentAddressBook, userPrefs)));
 
         // different filteredList -> returns false
-        String[] keywords = ALICE_TRANSACTION.getPerson().getName().fullName.split("\\s+");
+        String[] keywords = ALICE_TRANSACTION.getPerson().getName().toString().split("\\s+");
         modelManager.updateFilteredTransactionList(new NameContainsKeywordsPredicate(Arrays.asList(keywords)));
         assertFalse(modelManager.equals(new ModelManager(addressBook, userPrefs)));
 

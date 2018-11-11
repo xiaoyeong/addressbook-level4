@@ -210,7 +210,7 @@ public class EditCommandSystemTest extends FinancialDatabaseSystemTest {
         command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB
                 + ADDRESS_DESC_BOB + AMOUNT_DESC_BOB + TYPE_DESC_BOB + DEADLINE_DESC_BOB + TAG_DESC_FRIEND
                 + TAG_DESC_HUSBAND;
-        assertCommandFailure(command, EditCommand.MESSAGE_DUPLICATE_TRANSACTION);
+        assertCommandFailure(command, Messages.MESSAGE_DUPLICATE_TRANSACTION);
     }
 
     /**

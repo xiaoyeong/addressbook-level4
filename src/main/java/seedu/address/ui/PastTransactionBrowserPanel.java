@@ -16,9 +16,8 @@ import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.ui.TransactionPanelSelectionChangedEvent;
 import seedu.address.model.transaction.Transaction;
 
-
 /**
- * The Browser Panel for the Past Transactions tab of this app.
+ *  The Browser Panel of the past transactions list of the App.
  */
 public class PastTransactionBrowserPanel extends UiPart<Region> {
     public static final String DEFAULT_PAGE = "default.html";
@@ -30,7 +29,7 @@ public class PastTransactionBrowserPanel extends UiPart<Region> {
     private final Logger logger = LogsCenter.getLogger(getClass());
 
     @FXML
-    private WebView browser;
+    private WebView pastTransactionBrowser;
 
     public PastTransactionBrowserPanel() {
         super(FXML);
@@ -46,9 +45,8 @@ public class PastTransactionBrowserPanel extends UiPart<Region> {
         loadPage(SEARCH_PAGE_URL + transaction.getDeadline().value);
     }
 
-
     public void loadPage(String url) {
-        Platform.runLater(() -> browser.getEngine().load(url));
+        Platform.runLater(() -> pastTransactionBrowser.getEngine().load(url));
     }
 
     /**
@@ -63,7 +61,7 @@ public class PastTransactionBrowserPanel extends UiPart<Region> {
      * Frees resources allocated to the browser.
      */
     public void freeResources() {
-        browser = null;
+        pastTransactionBrowser = null;
     }
 
     @Subscribe
@@ -71,4 +69,5 @@ public class PastTransactionBrowserPanel extends UiPart<Region> {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
         loadTransactionPage(event.getNewSelection());
     }
+
 }

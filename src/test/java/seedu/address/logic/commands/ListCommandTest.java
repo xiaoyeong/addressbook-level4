@@ -30,14 +30,14 @@ public class ListCommandTest {
 
     @Test
     public void execute_listIsNotFiltered_showsSameList() {
-        assertCommandSuccessWithNoModelChange(new ListCommand(), model, commandHistory, ListCommand.MESSAGE_SUCCESS,
-                expectedModel);
+        assertCommandSuccessWithNoModelChange(new ListCommand(), model, expectedModel, commandHistory,
+                ListCommand.MESSAGE_SUCCESS);
     }
 
     @Test
     public void execute_listIsFiltered_showsEverything() {
         showTransactionAtIndex(model, INDEX_FIRST_TRANSACTION);
-        assertCommandSuccessWithNoModelChange(new ListCommand(), model, commandHistory, ListCommand.MESSAGE_SUCCESS,
-                expectedModel);
+        assertCommandSuccessWithNoModelChange(new ListCommand(), model, expectedModel, commandHistory,
+                ListCommand.MESSAGE_SUCCESS);
     }
 }

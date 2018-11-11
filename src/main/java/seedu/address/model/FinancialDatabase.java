@@ -37,7 +37,7 @@ public class FinancialDatabase implements ReadOnlyFinancialDatabase {
      */
     public FinancialDatabase(ReadOnlyFinancialDatabase toBeCopied) {
         this();
-        resetData(toBeCopied, transactions);
+        resetData(toBeCopied);
     }
 
     //// list overwrite operations
@@ -55,10 +55,10 @@ public class FinancialDatabase implements ReadOnlyFinancialDatabase {
      * Resets the existing data of this {@code Financial Database} with {@code newData}.
      * @param newData
      */
-    public void resetData(ReadOnlyFinancialDatabase newData, UniqueTransactionList list) {
-        requireNonNull(newData);
+    public void resetData(ReadOnlyFinancialDatabase newData) {
 
-        setTransactions(newData.getTransactionList(), list);
+        setTransactions(newData.getTransactionList(), transactions);
+        setTransactions(newData.getPastTransactionList(), pastTransactions);
     }
 
     //// transaction-level operations
@@ -131,6 +131,7 @@ public class FinancialDatabase implements ReadOnlyFinancialDatabase {
         return transactions.asUnmodifiableObservableList();
     }
 
+    @Override
     public ObservableList<Transaction> getPastTransactionList() {
         return pastTransactions.asUnmodifiableObservableList();
     }

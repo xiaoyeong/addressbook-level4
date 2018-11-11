@@ -45,7 +45,7 @@ public class ModelManager extends ComponentManager implements Model {
 
     @Override
     public void resetData(ReadOnlyFinancialDatabase newData) {
-        versionedFinancialDatabase.resetData(newData, versionedFinancialDatabase.getCurrentList());
+        versionedFinancialDatabase.resetData(newData);
         indicateFinancialDatabaseChanged();
     }
 
@@ -54,7 +54,7 @@ public class ModelManager extends ComponentManager implements Model {
         return versionedFinancialDatabase;
     }
 
-    /** Raises an event to indicate the model has changed */
+    /** Raises an event to indicate the model has changed*/
     private void indicateFinancialDatabaseChanged() {
         raise(new FinancialDatabaseChangedEvent(versionedFinancialDatabase));
     }
@@ -68,9 +68,12 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public void deleteTransaction(Transaction target) {
         versionedFinancialDatabase.removeTransaction(target, versionedFinancialDatabase.getCurrentList());
-        if (CalendarManager.getInstance() != null) {
-            CalendarManager.getInstance().syncCalendarAsync(this);
-        }
+        indicateFinancialDatabaseChanged();
+    }
+
+    @Override
+    public void deletePastTransaction(Transaction target) {
+        versionedFinancialDatabase.removeTransaction(target, versionedFinancialDatabase.getPastList());
         indicateFinancialDatabaseChanged();
     }
 
@@ -78,9 +81,6 @@ public class ModelManager extends ComponentManager implements Model {
     public void addTransaction(Transaction person) {
         versionedFinancialDatabase.addTransaction(person, versionedFinancialDatabase.getCurrentList());
         updateFilteredTransactionList(PREDICATE_SHOW_ALL_TRANSACTIONS);
-        if (CalendarManager.getInstance() != null) {
-            CalendarManager.getInstance().syncCalendarAsync(this);
-        }
         indicateFinancialDatabaseChanged();
     }
 
@@ -100,9 +100,6 @@ public class ModelManager extends ComponentManager implements Model {
         requireAllNonNull(target, editedTransaction);
 
         versionedFinancialDatabase.updateTransaction(target, editedTransaction);
-        if (CalendarManager.getInstance() != null) {
-            CalendarManager.getInstance().syncCalendarAsync(this);
-        }
         indicateFinancialDatabaseChanged();
     }
 
@@ -157,17 +154,20 @@ public class ModelManager extends ComponentManager implements Model {
     public void undoFinancialDatabase() {
         versionedFinancialDatabase.undo();
         indicateFinancialDatabaseChanged();
+        CalendarManager.getInstance().syncCalendarAsync(this);
     }
 
     @Override
     public void redoFinancialDatabase() {
         versionedFinancialDatabase.redo();
         indicateFinancialDatabaseChanged();
+        CalendarManager.getInstance().syncCalendarAsync(this);
     }
 
     @Override
     public void commitFinancialDatabase() {
         versionedFinancialDatabase.commit();
+        CalendarManager.getInstance().syncCalendarAsync(this);
     }
 
     @Override
