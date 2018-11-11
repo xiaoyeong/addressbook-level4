@@ -54,6 +54,7 @@ who may want to maintain a database of their personal transactions.
 |===
 
 * *Analysing a loan’s possible amount: analytics*
+
 Analyses the amount you have left after taking into consideration your loans, and the amount that you can loan out. A positive amounts indicate a healthy financial balance with a negative amounts indicate a unhealthy financial balance.
 
 ** Format: “analytics” or “analytics dd/mm/yyy”.
