@@ -51,17 +51,17 @@ public class BrowserPanelTest extends GuiUnitTest {
         assertEquals(expectedPersonUrl, browserPanelHandle.getLoadedUrl());
 
         String calendarId = "test";
-        URL expectedCalendarURL =  new URL(CALENDAR_PAGE_URL + calendarId  + "&ctz=Asia/Singapore");
+        URL expectedCalendarUrl = new URL(CALENDAR_PAGE_URL + calendarId + "&ctz=Asia/Singapore");
 
         ShowCalendarEvent showCalendarEvent = new ShowCalendarEvent(calendarId);
         postNow(showCalendarEvent);
         waitUntilBrowserLoaded(browserPanelHandle);
-        assertEquals(expectedCalendarURL, browserPanelHandle.getLoadedUrl());
+        assertEquals(expectedCalendarUrl, browserPanelHandle.getLoadedUrl());
 
         RefreshCalendarEvent refreshCalendarEvent = new RefreshCalendarEvent(calendarId);
         postNow(refreshCalendarEvent);
         waitUntilBrowserLoaded(browserPanelHandle);
-        assertEquals(expectedCalendarURL, browserPanelHandle.getLoadedUrl());
+        assertEquals(expectedCalendarUrl, browserPanelHandle.getLoadedUrl());
 
         ClearBrowserPanelEvent clearBrowserEvent = new ClearBrowserPanelEvent();
         postNow(clearBrowserEvent);
