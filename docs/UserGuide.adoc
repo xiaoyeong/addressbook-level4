@@ -12,7 +12,7 @@ ifdef::env-github[]
 :tip-caption: :bulb:
 :note-caption: :information_source:
 endif::[]
-:repoURL: https://cs2103-ay1819s1-w12-2.github.io/main/
+:repoURL: https://cs2103-ay181  9s1-w12-2.github.io/main/
 
 By: `CS2103-AY1819S1-W12-2`      Since: `September 2018`       Licence: `MIT`
 
@@ -107,17 +107,23 @@ E.g. add tt/loan ta/SGD 50.00 td/18/12/2018 n/James Ho p/22224444 e/jamesho@exam
 a/123, Clementi Rd, 1234665 t/friends
 
 
-=== Uploading/Deleting a photo under a person : `uploadp` (TO BE IMPLEMENTED)
+=== Uploading/Deleting a photo under a person : `uploadphoto`
 
 Uploads a photo to a person’s contact or deletes a photo from a person's contact based on the index inputted. +
 
+Conditions: +
+
+* The photo has to be in PNG format.
+* The photo can be at most 10MB +
+
+
 Formats: +
 
-To upload a photo: uploadp [INDEX] up/[FILE_PATH] +
-To delete a photo: uploadp [INDEX] up/delete
+To upload a photo: updatephoto [INDEX] up/[FILE_PATH] +
+To delete a photo: updatephoto [INDEX] up/delete
 
-e.g. uploadp 3 up/Users/Photo.png +
-     uploadp 1 up/delete
+e.g. updatephoto 3 up/Users/Photo.png +
+     updatephoto 1 up/delete
 
 === View calendar with current transaction deadlines : `calendar`
 
@@ -413,11 +419,11 @@ e.g. add tt/loan ta/SGD 50.00 td/18/12/2018 n/James Ho p/22224444 e/jamesho@exam
      a/123, Clementi Rd, 1234665 t/friends
 
 
-Uploadp : uploadp INDEX up/FILE_PATH [For uploading a picture] +
-          OR: uploadp INDEX up/delete [For deleting a picture] +
+Uploadphoto : Uploadphoto INDEX up/FILE_PATH [For uploading a picture] +
+          OR: Uploadphoto INDEX up/delete [For deleting a picture] +
 
-e.g. uploadp 3 up/Users/Photo.png +
-     uploadp 1 up/delete
+e.g. Uploadphoto 3 up/Users/Photo.png +
+     Uploadphoto 1 up/delete
 
 Calendar : calendar show +
 OR: calendar login +

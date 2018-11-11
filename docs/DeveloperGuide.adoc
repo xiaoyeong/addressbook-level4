@@ -771,6 +771,18 @@ These instructions only provide a starting point for testers to work on; testers
 .  Prerequisites: The Profile Image should not exceed 10MB.
 
 .. Advantage: It would prevent user from uploading large files as the application may be unstable.
+.. Prerequisities: You have a png image that is less than 10MB at Users folder. +
+TestCase: `uploadphoto 3 up/Users/xiaoyeong.png` +
+Expected: Your Profile Picture will be displayed.
+
+. This is the `sequence diagram` for the `updatephoto` command +
+image::LogicComponentDiagram2.png[width="800"]
+.. The user executes the `updatephoto INDEX up/FILEPATH` command, with parameters `INDEX` and `FILEPATH`
+.. The `FinancialDatabaseParser` class parses the command and create a new `UploadPhotoCommand` class.
+.. New `Photo` object is created, which contain the image referenced by `FILEPATH`.
+...If the FILEPATH's is invalid or equals to  'delete', it will display the default picture.
+.. The new `Photo` is attached to the `Transaction` at `INDEX`
+.. The new photo is displayed and updated
 
 === Filter Command
 .  Prerequisites: Command input must adhere strictly to specified format
