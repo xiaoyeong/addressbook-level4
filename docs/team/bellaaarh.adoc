@@ -73,8 +73,8 @@ intended transaction.
 |===
 === Locating transactions by substring : `search`
 
-Depending on format, matches the inputted substring with the names of persons involved in current transactions, or in
-past transactions. +
+Depending on format, this command matches the inputted substring with the names of persons involved in current
+transactions, or in past transactions. +
 
 Conditions: +
 
@@ -93,8 +93,8 @@ OR search past Yu + F + Pot
 
 === Marking a transaction as Paid : `paid`
 
-Deletes a transaction (that the user deems to have been paid off) from the current transactions list,
-and adds it to the past transactions list. +
+To delete a transaction (that the user deems to have been paid off) from the current transactions list,
+and add it to the past transactions list. +
 
 Format: paid INDEX
 
