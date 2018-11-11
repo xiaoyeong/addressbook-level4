@@ -294,10 +294,10 @@ Examples: +
 `filter a/tampines;geylang t/family or/`
 
 
-=== Filtering transactions by closest deadline: `nt`
+=== Filtering transactions by closest deadline: `nexttransaction`
 
 Filtering and listing out the transaction(s) which deadlines are closest to the current date. +
-"nt" stands for NextTransaction. +
+So user would immediately know when is the next transaction. +
 
 Format: nt
 

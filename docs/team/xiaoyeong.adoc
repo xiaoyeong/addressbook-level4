@@ -67,7 +67,8 @@ Analyses the amount you have left after taking into consideration your loans, an
 
 * *Lists all transactions which deadline is closest: `nexttransaction`*
 
-Finds and lists all transactions in the database which deadline is closest to current date.
+Filtering and listing out the transaction(s) which deadlines are closest to the current date. +
+So user would immediately know when is the next transaction. +
 
 ** Format: “nexttransaction”.
 ** Example:
