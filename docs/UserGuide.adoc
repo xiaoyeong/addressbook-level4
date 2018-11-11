@@ -253,6 +253,7 @@ Transactions matching at least one of the keywords will be returned.
 
 * The following parameters must match a specific format :
 
+
     [tamin/MIN_AMOUNT] [tamax/MAX_AMOUNT] [tdmin/EARLIEST_DATE] [tdmax/LATEST_DATE]
 
 ** `MIN_AMOUNT` and `MAX_AMOUNT` must be a real number rounded to two decimal places. Unlike `AMOUNT`, the currency code should be omitted (e.g. `filter tamin/10.00 tamax/50.00`). +
@@ -287,6 +288,7 @@ Examples: +
 * To filter all transactions with amount between 10.00 and 50.00: +
 `filter tamin/10.00 and tamax/50.00`
 
+
 * To filter all transactions with deadlines between 10/11/2018 and 14/12/2018 (inclusive): +
 `filter tdmin/10/11/2018 tdmax/14/12/2018`
 
@@ -294,10 +296,14 @@ Examples: +
 `filter a/tampines;geylang t/family or/`
 
 
-=== Filtering transactions by closest deadline: `nt`
+* To filter transactions that have addresses containing 'tampines' or 'geylang' OR are tagged with the 'family' tag: +
+`filter a/tampines;geylang t/family or/`
+
+
+=== Filtering transactions by closest deadline: `nexttransaction`
 
 Filtering and listing out the transaction(s) which deadlines are closest to the current date. +
-"nt" stands for NextTransaction. +
+So user would immediately know when is the next transaction. +
 
 Format: nt
 
@@ -354,8 +360,7 @@ Format: history
 
 === Analyzing a possible loan amount : `analytics`
 
-Analyses the amount you have left after taking into consideration your loans, and the amount that you can loan out. A positive amounts indicate a healthy financial balance with a negative amounts indicate a unhealthy financial balance. +
-
+Analyses the amount you have left after taking into consideration your loans, and the amount that you can loan out. A positive value returned indicates a healthy financial balance (defined to be a surplus) whereas a negative amount returned indicates a unhealthy financial balance (defined to be a deficit).
 Format: analytics
 
 === Marking a transaction as Paid : `paid`
