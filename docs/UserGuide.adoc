@@ -225,6 +225,8 @@ E.g. sort type OR +
 
 Filters transactions matching specified criteria. +
 
+Note: This command does not work with the `undo` and `redo` commands, since it does not modify the debt tracker's data.
+
 Conditions: +
 
 * At least one criteria has to be specified. +
