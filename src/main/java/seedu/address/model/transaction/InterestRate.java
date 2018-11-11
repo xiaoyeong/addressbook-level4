@@ -11,8 +11,8 @@ import java.util.Objects;
  */
 public class InterestRate {
     public static final String MESSAGE_INTEREST_RATE_CONSTRAINTS =
-            "Interest rate should be expressed as a percentage \n"
-            + "with the value rounded to two decimal places.";
+            "Interest rate should be expressed as a percentage with the value rounded to two decimal places"
+            + " and not exceeding 4";
     public static final String TRANSACTION_INTEREST_RATE_VALIDATION_REGEX = "\\d{1}.\\d{2}%";
     public final double value;
 

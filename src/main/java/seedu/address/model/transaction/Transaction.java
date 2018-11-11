@@ -18,8 +18,6 @@ public class Transaction {
     private final Deadline deadline;
     private Amount amount;
     private Photo photo;
-    private InterestScheme interestScheme;
-    private InterestRate interestRate;
     private final Logger logger = LogsCenter.getLogger(getClass());
 
 
@@ -97,7 +95,6 @@ public class Transaction {
      */
     public String photoUniqueId() {
         int targetStringLength = 15;
-        String value;
         Random random = new Random();
         StringBuilder buffer = new StringBuilder(targetStringLength);
         for (int i = 0; i < targetStringLength; i++) {

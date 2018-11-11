@@ -78,7 +78,7 @@ public class XmlAdaptedTransaction {
      *
      * @param source future changes to this will not affect the created XmlAdaptedTransaction
      */
-    public XmlAdaptedTransaction(seedu.address.model.transaction.Transaction source) {
+    public XmlAdaptedTransaction(Transaction source) {
         name = source.getPerson().getName().toString();
         email = source.getPerson().getEmail().value;
         phone = source.getPerson().getPhone().value;
@@ -98,7 +98,7 @@ public class XmlAdaptedTransaction {
      *
      * @throws IllegalValueException if there were any data constraints violated in the adapted transaction
      */
-    public seedu.address.model.transaction.Transaction toModelType() throws IllegalValueException {
+    public Transaction toModelType() throws IllegalValueException {
         final List<Tag> personTags = new ArrayList<>();
         for (XmlAdaptedTag tag : tagged) {
             personTags.add(tag.toModelType());

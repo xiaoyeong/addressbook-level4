@@ -7,6 +7,7 @@ import static seedu.address.testutil.TypicalTransactions.getTypicalFinancialData
 import org.junit.Before;
 import org.junit.Test;
 
+import seedu.address.commons.core.Messages;
 import seedu.address.logic.CommandHistory;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
@@ -44,7 +45,7 @@ public class AddCommandIntegrationTest {
         Transaction transactionInList = model.getFinancialDatabase().getTransactionList().get(0);
         Model expectedModel = new ModelManager(model.getFinancialDatabase(), new UserPrefs());
         assertCommandFailureWithNoModelChange(new AddCommand(transactionInList), model, expectedModel, commandHistory,
-                AddCommand.MESSAGE_DUPLICATE_TRANSACTION);
+                Messages.MESSAGE_DUPLICATE_TRANSACTION);
     }
 
 }

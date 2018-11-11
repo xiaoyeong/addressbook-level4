@@ -59,7 +59,6 @@ public class EditCommand extends Command {
 
     public static final String MESSAGE_EDIT_TRANSACTION_SUCCESS = "Edited transaction: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
-    public static final String MESSAGE_DUPLICATE_TRANSACTION = "This transaction already exists in the address book.";
 
     private final Index index;
     private final EditTransactionDescriptor editTransactionDescriptor;
@@ -90,7 +89,7 @@ public class EditCommand extends Command {
                 editTransactionDescriptor);
 
         if (!transactionToEdit.equals(editedTransaction) && model.hasTransaction(editedTransaction)) {
-            throw new CommandException(MESSAGE_DUPLICATE_TRANSACTION);
+            throw new CommandException(Messages.MESSAGE_DUPLICATE_TRANSACTION);
         }
 
         model.updateTransaction(transactionToEdit, editedTransaction);

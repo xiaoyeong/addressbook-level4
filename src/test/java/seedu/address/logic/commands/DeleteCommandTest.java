@@ -98,7 +98,7 @@ public class DeleteCommandTest {
         // delete -> first transaction deleted
         deleteCommand.execute(model, commandHistory);
 
-        // undo -> reverts addressbook back to previous state and filtered transaction list to show all persons
+        // undo -> reverts database back to previous state and filtered transaction list to show all transactions
         expectedModel.undoFinancialDatabase();
         assertCommandSuccessWithNoModelChange(new UndoCommand(), model, expectedModel, commandHistory,
                 UndoCommand.MESSAGE_SUCCESS);
