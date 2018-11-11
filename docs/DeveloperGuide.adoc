@@ -252,6 +252,76 @@ Priorities:  High (should have) +
 
 |===
 
+
+== Use Cases
+=== Analyses Financial Income
+
+MSS:
+
+1.  User requests analyses financial income according to
+     certain conditions.
+2.  User can choose to enter a valid date or not enter any text and press enter.
+3.  The system will calculate the income up to the data enter or generate the whole financial income base on all the transaction in the database.
+
+Extensions:
+
+2a. User enters invalid date
+
+	* The system raises an error specifying that the given date is invalid.
+	* Use case ends.
+
+2b. User enters no conditions.
+
+	... The system generates the total financial income base on all the transaction in the database.
+	... Use case ends.
+
+2c. User enters valid date
+
+	... The system generates the total financial income up to the given date.
+	... Use case ends.
+
+=== Wildcard Search
+
+MSS:
+
+1. User requests to find a certain contact containing the substring they key in.
+2. The system will filter out a list of contacts whose first names or last names contain the substring.
+
+Extensions:
+
+1a. User does not enter a substring after the command word.
+
+    ... The system raises an error specifying that there must be a substring input.
+    ... Use case ends.
+
+=== Paid
+
+MSS:
+
+1. User requests to shift a transaction under the Current Transactions tab to the Past Transactions tab.
+2. User is prompted to input the list index of the transaction to be shifted.
+3. User keys in the index in the form and submits the form.
+4. Selected transaction is deleted from the transactions list under the Current Transactions tab, and is stored in the
+transactions list under the Past Transactions tab, in the database.
+
+Extensions:
+
+2a. User inputs an invalid index.
+
+    ... The system raises an error specifying that the index entered was invalid.
+    ... Use case ends.
+
+2b. The transactions list under Past Transactions is full and cannot store any more transactions.
+
+    ... The user is informed that the quota of transactions allocated to him/her has exceeded.
+    ... The user is prompted that his oldest transaction will be removed. If user agrees, then the oldest transaction will
+    be removed.
+    ... If the user declines, the user is displayed his/her 5 oldest transactions and asked to clear one of them.
+    ... If the user refuses to clear any of his/her transactions, the user is informed that he/she cannot enter another
+    transaction without clearing any of the previous transactions.
+    ... Use case ends.
+
+
 == Design
 
 [[Design-Architecture]]
@@ -522,6 +592,7 @@ Extensions:
 ** The system raises an error and indicates to the user the correct input format
 ** Use case ends.
 
+
 === Logging
 
 We are using `java.util.logging` package for logging. The `LogsCenter` class is used to manage the logging levels and logging destinations.
@@ -754,9 +825,9 @@ These instructions only provide a starting point for testers to work on; testers
 
 . Deleting a transaction while all transactions are listed
 
-.. Prerequisites: List all persons using the `list` command. Multiple persons in the list.
+.. Prerequisites: List all transactions using the `list` command. Multiple persons in the list.
 .. Test case: `delete 1` +
-   Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
+   Expected: First transaction is deleted from the list. Details of the deleted transaction shown in the status message. Timestamp in the status bar is updated.
 .. Test case: `delete 0` +
    Expected: No transaction is deleted. Error details shown in the status message. Status bar remains the same.
 .. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) _{give more}_ +
@@ -771,6 +842,16 @@ These instructions only provide a starting point for testers to work on; testers
 .  Prerequisites: The Profile Image should not exceed 10MB.
 
 .. Advantage: It would prevent user from uploading large files as the application may be unstable.
+
+
+=== Paid Command
+ .  Prerequisites: The index the user keyed in must have a valid transaction at that numbered entry in the transactions
+ list under the Current Transactions tab.
+ .. Test case: `paid 1` +
+    Expected: If the transactions list under the Current Transactions tab is at least 3 entries long, the third
+    transaction from that list is deleted, and added to the transactions list under the Past Transactions tab.
+ .. Incorrect paid commands to try: `paid`, `paid 0`, `paid x` (where x is larger than the list size) _{give more}_ +
+    Expected: Error details (showing an invalid index was keyed in) will be displayed in the results display.
 
 === Filter Command
 .  Prerequisites: Command input must adhere strictly to specified format
