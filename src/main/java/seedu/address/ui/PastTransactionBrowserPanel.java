@@ -17,7 +17,7 @@ import seedu.address.commons.events.ui.TransactionPanelSelectionChangedEvent;
 import seedu.address.model.transaction.Transaction;
 
 /**
- *
+ *  The Browser Panel of the past transactions list of the App.
  */
 public class PastTransactionBrowserPanel extends UiPart<Region> {
     public static final String DEFAULT_PAGE = "default.html";

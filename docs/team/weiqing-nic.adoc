@@ -66,3 +66,4 @@ The use of this diagram will allow the other developers to understand the applic
 image::LogicComponentDiagram2.png[width="800"]
 
 [https://github.com/CS2103-AY1819S1-W12-2/main/pull/138[Pull Request#138]] +
+
