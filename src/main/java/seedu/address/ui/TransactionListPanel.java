@@ -16,7 +16,7 @@ import seedu.address.commons.events.ui.TransactionPanelSelectionChangedEvent;
 import seedu.address.model.transaction.Transaction;
 
 /**
- * Panel containing the list of persons.
+ * Panel containing the list of current transactions.
  */
 public class TransactionListPanel extends UiPart<Region> {
     private static final String FXML = "TransactionListPanel.fxml";

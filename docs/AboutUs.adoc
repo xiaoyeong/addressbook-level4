@@ -48,7 +48,7 @@ Responsibilities: +
 
 === Ysabella Tan Yu Lin
 image::bellaaarh.png[width="150", align="left"]
-{empty}[https://github.com/Bellaaarh[github]] [<<ysabella#, portfolio>>]
+{empty}[https://github.com/Bellaaarh[github]] [<<bellaaarh#, portfolio>>]
 
 Role: Managing Code Quality +
 Responsibilities: +
