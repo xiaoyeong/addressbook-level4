@@ -34,10 +34,10 @@ who may want to maintain a database of their personal transactions.
 |===
 
 == User Stories
- Priorities:  High (should have) +
+Priorities:  High (should have) +
              Medium (would like to have) +
              Low (unlikely to have) +
- |===
+|===
 |Priority | As a .. | I want to .. | So that I can
  | High
 | new user
@@ -55,6 +55,8 @@ who may want to maintain a database of their personal transactions.
 | user
 | hide private contact
 | uphold the confidentiality of the information provided by the contact
+
+|===
 
 
 == Other contributions
