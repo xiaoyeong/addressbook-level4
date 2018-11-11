@@ -19,8 +19,8 @@ and has about 21kLoC. This application is meant for small and medium enterprises
 ** Justification: This feature helps the user keep a history of transactions that have been settled, which they can use
 in case the other party involved in the transaction tries to confuse the user's memory, or to dispute whether a
 transaction has been paid. This protects the user from possibly being scammed into making the same payment again. +
-Furthermore, it helps them keep track of how their current financial status came to be what it is, based on the past
-transactions they made and keep track of in the paid transactions list.
+Furthermore, by giving the user a history of transactions that have been settled to refer to, they will get a clearer
+understanding of how their current financial status came to be what it is.
 ** Highlights: This enhancement required an deep understanding of AddressBook-Level4's original code in order to be
 implemented, as in order to add this enhancement, I had to refactor several functions and classes and use the data
 structures they implemented. The test code was originally from the provided DeleteCommand Tests, but has been refactored
@@ -32,8 +32,8 @@ PaidCommand]] +
  were only for the current transaction list, available for the paid transactions list]]
 *** [https://github.com/CS2103-AY1819S1-W12-2/main/blob/master/src/test/java/seedu/address/logic/commands/PaidCommandTest.java[PaidCommand Test code]]
 
-* *Minor enhancement*: added *the wildcard search feature*
-** What it does: allows the user to locate a transaction linked to a person whose first or last name contains the
+* *Minor enhancement*: Added *the wildcard search feature*
+** What it does: Allows the user to locate a transaction linked to a person whose first or last name contains the
 substring
 ** Justification: Sometimes the user may not be entirely sure of how a name is spelt, or they may forget how to spell
 their transaction partner's full name. With this feature, they need not remember the full name in order to find the
@@ -73,14 +73,15 @@ intended transaction.
 |===
 === Locating transactions by substring : `search`
 
-Depending on format, matches the inputted substring with the names of persons involved in current transactions, or in
-past transactions. +
+Depending on the format you use, this command matches a set of any consecutive letters (otherwise known as substring)
+you key in with the names of persons involved in either current transactions, or in past transactions. +
 
 Conditions: +
 
-* The substring must be within the first or last name of a person involved, otherwise an empty list will be returned. +
-* If several substrings are keyed in (eg. search al ice), all contacts in which the first or last names
-contain any of the substrings (in the example, either "al" or "ice") will be returned.
+* The substring that you key in must be within either the first or last name of a person involved only.
+Otherwise, an empty list of transactions will be returned. +
+* If you key in several substrings (eg. search al ice), all contacts in which the first or last names contain any of the
+ substrings (in the example, the substrings are "al" and "ice") will be returned.
 
 Format: +
 To find within current transactions list: search SUBSTRING [MORE_SUBSTRINGS] ... +
@@ -93,7 +94,7 @@ OR search past Yu + F + Pot
 
 === Marking a transaction as Paid : `paid`
 
-Deletes a transaction (that the user deems to have been paid off) from the current transactions list,
+This command deletes a transaction (that you deem to have been paid off) from the current transactions list,
 and adds it to the past transactions list. +
 
 Format: paid INDEX
@@ -102,8 +103,8 @@ e.g. paid 4
 
 === Switching between viewing past and current transactions : `switch`
 
-Depending on input, it will switch to either the Current Transactions tab or the Paid Transactions tab. +
-This is not an undoable command, but you can use switch to change back to the original tab.
+Depending on your input, it will switch to either the Current Transactions tab or the Paid Transactions tab. +
+This is not an undoable command, but you can use this command to go back to your original tab.
 
 Format: switch LIST_TYPE
 
@@ -116,6 +117,7 @@ OR switch past
 [https://github.com/CS2103-AY1819S1-W12-2/main/pull/88/files?utf8=%E2%9C%93&diff=unified&short_path=d80058c#diff-d80058c033b9f127ec727c18cc84ce4d[Pull Request #88]] +
 
 [https://github.com/CS2103-AY1819S1-W12-2/main/pull/121/files?short_path=d80058c#diff-d80058c033b9f127ec727c18cc84ce4d[Pull Request #121]] +
+
 
 
 

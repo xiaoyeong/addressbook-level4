@@ -52,7 +52,7 @@ image::bellaaarh.png[width="150", align="left"]
 
 Role: Managing Code Quality +
 Responsibilities: +
-1) Manage the ToDo list +
+1) Manage the Past Transactions list +
 2) Add a WildCardSearch feature +
 3) Make changes to the UI
 
