@@ -857,6 +857,7 @@ image::LogicComponentDiagram2.png[width="800"]
 .. The new photo is displayed and updated
 
 
+
 === Paid Command
  .  Prerequisites: The index the user keyed in must have a valid transaction at that numbered entry in the transactions
  list under the Current Transactions tab.
