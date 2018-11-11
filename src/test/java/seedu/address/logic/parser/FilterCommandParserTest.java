@@ -8,6 +8,9 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_AND;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_OR;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
+import static seedu.address.logic.parser.FilterCommandParser.MESSAGE_LATESTDEADLINE_BEFORE_EARLIESTDEADLINE;
+import static seedu.address.logic.parser.FilterCommandParser.MESSAGE_MAXAMOUNT_LESSTHAN_MINAMOUNT;
+import static seedu.address.logic.parser.FilterCommandParser.MESSAGE_TRANSACTION_AMOUNT_BOUND_CONSTRAINT;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -73,5 +76,28 @@ public class FilterCommandParserTest {
                 String.format(MESSAGE_INVALID_PREFIX_VALUE, PREFIX_AND));
     }
 
+    @Test
+    public void parse_deadlineMaxBeforeDeadlineMin_throwsParseException(){
+        assertParseFailure(parser, " tdmin/10/11/2018 tdmax/10/10/2018",
+                MESSAGE_LATESTDEADLINE_BEFORE_EARLIESTDEADLINE);
+    }
+
+    @Test
+    public void parse_amountMaxLessThanAmountMin_throwsParseException(){
+        assertParseFailure(parser, " tamin/50.00 tamax/10.00",
+                MESSAGE_MAXAMOUNT_LESSTHAN_MINAMOUNT);
+    }
+
+    @Test
+    public void parse_invalidTransactionAmountBound_throwsParseException(){
+        assertParseFailure(parser, " tamax/SGD 50.00",
+                MESSAGE_TRANSACTION_AMOUNT_BOUND_CONSTRAINT);
+    }
+
+    @Test
+    public void parse_invalidMinTransactionAmount_throwsParseException(){
+        assertParseFailure(parser, " tamin/SGD 50.00",
+                MESSAGE_TRANSACTION_AMOUNT_BOUND_CONSTRAINT);
+    }
 
 }

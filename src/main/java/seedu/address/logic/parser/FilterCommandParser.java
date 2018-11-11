@@ -43,11 +43,11 @@ import seedu.address.model.transaction.Transaction;
  */
 public class FilterCommandParser implements Parser<FilterCommand> {
 
-    private static final String MESSAGE_TRANSACTION_AMOUNT_BOUND_CONSTRAINT = "The value for tamin/ and tamax/ must be"
+    public static final String MESSAGE_TRANSACTION_AMOUNT_BOUND_CONSTRAINT = "The value for tamin/ and tamax/ must be"
             + " a real number rounded to two decimal places";
-    private static final String MESSAGE_LATESTDEADLINE_BEFORE_EARLIESTDEADLINE = "Date specified for tdmax/ cannot be"
+    public static final String MESSAGE_LATESTDEADLINE_BEFORE_EARLIESTDEADLINE = "Date specified for tdmax/ cannot be"
             + " before tdmin/ unless the or/ prefix is used.";
-    private static final String MESSAGE_MAXAMOUNT_LESSTHAN_MINAMOUNT = "Amount specified for tamax/ cannot be"
+    public static final String MESSAGE_MAXAMOUNT_LESSTHAN_MINAMOUNT = "Amount specified for tamax/ cannot be"
             + " less than tamin/ unless the or/ prefix is used.";
 
     private MultiFieldPredicate.OperatorType opType = MultiFieldPredicate.OperatorType.AND;
