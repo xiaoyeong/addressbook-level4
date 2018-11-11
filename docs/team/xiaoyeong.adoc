@@ -53,7 +53,7 @@ who may want to maintain a database of their personal transactions.
 |Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users.
 |===
 
-* *Analysing a loan’s possible amount: analytics*
+* *Analysing a loan’s possible amount: `analytics`*
 
 Analyses the amount you have left after taking into consideration your loans, and the amount that you can loan out. A positive amounts indicate a healthy financial balance with a negative amounts indicate a unhealthy financial balance.
 
@@ -62,17 +62,18 @@ Analyses the amount you have left after taking into consideration your loans, an
 *** analytics
 *** analytics 10/25/2020
 
-[https://github.com/CS2103-AY1819S1-W12-2/main/pull/79[Pull Request#79]] +
+[https://github.com/CS2103-AY1819S1-W12-2/main/pull/79[Pull Request#79 - analytics user guide]] +
 
 
 * *Lists all transactions which deadline is closest: `nexttransaction`*
+
 Finds and lists all transactions in the database which deadline is closest to current date.
 
 ** Format: “nexttransaction”.
 ** Example:
 *** nexttransaction
 
-[https://github.com/CS2103-AY1819S1-W12-2/main/pull/79[Pull Request#79]] +
+[https://github.com/CS2103-AY1819S1-W12-2/main/pull/79[Pull Request#79 - nexttransaction user guide]] +
 
 
 == Contributions to the Developer Guide
@@ -83,6 +84,7 @@ Finds and lists all transactions in the database which deadline is closest to cu
 
 = Use Cases
 Use case: Analyses Financial Income
+
 MSS:
 
 User requests analyses financial income according to certain conditions.
@@ -108,7 +110,7 @@ Extensions:
  	... The system generates the total financial income up to the given date.
 	... Use case ends.
 
-[https://github.com/CS2103-AY1819S1-W12-2/main/pull/131/files[Pull Request#131]] +
+[https://github.com/CS2103-AY1819S1-W12-2/main/pull/131/files[Pull Request#131 - Analyses develop guide]] +
 
 
 *Model Class diagram*
@@ -119,7 +121,7 @@ The following model class diagram was drawn by me to shows how the debt tracker 
 image::ModelClassDiagram.png[width="800"]
 
 The use of the diagram will allow the other developer to quickly understand the working of the application.
-[https://github.com/CS2103-AY1819S1-W12-2/main/pull/68[Pull Request#68]] +
+[https://github.com/CS2103-AY1819S1-W12-2/main/pull/68[Pull Request#68 - Model Class diagram]] +
 
 
 *Logic Class diagram*
@@ -130,4 +132,4 @@ The following logic class diagram was edited by me to shows how the debt tracker
 image::LogicClassDiagram.png[width="800"]
 
 The use of the diagram will allow the other developer to quickly understand the working of the application.
-[https://github.com/CS2103-AY1819S1-W12-2/main/pull/68[Pull Request#68]] +
+[https://github.com/CS2103-AY1819S1-W12-2/main/pull/68[Pull Request#68 - Logic Class diagram]] +
