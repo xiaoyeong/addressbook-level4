@@ -125,7 +125,7 @@ Displays a Google calendar showing the user's current transactions and their dea
 
 Conditions: +
 
-* This command can only be used with one of the following keywords: 1) show  2) login 3)logout 4)sync. +
+* This command can only be used with one of the following keywords: 1) show  2) login 3) logout 4) sync +
 * The keywords are case-sensitive.
 * This feature requires linking the deadlines to your Google account. Hence a test google account will be provided. +
 
@@ -135,6 +135,8 @@ Test Account: +
 
     Username: debttracker2103@gmail.com
     Password: 2103testaccount
+
+** Note:  Use of a personal or newly created Google account is highly recommended. Usage of the provided test account may produce unexpected results, as multiple users may access the test account at the same time.
 
 Formats: +
 
