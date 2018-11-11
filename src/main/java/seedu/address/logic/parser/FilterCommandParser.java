@@ -150,10 +150,9 @@ public class FilterCommandParser implements Parser<FilterCommand> {
             Deadline deadlineLatest = ParserUtil.parseDeadlineIgnoreFuture(argumentMultimap
                     .getValue(PREFIX_TRANSACTION_DEADLINE_LATEST).get());
             predicateList.add(new DeadlineBoundsPredicate(deadlineLatest, DeadlineBoundsPredicate.BoundType.LATEST));
-            if (deadlineEarliest != null && opType.equals(MultiFieldPredicate.OperatorType.AND)) {
-                if (deadlineEarliest.compareTo(deadlineLatest) > 0) {
+            if (deadlineEarliest != null && opType.equals(MultiFieldPredicate.OperatorType.AND) &&
+                    deadlineEarliest.compareTo(deadlineLatest) > 0) {
                     throw new ParseException(MESSAGE_LATESTDEADLINE_BEFORE_EARLIESTDEADLINE);
-                }
             }
         }
 
@@ -177,10 +176,9 @@ public class FilterCommandParser implements Parser<FilterCommand> {
             } catch (ParseException ex) {
                 throw new ParseException(MESSAGE_TRANSACTION_AMOUNT_BOUND_CONSTRAINT);
             }
-            if (maxAmount != null && opType.equals(MultiFieldPredicate.OperatorType.AND)) {
-                if (minAmount.compareTo(maxAmount) > 0) {
+            if (maxAmount != null && opType.equals(MultiFieldPredicate.OperatorType.AND)
+                    && minAmount.compareTo(maxAmount) > 0) {
                     throw new ParseException(MESSAGE_MAXAMOUNT_LESSTHAN_MINAMOUNT);
-                }
             }
         }
 
