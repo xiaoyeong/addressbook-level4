@@ -28,6 +28,7 @@ public class RedoCommand extends Command {
 
         model.redoFinancialDatabase();
         model.updateFilteredTransactionList(PREDICATE_SHOW_ALL_TRANSACTIONS);
+        model.updateFilteredPastTransactionList(PREDICATE_SHOW_ALL_TRANSACTIONS);
         return new CommandResult(MESSAGE_SUCCESS);
     }
 }

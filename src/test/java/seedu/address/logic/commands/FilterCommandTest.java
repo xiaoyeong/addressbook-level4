@@ -134,6 +134,36 @@ public class FilterCommandTest {
                 model.getFilteredTransactionList());
     }
 
+    @Test
+    public void execute_betweenTwoDates_multiplePersonsFound() {
+        String expectedMessage = String.format(MESSAGE_ALL_TRANSACTIONS_LISTED_OVERVIEW, 7, 0);
+        DeadlineBoundsPredicate earliestDatePredicate =
+                new DeadlineBoundsPredicate(new Deadline("10/10/2018"), DeadlineBoundsPredicate.BoundType.EARLIEST);
+        DeadlineBoundsPredicate latestDatePredicate =
+                new DeadlineBoundsPredicate(new Deadline("10/10/2050"), DeadlineBoundsPredicate.BoundType.LATEST);
+        List<Predicate<Transaction>> predicates = Arrays.asList(earliestDatePredicate, latestDatePredicate);
+        FilterCommand command = new FilterCommand(predicates, MultiFieldPredicate.OperatorType.AND);
+        MultiFieldPredicate multiPredicate = new MultiFieldPredicate(predicates, MultiFieldPredicate.OperatorType.AND);
+        expectedModel.updateFilteredTransactionList(multiPredicate);
+        expectedModel.updateFilteredPastTransactionList(multiPredicate);
+        assertCommandSuccessWithModelChange(command, model, commandHistory, expectedMessage);
+    }
+
+    @Test
+    public void execute_betweenTwoAmounts_multiplePersonsFound() {
+        String expectedMessage = String.format(MESSAGE_ALL_TRANSACTIONS_LISTED_OVERVIEW, 5, 0);
+        AmountBoundsPredicate minAmount = new AmountBoundsPredicate(new Amount("SGD 10.00"),
+                AmountBoundsPredicate.BoundType.MIN);
+        AmountBoundsPredicate maxAmount = new AmountBoundsPredicate(new Amount("SGD 50.00"),
+                AmountBoundsPredicate.BoundType.MAX);
+        List<Predicate<Transaction>> predicates = Arrays.asList(minAmount, maxAmount);
+        FilterCommand command = new FilterCommand(predicates, MultiFieldPredicate.OperatorType.AND);
+        MultiFieldPredicate multiPredicate = new MultiFieldPredicate(predicates, MultiFieldPredicate.OperatorType.AND);
+        expectedModel.updateFilteredTransactionList(multiPredicate);
+        expectedModel.updateFilteredPastTransactionList(multiPredicate);
+        assertCommandSuccessWithModelChange(command, model, commandHistory, expectedMessage);
+    }
+
     /**
      * Parses {@code userInput} into a {@code FieldContainsKeywordsPredicate}.
      */

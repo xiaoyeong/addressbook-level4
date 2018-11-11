@@ -43,6 +43,9 @@ import seedu.address.model.transaction.Transaction;
  */
 public class FilterCommandParser implements Parser<FilterCommand> {
 
+    private static final String MESSAGE_TRANSACTION_AMOUNT_BOUND_CONSTRAINT = "The value for tamin/ and tamax/ must be"
+            + " a real number rounded to two decimal places";
+
     /**
      * Parses the given {@code String} of arguments in the context of the AddCommand
      * and returns an AddCommand object for execution.
@@ -140,13 +143,21 @@ public class FilterCommandParser implements Parser<FilterCommand> {
         }
 
         if (argumentMultimap.getValue(PREFIX_TRANSACTION_AMOUNT_MAX).isPresent()) {
-            Amount amount = ParserUtil.parseAmount(argumentMultimap.getValue(PREFIX_TRANSACTION_AMOUNT_MAX).get());
-            predicateList.add(new AmountBoundsPredicate(amount, AmountBoundsPredicate.BoundType.MAX));
+            try {
+                Amount amount = ParserUtil.parseAmount("SGD " + argumentMultimap.getValue(PREFIX_TRANSACTION_AMOUNT_MAX).get().trim());
+                predicateList.add(new AmountBoundsPredicate(amount, AmountBoundsPredicate.BoundType.MAX));
+            } catch (ParseException ex){
+                throw new ParseException(MESSAGE_TRANSACTION_AMOUNT_BOUND_CONSTRAINT);
+            }
         }
 
         if (argumentMultimap.getValue(PREFIX_TRANSACTION_AMOUNT_MIN).isPresent()) {
-            Amount amount = ParserUtil.parseAmount(argumentMultimap.getValue(PREFIX_TRANSACTION_AMOUNT_MIN).get());
-            predicateList.add(new AmountBoundsPredicate(amount, AmountBoundsPredicate.BoundType.MIN));
+            try {
+                Amount amount = ParserUtil.parseAmount("SGD " + argumentMultimap.getValue(PREFIX_TRANSACTION_AMOUNT_MIN).get().trim());
+                predicateList.add(new AmountBoundsPredicate(amount, AmountBoundsPredicate.BoundType.MIN));
+            } catch (ParseException ex){
+                throw new ParseException(MESSAGE_TRANSACTION_AMOUNT_BOUND_CONSTRAINT);
+            }
         }
 
     }
