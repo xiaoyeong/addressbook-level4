@@ -267,8 +267,8 @@ Extensions:
 
 2a. User enters invalid date
 
-	* The system raises an error specifying that the given date is invalid.
-	* Use case ends.
+	... The system raises an error specifying that the given date is invalid.
+	... Use case ends.
 
 2b. User enters no conditions.
 
