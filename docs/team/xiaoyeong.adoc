@@ -33,11 +33,17 @@ who may want to maintain a database of their personal transactions.
 [https://github.com/CS2103-AY1819S1-W12-2/main/pull/68[Pull Request#68]] +
 *** Helped to check for errors for User Guide and development guide
 
+** Community:
 
-** Team:
-*** Team communication
-*** Brainstorming ideas
-*** Product demonstration
+*** PRs reviewed:
+**** [https://github.com/CS2103-AY1819S1-W12-2/main/pull/78[Pull Request#78]]
+**** [https://github.com/CS2103-AY1819S1-W12-2/main/pull/130[Pull Request#130]]
+**** [https://github.com/CS2103-AY1819S1-W12-2/main/pull/135[Pull Request#135]] +
+
+*** Team:
+**** Team communication
+**** Brainstorming ideas
+**** Product demonstration
 
 
 == Contributions to the User Guide
@@ -74,7 +80,7 @@ Finds and lists all transactions in the database which deadline is closest to cu
 |Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project.
 |===
 
-4.1.3. Use Cases
+= Use Cases
 Use case: Analyses Financial Income
 MSS:
 
@@ -127,7 +133,3 @@ image::LogicClassDiagram.png[width="800"]
 
 The use of the diagram will allow the other developer to quickly understand the working of the application.
 [https://github.com/CS2103-AY1819S1-W12-2/main/pull/68[Pull Request#68]] +
-
-Others
-
-[https://github.com/CS2103-AY1819S1-W12-2/main/pull/87/files[Pull Request#87]] +
