@@ -27,7 +27,7 @@ image::xiaoyeong.png[width="150", align="left"]
 
 Role: Writing and Maintaining Tests +
 Responsibilities: +
-1) Enable privatisation of Contacts +
+1) Retrieve all loans and debts  +
 2) Generate analytics for Financial Spending +
 3) Add a feature for the getting the transaction(s) with the nearest deadline.
 
@@ -48,11 +48,11 @@ Responsibilities: +
 
 === Ysabella Tan Yu Lin
 image::bellaaarh.png[width="150", align="left"]
-{empty}[https://github.com/Bellaaarh[github]] [<<ysabella#, portfolio>>]
+{empty}[https://github.com/Bellaaarh[github]] [<<bellaaarh#, portfolio>>]
 
 Role: Managing Code Quality +
 Responsibilities: +
-1) Manage the ToDo list +
+1) Manage the Past Transactions list +
 2) Add a WildCardSearch feature +
 3) Make changes to the UI
 

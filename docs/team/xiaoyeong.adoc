@@ -33,11 +33,17 @@ who may want to maintain a database of their personal transactions.
 [https://github.com/CS2103-AY1819S1-W12-2/main/pull/68[Pull Request#68]] +
 *** Helped to check for errors for User Guide and development guide
 
+** Community:
 
-** Team:
-*** Team communication
-*** Brainstorming ideas
-*** Product demonstration
+*** PRs reviewed:
+**** [https://github.com/CS2103-AY1819S1-W12-2/main/pull/78[Pull Request#78]]
+**** [https://github.com/CS2103-AY1819S1-W12-2/main/pull/130[Pull Request#130]]
+**** [https://github.com/CS2103-AY1819S1-W12-2/main/pull/135[Pull Request#135]] +
+
+*** Team:
+**** Team communication
+**** Brainstorming ideas
+**** Product demonstration
 
 
 == Contributions to the User Guide
@@ -47,25 +53,27 @@ who may want to maintain a database of their personal transactions.
 |Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users.
 |===
 
-* *Analysing a loan’s possible amount: analytics*
-Analyses the amount you have left after taking into consideration your loans, and the amount that you can loan out. A positive amounts indicate a healthy financial balance with a negative amounts indicate a unhealthy financial balance.
+* *Analysing a loan’s possible amount: `analytics`*
+
+Analyses the amount you have left after taking into consideration your loans, and the amount that you can loan out. A positive value returned indicates a healthy financial balance (defined to be a surplus) whereas a negative amount returned indicates a unhealthy financial balance (defined to be a deficit).
 
 ** Format: “analytics” or “analytics dd/mm/yyy”.
 ** Examples:
 *** analytics
 *** analytics 10/25/2020
 
-[https://github.com/CS2103-AY1819S1-W12-2/main/pull/79[Pull Request#79]] +
+[https://github.com/CS2103-AY1819S1-W12-2/main/pull/79[Pull Request#79 - analytics user guide]] +
 
 
 * *Lists all transactions which deadline is closest: `nexttransaction`*
-Finds and lists all transactions in the database which deadline is closest to current date.
+
+This command filters and lists out the transaction(s) which deadlines are closest to the current date. This informs the user which transaction is the most urgent. +
 
 ** Format: “nexttransaction”.
 ** Example:
 *** nexttransaction
 
-[https://github.com/CS2103-AY1819S1-W12-2/main/pull/79[Pull Request#79]] +
+[https://github.com/CS2103-AY1819S1-W12-2/main/pull/79[Pull Request#79 - nexttransaction user guide]] +
 
 
 == Contributions to the Developer Guide
@@ -74,37 +82,34 @@ Finds and lists all transactions in the database which deadline is closest to cu
 |Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project.
 |===
 
-4.1.3. Use Cases
+= Use Cases
 Use case: Analyses Financial Income
+
 MSS:
 
-User requests analyses financial income according to certain conditions.
-
-User can choose to enter a valid date or not enter any text and press enter.
-
-The system will calculate the income up to the data enter or generate the whole financial income base on all the transaction in the database.
+1.  User requests analyses financial income according to
+     certain conditions.
+2.  User can choose to enter a valid date or not enter any text and press enter.
+3.  The system will calculate the income up to the data enter or generate the whole financial income base on all the transaction in the database.
 
 Extensions:
 
-    2a. User enters invalid date
+2a. User enters invalid date
 
-    The system raises an error specifying that the given date is invalid.
+	... The system raises an error specifying that the given date is invalid.
+	... Use case ends.
 
-    Use case ends.
+2b. User enters no conditions.
 
-    2b.  User enters no conditions.
+	... The system generates the total financial income base on all the transaction in the database.
+	... Use case ends.
 
-    The system generates the total financial income base on all the transaction in the database.
+2c. User enters valid date
 
-    Use case ends.
+	... The system generates the total financial income up to the given date.
+	... Use case ends.
 
-    2c. User enters valid date
-
-    The system generates the total financial income up to the given date.
-
-    Use case ends.
-
-[https://github.com/CS2103-AY1819S1-W12-2/main/pull/131/files[Pull Request#131]] +
+[https://github.com/CS2103-AY1819S1-W12-2/main/pull/131/files[Pull Request#131 - Analyses develop guide]] +
 
 
 *Model Class diagram*
@@ -115,7 +120,7 @@ The following model class diagram was drawn by me to shows how the debt tracker 
 image::ModelClassDiagram.png[width="800"]
 
 The use of the diagram will allow the other developer to quickly understand the working of the application.
-[https://github.com/CS2103-AY1819S1-W12-2/main/pull/68[Pull Request#68]] +
+[https://github.com/CS2103-AY1819S1-W12-2/main/pull/68[Pull Request#68 - Model Class diagram]] +
 
 
 *Logic Class diagram*
@@ -126,8 +131,4 @@ The following logic class diagram was edited by me to shows how the debt tracker
 image::LogicClassDiagram.png[width="800"]
 
 The use of the diagram will allow the other developer to quickly understand the working of the application.
-[https://github.com/CS2103-AY1819S1-W12-2/main/pull/68[Pull Request#68]] +
-
-Others
-
-[https://github.com/CS2103-AY1819S1-W12-2/main/pull/87/files[Pull Request#87]] +
+[https://github.com/CS2103-AY1819S1-W12-2/main/pull/68[Pull Request#68 - Logic Class diagram]] +

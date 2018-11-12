@@ -12,7 +12,7 @@ import seedu.address.model.Model;
 import seedu.address.model.transaction.Transaction;
 
 /**
- * Removes a current transaction from the current transaction list, to the list of paid/past transactions.
+ * Removes a current transaction from the current transaction list, and adds it to the list of paid/past transactions.
  */
 public class PaidCommand extends Command {
     public static final String COMMAND_WORD = "paid";

@@ -1,0 +1,71 @@
+:imagesDir: ../images
+= Lee Wei Qing - Project Portfolio
+
+== PROJECT: DebtTracker
+
+== Overview
+
+Debt Tracker is a CLI-based desktop application that helps users manage their finances. It keeps track of the financial
+transactions the user undertakes. The primary target audience of this application is Small and Medium Enterprises (SMEs) in Singapore since
+they typically face budget constraints and have to maintain a good credit score. However, this application can also be used by individuals
+who may want to maintain a database of their personal transactions.
+
+== Summary of contributions
+
+* *Major enhancement*: added the ability to Add and Change Photo Command
+** What it does: allows the user to Add and Change Photo that is in PNG format to each transactions.
+** Justification: : As debt tracker ‘s users are mainly small, medium enterprise (SME), they will have many contacts in the address book. This feature improves the product significantly because the users can identify their contacts easily.
+** Highlights: The command is simple to use it updates the photo quickly. If the user types in an invalid path, it will display the default picture instead. If the user delete the uploaded photo, the display photo will still be displayed, as we make a copy of that image and save it in PhotoFolder.
+
+* Code contributed:[https://nus-cs2103-ay1819s1.github.io/cs2103-dashboard/#=undefined&search=weiqing-nic[Functional code]]
+[https://github.com/CS2103-AY1819S1-W12-2/main/pull/125[Test code]] +
+
+* *Other contributions*:
+
+** Documentation:
+*** After I wrote 30 User Stories for the Developer Guide, Aadit edited some of the user stories and pushed to github +
+[https://github.com/CS2103-AY1819S1-W12-2/main/pull/3[Pull Request #3]] +
+
+
+== Contributions to the Developer Guide
+
+|===
+|Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project.
+|===
+
+== User Stories
+Priorities:  High (should have) +
+             Medium (would like to have) +
+             Low (unlikely to have) +
+|===
+|Priority | As a .. | I want to .. | So that I can
+ | High
+| new user
+| see the available command
+| execute the correct command as per need
+ | High
+| user
+| add a new transaction
+| so that my transaction history is updated
+ | High
+| user
+| delete a transaction
+| keep only the relevant records in my transaction history
+ | High
+| user
+| hide private contact
+| uphold the confidentiality of the information provided by the contact
+
+|===
+
+
+== Other contributions
+
+*Logic Class diagram*
+
+The use of this diagram will allow the other developers to understand the application easily.
+
+image::LogicComponentDiagram2.png[width="800"]
+
+[https://github.com/CS2103-AY1819S1-W12-2/main/pull/138[Pull Request#138]] +
+
