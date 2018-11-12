@@ -1,5 +1,7 @@
-:imagesDir: ../images
 = Lou Shaw Yeong - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
 
 == PROJECT: DebtTracker
 

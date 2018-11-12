@@ -1,5 +1,4 @@
 = Aadit Kamat - Project Portfolio
-
 :site-section: AboutUs
 :stylesDir: ../stylesheets
 

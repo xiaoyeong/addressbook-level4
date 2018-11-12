@@ -1,5 +1,4 @@
 = Cheong Kit Wai, Julian - Project Portfolio
-
 :site-section: AboutUs
 :imagesDir: ../images
 :stylesDir: ../stylesheets
@@ -16,7 +15,7 @@ who may want to maintain a database of their personal transactions.
 == Summary of contributions
 
 * *Major enhancement*: added the ability to *view transactions on Google Calendar*
-** What it does: Allows the user to view their transactions on Google Calendar
+** What it does: Allows the user to view their transactions on Google Calendar.
 ** Justification: This feature helps the user keep track of their transaction deadlines by displaying them in a calendar in an organized manner. Users can view this calendar on their smartphones or on any device with a web browser.
 ** Highlights: This implementation uses the https://developers.google.com/calendar/[Google Calendar API] provided by Google. Working with the API requires reading through an extensive amount of documentation. Challenges arise when the documentation is insufficient, which I have encountered when implementing batch requests to the API.
 

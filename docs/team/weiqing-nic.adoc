@@ -1,5 +1,7 @@
-:imagesDir: ../images
 = Lee Wei Qing - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
 
 == PROJECT: DebtTracker
 
