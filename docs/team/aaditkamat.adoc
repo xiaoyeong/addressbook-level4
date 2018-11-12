@@ -1,7 +1,6 @@
 = Aadit Kamat - Project Portfolio
 
 :site-section: AboutUs
-:imagesDir: ../images
 :stylesDir: ../stylesheets
 
 == PROJECT: DebtTracker
@@ -15,23 +14,22 @@ who may want to maintain a database of their personal transactions.
 
 == Summary of contributions
 
-* *Major enhancement*: added *a currency conversion utility* within the application
+* *Major enhancement*: added *an interest calculation feature*
+** What it does: allows the user to obtain the final amount that needs to be payed after calculating the interest on the principal sum of each
+                 transaction on a monthly basis, using either the simple or the compound interest scheme.
+** Justification: Providing an in-built feature to calculate interests is essential since loans are usually charged the market interest rate and the user
+                  needs to be aware of the final sum of the money owed or lent before the deadline.
+
+* *Minor enhancement*: added *a currency conversion utility* within the application
 ** What it does: allows the user to convert amounts in different currencies to their respective amounts in the base currency, Singapore Dollars
 ** Justification: This feature provides users the flexibility to transact with people from different countries and saves them the hassle of using a 3rd party software to convert the amounts for each transaction.
 ** Highlights: The implementation makes use of a free external foreign exchange API, provided by https://free.currencyconverterapi.com[Free Currency Converter API] that updates every hour according to the latest currency trends.
                Since the API is JSON-based, the more time consuming portion of adding the command was using the right library to parse the information
                in an appropriate format.
-** Code contributed: [https://github.com/CS2103-AY1819S1-W12-2/main/pull/51/files[Functional Code Block #1]] [https://github.com/CS2103-AY1819S1-W12-2/main/pull/36/files[Functional Code Block #2]] [https://github.com/CS2103-AY1819S1-W12-2/main/blob/master/src/test/java/seedu/address/logic/commands/ConvertCommandTest.java[Test code]]
 
-* *Minor enhancement*: added *an interest calculation feature*
-** What it does: allows the user to obtain the final amount that needs to be payed after calculating the interest on the principal sum of each
-                 transaction on a monthly basis, using either the simple or the compound interest scheme.
-** Justification: Providing an in-built feature to calculate interests is essential since loans are usually charged the market interest rate and the user
-                  needs to be aware of the final sum of the money owed or lent before the deadline.
-** Code contributed: [https://github.com/CS2103-AY1819S1-W12-2/main/pull/72/files[Functional Code]] [https://github.com/CS2103-AY1819S1-W12-2/main/blob/master/src/test/java/seedu/address/logic/commands/SortCommandTest.java[Test code]]
+** *Code contribution*: [https://nus-cs2103-ay1819s1.github.io/cs2103-dashboard/#=undefined&search=aaditkamat]
 
-
-* *Other contributions*:
+*Other contributions*:
 
 ** Project management:
 *** Managed releases `v1.1` - `v1.3` (3 releases) on GitHub
@@ -70,13 +68,12 @@ who may want to maintain a database of their personal transactions.
 |===
 |Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users.
 |===
+
 [https://github.com/CS2103-AY1819S1-W12-2/main/commit/726e9b1bf4b8f2138b63e63ca6788ff805dc824e?short_path=d80058c#diff-d80058c033b9f127ec727c18cc84ce4d[Pull Request#43]] +
 
 [https://github.com/CS2103-AY1819S1-W12-2/main/commit/06243a33fee9c981b1367dfdeb1df0c95bdb0672?short_path=d80058c#diff-d80058c033b9f127ec727c18cc84ce4d[Pull Request #75]] +
 
-[https://github.com/CS2103-AY1819S1-W12-2/main/commit/63fdda59f6104aec9cac6ff4b762add500a2fd35?short_path=d80058c#diff-d80058c033b9f127ec727c18cc84ce4d[Pull Request #95]] +
-
-
+[https://github.com/CS2103-AY1819S1-W12-2/main/pull/97/files?short_path=d80058c#diff-d80058c033b9f127ec727c18cc84ce4d[Pull Request #97]] +
 
 == Contributions to the Developer Guide
 
@@ -84,8 +81,8 @@ who may want to maintain a database of their personal transactions.
 |Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project.
 |===
 
-[https://github.com/CS2103-AY1819S1-W12-2/main/commit/5d42ebc0d2396551b96b92f769114ac8482faca3#diff-d23c8091515dc18149f4f2e759e1e288[Pull Request #3]] +
-
 [https://github.com/CS2103-AY1819S1-W12-2/main/commit/96470f5e35192a5450fac8d7a805c05736d1a7d4?short_path=d23c809#diff-d23c8091515dc18149f4f2e759e1e288[Pull Request #9]] +
 
 [https://github.com/CS2103-AY1819S1-W12-2/main/commit/726e9b1bf4b8f2138b63e63ca6788ff805dc824e#diff-d23c8091515dc18149f4f2e759e1e288[Pull Request #43]] +
+
+[https://github.com/CS2103-AY1819S1-W12-2/main/pull/150/files?short_path=d23c809#diff-d23c8091515dc18149f4f2e759e1e288[Pull Request #150]] +
