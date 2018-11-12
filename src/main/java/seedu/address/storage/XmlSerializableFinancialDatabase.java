@@ -18,7 +18,7 @@ import seedu.address.model.transaction.Transaction;
 @XmlRootElement(name = "financialdatabase")
 public class XmlSerializableFinancialDatabase {
 
-    public static final String MESSAGE_DUPLICATE_PERSON = "Persons list contains duplicate transaction(s).";
+    public static final String MESSAGE_DUPLICATE_TRANSACTION = "Database contains duplicate transaction(s).";
     @XmlElement
     private List<XmlAdaptedTransaction> transactions;
     @XmlElement
@@ -60,7 +60,7 @@ public class XmlSerializableFinancialDatabase {
         for (XmlAdaptedTransaction t : transactions) {
             Transaction transaction = t.toModelType();
             if (financialDatabase.hasTransaction(transaction, financialDatabase.getCurrentList())) {
-                throw new IllegalValueException(MESSAGE_DUPLICATE_PERSON);
+                throw new IllegalValueException(MESSAGE_DUPLICATE_TRANSACTION);
             }
             financialDatabase.addTransaction(transaction, financialDatabase.getCurrentList());
         }
@@ -68,7 +68,7 @@ public class XmlSerializableFinancialDatabase {
         for (XmlAdaptedTransaction t : pastTransactions) {
             Transaction pastTransaction = t.toModelType();
             if (financialDatabase.hasTransaction(pastTransaction, financialDatabase.getPastList())) {
-                throw new IllegalValueException(MESSAGE_DUPLICATE_PERSON);
+                throw new IllegalValueException(MESSAGE_DUPLICATE_TRANSACTION);
             }
             financialDatabase.addTransaction(pastTransaction, financialDatabase.getPastList());
         }

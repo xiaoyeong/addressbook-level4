@@ -27,6 +27,8 @@ public class ConvertCommand extends Command {
             "Executing convert command will lead to duplicate transactions";
     public static final String MESSAGE_SUCCESS = "Amounts converted in all transactions!!";
     public static final String MESSAGE_NO_TRANSACTION_AMOUNTS = "No transaction amounts left to convert!!";
+    public static final String MESSAGE_API_ERROR = "Error while reading values from the Currency Conversion API. "
+            + "Please check your internet connection.";
 
     @Override
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
@@ -46,7 +48,7 @@ public class ConvertCommand extends Command {
                 model.updateTransaction(transactionToEdit, editedTransaction);
             }
         } catch (IOException ex) {
-            throw new CommandException("Error while reading values from the Currency Conversion API.");
+            throw new CommandException(MESSAGE_API_ERROR);
         }
         model.commitFinancialDatabase();
         return new CommandResult(MESSAGE_SUCCESS);

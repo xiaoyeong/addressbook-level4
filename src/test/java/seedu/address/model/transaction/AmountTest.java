@@ -43,7 +43,8 @@ public class AmountTest {
         Amount amountInSgd = new Amount("SGD 457.94");
         assertEquals(Amount.convertCurrency(amountInSgd), amountInSgd);
 
-        Amount amountInUsd = new Amount("USD 331.30");
+        amountInSgd = new Amount("SGD 0.00");
+        Amount amountInUsd = new Amount("USD 0.00");
         assertEquals(amountInSgd.getValue(), Amount.convertCurrency(amountInUsd).getValue(), 0.1);
     }
 

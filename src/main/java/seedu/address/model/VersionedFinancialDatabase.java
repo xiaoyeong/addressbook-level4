@@ -8,14 +8,14 @@ import java.util.List;
  */
 public class VersionedFinancialDatabase extends FinancialDatabase {
 
-    private final List<ReadOnlyFinancialDatabase> addressBookStateList;
+    private final List<ReadOnlyFinancialDatabase> financialDatabaseStateList;
     private int currentStatePointer;
 
     public VersionedFinancialDatabase(ReadOnlyFinancialDatabase initialState) {
         super(initialState);
 
-        addressBookStateList = new ArrayList<>();
-        addressBookStateList.add(new FinancialDatabase(initialState));
+        financialDatabaseStateList = new ArrayList<>();
+        financialDatabaseStateList.add(new FinancialDatabase(initialState));
         currentStatePointer = 0;
     }
 
@@ -25,12 +25,12 @@ public class VersionedFinancialDatabase extends FinancialDatabase {
      */
     public void commit() {
         removeStatesAfterCurrentPointer();
-        addressBookStateList.add(new FinancialDatabase(this));
+        financialDatabaseStateList.add(new FinancialDatabase(this));
         currentStatePointer++;
     }
 
     private void removeStatesAfterCurrentPointer() {
-        addressBookStateList.subList(currentStatePointer + 1, addressBookStateList.size()).clear();
+        financialDatabaseStateList.subList(currentStatePointer + 1, financialDatabaseStateList.size()).clear();
     }
 
     /**
@@ -41,7 +41,7 @@ public class VersionedFinancialDatabase extends FinancialDatabase {
             throw new NoUndoableStateException();
         }
         currentStatePointer--;
-        resetData(addressBookStateList.get(currentStatePointer));
+        resetData(financialDatabaseStateList.get(currentStatePointer));
     }
 
     /**
@@ -52,7 +52,7 @@ public class VersionedFinancialDatabase extends FinancialDatabase {
             throw new NoRedoableStateException();
         }
         currentStatePointer++;
-        resetData(addressBookStateList.get(currentStatePointer));
+        resetData(financialDatabaseStateList.get(currentStatePointer));
     }
 
     /**
@@ -66,7 +66,7 @@ public class VersionedFinancialDatabase extends FinancialDatabase {
      * Returns true if {@code redo()} has address book states to redo.
      */
     public boolean canRedo() {
-        return currentStatePointer < addressBookStateList.size() - 1;
+        return currentStatePointer < financialDatabaseStateList.size() - 1;
     }
 
     @Override
@@ -85,7 +85,7 @@ public class VersionedFinancialDatabase extends FinancialDatabase {
 
         // state check
         return super.equals(otherVersionedFinancialDatabase)
-                && addressBookStateList.equals(otherVersionedFinancialDatabase.addressBookStateList)
+                && financialDatabaseStateList.equals(otherVersionedFinancialDatabase.financialDatabaseStateList)
                 && currentStatePointer == otherVersionedFinancialDatabase.currentStatePointer;
     }
 

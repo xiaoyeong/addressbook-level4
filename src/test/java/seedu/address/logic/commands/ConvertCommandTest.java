@@ -34,10 +34,12 @@ public class ConvertCommandTest {
         assertCommandSuccessWithModelChange(convertCommand, model, history, expectedMessage);
 
         //executing convert command with a transaction whose converted amount that will cause duplication
-        Transaction thirdTransaction = Transaction.copy(firstTransaction);
-        expectedMessage = ConvertCommand.MESSAGE_CONVERT_CAUSING_DUPLICATION;
-        thirdTransaction.setAmount(new Amount("AUD 146.24"));
+        Transaction thirdTransaction = TypicalTransactions.KIARA_TRANSACTION;
         model.addTransaction(thirdTransaction);
+        Transaction fourthTransaction = Transaction.copy(thirdTransaction);
+        expectedMessage = ConvertCommand.MESSAGE_CONVERT_CAUSING_DUPLICATION;
+        fourthTransaction.setAmount(new Amount("USD 0.00"));
+        model.addTransaction(fourthTransaction);
         assertCommandFailureWithModelChange(convertCommand, model, history, expectedMessage);
     }
 }
