@@ -100,7 +100,7 @@ public class BrowserPanel extends UiPart<Region> {
     }
 
     @Subscribe
-    private void handleClearBrowserPanelEvent(ClearBrowserPanelEvent event) {
+    public void handleClearBrowserPanelEvent(ClearBrowserPanelEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
         loadDefaultPage();
     }
