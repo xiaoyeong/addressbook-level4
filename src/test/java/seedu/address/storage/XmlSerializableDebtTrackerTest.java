@@ -50,7 +50,7 @@ public class XmlSerializableDebtTrackerTest {
         XmlSerializableFinancialDatabase dataFromFile = XmlUtil.getDataFromFile(DUPLICATE_TRANSACTION_FILE,
                 XmlSerializableFinancialDatabase.class);
         thrown.expect(IllegalValueException.class);
-        thrown.expectMessage(XmlSerializableFinancialDatabase.MESSAGE_DUPLICATE_PERSON);
+        thrown.expectMessage(XmlSerializableFinancialDatabase.MESSAGE_DUPLICATE_TRANSACTION);
         dataFromFile.toModelType();
     }
 
