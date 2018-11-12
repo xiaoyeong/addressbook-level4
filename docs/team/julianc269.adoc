@@ -112,7 +112,7 @@ Examples: +
 `filter a/tampines;geylang`
 
 * To filter all transactions with amount between 10.00 and 50.00: +
-`filter tamin/10.00 and tamax/50.00`
+`filter tamin/10.00 tamax/50.00`
 
 * To filter all transactions with deadlines between 10/11/2018 and 14/12/2018 (inclusive): +
 `filter tdmin/10/11/2018 tdmax/14/12/2018`
