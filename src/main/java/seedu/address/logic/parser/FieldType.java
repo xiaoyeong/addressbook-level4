@@ -1,7 +1,7 @@
 package seedu.address.logic.parser;
 
 /**
- * Contains Command Line Interface (CLI) syntax definitions common to multiple commands
+ * Represents the transaction field type
  */
 public enum FieldType {
     Address, Email, Name, Phone, Deadline, Amount, Type, Tag, None

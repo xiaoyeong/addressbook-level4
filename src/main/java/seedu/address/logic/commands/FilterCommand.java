@@ -23,7 +23,7 @@ import seedu.address.model.transaction.MultiFieldPredicate;
 import seedu.address.model.transaction.Transaction;
 
 /**
- * Finds and lists all persons in address book whose name/phone/email/address contains any of the argument keywords.
+ * Finds and lists all transactions in the debt tracker that matches the criteria specified
  * Keyword matching is case insensitive.
  */
 public class FilterCommand extends Command {

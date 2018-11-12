@@ -9,7 +9,7 @@ import seedu.address.logic.CommandHistory;
 import seedu.address.model.Model;
 
 /**
- * Lists all persons in the address book to the user.
+ * Enables the user to view the Google Calendar, log in to the service, and manually synchronize the calendar data.
  */
 public class CalendarCommand extends Command {
 

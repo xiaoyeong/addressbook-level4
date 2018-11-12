@@ -35,7 +35,7 @@ import seedu.address.model.transaction.Transaction;
 
 
 /**
- * Contains integration tests (interaction with the Model) for {@code FindCommand}.
+ * Contains integration tests (interaction with the Model) for {@code FilterCommand}.
  */
 public class FilterCommandTest {
     private Model model = new ModelManager(getTypicalFinancialDatabase(), new UserPrefs());

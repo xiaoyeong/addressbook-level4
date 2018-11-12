@@ -3,7 +3,7 @@ package seedu.address.commons.events.ui;
 import seedu.address.commons.events.BaseEvent;
 
 /**
- * Represents a selection change in the Person List Panel
+ * An event requesting to display the Calendar
  */
 public class ShowCalendarEvent extends BaseEvent {
 
