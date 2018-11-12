@@ -442,7 +442,7 @@ OR sort deadline +
 Filter : filter[tt/TRANSACTION_TYPE]… +
 
 e.g. filter tt/debt +
-OR filter n/Alex e/example.com tt/debt tamin/SGD 10.00 tdmax/31/12/2018
+OR filter n/Alex e/example.com tt/debt tamin/10.00 tdmax/31/12/2018
 
 Nt (NextTransaction) : nt
 
