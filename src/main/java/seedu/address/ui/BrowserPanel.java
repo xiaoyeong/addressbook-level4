@@ -13,6 +13,7 @@ import javafx.scene.web.WebView;
 
 import seedu.address.MainApp;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.commons.events.ui.ClearBrowserPanelEvent;
 import seedu.address.commons.events.ui.RefreshCalendarEvent;
 import seedu.address.commons.events.ui.ShowCalendarEvent;
 import seedu.address.commons.events.ui.TransactionPanelSelectionChangedEvent;
@@ -96,5 +97,11 @@ public class BrowserPanel extends UiPart<Region> {
         if (calendarShown) {
             loadCalendarPage(event.getCalendarId());
         }
+    }
+
+    @Subscribe
+    public void handleClearBrowserPanelEvent(ClearBrowserPanelEvent event) {
+        logger.info(LogsCenter.getEventHandlingLogMessage(event));
+        loadDefaultPage();
     }
 }

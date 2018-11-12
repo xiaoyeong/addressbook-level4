@@ -1,0 +1,68 @@
+= Cheong Kit Wai, Julian - Project Portfolio
+
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+== PROJECT: DebtTracker
+
+== Overview
+
+Debt Tracker is a CLI-based desktop application that helps users manage their finances. It keeps track of the financial
+transactions the user undertakes. The primary target audience of this application is Small and Medium Entreprises (SMEs) in Singapore since
+they typically face budget constraints and have to maintain a good credit score. However, this application can also be used by individuals
+who may want to maintain a database of their personal transactions.
+
+== Summary of contributions
+
+* *Major enhancement*: added the ability to *view transactions on Google Calendar*
+** What it does: Allows the user to view their transactions on Google Calendar
+** Justification: This feature helps the user keep track of their transaction deadlines by displaying them in a calendar in an organized manner. Users can view this calendar on their smartphones or on any device with a web browser.
+** Highlights: This implementation uses the https://developers.google.com/calendar/[Google Calendar API] provided by Google. Working with the API requires reading through an extensive amount of documentation. Challenges arise when the documentation is insufficient, which I have encountered when implementing batch requests to the API.
+
+** Code contributed: [https://nus-cs2103-ay1819s1.github.io/cs2103-dashboard/#=undefined&search=julianc269[Functional Code]] [https://github.com/CS2103-AY1819S1-W12-2/main/blob/master/src/test/java/seedu/address/logic/parser/CalendarCommandParserTest.java[Test code]]
+
+* *Minor enhancement*: added the ability to *filter transactions by various criteria*
+** What it does: Allows the user to filter transactions by various criteria such as the person/company name, the transaction amount and transaction deadline etc. A large number of filter options are provided to allow for a highly customizable search.
+** Justification: As the user may have a large number of transactions, finding the relevant transaction(s) manually may be extremely time-consuming. The filter feature allows the user to easily view and focus on the transactions that are relevant to their current purpose.
+** Code contributed: [https://nus-cs2103-ay1819s1.github.io/cs2103-dashboard/#=undefined&search=julianc269[Functional Code]] [https://github.com/CS2103-AY1819S1-W12-2/main/blob/master/src/test/java/seedu/address/logic/commands/FilterCommandTest.java[Test code #1]] [https://github.com/CS2103-AY1819S1-W12-2/main/blob/master/src/test/java/seedu/address/logic/parser/FilterCommandParserTest.java[Test code #2]]
+
+
+
+* *Other contributions*:
+
+
+
+
+** Project management:
+*** Helped morph the project to use a Transaction model [https://github.com/CS2103-AY1819S1-W12-2/main/pull/33/files[Pull Request #33]]
+
+** Testing:
+*** Helped with refactoring of the test code after morphing the product +
+[https://github.com/CS2103-AY1819S1-W12-2/main/pull/62/files[Pull Request #62]] [https://github.com/CS2103-AY1819S1-W12-2/main/pull/64/files[Pull Request #64]]  +
+
+
+** Community:
+*** PRs reviewed:
+**** [https://github.com/CS2103-AY1819S1-W12-2/main/pull/34/[Pull Request #34]] +
+**** [https://github.com/CS2103-AY1819S1-W12-2/main/pull/118/[Pull Request #118]] +
+
+== Contributions to the User Guide
+
+
+|===
+|Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users.
+|===
+[https://github.com/CS2103-AY1819S1-W12-2/main/pull/82/files[Pull Request#82]] +
+
+[https://github.com/CS2103-AY1819S1-W12-2/main/pull/134/files[Pull Request #134]] +
+
+== Contributions to the Developer Guide
+
+|===
+|Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project.
+|===
+
+[https://github.com/CS2103-AY1819S1-W12-2/main/pull/18/files[Pull Request #18]] +
+
+[https://github.com/CS2103-AY1819S1-W12-2/main/pull/134/files[Pull Request #134]] +

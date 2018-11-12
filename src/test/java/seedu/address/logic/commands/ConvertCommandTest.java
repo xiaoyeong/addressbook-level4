@@ -36,7 +36,7 @@ public class ConvertCommandTest {
         //executing convert command with a transaction whose converted amount that will cause duplication
         Transaction thirdTransaction = Transaction.copy(firstTransaction);
         expectedMessage = ConvertCommand.MESSAGE_CONVERT_CAUSING_DUPLICATION;
-        thirdTransaction.setAmount(new Amount("USD 105.57"));
+        thirdTransaction.setAmount(new Amount("USD 105.64"));
         model.addTransaction(thirdTransaction);
         assertCommandFailureWithModelChange(convertCommand, model, history, expectedMessage);
     }

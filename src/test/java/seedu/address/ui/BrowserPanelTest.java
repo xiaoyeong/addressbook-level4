@@ -4,6 +4,7 @@ import static guitests.guihandles.WebViewUtil.waitUntilBrowserLoaded;
 import static org.junit.Assert.assertEquals;
 import static seedu.address.testutil.EventsUtil.postNow;
 import static seedu.address.testutil.TypicalTransactions.ALICE_TRANSACTION;
+import static seedu.address.ui.BrowserPanel.CALENDAR_PAGE_URL;
 import static seedu.address.ui.BrowserPanel.DEFAULT_PAGE;
 import static seedu.address.ui.UiPart.FXML_FILE_FOLDER;
 
@@ -14,6 +15,9 @@ import org.junit.Test;
 
 import guitests.guihandles.BrowserPanelHandle;
 import seedu.address.MainApp;
+import seedu.address.commons.events.ui.ClearBrowserPanelEvent;
+import seedu.address.commons.events.ui.RefreshCalendarEvent;
+import seedu.address.commons.events.ui.ShowCalendarEvent;
 import seedu.address.commons.events.ui.TransactionPanelSelectionChangedEvent;
 
 public class BrowserPanelTest extends GuiUnitTest {
@@ -45,5 +49,25 @@ public class BrowserPanelTest extends GuiUnitTest {
 
         waitUntilBrowserLoaded(browserPanelHandle);
         assertEquals(expectedPersonUrl, browserPanelHandle.getLoadedUrl());
+
+        String calendarId = "test";
+        URL expectedCalendarUrl = new URL(CALENDAR_PAGE_URL + calendarId + "&ctz=Asia/Singapore");
+
+        ShowCalendarEvent showCalendarEvent = new ShowCalendarEvent(calendarId);
+        postNow(showCalendarEvent);
+        waitUntilBrowserLoaded(browserPanelHandle);
+        assertEquals(expectedCalendarUrl, browserPanelHandle.getLoadedUrl());
+
+        RefreshCalendarEvent refreshCalendarEvent = new RefreshCalendarEvent(calendarId);
+        postNow(refreshCalendarEvent);
+        waitUntilBrowserLoaded(browserPanelHandle);
+        assertEquals(expectedCalendarUrl, browserPanelHandle.getLoadedUrl());
+
+        ClearBrowserPanelEvent clearBrowserEvent = new ClearBrowserPanelEvent();
+        postNow(clearBrowserEvent);
+        waitUntilBrowserLoaded(browserPanelHandle);
+        assertEquals(expectedDefaultPageUrl, browserPanelHandle.getLoadedUrl());
     }
+
+
 }
