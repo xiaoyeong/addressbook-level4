@@ -28,7 +28,11 @@ who may want to maintain a database of their personal transactions.
 ** Code contributed: [https://nus-cs2103-ay1819s1.github.io/cs2103-dashboard/#=undefined&search=julianc269[Functional Code]] [https://github.com/CS2103-AY1819S1-W12-2/main/blob/master/src/test/java/seedu/address/logic/commands/FilterCommandTest.java[Test code #1]] [https://github.com/CS2103-AY1819S1-W12-2/main/blob/master/src/test/java/seedu/address/logic/parser/FilterCommandParserTest.java[Test code #2]]
 
 
+
 * *Other contributions*:
+
+
+
 
 ** Project management:
 *** Helped morph the project to use a Transaction model [https://github.com/CS2103-AY1819S1-W12-2/main/pull/33/files[Pull Request #33]]
