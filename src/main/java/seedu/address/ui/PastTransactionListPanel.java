@@ -17,7 +17,7 @@ import seedu.address.commons.events.ui.TransactionPanelSelectionChangedEvent;
 import seedu.address.model.transaction.Transaction;
 
 /**
- *
+ * Panel containing the list of past transactions.
  */
 public class PastTransactionListPanel extends UiPart<Region> {
     private static final String FXML = "PastTransactionListPanel.fxml";
@@ -50,7 +50,6 @@ public class PastTransactionListPanel extends UiPart<Region> {
 
     /**
      * Scrolls to the {@code PersonCard} at the {@code index} and selects it.
-<<<<<<< HEAD
      */
     private void scrollToPast(int index) {
         Platform.runLater(() -> {

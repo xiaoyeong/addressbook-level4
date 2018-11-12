@@ -10,7 +10,7 @@ import seedu.address.model.Model;
 
 
 /**
- * Lists all past transactions in the Debt Tracker to the user.
+ * Allows the user to switch between the Current Transactions tab and the Past Transactions tab.
  */
 public class SwitchCommand extends Command {
     public static final String COMMAND_WORD = "switch";
