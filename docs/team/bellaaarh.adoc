@@ -10,20 +10,21 @@
 
 Debt Tracker (DT) is a desktop application for users to manage their loans and debts. The user interacts with it using
 a Command Line Interface (CLI), and it has a Graphic User Interface (GUI) created with JavaFX. It is written in Java,
-and has about 21kLoC. This application is meant for small and medium enterprises (SMEs) and/or personal use.
+and has about 21kLoC. This application is meant for small and medium enterprises (SMEs) to use, and/or personal use.
 
 == Summary of contributions
 
 * *Major enhancement*: Added the ability to *keep a separate list for paid transactions*
-** What it does: Allows the user to keep track of transactions that have been paid off
+** What it does: Allows the user to conveniently keep track of transactions that have been paid off
 ** Justification: This feature helps the user keep a history of transactions that have been settled, which they can use
 in case the other party involved in the transaction tries to confuse the user's memory, or to dispute whether a
 transaction has been paid. This protects the user from possibly being scammed into making the same payment again. +
 Furthermore, by giving the user a history of transactions that have been settled to refer to, they will get a clearer
 understanding of how their current financial status came to be what it is.
 ** Highlights: This enhancement required an deep understanding of AddressBook-Level4's original code in order to be
-implemented, as in order to add this enhancement, I had to refactor several functions and classes and use the data
-structures they implemented. The test code was originally from the provided DeleteCommand Tests, but has been refactored
+implemented. In order to add this enhancement, I had to refactor several functions and classes and use the data
+structures they implemented. +
+The test code was originally from the provided DeleteCommand Tests, but has been refactored
 to be for PaidCommand.
 ** Code contributed: +
 *** [https://github.com/CS2103-AY1819S1-W12-2/main/pull/96/files[Functional Code Block #1 - Implementing
@@ -176,7 +177,7 @@ Extensions:
  .. Test case: `paid 1` +
     Expected: If the transactions list under the Current Transactions tab is at least 3 entries long, the third
     transaction from that list is deleted, and added to the transactions list under the Past Transactions tab.
- .. Incorrect paid commands to try: `paid`, `paid 0`, `paid x` (where x is larger than the list size) _{give more}_ +
+ .. Incorrect paid commands to try: `paid`, `paid 0`, `paid x` (where x is larger than the list size) +
     Expected: Error details (showing an invalid index was keyed in) will be displayed in the results display.
 
 
