@@ -253,6 +253,7 @@ Transactions matching at least one of the keywords will be returned.
 
 * The following parameters must match a specific format :
 
+
     [tamin/MIN_AMOUNT] [tamax/MAX_AMOUNT] [tdmin/EARLIEST_DATE] [tdmax/LATEST_DATE]
 
 ** `MIN_AMOUNT` and `MAX_AMOUNT` must be a real number rounded to two decimal places. Unlike `AMOUNT`, the currency code should be omitted (e.g. `filter tamin/10.00 tamax/50.00`). +
@@ -287,8 +288,13 @@ Examples: +
 * To filter all transactions with amount between 10.00 and 50.00: +
 `filter tamin/10.00 and tamax/50.00`
 
+
 * To filter all transactions with deadlines between 10/11/2018 and 14/12/2018 (inclusive): +
 `filter tdmin/10/11/2018 tdmax/14/12/2018`
+
+* To filter transactions that have addresses containing 'tampines' or 'geylang' OR are tagged with the 'family' tag: +
+`filter a/tampines;geylang t/family or/`
+
 
 * To filter transactions that have addresses containing 'tampines' or 'geylang' OR are tagged with the 'family' tag: +
 `filter a/tampines;geylang t/family or/`
