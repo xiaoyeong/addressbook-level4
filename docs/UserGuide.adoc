@@ -331,7 +331,7 @@ OR search past Yu + F + Pot
 === Deleting a transaction : `delete`
 
 Depending on the format you use, this command either deletes the specified transaction from the current transaction list
- only, or deletes the specified transaction from the past transaction list.
+ only, or deletes the specified transaction from the past transaction list only.
 
 Format:
 To delete from the current transactions list: delete INDEX +
