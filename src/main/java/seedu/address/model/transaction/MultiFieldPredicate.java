@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.function.Predicate;
 
 /**
- * Tests that a {@code Transaction}'s {@code Name} matches any of the keywords given.
+ * Combines multiple {@code Predicate<Transaction>} into a single predicate
  */
 public class MultiFieldPredicate implements Predicate<Transaction> {
     private final List<Predicate<Transaction>> predicates;

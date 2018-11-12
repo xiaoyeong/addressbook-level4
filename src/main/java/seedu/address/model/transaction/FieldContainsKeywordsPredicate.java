@@ -8,7 +8,7 @@ import seedu.address.logic.parser.FieldType;
 import seedu.address.model.person.Person;
 
 /**
- * Tests that a {@code Person}'s {@code Name} matches any of the keywords given.
+ * Tests that a {@code Transaction}'s field matches any of the keywords given.
  */
 public class FieldContainsKeywordsPredicate implements Predicate<Transaction> {
     private final List<String> keywords;

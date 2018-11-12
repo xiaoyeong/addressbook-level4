@@ -40,7 +40,7 @@ public class AmountTest {
 
     @Test
     public void convertCurrency() throws IOException {
-        Amount amountInSgd = new Amount("SGD 456.60");
+        Amount amountInSgd = new Amount("SGD 457.94");
         assertEquals(Amount.convertCurrency(amountInSgd), amountInSgd);
 
         Amount amountInUsd = new Amount("USD 331.30");

@@ -39,7 +39,7 @@ import seedu.address.model.transaction.MultiFieldPredicate;
 import seedu.address.model.transaction.Transaction;
 
 /**
- * Parses input arguments and creates a new AddCommand object
+ * Parses input arguments and creates a new FilterCommand object
  */
 public class FilterCommandParser implements Parser<FilterCommand> {
 

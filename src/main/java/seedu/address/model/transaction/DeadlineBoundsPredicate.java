@@ -3,7 +3,7 @@ package seedu.address.model.transaction;
 import java.util.function.Predicate;
 
 /**
- * Tests that a {@code Person}'s {@code Name} matches any of the keywords given.
+ * Tests that a {@code Transaction}'s {@code Deadline} is within the bound specified
  */
 public class DeadlineBoundsPredicate implements Predicate<Transaction> {
     /**
