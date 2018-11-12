@@ -41,7 +41,7 @@ who may want to maintain a database of their personal transactions.
 ** Community:
 *** PRs reviewed:
 **** [https://github.com/CS2103-AY1819S1-W12-2/main/pull/34/[Pull Request #34]] +
-**** [https://github.com/CS2103-AY1819S1-W12-2/main/pull/61/[Pull Request #61]] +
+**** [https://github.com/CS2103-AY1819S1-W12-2/main/pull/118/[Pull Request #118]] +
 
 == Contributions to the User Guide
 
