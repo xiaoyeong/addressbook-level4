@@ -25,7 +25,7 @@ public class TransactionTest {
                 .withPerson(TypicalPersons.AMY)
                 .withAmount("SGD 245.60")
                 .withType("Loan")
-                .withDeadline("17/11/2018").build();
+                .withDeadline("17/12/2018").build();
 
         assertNotEquals(firstTransactionChangedAmount, firstTransaction);
 
@@ -33,7 +33,7 @@ public class TransactionTest {
                 .withPerson(TypicalPersons.AMY)
                 .withAmount("SGD 145.60")
                 .withType("Debt")
-                .withDeadline("17/11/2018").build();
+                .withDeadline("17/12/2018").build();
 
         assertNotEquals(firstTransactionChangedType, firstTransaction);
 
@@ -41,7 +41,7 @@ public class TransactionTest {
                 .withPerson(TypicalPersons.BOB)
                 .withAmount("SGD 145.60")
                 .withType("Debt")
-                .withDeadline("17/11/2018").build();
+                .withDeadline("17/12/2018").build();
 
         assertNotEquals(firstTransactionChangedPerson, firstTransaction);
 

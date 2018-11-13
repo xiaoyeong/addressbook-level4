@@ -4,7 +4,6 @@ import static org.junit.Assert.assertEquals;
 import static seedu.address.commons.core.Messages.MESSAGE_TRANSACTIONS_LISTED_OVERVIEW;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccessWithModelChange;
 import static seedu.address.testutil.TypicalTransactions.ALICE_TRANSACTION;
-import static seedu.address.testutil.TypicalTransactions.BOB_TRANSACTION;
 import static seedu.address.testutil.TypicalTransactions.getUniqueFinancialDatabase;
 
 import java.util.Arrays;
@@ -35,13 +34,12 @@ public class NextTransactionCommandTest {
 
     @Test
     public void execute_nonEmptyFinancialList() {
-        String expectedMessage = String.format(MESSAGE_TRANSACTIONS_LISTED_OVERVIEW, 2);
-        DeadlineContainsKeywordsPredicate predicate = preparePredicate("12/11/2018");
+        String expectedMessage = String.format(MESSAGE_TRANSACTIONS_LISTED_OVERVIEW, 1);
+        DeadlineContainsKeywordsPredicate predicate = preparePredicate("25/12/2018");
         NextTransactionCommand command = new NextTransactionCommand();
         expectedModelWithData.updateFilteredTransactionList(predicate);
         assertCommandSuccessWithModelChange(command, modelWithData, history, expectedMessage);
-        assertEquals(Arrays.asList(ALICE_TRANSACTION, BOB_TRANSACTION),
-                expectedModelWithData.getFilteredTransactionList());
+        assertEquals(Arrays.asList(ALICE_TRANSACTION), expectedModelWithData.getFilteredTransactionList());
     }
 
     private DeadlineContainsKeywordsPredicate preparePredicate(String userInput) {

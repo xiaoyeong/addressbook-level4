@@ -65,7 +65,7 @@ public class AnalyticsCommandTest {
     public void execute_nonEmptyFinancialListWithDateTest3_whenDatePassedThenTestWillFail() {
         String date = "18/11/2018";
         Deadline checkDate = new Deadline(date);
-        String expectedMessage = "Financial status : SGD 230.60";
+        String expectedMessage = "Financial status : SGD 0.00";
         AnalyticsCommand analyticsCommand = new AnalyticsCommand(checkDate);
         assertCommandSuccessWithModelChange(analyticsCommand, modelWithData, history, expectedMessage);
     }
@@ -74,7 +74,7 @@ public class AnalyticsCommandTest {
     public void execute_nonEmptyFinancialListWithDateTest4_whenDatePassedThenTestWillFail() {
         String date = "12/12/2018";
         Deadline checkDate = new Deadline(date);
-        String expectedMessage = "Financial status : SGD 188.10";
+        String expectedMessage = "Financial status : SGD 0.00";
         AnalyticsCommand analyticsCommand = new AnalyticsCommand(checkDate);
         assertCommandSuccessWithModelChange(analyticsCommand, modelWithData, history, expectedMessage);
     }

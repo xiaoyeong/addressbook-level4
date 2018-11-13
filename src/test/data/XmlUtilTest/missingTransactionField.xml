@@ -2,7 +2,7 @@
 <!-- Transaction with missing type field -->
 <transaction>
 	<type>SGD 25.50</type>
-    <deadline>16/11/2018</deadline>
+    <deadline>16/12/2018</deadline>
 	<name>Hans Muster</name>
     <phone>hans@example.com</phone>
     <email>9482424</email>

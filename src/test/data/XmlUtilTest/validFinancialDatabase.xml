@@ -3,7 +3,7 @@
     <transactions>
 		<type>Loan</type>
         <amount>SGD 25.50</amount>
-        <deadline>16/11/2018</deadline>
+        <deadline>16/12/2018</deadline>
         <name>Hans Muster</name>
         <phone isPrivate="false">9482424</phone>
         <email isPrivate="false">hans@example.com</email>
@@ -48,7 +48,7 @@
     <transactions>
         <type>Loan</type>
         <amount>IDR 652.30</amount>
-        <deadline>17/11/2018</deadline>
+        <deadline>17/12/2018</deadline>
         <name>Lydia Kunz</name>
         <phone isPrivate="false">9482427</phone>
         <email isPrivate="false">lydia@example.com</email>

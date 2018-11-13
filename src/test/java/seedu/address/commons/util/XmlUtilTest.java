@@ -38,7 +38,7 @@ public class XmlUtilTest {
 
     private static final String VALID_TYPE = "Loan";
     private static final String VALID_AMOUNT = "SGD 25.50";
-    private static final String VALID_DEADLINE = "16/11/2018";
+    private static final String VALID_DEADLINE = "16/12/2018";
     private static final String VALID_NAME = "Hans Muster";
     private static final String VALID_PHONE = "9482424";
     private static final String VALID_EMAIL = "hans@example.com";

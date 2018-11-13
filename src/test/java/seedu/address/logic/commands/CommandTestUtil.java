@@ -33,8 +33,8 @@ public class CommandTestUtil {
     public static final String VALID_TYPE_BOB = "Loan";
     public static final String VALID_AMOUNT_AMY = "SGD 145.60";
     public static final String VALID_AMOUNT_BOB = "SGD 42.50";
-    public static final String VALID_DEADLINE_AMY = "17/11/2018";
-    public static final String VALID_DEADLINE_BOB = "12/11/2018";
+    public static final String VALID_DEADLINE_AMY = "17/12/2018";
+    public static final String VALID_DEADLINE_BOB = "19/12/2018";
     public static final String VALID_NAME_AMY = "Amy Bee";
     public static final String VALID_NAME_BOB = "Bob Choo";
     public static final String VALID_PHONE_AMY = "11111111";

@@ -2,7 +2,7 @@
 <transaction>
     <type>Loan</type>
     <amount>SGD 25.50</amount>
-    <deadline>16/11/2018</deadline>
+    <deadline>16/12/2018</deadline>
     <name>Hans Muster</name>
     <phone>9482424</phone>
     <email>hans@example.com</email>
