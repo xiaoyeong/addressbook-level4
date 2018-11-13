@@ -367,7 +367,7 @@ Priorities:  High (should have) +
 
 |===
 
-https://github.com/CS2103-AY1819S1-W12-2/main/commit/5d42ebc0d2396551b96b92f769114ac8482faca3?short_path=d23c809#diff-d23c8091515dc18149f4f2e759e1e288[Pull Request #3]] +
+[https://github.com/CS2103-AY1819S1-W12-2/main/commit/5d42ebc0d2396551b96b92f769114ac8482faca3?short_path=d23c809#diff-d23c8091515dc18149f4f2e759e1e288[Pull Request #3]] +
 
 === Deleting a transaction
 
