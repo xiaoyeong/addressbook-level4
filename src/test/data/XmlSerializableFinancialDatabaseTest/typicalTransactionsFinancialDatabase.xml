@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!-- Financial Database savse file which contains the same Transaction values as in TypicalTransactions#getTypicalFinancialDatabase() -->
+<financialdatabase>
+    <transactions>
+        <amount>SGD 42.50</amount>
+        <type>Loan</type>
+        <deadline>25/12/2018</deadline>
+        <name>Alice Pauline</name>
+        <phone>94351253</phone>
+        <email>alice@example.com</email>
+        <address>123, Jurong West Ave 6, #08-111</address>
+        <tagged>friends</tagged>
+    </transactions>
+    <transactions>
+	    <amount>AUD 12.85</amount>
+        <type>Debt</type>
+        <deadline>25/12/2018</deadline>
+        <name>Benson Meier</name>
+        <phone>98765432</phone>
+        <email>johnd@example.com</email>
+        <address>311, Clementi Ave 2, #02-25</address>
+        <tagged>owesMoney</tagged>
+        <tagged>friends</tagged>
+    </transactions>
+    <transactions>
+	    <amount>USD 57.60</amount>
+        <type>Debt</type>
+        <deadline>25/12/2018</deadline>
+        <name>Carl Kurz</name>
+        <phone>95352563</phone>
+        <email>heinz@example.com</email>
+        <address>wall street</address>
+    </transactions>
+    <transactions>
+	    <amount>INR 44.70</amount>
+        <type>Loan</type>
+        <deadline>25/12/2018</deadline>
+        <name>Daniel Meier</name>
+        <phone>87652533</phone>
+        <email>cornelia@example.com</email>
+        <address>10th street</address>
+        <tagged>friends</tagged>
+    </transactions>
+    <transactions>
+	    <amount>CNY 47.65</amount>
+        <type>Debt</type>
+        <deadline>25/12/2018</deadline>
+        <name>Elle Meyer</name>
+        <phone>9482224</phone>
+        <email>werner@example.com</email>
+        <address>michegan ave</address>
+    </transactions>
+    <transactions>
+	    <amount>MYR 558.65</amount>
+        <type>Debt</type>
+        <deadline>25/12/2018</deadline>
+        <name>Fiona Kunz</name>
+        <phone>9482427</phone>
+        <email>lydia@example.com</email>
+        <address>little tokyo</address>
+    </transactions>
+    <transactions>
+	    <amount>GBP 47.15</amount>
+        <type>Debt</type>
+        <deadline>25/12/2018</deadline>
+        <name>George Best</name>
+        <phone>9482442</phone>
+        <email>anna@example.com</email>
+        <address>4th street</address>
+    </transactions>
+</financialdatabase>

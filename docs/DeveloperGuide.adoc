@@ -1,4 +1,4 @@
-= AddressBook Level 4 - Developer Guide
+= FinancialDatabase - Developer Guide
 :site-section: DeveloperGuide
 :toc:
 :toc-title:
@@ -13,7 +13,7 @@ ifdef::env-github[]
 :warning-caption: :warning:
 :experimental:
 endif::[]
-:repoURL: https://github.com/se-edu/addressbook-level4/tree/master
+:repoURL: https://github.com/CS2103-AY1819S1-W12-2/main/tree/master
 
 By: `W12-2`      Since: `September 2018`      Licence: `MIT`
 
@@ -47,7 +47,7 @@ Do not disable them. If you have disabled them, go to `File` > `Settings` > `Plu
 . Click `OK` to accept the default settings
 . Open a console and run the command `gradlew processResources` (Mac/Linux: `./gradlew processResources`). It should finish with the `BUILD SUCCESSFUL` message. +
 This will generate all resources required by the application and tests.
-. Open link:{repoURL}/src/main/java/seedu/address/storage/XmlAdaptedPerson.java[`XmlAdaptedPerson.java`] and link:{repoURL}/src/main/java/seedu/address/ui/MainWindow.java[`MainWindow.java`] and check for any code errors
+. Open link:{repoURL}/src/main/java/seedu/address/storage/XmlAdaptedTransaction.java[`XmlAdaptedTransaction.java`] and link:{repoURL}/src/main/java/seedu/address/ui/MainWindow.java[`MainWindow.java`] and check for any code errors
 .. Due to an ongoing https://youtrack.jetbrains.com/issue/IDEA-189060[issue] with some of the newer versions of IntelliJ, code errors may be detected even if the project can be built and run successfully
 .. To resolve this, place your cursor over any of the code section highlighted in red. Press kbd:[ALT + ENTER], and select `Add '--add-modules=...' to module compiler options` for each error
 . Repeat this for the test folder as well (e.g. check link:{repoURL}/src/test/java/seedu/address/commons/util/XmlUtilTest.java[`XmlUtilTest.java`] and link:{repoURL}/src/test/java/seedu/address/ui/HelpWindowTest.java[`HelpWindowTest.java`] for code errors, and if so, resolve it the same way)
@@ -74,9 +74,9 @@ Optionally, you can follow the <<UsingCheckstyle#, UsingCheckstyle.adoc>> docume
 
 ==== Updating documentation to match your fork
 
-After forking the repo, the documentation will still have the SE-EDU branding and refer to the `se-edu/addressbook-level4` repo.
+After forking the repo, the documentation will still have the SE-EDU branding and refer to the `CS2103-AY1819S1-W12-2/main` repo.
 
-If you plan to develop this fork as a separate product (i.e. instead of contributing to `se-edu/addressbook-level4`), you should do the following:
+If you plan to develop this fork as a separate product (i.e. instead of contributing to `CS2103-AY1819S1-W12-2/main`), you should do the following:
 
 . Configure the <<Docs-SiteWideDocSettings, site-wide documentation settings>> in link:{repoURL}/build.gradle[`build.gradle`], such as the `site-name`, to suit your own project.
 
@@ -103,146 +103,6 @@ When you are ready to start coding,
 1. Get some sense of the overall design by reading <<Design-Architecture>>.
 2. Take a look at <<GetStartedProgramming>>.
 
-== User Stories
-
-Priorities:  High (should have) +
-             Medium (would like to have) +
-             Low (unlikely to have) +
-
-|===
-|Priority | As a .. | I want to .. | So that I can
-
-
-| High
-{set:cellbgcolor:green}
-| new user
-| see the available command
-| execute the correct command as per need
-
-| High
-| user
-| add a new transaction
-| so that my transaction history is updated
-
-| High
-| user
-| delete a transaction
-| keep only the relevant records in my transaction history
-
-
-| High
-| user
-| hide private contact
-| uphold the confidentiality of the information provided by the contact
-
-| High
-| user
-| add an image attribute for each transactor
-| identify that user before settling a debt
-
-| High
-| user
-| know the past loans that I took
-| manage my finances
-
-| High
-| user
-| filter creditors and debtors
-| know who are the debtors and creditors
-
-| High
-| user
-| filter creditors and debtors
-| know who are the debtors and creditors
-
-| High
-| user
-| have a reminder to pay my creditor
-| ensure that my loans are not left outstanding
-
-| High
-| user
-| convert an amount between two different currencies
-| transact with people from different countries
-
-| Medium
-{set:cellbgcolor:yellow}
-| user
-| find a person by name
-| retrieve information about the person
-
-| Medium
-| user
-| sort debtors by rating
-| take note of defaulters for future transactions
-
-| Medium
-| user
-| sort by deadline for creditors
-| prioritise the persons who I should pay first
-
-| Medium
-| user
-| convert an amount between two different currencies
-| transact with people from different countries
-
-| Medium
-| user
-| sort by deadline for debtors
-| prioritise the persons who need to repay my loan
-
-| Medium
-| user
-| track debtors that did not pay you past the deadline
-| contact them for further information
-
-| Medium
-| user
-| able to provide an analysis of my financial transactions
-| give you an overview of my finances
-
-| Medium
-| user
-| sort creditors by amount of money I owe
-| roughly gauge my borrowing capacity
-
-| Medium
-| user
-| add location attribute to my user record
-| know where to make the payment if the payment is to be done in person
-
-| Medium
-| user
-| sort debtors by amount of money the owe me
-| assess my lending capacity
-
-| Medium
-| user
-| calculate the interest rate of the loan
-| know the right amount to collect from the debtors
-
-| Low
-{set:cellbgcolor:red}
-| user
-| calculate the interest rate of the loan
-| know the right amount to collect from the debtors
-
-| Low
-| user
-| know how much money to borrow
-| prevent accruing debt
-
-| Low
-| user
-| know how much money that I have loaned that person
-| keep records of the amount of money that I have loaned to that person
-
-| Low
-| user
-| filter debtors that pay on time
-| I can decide to award them more loans in the future
-
-|===
 
 == Design
 
@@ -293,7 +153,7 @@ The _Sequence Diagram_ below shows how the components interact for the scenario 
 image::SDforDeletePerson.png[width="800"]
 
 [NOTE]
-Note how the `Model` simply raises a `AddressBookChangedEvent` when the Address Book data are changed, instead of asking the `Storage` to save the updates to the hard disk.
+Note how the `Model` simply raises a `FinancialDatabaseChangedEvent` when the Address Book data are changed, instead of asking the `Storage` to save the updates to the hard disk.
 
 The diagram below shows how the `EventsCenter` reacts to that event, which eventually results in the updates being saved to the hard disk and the status bar of the UI being updated to reflect the 'Last Updated' time.
 
@@ -333,9 +193,9 @@ image::LogicClassDiagram.png[width="800"]
 *API* :
 link:{repoURL}/src/main/java/seedu/address/logic/Logic.java[`Logic.java`]
 
-.  `Logic` uses the `AddressBookParser` class to parse the user command.
+.  `Logic` uses the `FinancialDatabaseParser` class to parse the user command.
 .  This results in a `Command` object which is executed by the `LogicManager`.
-.  The command execution can affect the `Model` (e.g. adding a person) and/or raise events.
+.  The command execution can affect the `Model` (e.g. adding a transaction) and/or raise events.
 .  The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
 
 Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("delete 1")` API call.
@@ -354,12 +214,12 @@ image::ModelClassDiagram.png[width="800"]
 The `Model`,
 
 * stores a `UserPref` object that represents the user's preferences.
-* stores the Address Book data.
+* stores the Debt Tracker data.
 * exposes an unmodifiable `ObservableList<Person>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
 * does not depend on any of the other three components.
 
 [NOTE]
-As a more OOP model, we can store a `Tag` list in `Address Book`, which `Person` can reference. This would allow `Address Book` to only require one `Tag` object per unique `Tag`, instead of each `Person` needing their own `Tag` object. An example of how such a model may look like is given below. +
+As a more OOP model, we can store a `Tag` list in `Debt Tracker`, which `Person` can reference. This would allow `Address Book` to only require one `Tag` object per unique `Tag`, instead of each `Person` needing their own `Tag` object. An example of how such a model may look like is given below. +
  +
 image:ModelClassBetterOopDiagram.png[width="800"]
 
@@ -374,12 +234,12 @@ image::StorageClassDiagram.png[width="800"]
 The `Storage` component,
 
 * can save `UserPref` objects in json format and read it back.
-* can save the Address Book data in xml format and read it back.
+* can save the Debt Tracker data in xml format and read it back.
 
 [[Design-Commons]]
 === Common classes
 
-Classes used by multiple components are in the `seedu.addressbook.commons` package.
+Classes used by multiple components are in the `seedu.FinancialDatabase.commons` package.
 
 == Implementation
 
@@ -389,60 +249,61 @@ This section describes some noteworthy details on how certain features are imple
 === Undo/Redo feature
 ==== Current Implementation
 
-The undo/redo mechanism is facilitated by `VersionedAddressBook`.
-It extends `AddressBook` with an undo/redo history, stored internally as an `addressBookStateList` and `currentStatePointer`.
+The undo/redo mechanism is facilitated by `VersionedFinancialDatabase`.
+It extends `FinancialDatabase` with an undo/redo history, stored internally as an `financialDatabaseStateList` and `currentStatePointer`.
 Additionally, it implements the following operations:
 
-* `VersionedAddressBook#commit()` -- Saves the current address book state in its history.
-* `VersionedAddressBook#undo()` -- Restores the previous address book state from its history.
-* `VersionedAddressBook#redo()` -- Restores a previously undone address book state from its history.
+* `VersionedFinancialDatabase#commit()` -- Saves the current financial database state in its history.
+* `VersionedFinancialDatabase#undo()` -- Restores the previous financial database state from its history.
+* `VersionedFinancialDatabase#redo()` -- Restores a previously undone financial database state from its history.
 
-These operations are exposed in the `Model` interface as `Model#commitAddressBook()`, `Model#undoAddressBook()` and `Model#redoAddressBook()` respectively.
+These operations are exposed in the `Model` interface as `Model#commitFinancialDatabase()`, `Model#undoFinancialDatabase()` and `Model#redoFinancialDatabase()` respectively.
 
 Given below is an example usage scenario and how the undo/redo mechanism behaves at each step.
 
-Step 1. The user launches the application for the first time. The `VersionedAddressBook` will be initialized with the initial address book state, and the `currentStatePointer` pointing to that single address book state.
+Step 1. The user launches the application for the first time. The `VersionedFinancialDatabase` will be initialized with the initial address book state, and the `currentStatePointer` pointing to that single address book state.
 
 image::UndoRedoStartingStateListDiagram.png[width="800"]
 
-Step 2. The user executes `delete 5` command to delete the 5th person in the address book. The `delete` command calls `Model#commitAddressBook()`, causing the modified state of the address book after the `delete 5` command executes to be saved in the `addressBookStateList`, and the `currentStatePointer` is shifted to the newly inserted address book state.
+Step 2. The user executes `delete 5` command to delete the 5th transaction in the financial database. The `delete` command calls `Model#commitFinancialDatabasek()`, causing the modified state of the address book after the `delete 5` command executes to be saved in the `addressBookStateList`, and the `currentStatePointer` is shifted to the newly inserted address book state.
 
 image::UndoRedoNewCommand1StateListDiagram.png[width="800"]
 
-Step 3. The user executes `add n/David ...` to add a new person. The `add` command also calls `Model#commitAddressBook()`, causing another modified address book state to be saved into the `addressBookStateList`.
+Step 3. The user executes `add n/David ...` to add a new transaction. The `add` command also calls `Model#commitFinancialDatabase()`, causing another modified address book state to be saved into the `FinancialDatabaseStateList`.
 
 image::UndoRedoNewCommand2StateListDiagram.png[width="800"]
 
 [NOTE]
-If a command fails its execution, it will not call `Model#commitAddressBook()`, so the address book state will not be saved into the `addressBookStateList`.
+If a command fails its execution, it will not call `Model#commitFinancialDatabase()`, so the financial database state will not be saved into the `financialDatabaseStateList`.
 
-Step 4. The user now decides that adding the person was a mistake, and decides to undo that action by executing the `undo` command. The `undo` command will call `Model#undoAddressBook()`, which will shift the `currentStatePointer` once to the left, pointing it to the previous address book state, and restores the address book to that state.
+Step 4. The user now decides that adding the transaction was a mistake, and decides to undo that action by executing the `undo` command. The `undo` command will call `Model#undoFinancialDatabase()`, which will shift the `currentStatePointer` once to the left, pointing it to the previous address book state, and restores the address book to that state.
 
 image::UndoRedoExecuteUndoStateListDiagram.png[width="800"]
 
 [NOTE]
-If the `currentStatePointer` is at index 0, pointing to the initial address book state, then there are no previous address book states to restore. The `undo` command uses `Model#canUndoAddressBook()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the undo.
+If the `currentStatePointer` is at index 0, pointing to the initial financial database state, then there are no previous financial database states to restore. The `undo` command uses `Model#canUndoFinancialDatabase()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the undo.
 
 The following sequence diagram shows how the undo operation works:
 
 image::UndoRedoSequenceDiagram.png[width="800"]
 
-The `redo` command does the opposite -- it calls `Model#redoAddressBook()`, which shifts the `currentStatePointer` once to the right, pointing to the previously undone state, and restores the address book to that state.
+The `redo` command does the opposite -- it calls `Model#redoFinancialDatabase()`, which shifts the `currentStatePointer` once to the right, pointing to the previously undone state, and restores the financial database to that state.
 
 [NOTE]
-If the `currentStatePointer` is at index `addressBookStateList.size() - 1`, pointing to the latest address book state, then there are no undone address book states to restore. The `redo` command uses `Model#canRedoAddressBook()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the redo.
+If the `currentStatePointer` is at index `FinancialDatabaseStateList.size() - 1`, pointing to the latest financial database state, then there are no undone address book states to restore. The `redo` command uses `Model#canRedoFinancialDatabase()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the redo.
 
-Step 5. The user then decides to execute the command `list`. Commands that do not modify the address book, such as `list`, will usually not call `Model#commitAddressBook()`, `Model#undoAddressBook()` or `Model#redoAddressBook()`. Thus, the `addressBookStateList` remains unchanged.
+Step 5. The user then decides to execute the command `list`. Commands that do not modify the financial database, such as `list`, will usually not call `Model#commitFinancialDatabase()`, `Model#undoFinancialDatabase()` or `Model#redoFinancialDatabase()`. Thus, the `financialDatabaseStateList` remains unchanged.
 
 image::UndoRedoNewCommand3StateListDiagram.png[width="800"]
 
-Step 6. The user executes `clear`, which calls `Model#commitAddressBook()`. Since the `currentStatePointer` is not pointing at the end of the `addressBookStateList`, all address book states after the `currentStatePointer` will be purged. We designed it this way because it no longer makes sense to redo the `add n/David ...` command. This is the behavior that most modern desktop applications follow.
+Step 6. The user executes `clear`, which calls `Model#commitFinancialDatabase()`. Since the `currentStatePointer` is not pointing at the end of the `financialDatabaseStateList`, all address book states after the `currentStatePointer` will be purged. We designed it this way because it no longer makes sense to redo the `add n/David ...` command. This is the behavior that most modern desktop applications follow.
 
 image::UndoRedoNewCommand4StateListDiagram.png[width="800"]
 
 The following activity diagram summarizes what happens when a user executes a new command:
 
 image::UndoRedoActivityDiagram.png[width="650"]
+
 
 ==== Design Considerations
 
@@ -452,19 +313,18 @@ image::UndoRedoActivityDiagram.png[width="650"]
 ** Pros: Easy to implement.
 ** Cons: May have performance issues in terms of memory usage.
 * **Alternative 2:** Individual command knows how to undo/redo by itself.
-** Pros: Will use less memory (e.g. for `delete`, just save the person being deleted).
+** Pros: Will use less memory (e.g. for `delete`, just save the transaction being deleted).
 ** Cons: We must ensure that the implementation of each individual command are correct.
 
 ===== Aspect: Data structure to support the undo/redo commands
 
-* **Alternative 1 (current choice):** Use a list to store the history of address book states.
+* **Alternative 1 (current choice):** Use a list to store the history of financial database states.
 ** Pros: Easy for new Computer Science student undergraduates to understand, who are likely to be the new incoming developers of our project.
-** Cons: Logic is duplicated twice. For example, when a new command is executed, we must remember to update both `HistoryManager` and `VersionedAddressBook`.
+** Cons: Logic is duplicated twice. For example, when a new command is executed, we must remember to update both `HistoryManager` and `VersionedFinancialDatabase`.
 * **Alternative 2:** Use `HistoryManager` for undo/redo
 ** Pros: We do not need to maintain a separate list, and just reuse what is already in the codebase.
 ** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.
 // end::undoredo[]
-
 
 === Logging
 
@@ -669,16 +529,14 @@ Here are the steps to create a new release.
 
 === Managing Dependencies
 
-A project often depends on third-party libraries. For example, Address Book depends on the http://wiki.fasterxml.com/JacksonHome[Jackson library] for XML parsing. Managing these _dependencies_ can be automated using Gradle. For example, Gradle can download the dependencies automatically, which is better than these alternatives. +
+A project often depends on third-party libraries. For example, Debt Tracker depends on the http://wiki.fasterxml.com/JacksonHome[Jackson library] for XML parsing. Managing these _dependencies_ can be automated using Gradle. For example, Gradle can download the dependencies automatically, which is better than these alternatives. +
 a. Include those libraries in the repo (this bloats the repo size) +
 b. Require developers to download those libraries manually (this creates extra work for developers)
 
+[appendix]
 == Instructions for Manual Testing
 
 Given below are instructions to test the app manually.
-
-[NOTE]
-These instructions only provide a starting point for testers to work on; testers are expected to do more _exploratory_ testing.
 
 === Launch and Shutdown
 
@@ -686,7 +544,7 @@ These instructions only provide a starting point for testers to work on; testers
 
 .. Download the jar file and copy into an empty folder
 .. Double-click the jar file +
-   Expected: Shows the GUI with a set of sample contacts. The window size may not be optimum.
+   Expected: Shows the GUI with a set of sample transactions. The window size may not be optimum.
 
 . Saving window preferences
 
@@ -694,38 +552,448 @@ These instructions only provide a starting point for testers to work on; testers
 .. Re-launch the app by double-clicking the jar file. +
    Expected: The most recent window size and location is retained.
 
-_{ more test cases ... }_
+=== Deleting a transaction
 
-=== Deleting a person
+Deletes a transaction while all transactions are listed
 
-. Deleting a person while all persons are listed
+. Prerequisite: There must be at least one transaction in the database.
 
-.. Prerequisites: List all persons using the `list` command. Multiple persons in the list.
-.. Test case: `delete 1` +
-   Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
-.. Test case: `delete 0` +
-   Expected: No person is deleted. Error details shown in the status message. Status bar remains the same.
-.. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) _{give more}_ +
-   Expected: Similar to previous.
+. Test case: `delete 1` +
+  Expected: First transaction is deleted from the list. Details of the deleted transaction shown in the status message. Timestamp in the status bar is updated.
+. Test case: `delete 0` +
+  Expected: No transaction is deleted. Error details shown in the status message. Status bar remains the same.
+. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) _{give more}_ +
+  Expected: Similar to previous.
 
-_{ more test cases ... }_
+=== Adding a Profile Image
 
-=== Saving data
+.  Prerequisite: The Profile Image should not exceed 10MB.
 
-. Dealing with missing/corrupted data files
+.. Advantage: It would prevent user from uploading large files as the application may be unstable.
+.. Prerequisities: You have a png image that is less than 10MB at Users folder. +
+TestCase: `uploadphoto 3 up/Users/xiaoyeong.png` +
+Expected: Your Profile Picture will be displayed.
 
-.. _{explain how to simulate a missing/corrupted file and the expected behavior}_
+. This is the `sequence diagram` for the `updatephoto` command +
 
-_{ more test cases ... }_
+image::LogicComponentDiagram2.png[width="800"]
+.. The user executes the `updatephoto INDEX up/FILEPATH` command, with parameters `INDEX` and `FILEPATH`
+.. The `FinancialDatabaseParser` class parses the command and create a new `UploadPhotoCommand` class.
+.. New `Photo` object is created, which contain the image referenced by `FILEPATH`.
+...If the FILEPATH's is invalid or equals to  'delete', it will display the default picture.
+.. The new `Photo` is attached to the `Transaction` at `INDEX`
+.. The new photo is displayed and updated
 
-=== Add Profile Image
 
-.  Prerequisites: The Profile Image should not exceed 10MB.
+=== Marking transactions as paid
+ .  Prerequisite: The index the user keyed in must have a valid transaction at that numbered entry in the transactions
+ list under the Current Transactions tab.
+ . Test cases: +
+ .. Input: `paid 1` +
+    Output: If the transactions list under the Current Transactions tab is at least 3 entries long, the third
+    transaction from that list is deleted, and added to the transactions list under the Past Transactions tab.
+ .. Input: `paid x` (where x is larger than the list size) +
+    Output: Error details (showing an invalid index was keyed in) will be shown in the results display.
 
-.. Advantage: It would prevent user from uploading large file as the application may be unstable.
+=== Filtering transactions
+.  Prerequisite: Command input must adhere strictly to specified format
+.  Test cases: +
+.. Input: `filter n/alex e/example.com` +
+   Output: Lists all transactions with name 'alex' with an 'example.com' email
+.. Input: `filter tdmin/10/11/2018 tdmax/14/12/2018` +
+   Output: Lists all transactions with deadline between 10/11/2018 and 14/12/2018
+.. Input: `filter n/alex e/example.com and/ or/`
+   Output: Command fails. Error details shown in the results display.
+.. Inputs: `filter`, `filter n/;;`,`filter or/`
+   Output: Error details shown in the results display (same as above).
 
-=== Add Filter Command
- .  Prerequisites: Command input must adhere strictly to specified format
- .. Test case: `filter n/john e/hotmail.com` +
-    Expected: Lists all persons named john with a hotmail.com email
+=== Using the Google Calendar service
 
+. Logging in with a Google account
+.. Enter `calendar login` into the command box.
+.. Browser will launch with an authentication prompt.
+.. Enter your Google account details for authentication. There are three possible options for this:
+... Use an existing Google account
+... Create a new Google account for testing
+... Login with the provided test account (not recommended):
+
+        Username: debttracker2103@gmail.com
+        Password: 2103testaccount
+
+** Use of the provided test account is not recommended as it may produce unexpected results when viewing/syncing the calendar data due to the possibility of concurrent users. Only use if you do not have access to and are unable to create a new Google account.
+
+. Viewing the Calendar
+.. Enter `calendar show` in the command box to view the Google calendar in-app.
+
+. Syncing the Calendar
+.. Calendar data is synced automatically when entering a command that modifies the debt tracker data.
+.. To perform a manual sync in cases where the calendar data is not in sync with the debt tracker app, enter `calendar sync` into the command box.
+
+=== Converting currencies
+
+Converting the amounts of all the transactions in the database to their respective amounts in the *base currency, Singapore Dollars.* +
+
+. Prerequisites:
+ .. The application must have an internet connection. +
+ .. All the amounts in the transaction are valid. +
+
+. Test case: +
+.. Input: `convert`, `convert x` (x is any random input) +
+   Output: The amounts in all the transactions conducted in foreign currencies will converted to Singapore Dollars. +
+
+=== Calculating interest
+
+Calculates the interest on all the transaction amounts based on the provided *monthly interest rate*
+(which is capped at a *maximum of 4.00%*), following either the *simple* or *compound* interest scheme. +
+
+. Prerequisite: All the transactions in the database have a valid amount. +
+. Test cases: +
+.. Inputs: `interest simple 1.00%`, `interest SIMPLE 1.00%`, `interest Simple 1.00%` +
+   Output: Those transactions whose deadline is more than a month have their amounts incremented by the interest amount. +
+.. Input: `interest sample 1.00%` +
+   Output: Error message is shown in the results display due to the wrongly entered interest scheme. +
+.. Input: `interest simple 1.0%`, `interest simple 1.000%`, `interest simple 1`
+   Output: Error message is shown in the results display because the interest rate is formatted incorrectly.
+
+=== Sorting transactions
+
+Sorts all the transactions based on *transaction amount*, *transaction type* or *transaction deadline* if the respective parameters
+are provided. Otherwise, the transactions are sorted in alphabetical ordering of the person's name and
+the tie is broken using the person's email or phone number.
+
+. Prerequisites:
+ .. All the transactions are converted to the base currency using the `convert` command. +
+ .. All the attributes of the transaction are valid. +
+. Test cases:
+.. Input: `sort amount` +
+   Output: All the transactions are sorted in the descending order of amount values. +
+.. Input: `sort type` +
+   Output: All the transactions are sorted in the alphabetical ordering of the types i.e. the debts come before the loans. +
+.. Input: `sort deadline` +
+   Output: All the transactions are sorted from the earliest to the latest deadlines. +
+.. Input: `sort`, `sort x` (where x is any random input) +
+   Output: All the transactions are sorted in alphabetical order of the person names, with tie broken using the person's email or phone number. +
+
+[appendix]
+== User Stories
+
+Priorities:  High (should have) +
+             Medium (would like to have) +
+             Low (unlikely to have) +
+
+|===
+|Priority | As a .. | I want to .. | So that I can
+
+
+| High
+{set:cellbgcolor:green}
+| new user
+| see the available command
+| execute the correct command as per need
+
+| High
+| user
+| add a new transaction
+| so that my transaction history is updated
+
+| High
+| user
+| delete a transaction
+| keep only the relevant records in my transaction history
+
+
+| High
+| user
+| hide private contact
+| uphold the confidentiality of the information provided by the contact
+
+| High
+| user
+| add an image attribute for each transactor
+| identify that user before settling a debt
+
+| High
+| user
+| know the past loans that I took
+| manage my finances
+
+| High
+| user
+| filter creditors and debtors
+| know who are the debtors and creditors
+
+| High
+| user
+| have a reminder to pay my creditor
+| ensure that my loans are not left outstanding
+
+| High
+| user
+| convert an amount between two different currencies
+| transact with people from different countries
+
+| High
+| user
+| able to provide an analysis of my financial transactions
+| give you an overview of my finances
+
+| Medium
+{set:cellbgcolor:yellow}
+| user
+| find a transaction by name
+| retrieve information about the transaction
+
+| Medium
+| user
+| sort debtors by rating
+| take note of defaulters for future transactions
+
+| Medium
+| user
+| sort by deadline for creditors
+| prioritise the persons who I should pay first
+
+| Medium
+| user
+| convert an amount between two different currencies
+| transact with people from different countries
+
+| Medium
+| user
+| sort by deadline for debtors
+| prioritise the persons who need to repay my loan
+
+| Medium
+| user
+| track debtors that did not pay you past the deadline
+| contact them for further information
+
+
+| Medium
+| user
+| sort creditors by amount of money I owe
+| roughly gauge my borrowing capacity
+
+| Medium
+| user
+| add location attribute to my user record
+| know where to make the payment if the payment is to be done in transaction
+
+| Medium
+| user
+| sort debtors by amount of money the owe me
+| assess my lending capacity
+
+| Medium
+| user
+| calculate the interest rate of the loan
+| know the right amount to collect from the debtors
+
+| Medium
+{set:cellbgcolor:yellow}
+| user
+| view a calendar with details of current transactions
+| have an overview of upcoming transactions
+
+| Medium
+{set:cellbgcolor:yellow}
+| user
+| filter transactions within a certain period
+| focus on transactions in a certain period
+
+| Low
+{set:cellbgcolor:red}
+| user
+| calculate the interest rate of the loan
+| know the right amount to collect from the debtors
+
+| Low
+| user
+| know how much money to borrow
+| prevent accruing debt
+
+| Low
+| user
+| know how much money that I have loaned that transaction
+| keep records of the amount of money that I have loaned to that transaction
+
+| Low
+| user
+| filter debtors that pay on time
+| I can decide to award them more loans in the future
+
+|===
+
+[appendix]
+== Use Cases
+
+(For all use cases below, the *System* is the `DebtTracker` and the *Actor* is the `user`, unless specified otherwise)
+
+=== Use case: Analyse Financial Income
+
+MSS:
+
+1.  User requests analyses financial income according to certain conditions.
+2.  User can choose to enter a valid date or not enter any text and press enter.
+3.  The system will calculate the income up to the data enter or generate the whole financial income base on all the transaction in the database.
+
+Extensions:
+
+2a. User enters invalid date
+
+	... The system raises an error specifying that the given date is invalid.
+	... Use case ends.
+
+2b. User enters no conditions.
+
+	... The system generates the total financial income base on all the transaction in the database.
+	... Use case ends.
+
+2c. User enters valid date
+
+	... The system generates the total financial income up to the given date.
+	... Use case ends.
+
+=== Use case: Wildcard Search
+
+MSS:
+
+1. User requests to find a certain contact containing the substring they key in.
+2. The system will filter out a list of contacts whose first names or last names contain the substring.
+
+Extensions:
+
+1a. User does not enter a substring after the command word.
+
+    ... The system raises an error specifying that there must be a substring input.
+    ... Use case ends.
+
+=== Use case: Paid
+
+MSS:
+
+1. User requests to shift a transaction under the Current Transactions tab to the Past Transactions tab.
+2. User is prompted to input the list index of the transaction to be shifted.
+3. User keys in the index in the form and submits the form.
+4. Selected transaction is deleted from the transactions list under the Current Transactions tab, and is stored in the
+transactions list under the Past Transactions tab, in the database.
+
+Extensions:
+
+2a. User inputs an invalid index.
+
+    ... The system raises an error specifying that the index entered was invalid.
+    ... Use case ends.
+
+2b. The transactions list under Past Transactions is full and cannot store any more transactions.
+
+    ... The user is informed that the quota of transactions allocated to him/her has exceeded.
+    ... The user is prompted that his oldest transaction will be removed. If user agrees, then the oldest transaction will
+    be removed.
+    ... If the user declines, the user is displayed his/her 5 oldest transactions and asked to clear one of them.
+    ... If the user refuses to clear any of his/her transactions, the user is informed that he/she cannot enter another
+    transaction without clearing any of the previous transactions.
+    ... Use case ends.
+
+=== Use case: Convert transaction amounts
+
+MSS:
+
+ 1. The user requests to convert all the transaction amounts to the base currency, Singapore Dollars. +
+
+ 2. The system converts all those transaction amounts in foreign currencies to the base currency.
+    Those transaction amounts in Singapore Dollars reflect no change. +
+
+ 3. The system list all the transactions with updated amounts. +
+
+Extensions:
+
+1a. The user enters an additional parameter for the command +
+
+ ... The system ignores the additional parameter and continues with the conversion as per normal. +
+ ... Use case ends.
+
+2a. The application is not connected to the internet. +
+
+  ... The user is informed that there is an error reading the value from the API. +
+  ... Use case ends.
+
+2b. The database has no transactions contained within it. +
+
+  ... The system responds with an error message because the operation is invalid on an empty database. +
+  ... Use case ends.
+
+=== Use case: Calculate interest on transaction amounts
+
+MSS:
+
+ 1. The user requests to calculate interests on all the transaction amounts. +
+
+ 2. The user enters the interest scheme (simple/compound) and the interest rate. +
+
+ 3. The system calculates interest on the amounts of those transactions with a deadline more than a month away.
+    The amounts of the transactions with deadlines within a month period are not updated.
+
+Extensions:
+
+1a. There are no transactions in the database
+
+    ... The system responds with an error message because the operation is invalid on an empty database.
+    ... Use case ends.
+
+2a. The user enters a wrong interest scheme
+
+    ... The system responds with an error message for the user to correct the scheme.
+    ... Use case ends.
+
+2b. The user enters a wrong interest rate
+
+    ... The system responds with an error message for the user to adjust the interest rate.
+    ... Use case ends.
+
+==== Use case: Sort transactions by parameter
+
+MSS:
+
+  1. The user requests to sort the transaction based on a given parameter.
+
+  2. The system sorts all the transactions based on the given parameter. +
+
+  3. The system lists all the transactions according to the new sorting order. +
+
+Extensions:
+
+1a. The user enters an invalid parameter
+
+    ... The system sorts by the default parameter: the name of the transactor.
+    ... Use case ends.
+
+1b. The user enters no parameters
+
+    ... The system sorts by the same default parameter as above
+    ... Use case ends.
+
+2a. There are no transactions in the database
+
+    ... The system responds with an error message due to the empty database.
+    ... Use case ends.
+
+===== Use case: Filter transactions by criteria
+
+MSS:
+
+1.  User requests to view transactions that matches certain criteria
+2.  The System displays transactions that matches the criteria specified by the user +
+    Use case ends.
+
+Extensions:
+
+1a. User does not specify any criteria
+
+ ... The system raises an error and indicates to the user the correct command format. +
+ ... Use case ends.
+
+1b. User enters an invalid input for a criteria
+
+ ... The system raises an error and indicates to the user the correct input format
+ ... Use case ends.

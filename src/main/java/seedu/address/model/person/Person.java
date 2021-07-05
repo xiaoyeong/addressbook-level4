@@ -13,19 +13,19 @@ import seedu.address.model.tag.Tag;
  * Represents a Person in the address book.
  * Guarantees: details are present and not null, field values are validated, immutable.
  */
-public class Person {
+public class Person implements Comparable<Person> {
 
     // Identity fields
+    private final Email email;
     private final Name name;
     private final Phone phone;
-    private final Email email;
 
     // Data fields
     private final Address address;
     private final Set<Tag> tags = new HashSet<>();
 
     /**
-     * Every field must be present and not null.
+     * Parameterized constructor that takes in a UniqueId argument
      */
     public Person(Name name, Phone phone, Email email, Address address, Set<Tag> tags) {
         requireAllNonNull(name, phone, email, address, tags);
@@ -61,20 +61,6 @@ public class Person {
     }
 
     /**
-     * Returns true if both persons of the same name have at least one other identity field that is the same.
-     * This defines a weaker notion of equality between two persons.
-     */
-    public boolean isSamePerson(Person otherPerson) {
-        if (otherPerson == this) {
-            return true;
-        }
-
-        return otherPerson != null
-                && otherPerson.getName().equals(getName())
-                && (otherPerson.getPhone().equals(getPhone()) || otherPerson.getEmail().equals(getEmail()));
-    }
-
-    /**
      * Returns true if both persons have the same identity and data fields.
      * This defines a stronger notion of equality between two persons.
      */
@@ -90,10 +76,7 @@ public class Person {
 
         Person otherPerson = (Person) other;
         return otherPerson.getName().equals(getName())
-                && otherPerson.getPhone().equals(getPhone())
-                && otherPerson.getEmail().equals(getEmail())
-                && otherPerson.getAddress().equals(getAddress())
-                && otherPerson.getTags().equals(getTags());
+                && (otherPerson.getPhone().equals(getPhone()) || otherPerson.getEmail().equals(getEmail()));
     }
 
     @Override
@@ -105,7 +88,8 @@ public class Person {
     @Override
     public String toString() {
         final StringBuilder builder = new StringBuilder();
-        builder.append(getName())
+        builder.append(" Name: ")
+                .append(getName())
                 .append(" Phone: ")
                 .append(getPhone())
                 .append(" Email: ")
@@ -117,4 +101,21 @@ public class Person {
         return builder.toString();
     }
 
+    public Person copyPerson() {
+        return new Person(name, phone, email, address, tags);
+    }
+
+    @Override
+    public int compareTo(Person otherPerson) {
+        if (equals(otherPerson)) {
+            return 0;
+        }
+        if (name.compareTo(otherPerson.name) != 0) {
+            return name.compareTo(otherPerson.name);
+        }
+        if (email.compareTo(otherPerson.email) != 0) {
+            return email.compareTo(otherPerson.email);
+        }
+        return phone.compareTo(otherPerson.phone);
+    }
 }

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!-- Transaction with missing type field -->
+<transaction>
+	<type>SGD 25.50</type>
+    <deadline>16/12/2018</deadline>
+	<name>Hans Muster</name>
+    <phone>hans@example.com</phone>
+    <email>9482424</email>
+    <address>4th street</address>
+    <tagged>friends</tagged>
+</transaction>

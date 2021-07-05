@@ -1,45 +1,48 @@
-public class NameContainsLettersPredicate implements Predicate<Person> {
+package seedu.address.model.person;
+
+import java.util.List;
+import java.util.function.Predicate;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+import seedu.address.model.transaction.Transaction;
+
+/**
+ * Tests that a {@code Transaction} contains a {@code Person} matches any of the letters given.
+ */
+public class NameContainsLettersPredicate implements Predicate<Transaction> {
     private final List<String> letters;
 
     public NameContainsLettersPredicate(List<String> letters) {
-        this.keywords = letters;
+        this.letters = letters;
     }
 
     @Override
-    public boolean test(Person person) {
-        return letters.stream()
-                .anyMatch(input -> check(input, person.getName().fullName));
-                        //StringUtil.containsWordIgnoreCase(person.getName().fullName, input));
+    public boolean test(Transaction transaction) {
+        return letters.stream().anyMatch(input -> makeRegex(input.toLowerCase(),
+                transaction.getPerson().getName().toString().trim().toLowerCase()));
     }
 
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof NameContainsKeywordsPredicate // instanceof handles nulls
-                && keywords.equals(((NameContainsKeywordsPredicate) other).keywords)); // state check
+                || (other instanceof NameContainsLettersPredicate // instanceof handles nulls
+                && letters.equals(((NameContainsLettersPredicate) other).letters)); // state check
     }
 
-    public boolean check(String input, String name) {
-        char[] inputSplit = input.toCharArray();
-        char[] nameSplit = name.toCharArray();
+    /**
+     * makeRegex converts String input to a regular expression (Regex).
+     *
+     * @param input is the substring the user keys in
+     * @param name is the name to check if it contains the substring input.
+     * @return true or false depending if the name contains the substring input.
+     */
 
-        return recursiveComparison(inputSplit, nameSplit, 0, 0);
-
+    public boolean makeRegex(String input, String name) {
+        String regex1 = "(.*)" + input + "(.*)";
+        Pattern pattern1 = Pattern.compile(regex1);
+        Matcher matcher1 = pattern1.matcher(name);
+        boolean inMiddle = matcher1.matches();
+        return inMiddle;
     }
-
-    public boolean recursiveComparison(char[] input, char[] name, int i, int j) {
-        while (i < input.length && j < name.length) {
-            if (input[i].equals(name[j])) {
-                if (i == (input.length - 1)) {
-                    return true;
-                } else {
-                    return recursiveComparison(input, name, (i + 1), j);
-                }
-            }
-            j++;
-        }
-        return false;
-    }
-
 }
-

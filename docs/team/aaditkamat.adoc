@@ -1,0 +1,525 @@
+= Aadit Kamat - Project Portfolio
+:site-section: AboutUs
+:stylesDir: ../stylesheets
+
+== PROJECT: DebtTracker
+
+== Overview
+
+Debt Tracker is a CLI-based desktop application that helps users manage their finances. It keeps track of the financial
+transactions the user undertakes. The primary target audience of this application is Small and Medium Entreprises (SMEs) in Singapore since
+they typically face budget constraints and have to maintain a good credit score. However, this application can also be used by individuals
+who may want to maintain a database of their personal transactions.
+
+== Summary of contributions
+
+* *Major enhancement*: added *an interest calculation feature*
+** What it does: allows the user to obtain the final amount that needs to be payed after calculating the interest on the principal sum of each
+                 transaction on a monthly basis, using either the simple or the compound interest scheme.
+** Justification: Providing an in-built feature to calculate interests is essential since loans are usually charged the market interest rate and the user
+                  needs to be aware of the final sum of the money owed or lent before the deadline.
+
+* *Minor enhancement*: added *a currency conversion utility* within the application
+** What it does: allows the user to convert amounts in different currencies to their respective amounts in the base currency, Singapore Dollars
+** Justification: This feature provides users the flexibility to transact with people from different countries and saves them the hassle of using a 3rd party software to convert the amounts for each transaction.
+** Highlights: The implementation makes use of a free external foreign exchange API, provided by https://free.currencyconverterapi.com[Free Currency Converter API] that updates every hour according to the latest currency trends.
+               Since the API is JSON-based, the more time consuming portion of adding the command was using the right library to parse the information
+               in an appropriate format.
+
+** *Code contribution*: [https://nus-cs2103-ay1819s1.github.io/cs2103-dashboard/#=undefined&search=aaditkamat]
+
+*Other contributions*:
+
+** Project management:
+*** Managed releases `v1.1` - `v1.3` (3 releases) on GitHub
+*** Managed merging of PRs into the master branch as an administrator
+
+** Testing:
+*** Modified tests to handle change from Person model to Transaction model within the application +
+[https://github.com/CS2103-AY1819S1-W12-2/main/pull/46[Pull Request #46]] +
+
+** Documentation:
+*** Added the User Stories within the Developer Guide +
+[https://github.com/CS2103-AY1819S1-W12-2/main/pull/3[Pull Request #3]] +
+*** Updated the relevant sections of the User Guide to reflect the current state of the application +
+[https://github.com/CS2103-AY1819S1-W12-2/main/pull/3[Pull Request #3]] +
+
+** Community:
+*** PRs reviewed:
+**** [https://github.com/CS2103-AY1819S1-W12-2/main/pull/34/[Pull Request #34]] +
+**** [https://github.com/CS2103-AY1819S1-W12-2/main/pull/61/[Pull Request #61]] +
+**** [https://github.com/CS2103-AY1819S1-W12-2/main/pull/68/[Pull Request #68]] +
+**** [https://github.com/CS2103-AY1819S1-W12-2/main/pull/88/[Pull Request #88]] +
+
+*** Issues created:
+**** [https://github.com/CS2103-AY1819S1-W12-2/main/issues/94[Issue #94]] +
+**** [https://github.com/CS2103-AY1819S1-W12-2/main/issues/93[Issue #93]] +
+**** [https://github.com/CS2103-AY1819S1-W12-2/main/issues/90[Issue #90]] +
+**** [https://github.com/CS2103-AY1819S1-W12-2/main/issues/74[Issue #74]] +
+
+** Tools:
+*** Integrated Travis and AppVeyor into the project
+*** Added Coveralls to check the test coverage for the application
+
+== Contributions to the User Guide
+
+
+|===
+|Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users.
+|===
+
+=== Locating transactions by transaction's name : `find`
+
+Finds transactions exchanged with any transaction whose name contains any of the given keywords. +
+
+=== Removing a debt : `remove`
+Removes away a number of debts from one transaction recorded in the DT using click-and-drag.
+
+[https://github.com/CS2103-AY1819S1-W12-2/main/commit/726e9b1bf4b8f2138b63e63ca6788ff805dc824e?short_path=d80058c#diff-d80058c033b9f127ec727c18cc84ce4d[Pull Request#43]] +
+
+=== Hiding transactions with a private contact : `hide`
+Makes transactions exchanged with people tagged as private invisible. Can be toggled. +
+Format: hide n/NAME
+
+=== Adding interest rate to a debt : `interest`
+Restores the address book to the state before the previous undoable command was executed. +
+Format: undo
+Adds an interest amount to all transactions based on the interest scheme and interest rate you input.
+Format: interest INTEREST_SCHEME INTEREST_RATE
+
+=== Removing a debt : `remove`
+Remove away a number of debts from one transaction recorded in the DT using click-and-drag. +
+The number of debts removed is up to the user’s selection.
+
+=== Selecting a trasaction : `select`
+Selects the transaction identified by the index number used in the displayed transaction list. +
+Format: select INDEX
+
+=== Sorting transactions : `sort`
+Sort people by the amount of money loaned to or from them, the deadlines of the debts
+(be it whether you owe them or money or vice versa), or whether they are debtors or
+creditors. +
+Format: sort [t/TAG]...
+
+== Command Summary
+Add: add tt/TRANSACTION_TYPE ta/TRANSACTION_AMOUNT td/TRANSACTION_DEADLINE +
+         n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]…​ +
+e.g. add tt/Loan ta/SGD 50.00 td/24/11/2018 n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend
+
+Convert: convert AMOUNT [MORE_AMOUNTS] +
+e.g. convert USD 20.00  KRW 35.50  MYR 130.60
+
+Edit: edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]
+e.g. edit 1 p/91234567 e/jondoe@example.com
+
+Interest: interest INTEREST_RATE INTEREST_SCHEME +
+e.g. interest simple 1.1%
+
+Select : select INDEX +
+e.g.select 2
+
+[https://github.com/CS2103-AY1819S1-W12-2/main/commit/06243a33fee9c981b1367dfdeb1df0c95bdb0672?short_path=d80058c#diff-d80058c033b9f127ec727c18cc84ce4d[Pull Request #75]] +
+
+== Features
+NOTE: Commands that make use of the transaction amounts such as filter, analytics and interest can be used
+      properly only after the convert command is executed first +
+
+NOTE: The command words are case-sensitive. +
+
+=== Adding a transaction : `add`
+Adds a transaction to the current transaction list in the database. +
+
+Conditions: +
+
+* The transaction's attributes are case sensitive.
+* The transaction type can only be a loan or a debt +
+E.g. tt/loan OR tt/debt
+* The transaction amount must be prefixed with a three-letter currency code (such as SGD) +
+and then with a value that is a real number rounded to two decimal places (even with a +
+trailing zero)
+E.g. ta/SGD 45.20 is valid
+    ta/SGD 45.3 is not valid (Only one digit after the decimal point)
+    ta/IN 56.75 is not valid (The currency code must consist of 3 letters as per ISO 3166 standard)
+* The transaction deadline must be a valid date according to the Gregorian Calendar +
+following the DD/MM/YYYY format and should be a date in the future. +
+E.g. If the date of use of the application is 2nd November 2018:
+    td/25/12/2018 is valid
+    td/30/10/2018 is not valid (It's a date that is in the past)
+    td/29/02/2018 is not valid (It's not a valid date according to the Gregorian Calendar)
+* A person's name should only contain alphanumeric characters and spaces, and should not be blank. +
+* A person's phone number should consist of only digits, with a minimum of 3 digits +
+* A person's email address should be of the format local-part@domain and adhere to the following constraints:
+ ** The local-part should only contain alphanumeric characters and these special characters, excluding the parentheses.
+ ** This is followed by a '@' and then a domain name. "
+ ** The domain name must:
+    *** be at least 2 characters long\n"
+    *** start and end with alphanumeric characters\n"
+    *** consist of alphanumeric characters, a period or a hyphen for the characters in between, if any.
+* A person's address can take any values but must not be blank.
+
+Format:  +
+
+add tt/TYPE ta/AMOUNT td/DEADLINE n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]… +
+
+E.g. add tt/loan ta/SGD 50.00 td/18/12/2018 n/James Ho p/22224444 e/jamesho@example.com +
+a/123, Clementi Rd, 1234665 t/friends
+
+=== Converting multiple currencies: `convert`
+Converts amounts in multiple different foreign currencies to their respective amounts in +
+the base currency, Singapore Dollars. +
+
+NOTE: Makes use of an external foreign currency API: https://free.currencyconverterapi.com/[Free Currency Converter API]
+
+Format: convert
+
+=== Calculating interest on transactions: `interest`
+Calculates interest on transaction based on the interest rate and scheme provided. +
+
+Conditions: +
+
+ * Interest scheme must be either simple or compound. These keywords are case-insensitive. +
+ * An interest rate must be entered in percentage with the value being a real number. +
+
+Format: interest INTEREST_SCHEME INTEREST_RATE +
+e.g. interest simple 1.1%
+
+=== Updating a transaction : `edit`
+Edits an existing transaction’s details. +
+
+Conditions: +
+
+* An index must be provided identifying a transaction and that index must be an integer ranging from 1 to the size
+  of the transaction list displayed
+* Attributes such as name, phone and email are optional
+* The attributes are case sensitive
+* The attributes should follow the format specified in the add command.
+
+Format:
+edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]… +
+E.g. edit 2 n/James Lee e/jameslee@example.com
+
+=== Sorting transactions : `sort`
+Sorts transactions based on an input or default parameter. +
+
+Conditions: +
+
+* Valid sort parameters are:
+  ** amount
+  ** type
+  ** deadline
+* The sort parameters are case-insensitive.
+* If a parameter other than the listed ones is provided or the parameter is not provided at all,
+  then the application assumes that you want to sort by the default parameter, the person name
+  and the tie is broken using the phone number or email address.
+
+Format: +
+sort SORT_PARAMETER +
+E.g. sort type OR +
+     sort amount OR +
+     sort deadline +
+
+[https://github.com/CS2103-AY1819S1-W12-2/main/pull/97/files?short_path=d80058c#diff-d80058c033b9f127ec727c18cc84ce4d[Pull Request #97]] +
+
+== Contributions to the Developer Guide
+
+|===
+|Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project.
+|===
+
+== User Stories
+
+Priorities:  High (should have) +
+             Medium (would like to have) +
+             Low (unlikely to have) +
+
+|===
+|Priority | As a .. | I want to .. | So that I can
+
+
+| High
+{set:cellbgcolor:green}
+| new user
+| see the available command
+| execute the correct command as per need
+
+| High
+| user
+| add a new transaction
+| so that my transaction history is updated
+
+| High
+| user
+| delete a transaction
+| keep only the relevant records in my transaction history
+
+
+| High
+| user
+| hide private contact
+| uphold the confidentiality of the information provided by the contact
+
+| High
+| user
+| add an image attribute for each transactor
+| identify that user before settling a debt
+
+| High
+| user
+| know the past loans that I took
+| manage my finances
+
+| High
+| user
+| filter creditors and debtors
+| know who are the debtors and creditors
+
+| High
+| user
+| filter creditors and debtors
+| know who are the debtors and creditors
+
+| High
+| user
+| have a reminder to pay my creditor
+| ensure that my loans are not left outstanding
+
+| High
+| user
+| convert an amount between two different currencies
+| transact with people from different countries
+
+| Medium
+{set:cellbgcolor:yellow}
+| user
+| find a transaction by name
+| retrieve information about the transaction
+
+| Medium
+| user
+| sort debtors by rating
+| take note of defaulters for future transactions
+
+| Medium
+| user
+| sort by deadline for creditors
+| prioritise the persons who I should pay first
+
+| Medium
+| user
+| convert an amount between two different currencies
+| transact with people from different countries
+
+| Medium
+| user
+| sort by deadline for debtors
+| prioritise the persons who need to repay my loan
+
+| Medium
+| user
+| track debtors that did not pay you past the deadline
+| contact them for further information
+
+| Medium
+| user
+| able to provide an analysis of my financial transactions
+| give you an overview of my finances
+
+| Medium
+| user
+| sort creditors by amount of money I owe
+| roughly gauge my borrowing capacity
+
+| Medium
+| user
+| add location attribute to my user record
+| know where to make the payment if the payment is to be done in transaction
+
+| Medium
+| user
+| sort debtors by amount of money the owe me
+| assess my lending capacity
+
+| Medium
+| user
+| calculate the interest rate of the loan
+| know the right amount to collect from the debtors
+
+| Low
+{set:cellbgcolor:red}
+| user
+| calculate the interest rate of the loan
+| know the right amount to collect from the debtors
+
+| Low
+| user
+| know how much money to borrow
+| prevent accruing debt
+
+| Low
+| user
+| know how much money that I have loaned that transaction
+| keep records of the amount of money that I have loaned to that transaction
+
+| Low
+| user
+| filter debtors that pay on time
+| I can decide to award them more loans in the future
+
+|===
+
+[https://github.com/CS2103-AY1819S1-W12-2/main/commit/5d42ebc0d2396551b96b92f769114ac8482faca3?short_path=d23c809#diff-d23c8091515dc18149f4f2e759e1e288[Pull Request #3]] +
+
+=== Deleting a transaction
+
+Deletes a transaction while all transactions are listed
+
+. Prerequisite: There must be at least one transaction in the database.
+
+. Test case: `delete 1` +
+  Expected: First transaction is deleted from the list. Details of the deleted transaction shown in the status message. Timestamp in the status bar is updated.
+. Test case: `delete 0` +
+  Expected: No transaction is deleted. Error details shown in the status message. Status bar remains the same.
+. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) _{give more}_ +
+  Expected: Similar to previous.
+
+=== Filtering transactions
+.  Prerequisite: Command input must adhere strictly to specified format
+.  Test cases: +
+.. Input: `filter n/alex e/example.com` +
+   Output: Lists all transactions with name 'alex' with an 'example.com' email
+.. Input: `filter tdmin/10/11/2018 tdmax/14/12/2018` +
+   Output: Lists all transactions with deadline between 10/11/2018 and 14/12/2018
+.. Input: `filter n/alex e/example.com and/ or/`
+   Output: Command fails. Error details shown in the results display.
+.. Inputs: `filter`, `filter n/;;`,`filter or/`
+   Output: Error details shown in the results display (same as above).
+
+=== Converting currencies
+
+Converting the amounts of all the transactions in the database to their respective amounts in the *base currency, Singapore Dollars.* +
+
+. Prerequisites:
+ .. The application must have an internet connection. +
+ .. All the amounts in the transaction are valid. +
+
+. Test case: +
+.. Input: `convert`, `convert x` (x is any random input) +
+   Output: The amounts in all the transactions conducted in foreign currencies will converted to Singapore Dollars. +
+
+=== Calculating interest
+
+Calculates the interest on all the transaction amounts based on the provided *monthly interest rate*
+(which is capped at a *maximum of 4.00%*), following either the *simple* or *compound* interest scheme. +
+
+. Prerequisite: All the transactions in the database have a valid amount. +
+. Test cases: +
+.. Inputs: `interest simple 1.00%`, `interest SIMPLE 1.00%`, `interest Simple 1.00%` +
+   Output: Those transactions whose deadline is more than a month have their amounts incremented by the interest amount. +
+.. Input: `interest sample 1.00%` +
+   Output: Error message is shown in the results display due to the wrongly entered interest scheme. +
+.. Input: `interest simple 1.0%`, `interest simple 1.000%`, `interest simple 1`
+   Output: Error message is shown in the results display because the interest rate is formatted incorrectly.
+
+=== Sorting transactions
+
+Sorts all the transactions based on *transaction amount*, *transaction type* or *transaction deadline* if the respective parameters
+are provided. Otherwise, the transactions are sorted in alphabetical ordering of the person's name and
+the tie is broken using the person's email or phone number.
+
+. Prerequisites:
+ .. All the transactions are converted to the base currency using the `convert` command. +
+ .. All the attributes of the transaction are valid. +
+. Test cases:
+.. Input: `sort amount` +
+   Output: All the transactions are sorted in the descending order of amount values. +
+.. Input: `sort type` +
+   Output: All the transactions are sorted in the alphabetical ordering of the types i.e. the debts come before the loans. +
+.. Input: `sort deadline` +
+   Output: All the transactions are sorted from the earliest to the latest deadlines. +
+.. Input: `sort`, `sort x` (where x is any random input) +
+   Output: All the transactions are sorted in alphabetical order of the person names, with tie broken using the person's email or phone number. +
+
+=== Use case: Convert transaction amounts
+
+MSS:
+
+ 1. The user requests to convert all the transaction amounts to the base currency, Singapore Dollars. +
+
+ 2. The system converts all those transaction amounts in foreign currencies to the base currency.
+    Those transaction amounts in Singapore Dollars reflect no change. +
+
+ 3. The system list all the transactions with updated amounts. +
+
+Extensions:
+
+1a. The user enters an additional parameter for the command +
+
+ ... The system ignores the additional parameter and continues with the conversion as per normal. +
+ ... Use case ends.
+
+2a. The application is not connected to the internet. +
+
+  ... The user is informed that there is an error reading the value from the API. +
+  ... Use case ends.
+
+2b. The database has no transactions contained within it. +
+
+  ... The system responds with an error message because the operation is invalid on an empty database. +
+  ... Use case ends.
+
+=== Use case: Calculate interest on transaction amounts
+
+MSS:
+
+ 1. The user requests to calculate interests on all the transaction amounts. +
+
+ 2. The user enters the interest scheme (simple/compound) and the interest rate. +
+
+ 3. The system calculates interest on the amounts of those transactions with a deadline more than a month away.
+    The amounts of the transactions with deadlines within a month period are not updated.
+
+Extensions:
+
+1a. There are no transactions in the database
+
+    ... The system responds with an error message because the operation is invalid on an empty database.
+    ... Use case ends.
+
+2a. The user enters a wrong interest scheme
+
+    ... The system responds with an error message for the user to correct the scheme.
+    ... Use case ends.
+
+2b. The user enters a wrong interest rate
+
+    ... The system responds with an error message for the user to adjust the interest rate.
+    ... Use case ends.
+
+==== Use case: Sort transactions by parameter
+
+MSS:
+
+  1. The user requests to sort the transaction based on a given parameter.
+
+  2. The system sorts all the transactions based on the given parameter. +
+
+  3. The system lists all the transactions according to the new sorting order. +
+
+Extensions:
+
+1a. The user enters an invalid parameter
+
+    ... The system sorts by the default parameter: the name of the transactor.
+    ... Use case ends.
+
+1b. The user enters no parameters
+
+    ... The system sorts by the same default parameter as above
+    ... Use case ends.
+
+2a. There are no transactions in the database
+
+    ... The system responds with an error message due to the empty database.
+    ... Use case ends.
+
+[https://github.com/CS2103-AY1819S1-W12-2/main/pull/150/files?short_path=d23c809#diff-d23c8091515dc18149f4f2e759e1e288[Pull Request #150]] +

@@ -1,0 +1,185 @@
+= Ysabella Tan - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+== PROJECT: DebtTracker
+
+== Overview
+
+Debt Tracker (DT) is a desktop application for users to manage their loans and debts. The user interacts with it using
+a Command Line Interface (CLI), and it has a Graphic User Interface (GUI) created with JavaFX. It is written in Java,
+and has about 21kLoC. This application is meant for small and medium enterprises (SMEs) to use, and/or personal use.
+
+== Summary of contributions
+
+* *Major enhancement*: Added the ability to *keep a separate list for paid transactions*
+** What it does: Allows the user to conveniently keep track of transactions that have been paid off
+** Justification: This feature helps the user keep a history of transactions that have been settled, which they can use
+in case the other party involved in the transaction tries to confuse the user's memory, or to dispute whether a
+transaction has been paid. This protects the user from possibly being scammed into making the same payment again. +
+Furthermore, by giving the user a history of transactions that have been settled to refer to, they will get a clearer
+understanding of how their current financial status came to be what it is.
+** Highlights: This enhancement required an deep understanding of AddressBook-Level4's original code in order to be
+implemented. In order to add this enhancement, I had to refactor several functions and classes and use the data
+structures they implemented. +
+The test code was originally from the provided DeleteCommand Tests, but has been refactored
+to be for PaidCommand.
+** Code contributed: +
+*** [https://github.com/CS2103-AY1819S1-W12-2/main/pull/96/files[Functional Code Block #1 - Implementing
+PaidCommand]] +
+*** [https://github.com/CS2103-AY1819S1-W12-2/main/pull/121/files[Functional Code Block #2 - Making some commands, that
+ were only for the current transaction list, available for the paid transactions list]]
+*** [https://github.com/CS2103-AY1819S1-W12-2/main/blob/master/src/test/java/seedu/address/logic/commands/PaidCommandTest.java[PaidCommand Test code]]
+
+* *Minor enhancement*: Added *the wildcard search feature*
+** What it does: Allows the user to locate a transaction linked to a person whose first or last name contains the
+substring
+** Justification: Sometimes the user may not be entirely sure of how a name is spelt, or they may forget how to spell
+their transaction partner's full name. With this feature, they need not remember the full name in order to find the
+intended transaction.
+** Code contributed:
+*** [https://github.com/CS2103-AY1819S1-W12-2/main/pull/88/files[Functional Code - Implement the logic for wildcard search]]
+
+* *Other contributions*:
+
+** [https://nus-cs2103-ay1819s1.github.io/cs2103-dashboard/#=undefined&search=bellaaarh[Overall Code Contribution]]
+
+** Enhancements to existing features:
+*** Updated the GUI colour scheme [https://github.com/CS2103-AY1819S1-W12-2/main/pull/35/files[Pull Request #35]]
+*** Made separate tabs for the current and past transaction lists [https://github.com/CS2103-AY1819S1-W12-2/main/pull/118/files[Pull Request #118]]
+
+** Documentation:
+*** Edited several parts of the User Guide +
+**** [https://github.com/CS2103-AY1819S1-W12-2/main/pull/88/files[Pull Request #88]] +
+**** [https://github.com/CS2103-AY1819S1-W12-2/main/pull/121/files[Pull Request #121]]
+
+** Community:
+*** PRs reviewed:
+**** [https://github.com/CS2103-AY1819S1-W12-2/main/pull/91[Pull Request #91]] +
+**** [https://github.com/CS2103-AY1819S1-W12-2/main/pull/97[Pull Request #97]] +
+**** [https://github.com/CS2103-AY1819S1-W12-2/main/pull/127[Pull Request #127]] +
+
+*** Issues created:
+**** [https://github.com/CS2103-AY1819S1-W12-2/main/issues/24[Issue #24]] +
+**** [https://github.com/CS2103-AY1819S1-W12-2/main/issues/27[Issue #27]] +
+**** [https://github.com/CS2103-AY1819S1-W12-2/main/issues/30[Issue #30]] +
+**** [https://github.com/CS2103-AY1819S1-W12-2/main/issues/31[Issue #31]] +
+
+== Contributions to the User Guide
+
+|===
+|Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users.
+|===
+=== Locating transactions by substring : `search`
+
+Depending on the format you use, this command matches a set of any consecutive letters (otherwise known as substring)
+you key in with the names of persons involved in either current transactions, or in past transactions. +
+
+Conditions: +
+
+* The substring that you key in must be within either the first or last name of a person involved only.
+Otherwise, an empty list of transactions will be returned. +
+* If you key in several substrings (eg. search al ice), all contacts in which the first or last names contain any of the
+ substrings (in the example, the substrings are "al" and "ice") will be returned.
+
+Format: +
+To find within current transactions list: search SUBSTRING [MORE_SUBSTRINGS] ... +
+To find within past transactions list: search past SUBSTRING [MORE_SUBSTRINGS] ...
+
+e.g. search Be +
+OR search Be + Am +
+OR search past Le +
+OR search past Yu + F + Pot
+
+=== Marking a transaction as Paid : `paid`
+
+This command deletes a transaction (that you deem to have been paid off) from the current transactions list,
+and adds it to the past transactions list. +
+
+Format: paid INDEX
+
+e.g. paid 4
+
+=== Switching between viewing past and current transactions : `switch`
+
+Depending on your input, it will switch to either the Current Transactions tab or the Paid Transactions tab. +
+This is not an undoable command, but you can use this command to go back to your original tab.
+
+Format: switch LIST_TYPE
+
+e.g. switch curr +
+OR switch past
+
+''''
+**User Guide-Related Pull Requests:** +
+
+[https://github.com/CS2103-AY1819S1-W12-2/main/pull/88/files?utf8=%E2%9C%93&diff=unified&short_path=d80058c#diff-d80058c033b9f127ec727c18cc84ce4d[Pull Request #88]] +
+
+[https://github.com/CS2103-AY1819S1-W12-2/main/pull/121/files?short_path=d80058c#diff-d80058c033b9f127ec727c18cc84ce4d[Pull Request #121]] +
+
+
+
+
+== Contributions to the Developer Guide
+
+|===
+|Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project.
+|===
+
+== Use Cases
+=== Wildcard Search
+
+MSS:
+
+1. User requests to find a certain contact containing the substring they key in.
+2. The system will filter out a list of contacts whose first names or last names contain the substring.
+
+Extensions:
+
+1a. User does not enter a substring after the command word.
+
+    ... The system raises an error specifying that there must be a substring input.
+    ... Use case ends.
+
+=== Paid
+
+MSS:
+
+1. User requests to shift a transaction under the Current Transactions tab to the Past Transactions tab.
+2. User is prompted to input the list index of the transaction to be shifted.
+3. User keys in the index in the form and submits the form.
+4. Selected transaction is deleted from the transactions list under the Current Transactions tab, and is stored in the
+transactions list under the Past Transactions tab, in the database.
+
+Extensions:
+
+2a. User inputs an invalid index.
+
+    ... The system raises an error specifying that the index entered was invalid.
+    ... Use case ends.
+
+2b. The transactions list under Past Transactions is full and cannot store any more transactions.
+
+    ... The user is informed that the quota of transactions allocated to him/her has exceeded.
+    ... The user is prompted that his oldest transaction will be removed. If user agrees, then the oldest transaction will
+    be removed.
+    ... If the user declines, the user is displayed his/her 5 oldest transactions and asked to clear one of them.
+    ... If the user refuses to clear any of his/her transactions, the user is informed that he/she cannot enter another
+    transaction without clearing any of the previous transactions.
+    ... Use case ends.
+
+== Instructions for Manual Testing
+=== Paid Command
+ .  Prerequisites: The index the user keyed in must have a valid transaction at that numbered entry in the transactions
+ list under the Current Transactions tab.
+ .. Test case: `paid 1` +
+    Expected: If the transactions list under the Current Transactions tab is at least 3 entries long, the third
+    transaction from that list is deleted, and added to the transactions list under the Past Transactions tab.
+ .. Incorrect paid commands to try: `paid`, `paid 0`, `paid x` (where x is larger than the list size) +
+    Expected: Error details (showing an invalid index was keyed in) will be displayed in the results display.
+
+
+''''
+**Developer Guide-Related Pull Requests:** +
+[https://github.com/CS2103-AY1819S1-W12-2/main/pull/135/files[Pull Request #135]] +

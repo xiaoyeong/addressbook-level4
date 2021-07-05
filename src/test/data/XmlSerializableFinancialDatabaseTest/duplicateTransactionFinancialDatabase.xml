@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<financialdatabase>
+
+    <transactions>
+        <amount>SGD 42.50</amount>
+        <type>Loan</type>
+        <deadline>25/12/2019</deadline>
+        <name>Alice Pauline</name>
+        <phone>94351253</phone>
+        <email>alice@example.com</email>
+        <address>123, Jurong West Ave 6, #08-111</address>
+        <tagged>friends</tagged>
+    </transactions>
+
+    <!-- Person with same identity as Alice Pauline -->
+    <transactions>
+        <amount>SGD 42.50</amount>
+        <type>Loan</type>
+        <deadline>25/12/2019</deadline>
+        <name>Alice Pauline</name>
+        <phone>94351253</phone>
+        <email>alice@example.com</email>
+        <address>123, Jurong West Ave 6, #08-111</address>
+        <tagged>friends</tagged>
+    </transactions>
+</financialdatabase>

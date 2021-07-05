@@ -79,10 +79,14 @@ dependencies {
     testRuntimeOnly group: 'org.testfx', name: 'openjfx-monocle', version: 'jdk-9+181'
     testRuntimeOnly group:'org.junit.vintage', name:'junit-vintage-engine', version: jUnitVersion
     testRuntimeOnly group: 'org.junit.jupiter', name: 'junit-jupiter-engine', version: jUnitVersion
+
+    compile 'com.google.api-client:google-api-client:1.23.0'
+    compile 'com.google.oauth-client:google-oauth-client-jetty:1.23.0'
+    compile 'com.google.apis:google-api-services-calendar:v3-rev305-1.23.0'
 }
 
 shadowJar {
-    archiveName = 'addressbook.jar'
+    archiveName = 'debttracker.jar'
 
     destinationDir = file("${buildDir}/jar/")
 }
@@ -207,8 +211,8 @@ asciidoctor {
         idprefix: '',  // for compatibility with GitHub preview
         idseparator: '-',
         'site-root': "${sourceDir}",  // must be the same as sourceDir, do not modify
-        'site-name': 'AddressBook-Level4',
-        'site-githuburl': 'https://github.com/se-edu/addressbook-level4',
+        'site-name': 'DebtTracker',
+        'site-githuburl': 'https://github.com/CS2103-AY1819S1-W12-2/main',
         'site-seedu': true,  // delete this line if your project is not a fork (not a SE-EDU project)
     ]
 

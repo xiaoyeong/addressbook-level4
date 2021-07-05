@@ -1,9 +1,9 @@
 package seedu.address.logic.commands;
 
-import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
-import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static seedu.address.logic.commands.CommandTestUtil.deleteFirstPerson;
-import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
+import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailureWithNoModelChange;
+import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccessWithNoModelChange;
+import static seedu.address.logic.commands.CommandTestUtil.deleteFirstTransaction;
+import static seedu.address.testutil.TypicalTransactions.getTypicalFinancialDatabase;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -15,31 +15,34 @@ import seedu.address.model.UserPrefs;
 
 public class UndoCommandTest {
 
-    private final Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
-    private final Model expectedModel = new ModelManager(getTypicalAddressBook(), new UserPrefs());
+    private final Model model = new ModelManager(getTypicalFinancialDatabase(), new UserPrefs());
+    private final Model expectedModel = new ModelManager(getTypicalFinancialDatabase(), new UserPrefs());
     private final CommandHistory commandHistory = new CommandHistory();
 
     @Before
     public void setUp() {
         // set up of models' undo/redo history
-        deleteFirstPerson(model);
-        deleteFirstPerson(model);
+        deleteFirstTransaction(model);
+        deleteFirstTransaction(model);
 
-        deleteFirstPerson(expectedModel);
-        deleteFirstPerson(expectedModel);
+        deleteFirstTransaction(expectedModel);
+        deleteFirstTransaction(expectedModel);
     }
 
     @Test
     public void execute() {
         // multiple undoable states in model
-        expectedModel.undoAddressBook();
-        assertCommandSuccess(new UndoCommand(), model, commandHistory, UndoCommand.MESSAGE_SUCCESS, expectedModel);
+        expectedModel.undoFinancialDatabase();
+        assertCommandSuccessWithNoModelChange(new UndoCommand(), model, expectedModel, commandHistory,
+                UndoCommand.MESSAGE_SUCCESS);
 
         // single undoable state in model
-        expectedModel.undoAddressBook();
-        assertCommandSuccess(new UndoCommand(), model, commandHistory, UndoCommand.MESSAGE_SUCCESS, expectedModel);
+        expectedModel.undoFinancialDatabase();
+        assertCommandSuccessWithNoModelChange(new UndoCommand(), model, expectedModel, commandHistory,
+                UndoCommand.MESSAGE_SUCCESS);
 
         // no undoable states in model
-        assertCommandFailure(new UndoCommand(), model, commandHistory, UndoCommand.MESSAGE_FAILURE);
+        assertCommandFailureWithNoModelChange(new UndoCommand(), model, expectedModel, commandHistory,
+                UndoCommand.MESSAGE_FAILURE);
     }
 }

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<addressbook>
+    <!-- Transaction with invalid type field -->
+    <transactions>
+        <amount>SGD 23.60</amount>
+        <type>Borrow</type>
+        <deadline>12/11/2018</deadline>
+        <name>Hans Meier</name>
+        <phone isPrivate="false">9482424</phone>
+        <email isPrivate="false">hans@example.com</email>
+        <address isPrivate="false">4th street</address>
+    </transactions>
+</addressbook>

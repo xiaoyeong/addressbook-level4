@@ -18,3 +18,8 @@ classes/
 /bin/
 src/main/resources/docs/
 out/
+allTest.sh
+tokens/
+!_reposense/config.json
+#.profile#
+PhotoFolder/

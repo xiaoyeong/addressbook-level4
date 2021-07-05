@@ -7,6 +7,7 @@ import com.google.common.eventbus.Subscribe;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.MenuItem;
+import javafx.scene.control.TabPane;
 import javafx.scene.control.TextInputControl;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
@@ -17,6 +18,7 @@ import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.ui.ExitAppRequestEvent;
 import seedu.address.commons.events.ui.ShowHelpRequestEvent;
+import seedu.address.commons.events.ui.SwitchTabsEvent;
 import seedu.address.logic.Logic;
 import seedu.address.model.UserPrefs;
 
@@ -35,13 +37,19 @@ public class MainWindow extends UiPart<Stage> {
 
     // Independent Ui parts residing in this Ui container
     private BrowserPanel browserPanel;
-    private PersonListPanel personListPanel;
+    private TransactionListPanel transactionListPanel;
     private Config config;
     private UserPrefs prefs;
     private HelpWindow helpWindow;
 
+    private PastTransactionBrowserPanel pastTransactionBrowserPanel;
+
+
     @FXML
     private StackPane browserPlaceholder;
+
+    @FXML
+    private StackPane pastTransactionBrowserPlaceholder;
 
     @FXML
     private StackPane commandBoxPlaceholder;
@@ -53,10 +61,16 @@ public class MainWindow extends UiPart<Stage> {
     private StackPane personListPanelPlaceholder;
 
     @FXML
+    private StackPane pastTransactionListPanelPlaceholder;
+
+    @FXML
     private StackPane resultDisplayPlaceholder;
 
     @FXML
     private StackPane statusbarPlaceholder;
+
+    @FXML
+    private TabPane tabPaneReference;
 
     public MainWindow(Stage primaryStage, Config config, UserPrefs prefs, Logic logic) {
         super(FXML, primaryStage);
@@ -122,13 +136,20 @@ public class MainWindow extends UiPart<Stage> {
         browserPanel = new BrowserPanel();
         browserPlaceholder.getChildren().add(browserPanel.getRoot());
 
-        personListPanel = new PersonListPanel(logic.getFilteredPersonList());
-        personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
+        pastTransactionBrowserPanel = new PastTransactionBrowserPanel();
+        pastTransactionBrowserPlaceholder.getChildren().add(pastTransactionBrowserPanel.getRoot());
+
+        PastTransactionListPanel pastTransactionListPanel = new PastTransactionListPanel(logic
+                                                                .getFilteredPastTransactionList());
+        pastTransactionListPanelPlaceholder.getChildren().add(pastTransactionListPanel.getRoot());
+
+        transactionListPanel = new TransactionListPanel(logic.getFilteredTransactionList());
+        personListPanelPlaceholder.getChildren().add(transactionListPanel.getRoot());
 
         ResultDisplay resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
 
-        StatusBarFooter statusBarFooter = new StatusBarFooter(prefs.getAddressBookFilePath());
+        StatusBarFooter statusBarFooter = new StatusBarFooter(prefs.getDebtTrackerFilePath());
         statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
 
         CommandBox commandBox = new CommandBox(logic);
@@ -187,17 +208,20 @@ public class MainWindow extends UiPart<Stage> {
         raise(new ExitAppRequestEvent());
     }
 
-    public PersonListPanel getPersonListPanel() {
-        return personListPanel;
-    }
-
     void releaseResources() {
         browserPanel.freeResources();
+        pastTransactionBrowserPanel.freeResources();
     }
 
     @Subscribe
     private void handleShowHelpEvent(ShowHelpRequestEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
         handleHelp();
+    }
+
+    @Subscribe
+    private void handleSwitchTabsEvent(SwitchTabsEvent event) {
+        logger.info(LogsCenter.getEventHandlingLogMessage(event));
+        tabPaneReference.getSelectionModel().select(event.tabIndex);
     }
 }

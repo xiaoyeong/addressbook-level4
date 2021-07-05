@@ -1,0 +1,189 @@
+= Cheong Kit Wai, Julian - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+== PROJECT: DebtTracker
+
+== Overview
+
+Debt Tracker is a CLI-based desktop application that helps users manage their finances. It keeps track of the financial
+transactions the user undertakes. The primary target audience of this application is Small and Medium Entreprises (SMEs) in Singapore since
+they typically face budget constraints and have to maintain a good credit score. However, this application can also be used by individuals
+who may want to maintain a database of their personal transactions.
+
+== Summary of contributions
+
+* *Major enhancement*: added the ability to *view transactions on Google Calendar*
+** What it does: Allows the user to view their transactions on Google Calendar.
+** Justification: This feature helps the user keep track of their transaction deadlines by displaying them in a calendar in an organized manner. Users can view this calendar on their smartphones or on any device with a web browser.
+** Highlights: This implementation uses the https://developers.google.com/calendar/[Google Calendar API] provided by Google. Working with the API requires reading through an extensive amount of documentation. Challenges arise when the documentation is insufficient, which I have encountered when implementing batch requests to the API.
+
+** Code contributed: [https://nus-cs2103-ay1819s1.github.io/cs2103-dashboard/#=undefined&search=julianc269[Functional Code]] [https://github.com/CS2103-AY1819S1-W12-2/main/blob/master/src/test/java/seedu/address/logic/parser/CalendarCommandParserTest.java[Test code]]
+
+* *Minor enhancement*: added the ability to *filter transactions by various criteria*
+** What it does: Allows the user to filter transactions by various criteria such as the person/company name, the transaction amount and transaction deadline etc. A large number of filter options are provided to allow for a highly customizable search.
+** Justification: As the user may have a large number of transactions, finding the relevant transaction(s) manually may be extremely time-consuming. The filter feature allows the user to easily view and focus on the transactions that are relevant to their current purpose.
+** Code contributed: [https://nus-cs2103-ay1819s1.github.io/cs2103-dashboard/#=undefined&search=julianc269[Functional Code]] [https://github.com/CS2103-AY1819S1-W12-2/main/blob/master/src/test/java/seedu/address/logic/commands/FilterCommandTest.java[Test code #1]] [https://github.com/CS2103-AY1819S1-W12-2/main/blob/master/src/test/java/seedu/address/logic/parser/FilterCommandParserTest.java[Test code #2]]
+
+
+
+* *Other contributions*:
+
+
+
+
+** Project management:
+*** Helped morph the project to use a Transaction model [https://github.com/CS2103-AY1819S1-W12-2/main/pull/33/files[Pull Request #33]]
+
+** Testing:
+*** Helped with refactoring of the test code after morphing the product +
+[https://github.com/CS2103-AY1819S1-W12-2/main/pull/62/files[Pull Request #62]] [https://github.com/CS2103-AY1819S1-W12-2/main/pull/64/files[Pull Request #64]]  +
+
+
+** Community:
+*** PRs reviewed:
+**** [https://github.com/CS2103-AY1819S1-W12-2/main/pull/34/[Pull Request #34]] +
+**** [https://github.com/CS2103-AY1819S1-W12-2/main/pull/118/[Pull Request #118]] +
+
+== Contributions to the User Guide
+
+
+|===
+|Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users.
+|===
+
+=== Filtering transactions by various criteria: `filter`
+
+Filters transactions matching specified criteria. +
+
+Note: This command does not work with the `undo` and `redo` commands, since it does not modify the debt tracker's data.
+
+Conditions: +
+
+* At least one criteria has to be specified. +
+
+* The same parameter cannot be specified twice (e.g. `filter n/alex n/bernice` will be rejected) +
+
+* The following parameters correspond to the same attributes used in the add command: +
+
+    [tt/TYPE] [ta/AMOUNT] [td/DEADLINE] [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]
+
+** The values provided for these parameters are case-insensitive +
+(i.e. `filter n/aLeX` produces the same results as `filter n/alex`)
+
+** These parameters do not require an exact match. A match will be found as long as the respective attribute contains the sequence of characters provided. (e.g. `filter e/example.com` will match a transaction with the email `alexyeoh@example.com`)
+
+** Multiple keywords can be specified for each attribute, separated by a semi-colon (e.g. `filter a/Jurong;Tampines;Geylang`). +
+Transactions matching at least one of the keywords will be returned.
+
+* The following parameters must match a specific format :
+
+    [tamin/MIN_AMOUNT] [tamax/MAX_AMOUNT] [tdmin/EARLIEST_DATE] [tdmax/LATEST_DATE]
+
+** `MIN_AMOUNT` and `MAX_AMOUNT` must be a real number rounded to two decimal places. Unlike `AMOUNT`, the currency code should be omitted (e.g. `filter tamin/10.00 tamax/50.00`). +
+ The transaction amounts will be compared only by their numerical value (e.g. `filter tamin/10.00` will match both `USD 11.00` and `IDR 11.00`). +
+ Use the convert command before filtering if a comparison between different currencies is desired.
+
+** `EARLIEST_DATE` and `LATEST_DATE` must be a valid date according to the Gregorian Calendar, following the DD/MM/YYYY format
+
+* If multiple parameters are specified, by default, only transactions satisfying the criteria for ALL parameters will be returned.
+
+** To return transactions satisfying ANY of the parameter criteria, use the `/or` prefix.
+
+** The `/and` prefix can also be specified for the default behavior of returning transactions satisfying ALL parameter criteria.
+
+** The `or/` and `/and` prefixes cannot be specified at the same time.
+
+** At least one criteria has to be specified other than the parameters `or/` and `and/`.
+
+Format:  +
+
+filter [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [tt/TYPE] [ta/AMOUNT] [td/DEADLINE] [tamin/MIN_AMOUNT] [tamax/MAX_AMOUNT] [tdmin/EARLIEST_DATE] [tdmax/LATEST_DATE]
+
+Examples: +
+
+* To filter all debts: `filter tt/debt`
+
+* To filter all loans: `filter tt/loan`
+
+* To filter all transactions with addresses containing 'tampines' or 'geylang':
+`filter a/tampines;geylang`
+
+* To filter all transactions with amount between 10.00 and 50.00: +
+`filter tamin/10.00 tamax/50.00`
+
+* To filter all transactions with deadlines between 10/11/2018 and 14/12/2018 (inclusive): +
+`filter tdmin/10/11/2018 tdmax/14/12/2018`
+
+* To filter transactions that have addresses containing 'tampines' or 'geylang' OR are tagged with the 'family' tag: +
+`filter a/tampines;geylang t/family or/`
+
+**Pull-Requests:**
+
+[https://github.com/CS2103-AY1819S1-W12-2/main/pull/82/files[Pull Request#82]] +
+
+[https://github.com/CS2103-AY1819S1-W12-2/main/pull/134/files[Pull Request #134]] +
+
+== Contributions to the Developer Guide
+
+|===
+|Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project.
+|===
+
+===== Use case: Filter Transactions by criteria
+
+MSS:
+
+* 1.  User requests to view transactions that matches certain criteria
+* 2.  The System displays transactions that matches the criteria specified by the user +
+ Use case ends.
+
+Extensions:
+
+* 1a. User does not specify any criteria
+**  The system raises an error and indicates to the user the correct command format. +
+**  Use case ends.
+
+* 1b. User enters an invalid input for a criteria
+** The system raises an error and indicates to the user the correct input format
+** Use case ends.
+
+=== Filter Command
+.  Prerequisites: Command input must adhere strictly to specified format
+.. Test case: `filter n/alex e/example.com` +
+Expected: Lists all transactions with name 'alex' with an 'example.com' email
+.. Test case: `filter tdmin/10/11/2018 tdmax/14/12/2018` +
+Expected: Lists all transactions with deadline between 10/11/2018 and 14/12/2018
+.. Test case: `filter n/alex e/example.com and/ or/`
+Expected: Command fails. Error details shown in the status message.
+.. Other incorrect filter commands to try: `filter`, `filter n/;;`, `filter or/`
+
+=== Using the Google Calendar service
+
+. Logging in with a Google account
+.. Enter `calendar login` into the command box.
+.. Browser will launch with an authentication prompt.
+.. Enter your Google account details for authentication. There are three possible options for this:
+... Use an existing Google account
+... Create a new Google account for testing
+... Login with the provided test account (not recommended):
+
+        Username: debttracker2103@gmail.com
+        Password: 2103testaccount
+
+** Use of the provided test account is not recommended as it may produce unexpected results when viewing/syncing the calendar data due to the possibility of concurrent users. Only use if you do not have access to and are unable to create a new Google account.
+
+. Viewing the Calendar
+.. Enter `calendar show` in the command box to view the Google calendar in-app.
+
+. Syncing the Calendar
+.. Calendar data is synced automatically when entering a command that modifies the debt tracker data.
+.. To perform a manual sync in cases where the calendar data is not in sync with the debt tracker app, enter `calendar sync` into the command box.
+
+
+**Pull-Requests:**
+
+[https://github.com/CS2103-AY1819S1-W12-2/main/pull/18/files[Pull Request #18]] +
+
+[https://github.com/CS2103-AY1819S1-W12-2/main/pull/134/files[Pull Request #134]] +
